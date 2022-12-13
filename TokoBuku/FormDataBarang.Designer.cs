@@ -34,6 +34,7 @@ namespace TokoBuku
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.numericStock = new System.Windows.Forms.NumericUpDown();
             this.buttonTambahPenerbit = new System.Windows.Forms.Button();
             this.buttonTambahKategori = new System.Windows.Forms.Button();
             this.buttonTambahRak = new System.Windows.Forms.Button();
@@ -63,11 +64,12 @@ namespace TokoBuku
             this.buttonSaveData = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.numericStock = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.richTextBoxKeterangan = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericStock)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -84,7 +86,7 @@ namespace TokoBuku
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(577, 426);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(577, 487);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelTitle
@@ -101,6 +103,8 @@ namespace TokoBuku
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.richTextBoxKeterangan);
+            this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.numericStock);
             this.panel1.Controls.Add(this.buttonTambahPenerbit);
             this.panel1.Controls.Add(this.buttonTambahKategori);
@@ -130,8 +134,21 @@ namespace TokoBuku
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(571, 340);
+            this.panel1.Size = new System.Drawing.Size(571, 401);
             this.panel1.TabIndex = 1;
+            // 
+            // numericStock
+            // 
+            this.numericStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericStock.Location = new System.Drawing.Point(25, 252);
+            this.numericStock.Name = "numericStock";
+            this.numericStock.Size = new System.Drawing.Size(108, 23);
+            this.numericStock.TabIndex = 27;
+            this.numericStock.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // buttonTambahPenerbit
             // 
@@ -177,6 +194,7 @@ namespace TokoBuku
             this.comboBoxStatus.Name = "comboBoxStatus";
             this.comboBoxStatus.Size = new System.Drawing.Size(185, 24);
             this.comboBoxStatus.TabIndex = 23;
+            this.comboBoxStatus.Visible = false;
             // 
             // textBoxBarCode
             // 
@@ -311,6 +329,7 @@ namespace TokoBuku
             this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 6;
             this.label6.Text = "STATUS";
+            this.label6.Visible = false;
             // 
             // label5
             // 
@@ -371,7 +390,7 @@ namespace TokoBuku
             this.flowLayoutPanel1.Controls.Add(this.buttonSaveData);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 389);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 450);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(571, 34);
             this.flowLayoutPanel1.TabIndex = 2;
@@ -407,24 +426,29 @@ namespace TokoBuku
             // 
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
-            // numericStock
+            // label12
             // 
-            this.numericStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericStock.Location = new System.Drawing.Point(25, 252);
-            this.numericStock.Name = "numericStock";
-            this.numericStock.Size = new System.Drawing.Size(108, 23);
-            this.numericStock.TabIndex = 27;
-            this.numericStock.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(22, 289);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(81, 13);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "KETERANGAN";
+            // 
+            // richTextBoxKeterangan
+            // 
+            this.richTextBoxKeterangan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBoxKeterangan.Location = new System.Drawing.Point(25, 305);
+            this.richTextBoxKeterangan.Name = "richTextBoxKeterangan";
+            this.richTextBoxKeterangan.Size = new System.Drawing.Size(489, 76);
+            this.richTextBoxKeterangan.TabIndex = 29;
+            this.richTextBoxKeterangan.Text = "";
             // 
             // FormDataBarang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 426);
+            this.ClientSize = new System.Drawing.Size(577, 487);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -437,8 +461,8 @@ namespace TokoBuku
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericStock)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -478,5 +502,7 @@ namespace TokoBuku
         private System.Windows.Forms.Button buttonSaveData;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.NumericUpDown numericStock;
+        private System.Windows.Forms.RichTextBox richTextBoxKeterangan;
+        private System.Windows.Forms.Label label12;
     }
 }

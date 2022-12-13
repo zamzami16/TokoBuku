@@ -47,6 +47,8 @@ namespace TokoBuku
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -66,7 +68,7 @@ namespace TokoBuku
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(494, 266);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(494, 356);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelTitle
@@ -83,6 +85,8 @@ namespace TokoBuku
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.richTextBox1);
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.comboBoxStatus);
             this.panel1.Controls.Add(this.maskedTextBoxNoHP);
@@ -98,7 +102,7 @@ namespace TokoBuku
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(488, 170);
+            this.panel1.Size = new System.Drawing.Size(488, 260);
             this.panel1.TabIndex = 1;
             // 
             // label6
@@ -109,6 +113,7 @@ namespace TokoBuku
             this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 11;
             this.label6.Text = "STATUS";
+            this.label6.Visible = false;
             // 
             // comboBoxStatus
             // 
@@ -125,6 +130,7 @@ namespace TokoBuku
             this.comboBoxStatus.Size = new System.Drawing.Size(197, 24);
             this.comboBoxStatus.TabIndex = 10;
             this.comboBoxStatus.Text = "AKTIF";
+            this.comboBoxStatus.Visible = false;
             // 
             // maskedTextBoxNoHP
             // 
@@ -220,7 +226,7 @@ namespace TokoBuku
             this.flowLayoutPanel1.Controls.Add(this.buttonSave);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 219);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 309);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(488, 44);
             this.flowLayoutPanel1.TabIndex = 2;
@@ -251,11 +257,28 @@ namespace TokoBuku
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(26, 177);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(81, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "KETERANGAN";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(29, 193);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(430, 56);
+            this.richTextBox1.TabIndex = 13;
+            this.richTextBox1.Text = "";
+            // 
             // FormDataKasir
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 266);
+            this.ClientSize = new System.Drawing.Size(494, 356);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -292,5 +315,7 @@ namespace TokoBuku
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

@@ -11,11 +11,23 @@ namespace TokoBuku
 {
     public partial class FormDataBarang : Form
     {
-        bool SuccesSaved = false;
+        public bool SuccesSaved { get; set; }
+        public string NamaBarang { get; set; }
+        public double Harga { get; set; }
+        public double Diskon { get; set; }
+        public string Rak { get; set; }
+        public int Stock { get; set; }
+        public string Kategori { get; set; }
+        public string Penerbit { get; set; }
+        public string Penulis { get; set; }
+        public string ISBN { get; set; }
+        public string BarCode { get; set; }
+        public string Status { get; set; }
+
         public FormDataBarang()
         {
             InitializeComponent();
-            SuccesSaved = false;
+            this.SuccesSaved = false;
         }
 
         private void toolTip1_Popup(object sender, PopupEventArgs e)
@@ -74,24 +86,10 @@ namespace TokoBuku
             }
             else
             {
+                this.DialogResult = DialogResult.OK;
                 this.SuccesSaved = true;
-
-
-                MessageBox.Show($"DATA TERSIMPAN:\nNAMA BARANG: {textBoxNamaBarang.Text}\n" +
-                    $"HARGA: {textBoXHarga.Text} Rupiah.\n" +
-                    $"DISKON: {textBoxDiskon.Text} %\n" +
-                    $"RAK: {comboBoxRak.Text} \n" +
-                    $"STOCK: {numericStock.Value} \n");
                 this.Close();
             }
-
-
-
-            //DialogResult res = MessageBox.Show("DATA BERHASIL DISIMPAN.\nAPAKAH ANDA INGIN MENAMBAH DATA YANG LAIN?", "success", MessageBoxButtons.YesNo, MessageBoxIcon.None);
-            //if (res == DialogResult.No)
-            //{
-            //    this.Close();
-            //}
         }
 
         private void buttonSaveData_ControlAdded(object sender, ControlEventArgs e)
@@ -123,11 +121,6 @@ namespace TokoBuku
         private void buttonTambahPenerbit_Click(object sender, EventArgs e)
         {
             MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public bool GetSuccess()
-        {
-            return this.SuccesSaved;
         }
     }
 }

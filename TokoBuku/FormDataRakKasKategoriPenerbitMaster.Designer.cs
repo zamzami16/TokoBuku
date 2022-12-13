@@ -58,7 +58,7 @@ namespace TokoBuku
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(377, 220);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(346, 163);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelTitle
@@ -68,7 +68,7 @@ namespace TokoBuku
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(3, 0);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(371, 40);
+            this.labelTitle.Size = new System.Drawing.Size(340, 40);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "TITLE";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -82,7 +82,7 @@ namespace TokoBuku
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(371, 124);
+            this.panel1.Size = new System.Drawing.Size(340, 67);
             this.panel1.TabIndex = 1;
             // 
             // comboBoxStatus
@@ -97,6 +97,7 @@ namespace TokoBuku
             this.comboBoxStatus.Size = new System.Drawing.Size(100, 24);
             this.comboBoxStatus.TabIndex = 3;
             this.comboBoxStatus.Text = "AKTIF";
+            this.comboBoxStatus.Visible = false;
             // 
             // label2
             // 
@@ -106,6 +107,7 @@ namespace TokoBuku
             this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "STATUS";
+            this.label2.Visible = false;
             // 
             // textBox1
             // 
@@ -130,9 +132,9 @@ namespace TokoBuku
             this.flowLayoutPanel1.Controls.Add(this.buttonSave);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 173);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 116);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(371, 44);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(340, 44);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // buttonSave
@@ -165,7 +167,7 @@ namespace TokoBuku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 220);
+            this.ClientSize = new System.Drawing.Size(346, 163);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

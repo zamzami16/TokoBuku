@@ -12,7 +12,7 @@ namespace TokoBuku
     public partial class FormMasterDataViewer : Form
     {
         
-        DataTable dataTableBase = new DataTable();
+        public DataTable dataTableBase { get; set; }
 
         public enum EnumJenisForm
         {
@@ -40,6 +40,7 @@ namespace TokoBuku
         private void FormMasterDataViewer_Load(object sender, EventArgs e)
         {
             //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            //this.dataTableBase = new DataTable();
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -49,7 +50,7 @@ namespace TokoBuku
 
         public void SetJenisForm(string jenisForm)
         {
-
+            this.dataTableBase = new DataTable();
             switch (jenisForm)
             {
                 case "barang":
@@ -150,10 +151,13 @@ namespace TokoBuku
             this.dataTableBase.Columns.Add("STOCK");
             this.dataTableBase.Columns.Add("HARGA");
             this.dataTableBase.Columns.Add("DISKON");
+            this.dataTableBase.Columns.Add("KETERANGAN");
 
             this.dataGridView1.DataSource = this.dataTableBase;
             this.dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[0].FillWeight = 100;
+            this.dataGridView1.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[9].FillWeight = 50;
         }
 
         private void initTableKasir()
@@ -164,6 +168,7 @@ namespace TokoBuku
             this.dataTableBase.Columns.Add("PASSWORD");
             this.dataTableBase.Columns.Add("ALAMAT");
             this.dataTableBase.Columns.Add("NO. HP");
+            this.dataTableBase.Columns.Add("KETERANGAN");
             this.dataTableBase.Columns.Add("STATUS");
 
             this.dataGridView1.DataSource = this.dataTableBase;
@@ -177,6 +182,8 @@ namespace TokoBuku
             this.dataGridView1.Columns[3].FillWeight = 30;
             this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[4].FillWeight = 30;
+            this.dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[5].FillWeight = 50;
         }
 
         private void initTableRakKasKategoriPenerbitMaster()
@@ -215,51 +222,193 @@ namespace TokoBuku
 
         private void buttonAddData_Click(object sender, EventArgs e)
         {
+            
             switch (this.jenisForm)
             {
                 case EnumJenisForm.Barang:
-                    this.formData = new FormDataBarang();
-                    this.formData.ShowDialog();
-                    TampilTambahData();
+                    bool Loop = true;
+                    while (Loop)
+                    {
+                        using (var form = new FormDataBarang())
+                        {
+                            var result = form.ShowDialog();
+                            if (result == DialogResult.OK)
+                            {
+                                var namaBarang = form.NamaBarang;
+                                var harga = form.Harga;
+                                var diskon = form.Diskon;
+                                var rak = form.Rak;
+                                var kategori = form.Kategori;
+                                var penerbit = form.Penerbit;
+                                var penulis = form.Penulis;
+                                var isbn = form.ISBN;
+                                var barCode = form.BarCode;
+                                var status = form.Status;
+
+                                string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
+                                    $"Nama Barang: {namaBarang}" +
+                                    $"Harga: {harga} Rupiah\n" +
+                                    $"Diskon {diskon} %\n";
+                                TampilkanBerhasilSimpan(messages);
+
+
+                                var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                if (results != DialogResult.Yes)
+                                {
+                                    Loop = false;
+                                }
+                            }
+                            else
+                            {
+                                Loop = false;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    //TampilTambahData();
                     break;
                 case EnumJenisForm.Kasir:
                     this.formData = new FormDataKasir();
                     this.formData.ShowDialog();
-                    TampilTambahData();
+                    //TampilTambahData();
                     break;
                 case EnumJenisForm.KasMaster:
-                    this.formData =  new FormDataRakKasKategoriPenerbitMaster("kas");
-                    this.formData.ShowDialog();
-                    TampilTambahData();
+                    Loop = true;
+                    while (Loop)
+                    {
+                        using (var form = new FormDataRakKasKategoriPenerbitMaster("kas"))
+                        {
+                            var result = form.ShowDialog();
+                            if (result == DialogResult.OK)
+                            {
+
+                                var namaInput = form.ValueName;
+
+                                string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
+                                    $"Nama Kas: {namaInput}";
+                                TampilkanBerhasilSimpan(messages);
+
+                                var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                if (results != DialogResult.Yes)
+                                {
+                                    Loop = false;
+                                }
+                            }
+                            else
+                            {
+                                Loop = false;
+                                break;
+                            }
+                        }
+                    }
                     break;
                 case EnumJenisForm.Kategori:
-                    this.formData = new FormDataRakKasKategoriPenerbitMaster("kategori");
-                    this.formData.ShowDialog();
-                    TampilTambahData();
+                    Loop = true;
+                    while (Loop)
+                    {
+                        using (var form = new FormDataRakKasKategoriPenerbitMaster("kategori"))
+                        {
+                            var result = form.ShowDialog();
+                            if (result == DialogResult.OK)
+                            {
+
+                                var namaInput = form.ValueName;
+
+                                string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
+                                    $"Nama Kategori: {namaInput}";
+                                TampilkanBerhasilSimpan(messages);
+
+                                var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                if (results != DialogResult.Yes)
+                                {
+                                    Loop = false;
+                                }
+                            }
+                            else
+                            {
+                                Loop = false;
+                                break;
+                            }
+                        }
+                    }
+                    //TampilTambahData();
                     break;
                 case EnumJenisForm.Pelanggan:
                     this.formData = new FormDataPelangganSupplier("pelanggan");
                     this.formData.ShowDialog();
-                    TampilTambahData();
+                    //TampilTambahData();
                     break;
                 case EnumJenisForm.Pembelian:
                     break;
                 case EnumJenisForm.Penerbit:
-                    this.formData = new FormDataRakKasKategoriPenerbitMaster("penerbit");
-                    this.formData.ShowDialog();
-                    TampilTambahData();
+                    Loop = true;
+                    while (Loop)
+                    {
+                        using (var form = new FormDataRakKasKategoriPenerbitMaster("penerbit"))
+                        {
+                            var result = form.ShowDialog();
+                            if (result == DialogResult.OK)
+                            {
+
+                                var namaInput = form.ValueName;
+
+                                string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
+                                    $"Nama Penerbit: {namaInput}";
+                                TampilkanBerhasilSimpan(messages);
+
+                                var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                if (results != DialogResult.Yes)
+                                {
+                                    Loop = false;
+                                }
+                            }
+                            else
+                            {
+                                Loop = false;
+                                break;
+                            }
+                        }
+                    }
+                    //TampilTambahData();
                     break;
                 case EnumJenisForm.Penjual:
                     break;
                 case EnumJenisForm.Rak:
-                    this.formData = new FormDataRakKasKategoriPenerbitMaster("rak");
-                    this.formData.ShowDialog();
-                    TampilTambahData();
+                    Loop = true;
+                    while (Loop)
+                    {
+                        using (var form = new FormDataRakKasKategoriPenerbitMaster("rak"))
+                        {
+                            var result = form.ShowDialog();
+                            if (result == DialogResult.OK)
+                            {
+
+                                var namaInput = form.ValueName;
+
+                                string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
+                                    $"Nama Rak: {namaInput}";
+                                TampilkanBerhasilSimpan(messages);
+
+                                var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                if (results != DialogResult.Yes)
+                                {
+                                    Loop = false;
+                                }
+                            }
+                            else
+                            {
+                                Loop = false;
+                                break;
+                            }
+                        }
+                    }
+                    //TampilTambahData();
                     break;
                 case EnumJenisForm.Supplier:
                     this.formData = new FormDataPelangganSupplier("supplier");
                     this.formData.ShowDialog();
-                    TampilTambahData();
+                    //TampilTambahData();
                     break;
                 default:
                     break;
@@ -279,6 +428,11 @@ namespace TokoBuku
                 this.formData.ShowDialog();
                 results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             }
+        }
+
+        private void TampilkanBerhasilSimpan(string message)
+        {
+            MessageBox.Show(message, "Succes.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

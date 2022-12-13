@@ -33,18 +33,18 @@ namespace TokoBuku
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.iNPUTDATAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DataBarangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DataRakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DataKategoriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DataPenerbitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DataSupplierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DataPelangganToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DataKasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DataPelangganToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dATAKASMASTERToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tRANSAKSIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pENJUALANToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pEMBELIANToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lAPORANToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.dATAKASMASTERToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.KategoriBukuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PenerbitBukuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rAKBUKUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,13 +64,10 @@ namespace TokoBuku
             // 
             this.iNPUTDATAToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DataBarangToolStripMenuItem,
-            this.DataRakToolStripMenuItem,
-            this.dATAKASMASTERToolStripMenuItem,
-            this.DataKategoriToolStripMenuItem,
-            this.DataPenerbitToolStripMenuItem,
             this.DataSupplierToolStripMenuItem,
             this.DataPelangganToolStripMenuItem,
-            this.DataKasToolStripMenuItem});
+            this.DataKasToolStripMenuItem,
+            this.dATAKASMASTERToolStripMenuItem});
             this.iNPUTDATAToolStripMenuItem.Name = "iNPUTDATAToolStripMenuItem";
             this.iNPUTDATAToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
             this.iNPUTDATAToolStripMenuItem.Text = "INPUT DATA";
@@ -78,35 +75,15 @@ namespace TokoBuku
             // 
             // DataBarangToolStripMenuItem
             // 
+            this.DataBarangToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.KategoriBukuToolStripMenuItem,
+            this.PenerbitBukuToolStripMenuItem,
+            this.rAKBUKUToolStripMenuItem});
             this.DataBarangToolStripMenuItem.Name = "DataBarangToolStripMenuItem";
             this.DataBarangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.DataBarangToolStripMenuItem.Text = "DATA BARANG";
             this.DataBarangToolStripMenuItem.ToolTipText = "Tampilkan Data Barang";
             this.DataBarangToolStripMenuItem.Click += new System.EventHandler(this.DataBarangToolStripMenuItem_Click);
-            // 
-            // DataRakToolStripMenuItem
-            // 
-            this.DataRakToolStripMenuItem.Name = "DataRakToolStripMenuItem";
-            this.DataRakToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.DataRakToolStripMenuItem.Text = "DATA RAK";
-            this.DataRakToolStripMenuItem.ToolTipText = "Tampilkan Data Rak";
-            this.DataRakToolStripMenuItem.Click += new System.EventHandler(this.DataRakToolStripMenuItem_Click);
-            // 
-            // DataKategoriToolStripMenuItem
-            // 
-            this.DataKategoriToolStripMenuItem.Name = "DataKategoriToolStripMenuItem";
-            this.DataKategoriToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.DataKategoriToolStripMenuItem.Text = "DATA KATEGORI";
-            this.DataKategoriToolStripMenuItem.ToolTipText = "Tampilkan Data Kategori";
-            this.DataKategoriToolStripMenuItem.Click += new System.EventHandler(this.DataKategoriToolStripMenuItem_Click);
-            // 
-            // DataPenerbitToolStripMenuItem
-            // 
-            this.DataPenerbitToolStripMenuItem.Name = "DataPenerbitToolStripMenuItem";
-            this.DataPenerbitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.DataPenerbitToolStripMenuItem.Text = "DATA PENERBIT";
-            this.DataPenerbitToolStripMenuItem.ToolTipText = "Tampilkan Data Penerbit";
-            this.DataPenerbitToolStripMenuItem.Click += new System.EventHandler(this.DataPenerbitToolStripMenuItem_Click);
             // 
             // DataSupplierToolStripMenuItem
             // 
@@ -116,6 +93,13 @@ namespace TokoBuku
             this.DataSupplierToolStripMenuItem.ToolTipText = "Tampilkan Data Supplier";
             this.DataSupplierToolStripMenuItem.Click += new System.EventHandler(this.DataSupplierToolStripMenuItem_Click);
             // 
+            // DataKasToolStripMenuItem
+            // 
+            this.DataKasToolStripMenuItem.Name = "DataKasToolStripMenuItem";
+            this.DataKasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DataKasToolStripMenuItem.Text = "DATA KASIR";
+            this.DataKasToolStripMenuItem.Click += new System.EventHandler(this.DataKasToolStripMenuItem_Click);
+            // 
             // DataPelangganToolStripMenuItem
             // 
             this.DataPelangganToolStripMenuItem.Name = "DataPelangganToolStripMenuItem";
@@ -124,12 +108,12 @@ namespace TokoBuku
             this.DataPelangganToolStripMenuItem.ToolTipText = "Tampilkan Data Pelanggan";
             this.DataPelangganToolStripMenuItem.Click += new System.EventHandler(this.DataPelangganToolStripMenuItem_Click);
             // 
-            // DataKasToolStripMenuItem
+            // dATAKASMASTERToolStripMenuItem
             // 
-            this.DataKasToolStripMenuItem.Name = "DataKasToolStripMenuItem";
-            this.DataKasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.DataKasToolStripMenuItem.Text = "DATA KASIR";
-            this.DataKasToolStripMenuItem.Click += new System.EventHandler(this.DataKasToolStripMenuItem_Click);
+            this.dATAKASMASTERToolStripMenuItem.Name = "dATAKASMASTERToolStripMenuItem";
+            this.dATAKASMASTERToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dATAKASMASTERToolStripMenuItem.Text = "DATA KAS";
+            this.dATAKASMASTERToolStripMenuItem.Click += new System.EventHandler(this.dATAKASMASTERToolStripMenuItem_Click);
             // 
             // tRANSAKSIToolStripMenuItem
             // 
@@ -143,14 +127,14 @@ namespace TokoBuku
             // pENJUALANToolStripMenuItem
             // 
             this.pENJUALANToolStripMenuItem.Name = "pENJUALANToolStripMenuItem";
-            this.pENJUALANToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pENJUALANToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.pENJUALANToolStripMenuItem.Text = "PENJUALAN";
             this.pENJUALANToolStripMenuItem.Click += new System.EventHandler(this.pENJUALANToolStripMenuItem_Click);
             // 
             // pEMBELIANToolStripMenuItem
             // 
             this.pEMBELIANToolStripMenuItem.Name = "pEMBELIANToolStripMenuItem";
-            this.pEMBELIANToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pEMBELIANToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.pEMBELIANToolStripMenuItem.Text = "PEMBELIAN";
             this.pEMBELIANToolStripMenuItem.Click += new System.EventHandler(this.pEMBELIANToolStripMenuItem_Click);
             // 
@@ -161,12 +145,26 @@ namespace TokoBuku
             this.lAPORANToolStripMenuItem.Text = "LAPORAN";
             this.lAPORANToolStripMenuItem.Click += new System.EventHandler(this.lAPORANToolStripMenuItem_Click);
             // 
-            // dATAKASMASTERToolStripMenuItem
+            // KategoriBukuToolStripMenuItem
             // 
-            this.dATAKASMASTERToolStripMenuItem.Name = "dATAKASMASTERToolStripMenuItem";
-            this.dATAKASMASTERToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.dATAKASMASTERToolStripMenuItem.Text = "DATA KAS MASTER";
-            this.dATAKASMASTERToolStripMenuItem.Click += new System.EventHandler(this.dATAKASMASTERToolStripMenuItem_Click);
+            this.KategoriBukuToolStripMenuItem.Name = "KategoriBukuToolStripMenuItem";
+            this.KategoriBukuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.KategoriBukuToolStripMenuItem.Text = "KATEGORI BUKU";
+            this.KategoriBukuToolStripMenuItem.Click += new System.EventHandler(this.DataKategoriToolStripMenuItem_Click);
+            // 
+            // PenerbitBukuToolStripMenuItem
+            // 
+            this.PenerbitBukuToolStripMenuItem.Name = "PenerbitBukuToolStripMenuItem";
+            this.PenerbitBukuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.PenerbitBukuToolStripMenuItem.Text = "PENERBIT BUKU";
+            this.PenerbitBukuToolStripMenuItem.Click += new System.EventHandler(this.DataPenerbitToolStripMenuItem_Click);
+            // 
+            // rAKBUKUToolStripMenuItem
+            // 
+            this.rAKBUKUToolStripMenuItem.Name = "rAKBUKUToolStripMenuItem";
+            this.rAKBUKUToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rAKBUKUToolStripMenuItem.Text = "RAK BUKU";
+            this.rAKBUKUToolStripMenuItem.Click += new System.EventHandler(this.DataRakToolStripMenuItem_Click);
             // 
             // TokoBukuWindows
             // 
@@ -192,9 +190,6 @@ namespace TokoBuku
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem iNPUTDATAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DataBarangToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem DataRakToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem DataKategoriToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem DataPenerbitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DataSupplierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DataPelangganToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DataKasToolStripMenuItem;
@@ -204,5 +199,8 @@ namespace TokoBuku
         private System.Windows.Forms.ToolStripMenuItem lAPORANToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem dATAKASMASTERToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem KategoriBukuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PenerbitBukuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rAKBUKUToolStripMenuItem;
     }
 }

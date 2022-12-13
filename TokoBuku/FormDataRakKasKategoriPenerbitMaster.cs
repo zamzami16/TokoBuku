@@ -13,6 +13,9 @@ namespace TokoBuku
     {
         private bool isEdit = true;
         private string Type_OF = "kas";
+
+        public string ValueName { get; set; }
+
         public FormDataRakKasKategoriPenerbitMaster(string type_of, bool isEdit=false)
         {
             InitializeComponent();
@@ -63,7 +66,8 @@ namespace TokoBuku
             }
             else
             {
-                MessageBox.Show($"DATA NAMA {this.Type_OF.ToUpper()} disimpan.");
+                this.DialogResult = DialogResult.OK;
+                this.ValueName = textBox1.Text;
                 this.Close();
             }
         }
