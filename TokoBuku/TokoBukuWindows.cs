@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TokoBuku.Transaksi;
 
 namespace TokoBuku
 {
@@ -13,6 +14,7 @@ namespace TokoBuku
     {
         public FormMasterDataViewer formDataBarangView, formKasirView, formKategoriView, 
             formPelangganView, formPenerbitView, formRakView, formSupplierView;
+        public Penjualan PenjualanView;
         public TokoBukuWindows()
         {
             InitializeComponent();
@@ -71,7 +73,11 @@ namespace TokoBuku
 
         private void pENJUALANToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("DATA PENJUALAN MASIH DALAM PENGEMBANGAN", "Information.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.PenjualanView = new Penjualan();
+            this.PenjualanView.MdiParent = this;
+            this.PenjualanView.MdiParent.LayoutMdi(MdiLayout.Cascade);
+            this.PenjualanView.Dock = DockStyle.Fill;
+            this.PenjualanView.Show();
         }
 
         private void pEMBELIANToolStripMenuItem_Click(object sender, EventArgs e)

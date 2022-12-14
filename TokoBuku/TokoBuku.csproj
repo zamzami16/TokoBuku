@@ -82,11 +82,29 @@
     <Compile Include="TokoBukuWindows.Designer.cs">
       <DependentUpon>TokoBukuWindows.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transaksi\FormKredit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transaksi\FormKredit.Designer.cs">
+      <DependentUpon>FormKredit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transaksi\Pembelian.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transaksi\Pembelian.Designer.cs">
+      <DependentUpon>Pembelian.cs</DependentUpon>
+    </Compile>
     <Compile Include="Transaksi\Penjualan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Transaksi\Penjualan.Designer.cs">
       <DependentUpon>Penjualan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transaksi\SearchForm\FormSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transaksi\SearchForm\FormSearch.Designer.cs">
+      <DependentUpon>FormSearch.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormDataRakKasKategoriPenerbitMaster.resx">
       <DependentUpon>FormDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
@@ -115,8 +133,17 @@
     <EmbeddedResource Include="TokoBukuWindows.resx">
       <DependentUpon>TokoBukuWindows.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Transaksi\FormKredit.resx">
+      <DependentUpon>FormKredit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transaksi\Pembelian.resx">
+      <DependentUpon>Pembelian.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Transaksi\Penjualan.resx">
       <DependentUpon>Penjualan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transaksi\SearchForm\FormSearch.resx">
+      <DependentUpon>FormSearch.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

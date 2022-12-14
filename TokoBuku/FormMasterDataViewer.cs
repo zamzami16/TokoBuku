@@ -41,6 +41,7 @@ namespace TokoBuku
         {
             //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             //this.dataTableBase = new DataTable();
+            this.ActiveControl = this.buttonAddData;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
