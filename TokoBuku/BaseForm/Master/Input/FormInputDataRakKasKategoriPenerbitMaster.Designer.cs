@@ -1,7 +1,7 @@
 ﻿
-namespace TokoBuku.BaseForm
+namespace TokoBuku.BaseForm.Master.Input
 {
-    partial class FormDataRakKasKategoriPenerbitMaster
+    partial class FormInputDataRakKasKategoriPenerbitMaster
     {
         /// <summary>
         /// Required designer variable.

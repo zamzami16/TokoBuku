@@ -15,7 +15,7 @@ namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewPelanggan : Form
     {
-        private FbConnection DbConnection = new ConnectDB().Connetc();
+        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
         public Form formData;
@@ -31,12 +31,8 @@ namespace TokoBuku.BaseForm.Master
             this.ActiveControl = this.buttonAddData;
             this.dataTableBase = new DataTable();
             //initTableRakKasKategoriPenerbitMaster();
-            this.dataTableBase = DbLoadData.Kategori(this.DbConnection);
+            this.dataTableBase = DbLoadData.Pelanggan(this.DbConnection);
             this.dataGridView1.DataSource = this.dataTableBase;
-            this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[1].FillWeight = 80;
-            this.dataGridView1.Columns[2].FillWeight = 20;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -106,7 +102,7 @@ namespace TokoBuku.BaseForm.Master
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 string selectedName = row.Cells[0].Value.ToString();
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
                     //MessageBox.Show("eksekusi awal try 1");
                     var strSql = "DELETE FROM KATEGORI WHERE NAMA=@nama";
@@ -145,7 +141,7 @@ namespace TokoBuku.BaseForm.Master
             bool hasil;
             try
             {
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
                     /// first impression to insert value
                     /*var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status)";
@@ -220,7 +216,7 @@ namespace TokoBuku.BaseForm.Master
                     if (result == DialogResult.OK)
                     {
                         var changedName = form.ChangedName;
-                        using (var con = new ConnectDB().Connetc())
+                        using (var con = ConnectDB.Connetc())
                         {
                             /// Lanjutkan dulu
                         }

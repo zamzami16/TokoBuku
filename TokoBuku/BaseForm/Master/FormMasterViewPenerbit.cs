@@ -15,7 +15,7 @@ namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewPenerbit : Form
     {
-        private FbConnection DbConnection = new ConnectDB().Connetc();
+        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
         public Form formData;
@@ -31,7 +31,7 @@ namespace TokoBuku.BaseForm.Master
             this.ActiveControl = this.buttonAddData;
             this.dataTableBase = new DataTable();
             //initTableRakKasKategoriPenerbitMaster();
-            this.dataTableBase = DbLoadData.Kategori(this.DbConnection);
+            this.dataTableBase = DbLoadData.Penerbit(this.DbConnection);
             this.dataGridView1.DataSource = this.dataTableBase;
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -73,7 +73,7 @@ namespace TokoBuku.BaseForm.Master
                     {
                         var namaInput = form.ValueName;
                         //MessageBox.Show("Eksekusi atas....");
-                        bool hasilll = SuccessSaveToDbRakKategoriKasPenerbit(namaInput);
+                        bool hasilll = SuccessSaveToDbKategori(namaInput);
                         if (hasilll)
                         {
                             var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -105,24 +105,26 @@ namespace TokoBuku.BaseForm.Master
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                string selectedName = row.Cells[0].Value.ToString();
-                using (var con = new ConnectDB().Connetc())
+                string selectedId = row.Cells[0].Value.ToString();
+                string selectedName = row.Cells[1].Value.ToString();
+                using (var con = ConnectDB.Connetc())
                 {
                     //MessageBox.Show("eksekusi awal try 1");
-                    var strSql = "DELETE FROM KATEGORI WHERE NAMA=@nama";
+                    var strSql = "DELETE FROM PENERBIT WHERE id=@Id";
                     using (var cmd = new FbCommand(strSql, con))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@nama", selectedName);
+                        cmd.Parameters.Add("@id", selectedId);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
                     }
-                    MessageBox.Show($"{selectedName} deleted.");
+                    MessageBox.Show($"Data {selectedName} deleted.");
                 }
                 this.dataGridView1.Rows.Remove(row);
             }
         }
 
+        #region not references
         private void TampilTambahData()
         {
             DialogResult results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -137,29 +139,19 @@ namespace TokoBuku.BaseForm.Master
         {
             MessageBox.Show(message, "Succes.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        #endregion
 
-        private bool SuccessSaveToDbRakKategoriKasPenerbit(string namaInput)
+        private bool SuccessSaveToDbKategori(string namaInput)
         {
             ///Connect DB
             ///
             bool hasil;
             try
             {
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
-                    /// first impression to insert value
-                    /*var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status)";
-                    using (var cmd = new FbCommand(strSql, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@nama", namaInput);
-                        cmd.Parameters.Add("@status", "AKTIF");
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
-                    }*/
-
                     int ids;
-                    var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status) returning Id;";
+                    var strSql = "INSERT INTO penerbit (NAMA_PENERBIT, STATUS) VALUES (@nama, @status) returning Id;";
                     using (var cmd = new FbCommand(strSql, con))
                     {
                         cmd.CommandType = CommandType.Text;
@@ -169,31 +161,18 @@ namespace TokoBuku.BaseForm.Master
                         cmd.Dispose();
                     }
 
-
-                    //MessageBox.Show("Eksekusi setelah simpan data ke db. Lanjut tambah data ke data tabel");
-                    /*string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
-                            $"Nama Kategori: {namaInput}";
-                    TampilkanBerhasilSimpan(messages);*/
-
                     DataRow dataRow = this.dataTableBase.NewRow();
                     dataRow["ID"] = ids;
-                    dataRow["NAMA"] = namaInput;
+                    dataRow["NAMA_PENERBIT"] = namaInput;
                     dataRow["STATUS"] = "AKTIF";
                     this.dataTableBase.Rows.Add(dataRow);
-                    //MessageBox.Show("hasil eksekusi tambah data tabel. lanjut tambah data row");
-                    //this.dataGridView1.Rows.Add(dataRow);
-                    
-                    //MessageBox.Show("hasil eksekusi setelah tambah data grid view.");
                     
                 }
-                //return hasil;
                 hasil = true;
-                //MessageBox.Show($"hasil eksekusi setelah try 1 {hasil}");
                 return hasil;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("eksekusi awal catch 1" + ex.Message);
                 if (ex.Message.Contains("PRIMARY or UNIQUE"))
                 {
                     hasil = false;
@@ -213,21 +192,31 @@ namespace TokoBuku.BaseForm.Master
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                string selectedName = row.Cells[0].Value.ToString();
-                using (var form = new FormEditKategori(selectedName))
+                string selectedName = row.Cells[1].Value.ToString();
+                int selectedId = Convert.ToInt32(row.Cells[0].Value.ToString());
+                using (var form = FormEdit.Penerbit(selectedName))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
                         var changedName = form.ChangedName;
-                        using (var con = new ConnectDB().Connetc())
+                        //MessageBox.Show("Changed Name: "+changedName);
+                        using (var con = ConnectDB.Connetc())
                         {
-                            /// Lanjutkan dulu
+                            var strSql = "UPDATE penerbit SET NAMA_PENERBIT=@nama where id=@Id";
+                            using (var cmd = new FbCommand(strSql, con))
+                            {
+                                cmd.CommandType = CommandType.Text;
+                                cmd.Parameters.Add("@nama", changedName);
+                                cmd.Parameters.Add("@Id", selectedId);
+                                cmd.ExecuteNonQuery();
+                                cmd.Dispose();
+                            }
+                            MessageBox.Show($"{selectedName} Updated to {changedName}.", "Success.");
                         }
+                        this.dataGridView1.Rows[row.Index].Cells[1].Value = changedName;
                     }
                 }
-
-                this.dataGridView1.Rows.Remove(row);
             }
         }
     }

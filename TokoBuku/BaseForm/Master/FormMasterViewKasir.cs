@@ -15,7 +15,7 @@ namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewKasir : Form
     {
-        private FbConnection DbConnection = new ConnectDB().Connetc();
+        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
         public Form formData;
@@ -106,7 +106,7 @@ namespace TokoBuku.BaseForm.Master
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 string selectedName = row.Cells[0].Value.ToString();
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
                     //MessageBox.Show("eksekusi awal try 1");
                     var strSql = "DELETE FROM KATEGORI WHERE NAMA=@nama";
@@ -145,7 +145,7 @@ namespace TokoBuku.BaseForm.Master
             bool hasil;
             try
             {
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
                     /// first impression to insert value
                     /*var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status)";
@@ -220,7 +220,7 @@ namespace TokoBuku.BaseForm.Master
                     if (result == DialogResult.OK)
                     {
                         var changedName = form.ChangedName;
-                        using (var con = new ConnectDB().Connetc())
+                        using (var con = ConnectDB.Connetc())
                         {
                             /// Lanjutkan dulu
                         }

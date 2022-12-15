@@ -6,12 +6,20 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master.Input
 {
     public partial class FormInputDataBarang : Form
     {
         public bool SuccesSaved { get; set; }
+        ///Atribut Form
+        ///
+        public string NamaForm { get; set; }
+        public string TitleForm { get; set; }
+
+
+        #region Property access
         public string NamaBarang { get; set; }
         public double Harga { get; set; }
         public double Diskon { get; set; }
@@ -23,16 +31,20 @@ namespace TokoBuku.BaseForm.Master.Input
         public string ISBN { get; set; }
         public string BarCode { get; set; }
         public string Status { get; set; }
+        public string Keterangan { get; set; }
+        public string KategoriText { get; set; }
+        public string PenerbitText { get; set; }
+        public string RakText { get; set; }
+        #endregion
+
+
 
         public FormInputDataBarang()
         {
             InitializeComponent();
             this.SuccesSaved = false;
-        }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
-            //toolTip1.Show("Tambah Item", buttonTambahRak);
+            this.NamaBarang = "TAMBAH DATA BARANG";
+            this.TitleForm = "TAMBAH DATA BARANG";
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -86,16 +98,28 @@ namespace TokoBuku.BaseForm.Master.Input
             }
             else
             {
+                this.NamaBarang = textBoxNamaBarang.Text;
+                this.Harga = harga;
+                this.Diskon = diskon;
+                this.Rak = this.comboBoxRak.SelectedValue.ToString();
+                this.Stock = Convert.ToInt32(numericStock.Value.ToString());
+                this.Kategori = this.comboBoxKategori.SelectedValue.ToString();
+                this.Penerbit = this.comboBoxPenerbit.SelectedValue.ToString();
+                this.Penulis = this.textBoxPenulis.Text;
+                this.ISBN = this.textBoxISBN.Text;
+                this.BarCode = this.textBoxBarCode.Text;
+                this.Keterangan = this.richTextBoxKeterangan.Text;
+                this.Status = "AKTIF";
+                this.KategoriText = this.comboBoxKategori.Text;
+                this.RakText = this.comboBoxRak.Text;
+                this.PenerbitText = this.comboBoxPenerbit.Text;
+
                 this.DialogResult = DialogResult.OK;
                 this.SuccesSaved = true;
                 this.Close();
             }
         }
 
-        private void buttonSaveData_ControlAdded(object sender, ControlEventArgs e)
-        {
-            buttonSaveData.Focus();
-        }
 
         private void ShowErrorPrompt(string message)
         {
@@ -104,7 +128,27 @@ namespace TokoBuku.BaseForm.Master.Input
 
         private void FormDataBarang_Load(object sender, EventArgs e)
         {
+            /// Add Member to Rak
+            /// 
+            var rakTable = new DataTable();
+            rakTable = DbLoadData.Rak(ConnectDB.Connetc());
+            this.comboBoxRak.DataSource = rakTable;
+            this.comboBoxRak.DisplayMember = "NAMA";
+            this.comboBoxRak.ValueMember = "ID";
 
+            /// Add Member to Kategori
+            /// 
+            var KategoriTable = DbLoadData.Kategori(ConnectDB.Connetc());
+            this.comboBoxKategori.DataSource = KategoriTable;
+            this.comboBoxKategori.DisplayMember = "NAMA";
+            this.comboBoxKategori.ValueMember = "ID";
+
+            /// Add member to Penerbit
+            /// 
+            var PenerbitTable = DbLoadData.Penerbit(ConnectDB.Connetc());
+            this.comboBoxPenerbit.DataSource = PenerbitTable;
+            this.comboBoxPenerbit.DisplayMember = "NAMA_PENERBIT";
+            this.comboBoxPenerbit.ValueMember = "ID";
         }
 
         private void buttonTambahRak_Click(object sender, EventArgs e)
@@ -127,6 +171,22 @@ namespace TokoBuku.BaseForm.Master.Input
         {
             //this.ActiveControl = this.buttonSaveData;
             this.buttonSaveData.Focus();
+        }
+
+        public void SetToEditForm()
+        {
+            this.Text = this.NamaForm;
+            this.labelTitle.Text = this.TitleForm;
+            this.textBoxNamaBarang.Text = this.NamaBarang;
+            this.comboBoxKategori.Text = this.Kategori;
+            this.comboBoxPenerbit.Text = this.Penerbit;
+            this.comboBoxRak.Text = this.Rak;
+            this.numericStock.Value = this.Stock;
+            this.textBoXHarga.Text = this.Harga.ToString();
+            this.textBoxISBN.Text = this.ISBN;
+            this.textBoxPenulis.Text = this.Penulis;
+            this.textBoxDiskon.Text = this.Diskon.ToString();
+            this.textBoxBarCode.Text = this.BarCode;
         }
     }
 }

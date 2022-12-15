@@ -430,7 +430,6 @@ namespace TokoBuku.BaseForm.Master.Input
             this.toolTip1.SetToolTip(this.buttonSaveData, "SIMPAN DATA");
             this.buttonSaveData.UseVisualStyleBackColor = false;
             this.buttonSaveData.Click += new System.EventHandler(this.buttonSaveData_Click);
-            this.buttonSaveData.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.buttonSaveData_ControlAdded);
             // 
             // buttonCancel
             // 
@@ -446,7 +445,7 @@ namespace TokoBuku.BaseForm.Master.Input
             // 
             // toolTip1
             // 
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
+            //this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // FormDataBarang
             // 

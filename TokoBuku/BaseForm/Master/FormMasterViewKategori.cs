@@ -15,7 +15,7 @@ namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewKategori : Form
     {
-        private FbConnection DbConnection = new ConnectDB().Connetc();
+        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
         public Form formData;
@@ -107,7 +107,7 @@ namespace TokoBuku.BaseForm.Master
             {
                 string selectedId = row.Cells[0].Value.ToString();
                 string selectedName = row.Cells[1].Value.ToString();
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
                     //MessageBox.Show("eksekusi awal try 1");
                     var strSql = "DELETE FROM KATEGORI WHERE id=@Id";
@@ -146,7 +146,7 @@ namespace TokoBuku.BaseForm.Master
             bool hasil;
             try
             {
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
                     int ids;
                     var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status) returning Id;";
@@ -205,14 +205,14 @@ namespace TokoBuku.BaseForm.Master
             {
                 string selectedName = row.Cells[1].Value.ToString();
                 int selectedId = Convert.ToInt32(row.Cells[0].Value.ToString());
-                using (var form = new FormEditKategori(selectedName))
+                using (var form = FormEdit.Kategori(selectedName))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
                         var changedName = form.ChangedName;
                         //MessageBox.Show("Changed Name: "+changedName);
-                        using (var con = new ConnectDB().Connetc())
+                        using (var con = ConnectDB.Connetc())
                         {
                             var strSql = "UPDATE KATEGORI SET NAMA=@nama where id=@Id";
                             using (var cmd = new FbCommand(strSql, con))

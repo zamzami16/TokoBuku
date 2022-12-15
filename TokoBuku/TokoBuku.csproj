@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseForm\EditForm\FormEdit.cs" />
     <Compile Include="BaseForm\Master\FormMasterViewKasMaster.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +97,7 @@
       <DependentUpon>FormMasterViewBarang.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInput.cs" />
+    <Compile Include="DbUtility\AddToDB.cs" />
     <Compile Include="DbUtility\ConnectDB.cs" />
     <Compile Include="DbUtility\DbLoadData.cs" />
     <Compile Include="BaseForm\EditForm\FormEditKategori.cs">
@@ -104,11 +106,11 @@
     <Compile Include="BaseForm\EditForm\FormEditKategori.Designer.cs">
       <DependentUpon>FormEditKategori.cs</DependentUpon>
     </Compile>
-    <Compile Include="BaseForm\FormDataRakKasKategoriPenerbitMaster.cs">
+    <Compile Include="BaseForm\Master\Input\FormInputDataRakKasKategoriPenerbitMaster.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BaseForm\FormDataRakKasKategoriPenerbitMaster.Designer.cs">
-      <DependentUpon>FormDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
+    <Compile Include="BaseForm\Master\Input\FormInputDataRakKasKategoriPenerbitMaster.Designer.cs">
+      <DependentUpon>FormInputDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInputDataBarang.cs">
       <SubType>Form</SubType>
@@ -134,6 +136,7 @@
     <Compile Include="BaseForm\FormMasterDataViewer.Designer.cs">
       <DependentUpon>FormMasterDataViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="DbUtility\Transactions\TBarang.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokoBukuWindows.cs">
@@ -193,8 +196,8 @@
     <EmbeddedResource Include="BaseForm\EditForm\FormEditKategori.resx">
       <DependentUpon>FormEditKategori.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BaseForm\FormDataRakKasKategoriPenerbitMaster.resx">
-      <DependentUpon>FormDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
+    <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataRakKasKategoriPenerbitMaster.resx">
+      <DependentUpon>FormInputDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataBarang.resx">
       <DependentUpon>FormInputDataBarang.cs</DependentUpon>

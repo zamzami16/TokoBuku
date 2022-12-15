@@ -2,9 +2,9 @@
 
 namespace TokoBuku.DbUtility
 {
-    public class ConnectDB
+    static public class ConnectDB
     {
-        public FbConnection Connetc()
+        static public FbConnection Connetc()
         {
             FbConnection conn = new FbConnection(@"User ID=SYSDBA;Password=masterkey;Database=localhost:C:\Users\yusuf\OneDrive\Desktop\Axata\DB\TOKOBUKU.fdb");
             conn.Open();

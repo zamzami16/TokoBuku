@@ -15,7 +15,7 @@ namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewBarang : Form
     {
-        private FbConnection DbConnection = new ConnectDB().Connetc();
+        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
         public Form formData;
@@ -29,8 +29,15 @@ namespace TokoBuku.BaseForm.Master
         private void FormMasterDataViewer_Load(object sender, EventArgs e)
         {
             //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            //this.dataTableBase = new DataTable();
+            this.dataTableBase = new DataTable();
             this.ActiveControl = this.buttonAddData;
+
+            this.dataTableBase = DbLoadData.Barang(this.DbConnection);
+            this.dataGridView1.DataSource = this.dataTableBase;
+            //this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //this.dataGridView1.Columns[1].FillWeight = 80;
+            //this.dataGridView1.Columns[2].FillWeight = 20;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -59,9 +66,6 @@ namespace TokoBuku.BaseForm.Master
 
         private void buttonAddData_Click(object sender, EventArgs e)
         {
-
-
-
             bool Loop = true;
             while (Loop)
             {
@@ -70,28 +74,46 @@ namespace TokoBuku.BaseForm.Master
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
+                        var kategori = Convert.ToInt32(form.Kategori);
+                        var penerbit = Convert.ToInt32(form.Penerbit);
+                        var rak = Convert.ToInt32(form.Rak);
                         var namaBarang = form.NamaBarang;
-                        var harga = form.Harga;
-                        var diskon = form.Diskon;
-                        var rak = form.Rak;
-                        var kategori = form.Kategori;
-                        var penerbit = form.Penerbit;
-                        var penulis = form.Penulis;
+                        var stock = form.Stock;
+                        double harga = form.Harga;
                         var isbn = form.ISBN;
-                        var barCode = form.BarCode;
+                        var penulis = form.Penulis;
+                        double diskon = form.Diskon;
                         var status = form.Status;
+                        var barCode = form.BarCode;
+                        var keterangan = form.Keterangan;
 
-                        string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
-                            $"Nama Barang: {namaBarang}" +
+                        /*string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
+                            $"Nama Barang: {namaBarang}\n" +
                             $"Harga: {harga} Rupiah\n" +
-                            $"Diskon {diskon} %\n";
-                        TampilkanBerhasilSimpan(messages);
+                            $"Diskon {diskon} %\n"+
+                            $"Id Rak: {rak}.";
+                        TampilkanBerhasilSimpan(messages);*/
 
 
-                        var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        if (results != DialogResult.Yes)
+                        bool hasilll = SuccessSaveToDb(inIdKategori: kategori, inIdPenerbit: penerbit, inIdRak: rak,
+                            inNama: namaBarang, inStock: stock, inHarga: harga, inIsbn: isbn, inPenulis: penulis, inDiskon: diskon,
+                            inStatus: status, inBarCode: barCode, inKeterngan: keterangan);
+                        if (hasilll)
                         {
-                            Loop = false;
+                            var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                            this.DbRefresh();
+                            if (results != DialogResult.Yes)
+                            {
+                                Loop = false;
+                            }
+                        }
+                        else
+                        {
+                            var results = MessageBox.Show($"DATA BARANG {namaBarang} SUDAH ADA.\nANDA MAU ULANGI MENAMBAH DATA LAGI?", "Error.", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                            if (results != DialogResult.Yes)
+                            {
+                                Loop = false;
+                            }
                         }
                     }
                     else
@@ -108,20 +130,20 @@ namespace TokoBuku.BaseForm.Master
 
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
+                string selectedId = row.Cells[0].Value.ToString();
                 string selectedName = row.Cells[1].Value.ToString();
-                MessageBox.Show(selectedName);
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
                     //MessageBox.Show("eksekusi awal try 1");
-                    var strSql = "DELETE FROM KATEGORI WHERE NAMA=@nama";
+                    var strSql = "DELETE FROM barang WHERE id_barang=@Id";
                     using (var cmd = new FbCommand(strSql, con))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@nama", selectedName);
+                        cmd.Parameters.Add("@id", selectedId);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
                     }
-                    MessageBox.Show($"{selectedName} deleted.");
+                    MessageBox.Show($"Data {selectedName} deleted.", "Success.");
                 }
                 this.dataGridView1.Rows.Remove(row);
             }
@@ -142,40 +164,42 @@ namespace TokoBuku.BaseForm.Master
             MessageBox.Show(message, "Succes.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private bool SuccessSaveToDbRakKategoriKasPenerbit(string namaInput)
+        private bool SuccessSaveToDb(int inIdKategori, int inIdPenerbit, int inIdRak, string inNama, 
+            int inStock, double inHarga, string inIsbn, string inPenulis, double inDiskon, 
+            string inStatus, string inBarCode, string inKeterngan)
         {
             bool hasil;
             try
             {
-                using (var con = new ConnectDB().Connetc())
+                using (var con = ConnectDB.Connetc())
                 {
-
-                    /*var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status)";
-                    using (var cmd = new FbCommand(strSql, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@nama", namaInput);
-                        cmd.Parameters.Add("@status", "AKTIF");
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
-                    }*/
-
                     int ids;
-                    var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status) returning Id;";
+                    var strSql = "INSERT INTO BARANG (ID_KATEGORI, ID_PENERBIT, ID_RAK, NAMA_BARANG, STOCK, HARGA, ISBN, PENULIS, DISKON, STATUS, BARCODE, KETERANGAN) " +
+                        "VALUES (@kategori, @penerbit, @rak, @nama, @stock, @harga, @isbn, @penulis, @diskon, @status, @barcode, @keterangan) returning ID_BARANG;";
                     using (var cmd = new FbCommand(strSql, con))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@nama", namaInput);
+                        cmd.Parameters.Add("@kategori", inIdKategori);
+                        cmd.Parameters.Add("@penerbit", inIdPenerbit);
+                        cmd.Parameters.Add("@rak", inIdRak);
+                        cmd.Parameters.Add("@nama", inNama);
+                        cmd.Parameters.Add("@stock", inStock);
+                        cmd.Parameters.Add("@harga", inHarga);
+                        cmd.Parameters.Add("@isbn", inIsbn);
+                        cmd.Parameters.Add("@penulis", inPenulis);
+                        cmd.Parameters.Add("@diskon", inDiskon);
                         cmd.Parameters.Add("@status", "AKTIF");
+                        cmd.Parameters.Add("@barcode", inBarCode);
+                        cmd.Parameters.Add("@keterangan", inKeterngan);
                         ids = (int)cmd.ExecuteScalar();
                         cmd.Dispose();
                     }
 
-                    DataRow dataRow = this.dataTableBase.NewRow();
+                    /*DataRow dataRow = this.dataTableBase.NewRow();
                     dataRow["ID"] = ids;
-                    dataRow["NAMA"] = namaInput;
+                    dataRow["NAMA"] = inNama;
                     dataRow["STATUS"] = "AKTIF";
-                    this.dataTableBase.Rows.Add(dataRow);
+                    this.dataTableBase.Rows.Add(dataRow);*/
                 }
                 hasil = true;
                 return hasil;
@@ -202,22 +226,82 @@ namespace TokoBuku.BaseForm.Master
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                string selectedName = row.Cells[0].Value.ToString();
-                using (var form = new FormEditKategori(selectedName))
+                string selectedName = row.Cells[1].Value.ToString();
+                int selectedId = Convert.ToInt32(row.Cells[0].Value.ToString());
+                using (var form = FormEdit.Barang(row))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var changedName = form.ChangedName;
-                        using (var con = new ConnectDB().Connetc())
+                        var kategori = Convert.ToInt32(form.Kategori);
+                        var penerbit = Convert.ToInt32(form.Penerbit);
+                        var rak = Convert.ToInt32(form.Rak);
+                        var namaBarang = form.NamaBarang;
+                        var stock = form.Stock;
+                        double harga = form.Harga;
+                        var isbn = form.ISBN;
+                        var penulis = form.Penulis;
+                        double diskon = form.Diskon;
+                        var status = form.Status;
+                        var barCode = form.BarCode;
+                        var keterangan = form.Keterangan;
+
+                        
+                        using (var con = ConnectDB.Connetc())
                         {
-                            /// Lanjutkan dulu
+                            var strSql = "UPDATE barang " +
+                                "SET NAMA_BARANG=@nama, " +
+                                "ID_KATEGORI=@kategori, " +
+                                "id_penerbit=@penerbit, " +
+                                "id_rak=@rak, " +
+                                "stock=@Stock, " +
+                                "harga=@Harga, " +
+                                "isbn=@Isbn, " +
+                                "penulis=@Penulis, " +
+                                "diskon=@Diskon, " +
+                                "barcode=@Barcode, " +
+                                "keterangan=@Keterangan " +
+                                "where id_barang=@Id";
+                            using (var cmd = new FbCommand(strSql, con))
+                            {
+                                cmd.CommandType = CommandType.Text;
+                                cmd.Parameters.Add("@nama", namaBarang);
+                                cmd.Parameters.Add("@kategori", kategori);
+                                cmd.Parameters.Add("@penerbit", penerbit);
+                                cmd.Parameters.Add("@rak", rak);
+                                cmd.Parameters.Add("@Stock", stock);
+                                cmd.Parameters.Add("@Harga", harga);
+                                cmd.Parameters.Add("@Isbn", isbn);
+                                cmd.Parameters.Add("@Penulis", penulis);
+                                cmd.Parameters.Add("@Diskon", diskon);
+                                cmd.Parameters.Add("@Barcode", barCode);
+                                cmd.Parameters.Add("@Keterangan", keterangan);
+                                cmd.Parameters.Add("@Id", selectedId);
+                                cmd.ExecuteNonQuery();
+                                cmd.Dispose();
+                            }
+                            MessageBox.Show($"{selectedName} Updated.", "Success.");
                         }
+                        this.dataGridView1.Rows[row.Index].Cells[1].Value = namaBarang;
+                        this.dataGridView1.Rows[row.Index].Cells[2].Value = form.KategoriText;
+                        this.dataGridView1.Rows[row.Index].Cells[3].Value = form.PenerbitText;
+                        this.dataGridView1.Rows[row.Index].Cells[4].Value = form.RakText;
+                        this.dataGridView1.Rows[row.Index].Cells[5].Value = stock;
+                        this.dataGridView1.Rows[row.Index].Cells[6].Value = harga;
+                        this.dataGridView1.Rows[row.Index].Cells[7].Value = isbn;
+                        this.dataGridView1.Rows[row.Index].Cells[8].Value = penulis;
+                        this.dataGridView1.Rows[row.Index].Cells[9].Value = diskon;
+                        this.dataGridView1.Rows[row.Index].Cells[10].Value = barCode;
+                        this.dataGridView1.Rows[row.Index].Cells[11].Value = keterangan;
                     }
                 }
-
-                this.dataGridView1.Rows.Remove(row);
             }
+        }
+
+        private void DbRefresh()
+        {
+            this.dataTableBase = DbLoadData.Barang(ConnectDB.Connetc());
+            this.dataGridView1.DataSource = this.dataTableBase;
         }
     }
 }

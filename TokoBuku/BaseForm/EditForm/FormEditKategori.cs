@@ -18,6 +18,8 @@ namespace TokoBuku.BaseForm.EditForm
 
         public string ChangedName { get; set; }
         public string OriginalName { get; set; }
+        public string FormName { get; set; }
+        public string FormTitle { get; set; }
 
         public FormEditKategori(string OriginalName)
         {
@@ -62,6 +64,8 @@ namespace TokoBuku.BaseForm.EditForm
         {
             this.textNamaAwal.Text = this.OriginalName;
             this.textNamaAwal.Enabled = false;
+            this.Text = this.FormName;
+            this.labelTitle.Text = this.FormTitle;
         }
     }
 }

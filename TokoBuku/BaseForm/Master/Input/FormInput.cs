@@ -4,28 +4,28 @@ namespace TokoBuku.BaseForm.Master.Input
 {
     public static class FormInput
     {
-        public static FormDataRakKasKategoriPenerbitMaster Kategori()
+        public static FormInputDataRakKasKategoriPenerbitMaster Kategori()
         {
-            FormDataRakKasKategoriPenerbitMaster form = new FormDataRakKasKategoriPenerbitMaster();
+            FormInputDataRakKasKategoriPenerbitMaster form = new FormInputDataRakKasKategoriPenerbitMaster();
             form.type_of = form.type_of_kategori;
             return form;
         }
 
-        public static FormDataRakKasKategoriPenerbitMaster Rak()
+        public static FormInputDataRakKasKategoriPenerbitMaster Rak()
         {
-            FormDataRakKasKategoriPenerbitMaster form = new FormDataRakKasKategoriPenerbitMaster();
+            FormInputDataRakKasKategoriPenerbitMaster form = new FormInputDataRakKasKategoriPenerbitMaster();
             form.type_of = form.type_of_rak;
             return form;
         }
-        public static FormDataRakKasKategoriPenerbitMaster Kas()
+        public static FormInputDataRakKasKategoriPenerbitMaster Kas()
         {
-            FormDataRakKasKategoriPenerbitMaster form = new FormDataRakKasKategoriPenerbitMaster();
+            FormInputDataRakKasKategoriPenerbitMaster form = new FormInputDataRakKasKategoriPenerbitMaster();
             form.type_of = form.type_of_kas;
             return form;
         }
-        public static FormDataRakKasKategoriPenerbitMaster Penerbit()
+        public static FormInputDataRakKasKategoriPenerbitMaster Penerbit()
         {
-            FormDataRakKasKategoriPenerbitMaster form = new FormDataRakKasKategoriPenerbitMaster();
+            FormInputDataRakKasKategoriPenerbitMaster form = new FormInputDataRakKasKategoriPenerbitMaster();
             form.type_of = form.type_of_penerbit;
             return form;
         }
