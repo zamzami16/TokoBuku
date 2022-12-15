@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=4.9.0.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirebirdSql.Data.FirebirdClient.4.9.0.0\lib\net40-client\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,34 +47,91 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormDataRakKasKategoriPenerbitMaster.cs">
+    <Compile Include="BaseForm\Master\FormMasterViewKasMaster.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDataRakKasKategoriPenerbitMaster.Designer.cs">
+    <Compile Include="BaseForm\Master\FormMasterViewKasMaster.Designer.cs">
+      <DependentUpon>FormMasterViewKasMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewPelanggan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewPelanggan.Designer.cs">
+      <DependentUpon>FormMasterViewPelanggan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewKasir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewKasir.Designer.cs">
+      <DependentUpon>FormMasterViewKasir.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewSupplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewSupplier.Designer.cs">
+      <DependentUpon>FormMasterViewSupplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewRak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewRak.Designer.cs">
+      <DependentUpon>FormMasterViewRak.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewPenerbit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewPenerbit.Designer.cs">
+      <DependentUpon>FormMasterViewPenerbit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewKategori.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewKategori.Designer.cs">
+      <DependentUpon>FormMasterViewKategori.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewBarang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Master\FormMasterViewBarang.Designer.cs">
+      <DependentUpon>FormMasterViewBarang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Master\Input\FormInput.cs" />
+    <Compile Include="DbUtility\ConnectDB.cs" />
+    <Compile Include="DbUtility\DbLoadData.cs" />
+    <Compile Include="BaseForm\EditForm\FormEditKategori.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\EditForm\FormEditKategori.Designer.cs">
+      <DependentUpon>FormEditKategori.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\FormDataRakKasKategoriPenerbitMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\FormDataRakKasKategoriPenerbitMaster.Designer.cs">
       <DependentUpon>FormDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDataBarang.cs">
+    <Compile Include="BaseForm\Master\Input\FormInputDataBarang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDataBarang.Designer.cs">
-      <DependentUpon>FormDataBarang.cs</DependentUpon>
+    <Compile Include="BaseForm\Master\Input\FormInputDataBarang.Designer.cs">
+      <DependentUpon>FormInputDataBarang.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDataKasir.cs">
+    <Compile Include="BaseForm\Master\Input\FormInputDataKasir.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDataKasir.Designer.cs">
-      <DependentUpon>FormDataKasir.cs</DependentUpon>
+    <Compile Include="BaseForm\Master\Input\FormInputDataKasir.Designer.cs">
+      <DependentUpon>FormInputDataKasir.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDataPelangganSupplier.cs">
+    <Compile Include="BaseForm\FormDataPelangganSupplier.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDataPelangganSupplier.Designer.cs">
+    <Compile Include="BaseForm\FormDataPelangganSupplier.Designer.cs">
       <DependentUpon>FormDataPelangganSupplier.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMasterDataViewer.cs">
+    <Compile Include="BaseForm\FormMasterDataViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMasterDataViewer.Designer.cs">
+    <Compile Include="BaseForm\FormMasterDataViewer.Designer.cs">
       <DependentUpon>FormMasterDataViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -82,43 +142,70 @@
     <Compile Include="TokoBukuWindows.Designer.cs">
       <DependentUpon>TokoBukuWindows.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transaksi\FormKredit.cs">
+    <Compile Include="BaseForm\Transaksi\FormKredit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Transaksi\FormKredit.Designer.cs">
+    <Compile Include="BaseForm\Transaksi\FormKredit.Designer.cs">
       <DependentUpon>FormKredit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transaksi\Pembelian.cs">
+    <Compile Include="BaseForm\Transaksi\Pembelian.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Transaksi\Pembelian.Designer.cs">
+    <Compile Include="BaseForm\Transaksi\Pembelian.Designer.cs">
       <DependentUpon>Pembelian.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transaksi\Penjualan.cs">
+    <Compile Include="BaseForm\Transaksi\Penjualan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Transaksi\Penjualan.Designer.cs">
+    <Compile Include="BaseForm\Transaksi\Penjualan.Designer.cs">
       <DependentUpon>Penjualan.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transaksi\SearchForm\FormSearch.cs">
+    <Compile Include="BaseForm\Transaksi\SearchForm\FormSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Transaksi\SearchForm\FormSearch.Designer.cs">
+    <Compile Include="BaseForm\Transaksi\SearchForm\FormSearch.Designer.cs">
       <DependentUpon>FormSearch.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FormDataRakKasKategoriPenerbitMaster.resx">
+    <EmbeddedResource Include="BaseForm\Master\FormMasterViewKasMaster.resx">
+      <DependentUpon>FormMasterViewKasMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Master\FormMasterViewPelanggan.resx">
+      <DependentUpon>FormMasterViewPelanggan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Master\FormMasterViewKasir.resx">
+      <DependentUpon>FormMasterViewKasir.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Master\FormMasterViewSupplier.resx">
+      <DependentUpon>FormMasterViewSupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Master\FormMasterViewRak.resx">
+      <DependentUpon>FormMasterViewRak.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Master\FormMasterViewPenerbit.resx">
+      <DependentUpon>FormMasterViewPenerbit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Master\FormMasterViewKategori.resx">
+      <DependentUpon>FormMasterViewKategori.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Master\FormMasterViewBarang.resx">
+      <DependentUpon>FormMasterViewBarang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\EditForm\FormEditKategori.resx">
+      <DependentUpon>FormEditKategori.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\FormDataRakKasKategoriPenerbitMaster.resx">
       <DependentUpon>FormDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDataBarang.resx">
-      <DependentUpon>FormDataBarang.cs</DependentUpon>
+    <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataBarang.resx">
+      <DependentUpon>FormInputDataBarang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDataKasir.resx">
-      <DependentUpon>FormDataKasir.cs</DependentUpon>
+    <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataKasir.resx">
+      <DependentUpon>FormInputDataKasir.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDataPelangganSupplier.resx">
+    <EmbeddedResource Include="BaseForm\FormDataPelangganSupplier.resx">
       <DependentUpon>FormDataPelangganSupplier.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMasterDataViewer.resx">
+    <EmbeddedResource Include="BaseForm\FormMasterDataViewer.resx">
       <DependentUpon>FormMasterDataViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -133,18 +220,20 @@
     <EmbeddedResource Include="TokoBukuWindows.resx">
       <DependentUpon>TokoBukuWindows.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transaksi\FormKredit.resx">
+    <EmbeddedResource Include="BaseForm\Transaksi\FormKredit.resx">
       <DependentUpon>FormKredit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transaksi\Pembelian.resx">
+    <EmbeddedResource Include="BaseForm\Transaksi\Pembelian.resx">
       <DependentUpon>Pembelian.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transaksi\Penjualan.resx">
+    <EmbeddedResource Include="BaseForm\Transaksi\Penjualan.resx">
       <DependentUpon>Penjualan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transaksi\SearchForm\FormSearch.resx">
+    <EmbeddedResource Include="BaseForm\Transaksi\SearchForm\FormSearch.resx">
       <DependentUpon>FormSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -156,7 +245,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Transaksi\Resources\" />
+    <Folder Include="BaseForm\Transaksi\Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
