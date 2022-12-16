@@ -82,8 +82,8 @@ namespace TokoBuku.DbUtility
             using (var con = ConnectDB.Connetc())
             {
                 int ids;
-                var query = "insert into kasir (nama, alamat, username, password, no_hp, keterangan, status) " +
-                    "values (@nama, @alamat, @username, @password, @noHp, @keterangan, @status) " +
+                var query = "insert into kasir (nama, alamat, username, pasword, no_hp, keterangan, status) " +
+                    "values (@nama, @alamat, @username, @pasword, @noHp, @keterangan, @status) " +
                     "returning Id;";
                 using (var cmd = new FbCommand(query, con))
                 {
@@ -91,7 +91,7 @@ namespace TokoBuku.DbUtility
                     cmd.Parameters.Add("@nama", nama);
                     cmd.Parameters.Add("@alamat", alamat);
                     cmd.Parameters.Add("@username", username);
-                    cmd.Parameters.Add("@password", password);
+                    cmd.Parameters.Add("@pasword", password);
                     cmd.Parameters.Add("@noHp", noHp);
                     cmd.Parameters.Add("@keterangan", keterangan);
                     cmd.Parameters.Add("@status", status);

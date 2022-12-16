@@ -51,5 +51,19 @@ namespace TokoBuku.DbUtility
                 }
             }
         }
+        static public void Kasir(int Ids)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "delete from kasir where Id=@id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@id", Ids);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+        }
     }
 }

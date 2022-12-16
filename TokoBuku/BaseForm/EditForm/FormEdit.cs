@@ -68,5 +68,12 @@ namespace TokoBuku.BaseForm.EditForm
             form.FormTitle = "EDIT DATA KAS";
             return form;
         }
+
+        public static FormEditDataKasir Kasir(DataGridViewRow row)
+        {
+            FormEditDataKasir form = new FormEditDataKasir();
+            form.SetParameterEdit(row);
+            return form;
+        }
     }
 }
