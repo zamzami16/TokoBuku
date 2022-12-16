@@ -64,5 +64,23 @@ namespace TokoBuku.DbUtility
             da.Dispose();
             return dt;
         }
+        public static DataTable Supplier()
+        {
+            DataTable dt = new DataTable();
+            var query = "select * from supplier";
+            FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
+            da.Fill(dt);
+            da.Dispose();
+            return dt;
+        }
+
+        public static DataTable Kas()
+        {
+            DataTable dt = new DataTable();
+            FbDataAdapter da = new FbDataAdapter("select * from kas_master", ConnectDB.Connetc());
+            da.Fill(dt);
+            da.Dispose();
+            return dt;
+        }
     }
 }

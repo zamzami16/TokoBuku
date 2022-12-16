@@ -31,12 +31,19 @@ namespace TokoBuku.BaseForm.Master
             this.ActiveControl = this.buttonAddData;
             this.dataTableBase = new DataTable();
             //initTableRakKasKategoriPenerbitMaster();
-            this.dataTableBase = DbLoadData.Kategori(this.DbConnection);
+            this.dataTableBase = DbLoadData.Supplier();
             this.dataGridView1.DataSource = this.dataTableBase;
+            this.dataGridView1.Columns[0].Width = 0;
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[1].FillWeight = 80;
+            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[1].FillWeight = 20;
             this.dataGridView1.Columns[2].FillWeight = 20;
+            this.dataGridView1.Columns[3].FillWeight = 15;
+            this.dataGridView1.Columns[4].FillWeight = 15;
+            this.dataGridView1.Columns[5].FillWeight = 30;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -71,25 +78,41 @@ namespace TokoBuku.BaseForm.Master
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        /*var namaInput = form.ValueName;
-                        //MessageBox.Show("Eksekusi atas....");
-                        bool hasilll = SuccessSaveToDbRakKategoriKasPenerbit(namaInput);
-                        if (hasilll)
+                        var nama = form.inputNama;
+                        var alamat = form.inputALamat;
+                        var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
+                        var email = form.inputEmail;
+                        var keterangan = form.inputKeterangan;
+                        var status = form.inputStatus;
+                        int ids;
+                        try
                         {
-                            var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                            if (results != DialogResult.Yes)
+                            ids = DbSaveData.Supplier(nama: nama, alamat: alamat, email: email,
+                            no_hp: no_hp, keterangan: keterangan, status: status);
+
+                            DataRow dataRow = this.dataTableBase.NewRow();
+                            dataRow["ID"] = ids;
+                            dataRow["NAMA"] = nama;
+                            dataRow["ALAMAT"] = alamat;
+                            dataRow["EMAIL"] = email;
+                            dataRow["NO_HP"] = no_hp;
+                            dataRow["KETERANGAN"] = keterangan;
+                            dataRow["STATUS"] = "AKTIF";
+
+                            this.dataTableBase.Rows.Add(dataRow);
+
+                            var lanjut = MessageBox.Show("Data Berhasil disimpan.\nAnda mau menambah data lagi?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (lanjut != DialogResult.Yes)
                             {
                                 Loop = false;
+                                break;
                             }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            var results = MessageBox.Show($"DATA KATEGORI {namaInput} SUDAH ADA.\nANDA MAU ULANGI MENAMBAH DATA LAGI?", "Error.", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                            if (results != DialogResult.Yes)
-                            {
-                                Loop = false;
-                            }
-                        }*/
+                            MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //throw;
+                        }
                     }
                     else
                     {
@@ -105,25 +128,25 @@ namespace TokoBuku.BaseForm.Master
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                string selectedName = row.Cells[0].Value.ToString();
-                using (var con = ConnectDB.Connetc())
+                int ids = Convert.ToInt32(row.Cells[0].Value.ToString());
+                string nama = row.Cells[1].Value.ToString();
+                try
                 {
-                    //MessageBox.Show("eksekusi awal try 1");
-                    var strSql = "DELETE FROM KATEGORI WHERE NAMA=@nama";
-                    using (var cmd = new FbCommand(strSql, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@nama", selectedName);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
-                    }
-                    MessageBox.Show($"{selectedName} deleted.");
+                    DbDeleteData.Supplier(ids);
+                    MessageBox.Show($"Data {nama} berhasil dihapus.");
+
+                    DataRow rows = ((DataRowView)row.DataBoundItem).Row;
+                    this.dataTableBase.Rows.Remove(rows);
                 }
-                this.dataGridView1.Rows.Remove(row);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //throw;
+                }
             }
         }
 
-        private void TampilTambahData()
+        /*private void TampilTambahData()
         {
             DialogResult results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             while (results == DialogResult.Yes)
@@ -136,100 +159,39 @@ namespace TokoBuku.BaseForm.Master
         private void TampilkanBerhasilSimpan(string message)
         {
             MessageBox.Show(message, "Succes.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private bool SuccessSaveToDbRakKategoriKasPenerbit(string namaInput)
-        {
-            ///Connect DB
-            ///
-            bool hasil;
-            try
-            {
-                using (var con = ConnectDB.Connetc())
-                {
-                    /// first impression to insert value
-                    /*var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status)";
-                    using (var cmd = new FbCommand(strSql, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@nama", namaInput);
-                        cmd.Parameters.Add("@status", "AKTIF");
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
-                    }*/
-
-                    int ids;
-                    var strSql = "INSERT INTO KATEGORI (NAMA, STATUS) VALUES (@nama, @status) returning Id;";
-                    using (var cmd = new FbCommand(strSql, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@nama", namaInput);
-                        cmd.Parameters.Add("@status", "AKTIF");
-                        ids = (int)cmd.ExecuteScalar();
-                        cmd.Dispose();
-                    }
-
-
-                    //MessageBox.Show("Eksekusi setelah simpan data ke db. Lanjut tambah data ke data tabel");
-                    /*string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
-                            $"Nama Kategori: {namaInput}";
-                    TampilkanBerhasilSimpan(messages);*/
-
-                    DataRow dataRow = this.dataTableBase.NewRow();
-                    dataRow["ID"] = ids;
-                    dataRow["NAMA"] = namaInput;
-                    dataRow["STATUS"] = "AKTIF";
-                    this.dataTableBase.Rows.Add(dataRow);
-                    //MessageBox.Show("hasil eksekusi tambah data tabel. lanjut tambah data row");
-                    //this.dataGridView1.Rows.Add(dataRow);
-                    
-                    //MessageBox.Show("hasil eksekusi setelah tambah data grid view.");
-                    
-                }
-                //return hasil;
-                hasil = true;
-                //MessageBox.Show($"hasil eksekusi setelah try 1 {hasil}");
-                return hasil;
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show("eksekusi awal catch 1" + ex.Message);
-                if (ex.Message.Contains("PRIMARY or UNIQUE"))
-                {
-                    hasil = false;
-                    MessageBox.Show($"eksekusi awal {hasil}");
-                    return hasil;
-                }
-                else
-                {
-                    hasil = false;
-                    MessageBox.Show(ex.Message);
-                    return hasil;
-                }
-            }
-        }
+        }*/
 
         private void buttonEditData_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                string selectedName = row.Cells[0].Value.ToString();
-                FormEditKategori formEditKategori = new FormEditKategori(selectedName);
-                var res = formEditKategori.ShowDialog();
-                /*using (var form = new FormEditKategori(selectedName))
+                int Ids = Convert.ToInt32(row.Cells[0].Value.ToString());
+                var namaAwal = row.Cells[1].Value.ToString();
+                using (var form = FormEdit.Supplier(row))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var changedName = form.ChangedName;
-                        using (var con = new ConnectDB().Connetc())
+                        var nama = form.inputNama;
+                        var alamat = form.inputALamat;
+                        var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
+                        var email = form.inputEmail;
+                        var keterangan = form.inputKeterangan;
+                        var status = form.inputStatus;
+                        try
                         {
-                            /// Lanjutkan dulu
+                            DbEditData.Supplier(Ids: Ids, nama: nama, alamat: alamat, no_hp: no_hp, email: email, keterangan: keterangan);
+                            MessageBox.Show($"Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.dataTableBase = DbLoadData.Supplier();
+                            this.dataGridView1.DataSource = this.dataTableBase;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message + ex, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            throw;
                         }
                     }
                 }
-
-                this.dataGridView1.Rows.Remove(row);*/
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿
-namespace TokoBuku.BaseForm
+namespace TokoBuku.BaseForm.Master.Input
 {
     partial class FormDataPelangganSupplier
     {

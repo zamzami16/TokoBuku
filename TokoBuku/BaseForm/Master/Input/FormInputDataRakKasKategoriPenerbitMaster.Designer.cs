@@ -32,7 +32,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBoxStatus = new System.Windows.Forms.ComboBox();
+            this.richTextBoxKeterangan = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,7 +58,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(346, 163);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(346, 265);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelTitle
@@ -75,39 +75,32 @@ namespace TokoBuku.BaseForm.Master.Input
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.comboBoxStatus);
+            this.panel1.Controls.Add(this.richTextBoxKeterangan);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(340, 67);
+            this.panel1.Size = new System.Drawing.Size(340, 169);
             this.panel1.TabIndex = 1;
             // 
-            // comboBoxStatus
+            // richTextBoxKeterangan
             // 
-            this.comboBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxStatus.FormattingEnabled = true;
-            this.comboBoxStatus.Items.AddRange(new object[] {
-            "AKTIF",
-            "NONAKTIF"});
-            this.comboBoxStatus.Location = new System.Drawing.Point(48, 88);
-            this.comboBoxStatus.Name = "comboBoxStatus";
-            this.comboBoxStatus.Size = new System.Drawing.Size(100, 24);
-            this.comboBoxStatus.TabIndex = 3;
-            this.comboBoxStatus.Text = "AKTIF";
-            this.comboBoxStatus.Visible = false;
+            this.richTextBoxKeterangan.Location = new System.Drawing.Point(48, 88);
+            this.richTextBoxKeterangan.Name = "richTextBoxKeterangan";
+            this.richTextBoxKeterangan.Size = new System.Drawing.Size(241, 68);
+            this.richTextBoxKeterangan.TabIndex = 3;
+            this.richTextBoxKeterangan.Text = "";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(45, 71);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.Size = new System.Drawing.Size(81, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "STATUS";
-            this.label2.Visible = false;
+            this.label2.Text = "KETERANGAN";
             // 
             // textBox1
             // 
@@ -133,7 +126,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.flowLayoutPanel1.Controls.Add(this.buttonSave);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 116);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 218);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(340, 44);
             this.flowLayoutPanel1.TabIndex = 2;
@@ -164,16 +157,16 @@ namespace TokoBuku.BaseForm.Master.Input
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // FormDataRakKasKategoriPenerbitMaster
+            // FormInputDataRakKasKategoriPenerbitMaster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 163);
+            this.ClientSize = new System.Drawing.Size(346, 265);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormDataRakKasKategoriPenerbitMaster";
+            this.Name = "FormInputDataRakKasKategoriPenerbitMaster";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DATA MASTER";
             this.Load += new System.EventHandler(this.FormDataRakKasKategoriPenerbitMaster_Load);
@@ -191,12 +184,12 @@ namespace TokoBuku.BaseForm.Master.Input
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBoxStatus;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.RichTextBox richTextBoxKeterangan;
     }
 }

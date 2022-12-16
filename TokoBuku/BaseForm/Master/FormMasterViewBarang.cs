@@ -291,8 +291,8 @@ namespace TokoBuku.BaseForm.Master
                         this.dataGridView1.Rows[row.Index].Cells[7].Value = isbn;
                         this.dataGridView1.Rows[row.Index].Cells[8].Value = penulis;
                         this.dataGridView1.Rows[row.Index].Cells[9].Value = diskon;
-                        this.dataGridView1.Rows[row.Index].Cells[10].Value = barCode;
-                        this.dataGridView1.Rows[row.Index].Cells[11].Value = keterangan;
+                        this.dataGridView1.Rows[row.Index].Cells[11].Value = barCode;
+                        this.dataGridView1.Rows[row.Index].Cells[12].Value = keterangan;
                     }
                 }
             }

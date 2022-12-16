@@ -31,23 +31,6 @@ namespace TokoBuku.BaseForm.EditForm
         public static FormInputDataBarang Barang(DataGridViewRow row)
         {
             FormInputDataBarang form = new FormInputDataBarang();
-            /*form.NamaForm = "EDIT DATA BARANG";
-            form.TitleForm = "EDIT DATA BARANG";
-            form.NamaBarang = barang.NamaBarang;
-            form.Kategori = barang.Kategori;
-            form.Penerbit = barang.Penerbit;
-            form.Rak = barang.Rak;
-            form.Stock = barang.Stock;
-            form.Harga = barang.Harga;
-            form.ISBN = barang.ISBN;
-            form.Penulis = barang.Penulis;
-            form.Diskon = barang.Diskon;
-            form.Status = barang.Status;
-            form.BarCode = barang.BarCode;*/
-
-            // "b.id_barang, b.nama_barang, p.nama_penerbit, k.nama, rak.nama, b.stock, " +
-            //"b.harga, b.isbn, b.penulis, b.diskon, b.status, b.barcode, b.keterangan "
-
             form.NamaForm = "EDIT DATA BARANG";
             form.TitleForm = "EDIT DATA BARANG";
             form.NamaBarang = row.Cells[1].Value.ToString();
@@ -62,6 +45,27 @@ namespace TokoBuku.BaseForm.EditForm
             form.Status = row.Cells[10].Value.ToString();
             form.BarCode = row.Cells[11].Value.ToString();
             form.SetToEditForm();
+            return form;
+        }
+
+        public static FormEditDataPelangganSupplier Pelanggan(DataGridViewRow row)
+        {
+            FormEditDataPelangganSupplier form = new FormEditDataPelangganSupplier();
+            form.SetToEditForm(row);
+            return form;
+        }
+        public static FormEditDataPelangganSupplier Supplier(DataGridViewRow row)
+        {
+            FormEditDataPelangganSupplier form = new FormEditDataPelangganSupplier();
+            form.SetToEditForm(row);
+            return form;
+        }
+
+        public static FormEditKategori Kas(string OrigialName, string keterangan)
+        {
+            FormEditKategori form = new FormEditKategori(OrigialName, keterangan);
+            form.FormTitle = "Edit Data Kas";
+            form.FormTitle = "EDIT DATA KAS";
             return form;
         }
     }

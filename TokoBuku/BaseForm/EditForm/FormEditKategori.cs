@@ -17,14 +17,16 @@ namespace TokoBuku.BaseForm.EditForm
 
 
         public string ChangedName { get; set; }
+        public string Keterangan { get; set; }
         public string OriginalName { get; set; }
         public string FormName { get; set; }
         public string FormTitle { get; set; }
 
-        public FormEditKategori(string OriginalName)
+        public FormEditKategori(string OriginalName, string keterangan="")
         {
             InitializeComponent();
             this.OriginalName = OriginalName;
+            this.Keterangan = keterangan;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -64,8 +66,10 @@ namespace TokoBuku.BaseForm.EditForm
         {
             this.textNamaAwal.Text = this.OriginalName;
             this.textNamaAwal.Enabled = false;
+            this.textBoxNamaGanti.Text = this.OriginalName;
             this.Text = this.FormName;
             this.labelTitle.Text = this.FormTitle;
+            this.richTextBoxKeterangan.Text = this.Keterangan;
         }
     }
 }

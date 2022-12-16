@@ -38,6 +38,8 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.richTextBoxKeterangan = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -57,7 +59,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(346, 229);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(346, 338);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelTitle
@@ -74,6 +76,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.richTextBoxKeterangan);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.textNamaAwal);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBoxNamaGanti);
@@ -81,7 +85,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(340, 133);
+            this.panel1.Size = new System.Drawing.Size(340, 242);
             this.panel1.TabIndex = 1;
             // 
             // textNamaAwal
@@ -127,7 +131,7 @@
             this.flowLayoutPanel1.Controls.Add(this.buttonSave);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 182);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 291);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(340, 44);
             this.flowLayoutPanel1.TabIndex = 2;
@@ -158,16 +162,34 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // FormEditDatasKategori
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(45, 128);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "KETERANGAN";
+            this.label3.Visible = false;
+            // 
+            // richTextBoxKeterangan
+            // 
+            this.richTextBoxKeterangan.Location = new System.Drawing.Point(48, 145);
+            this.richTextBoxKeterangan.Name = "richTextBoxKeterangan";
+            this.richTextBoxKeterangan.Size = new System.Drawing.Size(241, 89);
+            this.richTextBoxKeterangan.TabIndex = 5;
+            this.richTextBoxKeterangan.Text = "";
+            // 
+            // FormEditKategori
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 229);
+            this.ClientSize = new System.Drawing.Size(346, 338);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormEditDatasKategori";
+            this.Name = "FormEditKategori";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DATA MASTER";
             this.Load += new System.EventHandler(this.FormEditDatasKategori_Load);
@@ -192,5 +214,7 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TextBox textNamaAwal;
+        private System.Windows.Forms.RichTextBox richTextBoxKeterangan;
+        private System.Windows.Forms.Label label3;
     }
 }

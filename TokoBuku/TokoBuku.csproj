@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseForm\EditForm\FormEditDataPelangganSupplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\EditForm\FormEditDataPelangganSupplier.Designer.cs">
+      <DependentUpon>FormEditDataPelangganSupplier.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm\EditForm\FormEdit.cs" />
     <Compile Include="BaseForm\Master\FormMasterViewKasMaster.cs">
       <SubType>Form</SubType>
@@ -99,6 +105,8 @@
     <Compile Include="BaseForm\Master\Input\FormInput.cs" />
     <Compile Include="DbUtility\AddToDB.cs" />
     <Compile Include="DbUtility\ConnectDB.cs" />
+    <Compile Include="DbUtility\DbDeleteData.cs" />
+    <Compile Include="DbUtility\DbEditData.cs" />
     <Compile Include="DbUtility\DbLoadData.cs" />
     <Compile Include="BaseForm\EditForm\FormEditKategori.cs">
       <SubType>Form</SubType>
@@ -124,10 +132,10 @@
     <Compile Include="BaseForm\Master\Input\FormInputDataKasir.Designer.cs">
       <DependentUpon>FormInputDataKasir.cs</DependentUpon>
     </Compile>
-    <Compile Include="BaseForm\FormDataPelangganSupplier.cs">
+    <Compile Include="BaseForm\Master\Input\FormDataPelangganSupplier.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BaseForm\FormDataPelangganSupplier.Designer.cs">
+    <Compile Include="BaseForm\Master\Input\FormDataPelangganSupplier.Designer.cs">
       <DependentUpon>FormDataPelangganSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\FormMasterDataViewer.cs">
@@ -136,6 +144,7 @@
     <Compile Include="BaseForm\FormMasterDataViewer.Designer.cs">
       <DependentUpon>FormMasterDataViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="DbUtility\DbSaveData.cs" />
     <Compile Include="DbUtility\Transactions\TBarang.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,6 +178,9 @@
     <Compile Include="BaseForm\Transaksi\SearchForm\FormSearch.Designer.cs">
       <DependentUpon>FormSearch.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BaseForm\EditForm\FormEditDataPelangganSupplier.resx">
+      <DependentUpon>FormEditDataPelangganSupplier.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Master\FormMasterViewKasMaster.resx">
       <DependentUpon>FormMasterViewKasMaster.cs</DependentUpon>
     </EmbeddedResource>
@@ -205,7 +217,7 @@
     <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataKasir.resx">
       <DependentUpon>FormInputDataKasir.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BaseForm\FormDataPelangganSupplier.resx">
+    <EmbeddedResource Include="BaseForm\Master\Input\FormDataPelangganSupplier.resx">
       <DependentUpon>FormDataPelangganSupplier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\FormMasterDataViewer.resx">

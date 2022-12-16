@@ -24,6 +24,7 @@ namespace TokoBuku.BaseForm.Master.Input
         }
 
         public string ValueName { get; set; }
+        public string ValueKeterangan { get; set; }
         public tipeForm type_of { get; set; }
         public tipeForm type_of_kas { get; set; }
         public tipeForm type_of_kategori { get; set; }
@@ -55,14 +56,11 @@ namespace TokoBuku.BaseForm.Master.Input
             {
                 MessageBox.Show("KOLOM NAMA TIDAK BOLEH KOSONG", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (string.IsNullOrWhiteSpace(comboBoxStatus.Text))
-            {
-                comboBoxStatus.Text = "AKTIF";
-            }
             else
             {
                 this.DialogResult = DialogResult.OK;
                 this.ValueName = textBox1.Text;
+                this.ValueKeterangan = richTextBoxKeterangan.Text;
                 this.Close();
             }
         }

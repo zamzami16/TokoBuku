@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace TokoBuku.BaseForm
+namespace TokoBuku.BaseForm.Master.Input
 {
     public partial class FormDataPelangganSupplier : Form
     {
@@ -25,6 +25,7 @@ namespace TokoBuku.BaseForm
         public string inputNoHP { get; set; }
         public string inputEmail { get; set; }
         public string inputKeterangan { get; set; }
+        public string inputStatus { get; set; }
 
         public FormDataPelangganSupplier()
         {
@@ -67,6 +68,7 @@ namespace TokoBuku.BaseForm
                 this.inputKeterangan = this.richTextBoxKeterangan.Text;
                 this.inputNama = this.textBoxNama.Text;
                 this.inputNoHP = this.maskedTextBox1.Text;
+                this.inputStatus = "AKTIF";
                 this.DialogResult = DialogResult.OK;
             }
         }

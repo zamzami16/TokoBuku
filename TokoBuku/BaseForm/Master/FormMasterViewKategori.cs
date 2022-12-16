@@ -62,7 +62,6 @@ namespace TokoBuku.BaseForm.Master
 
         private void buttonAddData_Click(object sender, EventArgs e)
         {
-
             bool Loop = true;
             while (Loop)
             {

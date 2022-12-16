@@ -211,7 +211,7 @@ namespace TokoBuku.BaseForm.Master
 
         private void buttonEditData_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            /*foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 string selectedName = row.Cells[0].Value.ToString();
                 using (var form = new FormEditKategori(selectedName))
@@ -228,7 +228,7 @@ namespace TokoBuku.BaseForm.Master
                 }
 
                 this.dataGridView1.Rows.Remove(row);
-            }
+            }*/
         }
     }
 }
