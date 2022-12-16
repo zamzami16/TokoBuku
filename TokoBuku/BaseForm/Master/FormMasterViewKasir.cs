@@ -15,7 +15,6 @@ namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewKasir : Form
     {
-        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
         public Form formData;
@@ -31,12 +30,21 @@ namespace TokoBuku.BaseForm.Master
             this.ActiveControl = this.buttonAddData;
             this.dataTableBase = new DataTable();
             //initTableRakKasKategoriPenerbitMaster();
-            this.dataTableBase = DbLoadData.Kategori(this.DbConnection);
+            this.dataTableBase = DbLoadData.Kasir();
             this.dataGridView1.DataSource = this.dataTableBase;
+            this.dataGridView1.Columns[0].Visible = false;
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[1].FillWeight = 80;
+            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[1].FillWeight = 20;
             this.dataGridView1.Columns[2].FillWeight = 20;
+            this.dataGridView1.Columns[3].FillWeight = 15;
+            this.dataGridView1.Columns[4].FillWeight = 10;
+            this.dataGridView1.Columns[5].FillWeight = 10;
+            this.dataGridView1.Columns[6].FillWeight = 25;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -66,30 +74,47 @@ namespace TokoBuku.BaseForm.Master
             bool Loop = true;
             while (Loop)
             {
-                using (var form = new FormDataKasir())
+                using (var form = FormInput.Kasir())
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        /*var namaInput = form.ValueName;
-                        //MessageBox.Show("Eksekusi atas....");
-                        bool hasilll = SuccessSaveToDbRakKategoriKasPenerbit(namaInput);
-                        if (hasilll)
+                        var nama = form.Namavalue;
+                        var username = form.UserNameValue;
+                        var password = form.PasswordValue;
+                        var alamat = form.AlamatValue;
+                        var noHp = form.NoHpValue.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
+                        var keterangan = form.KeteranganValue;
+
+                        int Ids;
+                        try
                         {
-                            var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                            if (results != DialogResult.Yes)
+                            Ids = DbSaveData.Kasir(nama: nama, username: username, password: password, alamat: alamat, noHp: noHp, keterangan: keterangan);
+                            DataRow dataRow = this.dataTableBase.NewRow();
+                            dataRow["ID"] = Ids;
+                            dataRow["NAMA"] = nama;
+                            dataRow["USERNAME"] = username;
+                            dataRow["PASSWORD"] = password;
+                            dataRow["ALAMAT"] = alamat;
+                            dataRow["NO_HP"] = noHp;
+                            dataRow["KETERANGAN"] = keterangan;
+                            dataRow["STATUS"] = "AKTIF";
+
+                            this.dataTableBase.Rows.Add(dataRow);
+
+                            var lanjut = MessageBox.Show("Data Berhasil disimpan.\nAnda mau menambah data lagi?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (lanjut != DialogResult.Yes)
                             {
                                 Loop = false;
+                                break;
                             }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            var results = MessageBox.Show($"DATA KATEGORI {namaInput} SUDAH ADA.\nANDA MAU ULANGI MENAMBAH DATA LAGI?", "Error.", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                            if (results != DialogResult.Yes)
-                            {
-                                Loop = false;
-                            }
-                        }*/
+                            MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //throw;
+                        }
+
                     }
                     else
                     {

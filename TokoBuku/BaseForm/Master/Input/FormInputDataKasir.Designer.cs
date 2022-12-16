@@ -1,7 +1,7 @@
 ﻿
 namespace TokoBuku.BaseForm.Master.Input
 {
-    partial class FormDataKasir
+    partial class FormInputDataKasir
     {
         /// <summary>
         /// Required designer variable.

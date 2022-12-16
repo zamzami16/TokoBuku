@@ -76,5 +76,30 @@ namespace TokoBuku.DbUtility
                 }
             }
         }
+
+        static public int Kasir(string nama, string username, string password, string alamat, string noHp, string keterangan, string status = "AKTIF")
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                int ids;
+                var query = "insert into kasir (nama, alamat, username, password, no_hp, keterangan, status) " +
+                    "values (@nama, @alamat, @username, @password, @noHp, @keterangan, @status) " +
+                    "returning Id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama);
+                    cmd.Parameters.Add("@alamat", alamat);
+                    cmd.Parameters.Add("@username", username);
+                    cmd.Parameters.Add("@password", password);
+                    cmd.Parameters.Add("@noHp", noHp);
+                    cmd.Parameters.Add("@keterangan", keterangan);
+                    cmd.Parameters.Add("@status", status);
+                    ids = (int)cmd.ExecuteScalar();
+                    cmd.Dispose();
+                    return ids;
+                }
+            }
+        }
     }
 }

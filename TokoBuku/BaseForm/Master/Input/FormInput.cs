@@ -55,5 +55,10 @@ namespace TokoBuku.BaseForm.Master.Input
             form.type_of = form.type_of_supplier;
             return form;
         }
+        public static FormInputDataKasir Kasir()
+        {
+            FormInputDataKasir form = new FormInputDataKasir();
+            return form;
+        }
     }
 }

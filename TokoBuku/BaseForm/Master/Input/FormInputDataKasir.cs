@@ -9,9 +9,16 @@ using System.Windows.Forms;
 
 namespace TokoBuku.BaseForm.Master.Input
 {
-    public partial class FormDataKasir : Form
+    public partial class FormInputDataKasir : Form
     {
-        public FormDataKasir()
+        public string Namavalue { get; set; }
+        public string UserNameValue { get; set; }
+        public string PasswordValue { get; set; }
+        public string KeteranganValue { get; set; }
+        public string AlamatValue { get; set; }
+        public string NoHpValue { get; set; }
+        public string StatusValue { get; set; }
+        public FormInputDataKasir()
         {
             InitializeComponent();
         }
@@ -49,10 +56,14 @@ namespace TokoBuku.BaseForm.Master.Input
             }
             else
             {
-                string message = "DATA TERSIMPAN\n" +
-                    $"NAMA PETUGAS KASIR: {textBoxNama.Text}\n" +
-                    $"USERNAME: {textBoxUserName.Text}";
-                ShowSaved(message);
+                this.Namavalue = this.textBoxNama.Text;
+                this.UserNameValue = this.textBoxUserName.Text;
+                this.PasswordValue = this.textBoxPassword.Text;
+                this.AlamatValue = this.textBoxAlamat.Text;
+                this.NoHpValue = this.maskedTextBoxNoHP.Text;
+                this.KeteranganValue = this.richTextBox1.Text;
+
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }

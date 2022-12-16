@@ -82,5 +82,13 @@ namespace TokoBuku.DbUtility
             da.Dispose();
             return dt;
         }
+        public static DataTable Kasir()
+        {
+            DataTable dt = new DataTable();
+            FbDataAdapter da = new FbDataAdapter("select * from kasir", ConnectDB.Connetc());
+            da.Fill(dt);
+            da.Dispose();
+            return dt;
+        }
     }
 }
