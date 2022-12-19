@@ -6,6 +6,9 @@ using FirebirdSql.Data.FirebirdClient;
 
 namespace TokoBuku.DbUtility
 {
+    /// <summary>
+    /// Save Data to DB
+    /// </summary>
     static public class DbSaveData
     {
         static public int Pelanggan(string nama, string alamat, string email, string no_hp, string keterangan, string status="AKTIF")
@@ -101,5 +104,46 @@ namespace TokoBuku.DbUtility
                 }
             }
         }
+
+        static public int Rak(string nama, string keterangan, string status = "AKTIF")
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                int ids;
+                var query = "insert into rak (nama, keterangan, status) " +
+                    "values (@nama, @keterangan, @status) " +
+                    "returning Id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama);
+                    cmd.Parameters.Add("@keterangan", keterangan);
+                    cmd.Parameters.Add("@status", status);
+                    ids = (int)cmd.ExecuteScalar();
+                    cmd.Dispose();
+                    return ids;
+                }
+            }
+        }
+        /*static public int Rak(string nama, string keterangan, string status = "AKTIF")
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                int ids;
+                var query = "insert into rak (nama, keterangan, status) " +
+                    "values (@nama, @keterangan, @status) " +
+                    "returning Id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama);
+                    cmd.Parameters.Add("@keterangan", keterangan);
+                    cmd.Parameters.Add("@status", status);
+                    ids = (int)cmd.ExecuteScalar();
+                    cmd.Dispose();
+                    return ids;
+                }
+            }
+        }*/
     }
 }

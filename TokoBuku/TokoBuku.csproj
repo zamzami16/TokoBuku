@@ -109,7 +109,6 @@
       <DependentUpon>FormMasterViewBarang.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInput.cs" />
-    <Compile Include="DbUtility\AddToDB.cs" />
     <Compile Include="DbUtility\ConnectDB.cs" />
     <Compile Include="DbUtility\DbDeleteData.cs" />
     <Compile Include="DbUtility\DbEditData.cs" />
@@ -151,6 +150,9 @@
       <DependentUpon>FormMasterDataViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="DbUtility\DbSaveData.cs" />
+    <Compile Include="DbUtility\DbSearchLoadData.cs" />
+    <Compile Include="DbUtility\Etc.cs" />
+    <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />
     <Compile Include="DbUtility\Transactions\TBarang.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

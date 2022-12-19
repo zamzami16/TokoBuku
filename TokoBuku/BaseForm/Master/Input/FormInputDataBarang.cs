@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TokoBuku.DbUtility;
+using TokoBuku.BaseForm.Master.Input;
 
 namespace TokoBuku.BaseForm.Master.Input
 {
@@ -35,6 +36,7 @@ namespace TokoBuku.BaseForm.Master.Input
         public string KategoriText { get; set; }
         public string PenerbitText { get; set; }
         public string RakText { get; set; }
+        public string KodeBarang { get; set; }
         #endregion
 
 
@@ -57,7 +59,6 @@ namespace TokoBuku.BaseForm.Master.Input
         {
             // set variable for each control
             double harga, diskon;
-
 
             if (string.IsNullOrWhiteSpace(textBoxNamaBarang.Text))
             {
@@ -88,10 +89,6 @@ namespace TokoBuku.BaseForm.Master.Input
             {
                 ShowErrorPrompt("DATA PENERBIT TIDAK BOLEH KOSONG");
             }
-            else if (string.IsNullOrWhiteSpace(textBoxBarCode.Text))
-            {
-                ShowErrorPrompt("DATA BARCODE TIDAK BOLEH KOSONG");
-            }
             else if (string.IsNullOrWhiteSpace(comboBoxStatus.Text))
             {
                 comboBoxStatus.Text = "AKTIF";
@@ -99,6 +96,7 @@ namespace TokoBuku.BaseForm.Master.Input
             else
             {
                 this.NamaBarang = textBoxNamaBarang.Text;
+                this.KodeBarang = textBoxKode.Text;
                 this.Harga = harga;
                 this.Diskon = diskon;
                 this.Rak = this.comboBoxRak.SelectedValue.ToString();
@@ -130,8 +128,7 @@ namespace TokoBuku.BaseForm.Master.Input
         {
             /// Add Member to Rak
             /// 
-            var rakTable = new DataTable();
-            rakTable = DbLoadData.Rak(ConnectDB.Connetc());
+            var rakTable = DbLoadData.Rak();
             this.comboBoxRak.DataSource = rakTable;
             this.comboBoxRak.DisplayMember = "NAMA";
             this.comboBoxRak.ValueMember = "ID";
@@ -153,7 +150,15 @@ namespace TokoBuku.BaseForm.Master.Input
 
         private void buttonTambahRak_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (var form = FormInput.Rak())
+            {
+                form.ShowDialog();
+                var nama = form.ValueName;
+                var keterangan = form.ValueKeterangan;
+
+                var id = TokoBuku.DbUtility.DbSaveData.Rak(nama: nama, keterangan: keterangan, status: "AKTIF");
+            }
         }
 
         private void buttonTambahKategori_Click(object sender, EventArgs e)
@@ -170,7 +175,7 @@ namespace TokoBuku.BaseForm.Master.Input
         private void richTextBoxKeterangan_Move(object sender, EventArgs e)
         {
             //this.ActiveControl = this.buttonSaveData;
-            this.buttonSaveData.Focus();
+            //this.buttonSaveData.Focus();
         }
 
         public void SetToEditForm()
@@ -178,6 +183,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.Text = this.NamaForm;
             this.labelTitle.Text = this.TitleForm;
             this.textBoxNamaBarang.Text = this.NamaBarang;
+            this.textBoxKode.Text = this.KodeBarang;
             this.comboBoxKategori.Text = this.Kategori;
             this.comboBoxPenerbit.Text = this.Penerbit;
             this.comboBoxRak.Text = this.Rak;
@@ -187,6 +193,67 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxPenulis.Text = this.Penulis;
             this.textBoxDiskon.Text = this.Diskon.ToString();
             this.textBoxBarCode.Text = this.BarCode;
+            this.textBoxKode.Enabled = false;
+            this.buttonGenerateKode.Enabled=false;
+        }
+
+        private void buttonGenerateKode_Click(object sender, EventArgs e)
+        {
+            string kode_ = "B";
+            var last_kode_db = TokoBuku.DbUtility.Etc.GetLastKodeBarang();
+            if (last_kode_db.Length > 1)
+            {
+                var num_last_kode_db = Convert.ToInt32(last_kode_db.Remove(0, 1)).ToString();
+                var len_ = num_last_kode_db.Length;
+                string dump = "B";
+                for (int i = len_; i < 8; i++)
+                {
+                    if (i == 7)
+                    {
+                        dump = string.Concat(dump, (Convert.ToInt32(num_last_kode_db) + 1).ToString());
+                    }
+                    else
+                    {
+                        dump = string.Concat(dump, "0");
+                    }
+                }
+                textBoxKode.Text = dump;
+                //MessageBox.Show(len_.ToString());
+            }
+            else
+            {
+                textBoxKode.Text = "B0000001";
+            }
+        }
+
+        private void buttonGenerateBarCode_Click(object sender, EventArgs e)
+        {
+            var dt = TokoBuku.DbUtility.Etc.GenerateBarCode();
+            Random rnd = new Random();
+            while (true)
+            {
+                string calon_barcode = rnd.Next().ToString();
+                bool contains = dt.AsEnumerable().Any(row => calon_barcode == row.Field<String>("BARCODE"));
+                if (!contains)
+                {
+                    this.textBoxBarCode.Text = calon_barcode;
+                    break;
+                }
+            }
+            /*if (dt.Columns["BARCODE"])
+            {
+                Random rnd = new Random();
+                string calon_barcode = rnd.Next().ToString();
+                // check existing data
+                bool contains = dt.AsEnumerable().Any(row => calon_barcode == row.Field<String>("BARCODE"));
+                MessageBox.Show(contains.ToString());
+            }
+            else
+            {
+                Random rnd = new Random();
+                string calon_barcode = rnd.Next().ToString();
+                this.textBoxBarCode.Text = calon_barcode;
+            }*/
         }
     }
 }

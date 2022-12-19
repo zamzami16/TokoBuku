@@ -56,6 +56,7 @@ namespace TokoBuku
             this.lAPORANToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.Size = new System.Drawing.Size(564, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
@@ -80,7 +81,7 @@ namespace TokoBuku
             this.PenerbitBukuToolStripMenuItem,
             this.rAKBUKUToolStripMenuItem});
             this.DataBarangToolStripMenuItem.Name = "DataBarangToolStripMenuItem";
-            this.DataBarangToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.DataBarangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.DataBarangToolStripMenuItem.Text = "DATA BARANG";
             this.DataBarangToolStripMenuItem.ToolTipText = "Tampilkan Data Barang";
             this.DataBarangToolStripMenuItem.Click += new System.EventHandler(this.DataBarangToolStripMenuItem_Click);
@@ -109,7 +110,7 @@ namespace TokoBuku
             // DataSupplierToolStripMenuItem
             // 
             this.DataSupplierToolStripMenuItem.Name = "DataSupplierToolStripMenuItem";
-            this.DataSupplierToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.DataSupplierToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.DataSupplierToolStripMenuItem.Text = "DATA SUPPLIER";
             this.DataSupplierToolStripMenuItem.ToolTipText = "Tampilkan Data Supplier";
             this.DataSupplierToolStripMenuItem.Click += new System.EventHandler(this.DataSupplierToolStripMenuItem_Click);
@@ -117,7 +118,7 @@ namespace TokoBuku
             // DataPelangganToolStripMenuItem
             // 
             this.DataPelangganToolStripMenuItem.Name = "DataPelangganToolStripMenuItem";
-            this.DataPelangganToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.DataPelangganToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.DataPelangganToolStripMenuItem.Text = "DATA PELANGGAN";
             this.DataPelangganToolStripMenuItem.ToolTipText = "Tampilkan Data Pelanggan";
             this.DataPelangganToolStripMenuItem.Click += new System.EventHandler(this.DataPelangganToolStripMenuItem_Click);
@@ -125,14 +126,14 @@ namespace TokoBuku
             // DataKasirToolStripMenuItem
             // 
             this.DataKasirToolStripMenuItem.Name = "DataKasirToolStripMenuItem";
-            this.DataKasirToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.DataKasirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.DataKasirToolStripMenuItem.Text = "DATA KASIR";
             this.DataKasirToolStripMenuItem.Click += new System.EventHandler(this.DataKasirToolStripMenuItem_Click);
             // 
             // DataKasMasterToolStripMenuItem
             // 
             this.DataKasMasterToolStripMenuItem.Name = "DataKasMasterToolStripMenuItem";
-            this.DataKasMasterToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.DataKasMasterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.DataKasMasterToolStripMenuItem.Text = "DATA KAS";
             this.DataKasMasterToolStripMenuItem.Click += new System.EventHandler(this.KasMasterToolStripMenuItem_Click);
             // 
@@ -148,14 +149,14 @@ namespace TokoBuku
             // PenjualanToolStripMenuItem
             // 
             this.PenjualanToolStripMenuItem.Name = "PenjualanToolStripMenuItem";
-            this.PenjualanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.PenjualanToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.PenjualanToolStripMenuItem.Text = "PENJUALAN";
             this.PenjualanToolStripMenuItem.Click += new System.EventHandler(this.PenjualanToolStripMenuItem_Click);
             // 
             // PembelianToolStripMenuItem
             // 
             this.PembelianToolStripMenuItem.Name = "PembelianToolStripMenuItem";
-            this.PembelianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.PembelianToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.PembelianToolStripMenuItem.Text = "PEMBELIAN";
             this.PembelianToolStripMenuItem.Click += new System.EventHandler(this.PembelianToolStripMenuItem_Click);
             // 

@@ -34,6 +34,10 @@ namespace TokoBuku.BaseForm.Master.Input
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonGenerateBarCode = new System.Windows.Forms.Button();
+            this.buttonGenerateKode = new System.Windows.Forms.Button();
+            this.textBoxKode = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.richTextBoxKeterangan = new System.Windows.Forms.RichTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.numericStock = new System.Windows.Forms.NumericUpDown();
@@ -103,6 +107,10 @@ namespace TokoBuku.BaseForm.Master.Input
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonGenerateBarCode);
+            this.panel1.Controls.Add(this.buttonGenerateKode);
+            this.panel1.Controls.Add(this.textBoxKode);
+            this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.richTextBoxKeterangan);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.numericStock);
@@ -136,6 +144,48 @@ namespace TokoBuku.BaseForm.Master.Input
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(571, 386);
             this.panel1.TabIndex = 1;
+            // 
+            // buttonGenerateBarCode
+            // 
+            this.buttonGenerateBarCode.Image = ((System.Drawing.Image)(resources.GetObject("buttonGenerateBarCode.Image")));
+            this.buttonGenerateBarCode.Location = new System.Drawing.Point(521, 252);
+            this.buttonGenerateBarCode.Name = "buttonGenerateBarCode";
+            this.buttonGenerateBarCode.Size = new System.Drawing.Size(29, 23);
+            this.buttonGenerateBarCode.TabIndex = 32;
+            this.buttonGenerateBarCode.TabStop = false;
+            this.toolTip1.SetToolTip(this.buttonGenerateBarCode, "Generate");
+            this.buttonGenerateBarCode.UseVisualStyleBackColor = true;
+            this.buttonGenerateBarCode.Click += new System.EventHandler(this.buttonGenerateBarCode_Click);
+            // 
+            // buttonGenerateKode
+            // 
+            this.buttonGenerateKode.Image = ((System.Drawing.Image)(resources.GetObject("buttonGenerateKode.Image")));
+            this.buttonGenerateKode.Location = new System.Drawing.Point(224, 88);
+            this.buttonGenerateKode.Name = "buttonGenerateKode";
+            this.buttonGenerateKode.Size = new System.Drawing.Size(29, 23);
+            this.buttonGenerateKode.TabIndex = 31;
+            this.buttonGenerateKode.TabStop = false;
+            this.toolTip1.SetToolTip(this.buttonGenerateKode, "Generate");
+            this.buttonGenerateKode.UseVisualStyleBackColor = true;
+            this.buttonGenerateKode.Click += new System.EventHandler(this.buttonGenerateKode_Click);
+            // 
+            // textBoxKode
+            // 
+            this.textBoxKode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBoxKode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxKode.Location = new System.Drawing.Point(25, 88);
+            this.textBoxKode.Name = "textBoxKode";
+            this.textBoxKode.Size = new System.Drawing.Size(193, 23);
+            this.textBoxKode.TabIndex = 30;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(25, 72);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(37, 13);
+            this.label13.TabIndex = 29;
+            this.label13.Text = "KODE";
             // 
             // richTextBoxKeterangan
             // 
@@ -172,9 +222,9 @@ namespace TokoBuku.BaseForm.Master.Input
             // buttonTambahPenerbit
             // 
             this.buttonTambahPenerbit.Image = ((System.Drawing.Image)(resources.GetObject("buttonTambahPenerbit.Image")));
-            this.buttonTambahPenerbit.Location = new System.Drawing.Point(521, 78);
+            this.buttonTambahPenerbit.Location = new System.Drawing.Point(521, 88);
             this.buttonTambahPenerbit.Name = "buttonTambahPenerbit";
-            this.buttonTambahPenerbit.Size = new System.Drawing.Size(29, 33);
+            this.buttonTambahPenerbit.Size = new System.Drawing.Size(29, 24);
             this.buttonTambahPenerbit.TabIndex = 26;
             this.buttonTambahPenerbit.TabStop = false;
             this.toolTip1.SetToolTip(this.buttonTambahPenerbit, "Tambah Data");
@@ -184,9 +234,9 @@ namespace TokoBuku.BaseForm.Master.Input
             // buttonTambahKategori
             // 
             this.buttonTambahKategori.Image = ((System.Drawing.Image)(resources.GetObject("buttonTambahKategori.Image")));
-            this.buttonTambahKategori.Location = new System.Drawing.Point(521, 26);
+            this.buttonTambahKategori.Location = new System.Drawing.Point(521, 35);
             this.buttonTambahKategori.Name = "buttonTambahKategori";
-            this.buttonTambahKategori.Size = new System.Drawing.Size(29, 33);
+            this.buttonTambahKategori.Size = new System.Drawing.Size(29, 24);
             this.buttonTambahKategori.TabIndex = 25;
             this.buttonTambahKategori.TabStop = false;
             this.toolTip1.SetToolTip(this.buttonTambahKategori, "Tambah Data");
@@ -196,9 +246,9 @@ namespace TokoBuku.BaseForm.Master.Input
             // buttonTambahRak
             // 
             this.buttonTambahRak.Image = ((System.Drawing.Image)(resources.GetObject("buttonTambahRak.Image")));
-            this.buttonTambahRak.Location = new System.Drawing.Point(216, 188);
+            this.buttonTambahRak.Location = new System.Drawing.Point(224, 197);
             this.buttonTambahRak.Name = "buttonTambahRak";
-            this.buttonTambahRak.Size = new System.Drawing.Size(29, 33);
+            this.buttonTambahRak.Size = new System.Drawing.Size(29, 24);
             this.buttonTambahRak.TabIndex = 24;
             this.buttonTambahRak.TabStop = false;
             this.toolTip1.SetToolTip(this.buttonTambahRak, "Tambah Data");
@@ -249,7 +299,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.comboBoxRak.FormattingEnabled = true;
             this.comboBoxRak.Location = new System.Drawing.Point(25, 197);
             this.comboBoxRak.Name = "comboBoxRak";
-            this.comboBoxRak.Size = new System.Drawing.Size(185, 24);
+            this.comboBoxRak.Size = new System.Drawing.Size(193, 24);
             this.comboBoxRak.TabIndex = 14;
             // 
             // comboBoxPenerbit
@@ -274,7 +324,7 @@ namespace TokoBuku.BaseForm.Master.Input
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(113, 146);
+            this.label11.Location = new System.Drawing.Point(233, 147);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(20, 17);
             this.label11.TabIndex = 14;
@@ -284,18 +334,21 @@ namespace TokoBuku.BaseForm.Master.Input
             // 
             this.textBoxDiskon.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxDiskon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDiskon.Location = new System.Drawing.Point(25, 143);
+            this.textBoxDiskon.Location = new System.Drawing.Point(188, 144);
             this.textBoxDiskon.Name = "textBoxDiskon";
-            this.textBoxDiskon.Size = new System.Drawing.Size(86, 23);
+            this.textBoxDiskon.Size = new System.Drawing.Size(41, 23);
             this.textBoxDiskon.TabIndex = 13;
+            this.textBoxDiskon.Text = "0";
+            this.textBoxDiskon.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.textBoxDiskon, "Diskon");
             // 
             // textBoXHarga
             // 
             this.textBoXHarga.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoXHarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoXHarga.Location = new System.Drawing.Point(25, 88);
+            this.textBoXHarga.Location = new System.Drawing.Point(25, 143);
             this.textBoXHarga.Name = "textBoXHarga";
-            this.textBoXHarga.Size = new System.Drawing.Size(221, 23);
+            this.textBoXHarga.Size = new System.Drawing.Size(156, 23);
             this.textBoXHarga.TabIndex = 12;
             // 
             // textBoxNamaBarang
@@ -304,7 +357,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxNamaBarang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNamaBarang.Location = new System.Drawing.Point(25, 35);
             this.textBoxNamaBarang.Name = "textBoxNamaBarang";
-            this.textBoxNamaBarang.Size = new System.Drawing.Size(221, 23);
+            this.textBoxNamaBarang.Size = new System.Drawing.Size(228, 23);
             this.textBoxNamaBarang.TabIndex = 11;
             // 
             // label10
@@ -356,7 +409,7 @@ namespace TokoBuku.BaseForm.Master.Input
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(22, 127);
+            this.label5.Location = new System.Drawing.Point(185, 128);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 5;
@@ -392,7 +445,7 @@ namespace TokoBuku.BaseForm.Master.Input
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 72);
+            this.label1.Location = new System.Drawing.Point(22, 127);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 1;
@@ -419,16 +472,15 @@ namespace TokoBuku.BaseForm.Master.Input
             // 
             // buttonSaveData
             // 
-            this.buttonSaveData.BackColor = System.Drawing.SystemColors.ControlLight;
             this.buttonSaveData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSaveData.Location = new System.Drawing.Point(25, 3);
             this.buttonSaveData.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
             this.buttonSaveData.Name = "buttonSaveData";
             this.buttonSaveData.Size = new System.Drawing.Size(75, 32);
-            this.buttonSaveData.TabIndex = 22;
+            this.buttonSaveData.TabIndex = 24;
             this.buttonSaveData.Text = "SIMPAN";
             this.toolTip1.SetToolTip(this.buttonSaveData, "SIMPAN DATA");
-            this.buttonSaveData.UseVisualStyleBackColor = false;
+            this.buttonSaveData.UseVisualStyleBackColor = true;
             this.buttonSaveData.Click += new System.EventHandler(this.buttonSaveData_Click);
             // 
             // buttonCancel
@@ -443,11 +495,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // toolTip1
-            // 
-            //this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
-            // 
-            // FormDataBarang
+            // FormInputDataBarang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -456,7 +504,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormDataBarang";
+            this.Name = "FormInputDataBarang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TAMBAH DATA BARANG";
             this.Load += new System.EventHandler(this.FormDataBarang_Load);
@@ -502,10 +550,14 @@ namespace TokoBuku.BaseForm.Master.Input
         private System.Windows.Forms.Button buttonTambahPenerbit;
         private System.Windows.Forms.Button buttonTambahKategori;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonSaveData;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.NumericUpDown numericStock;
         private System.Windows.Forms.RichTextBox richTextBoxKeterangan;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button buttonGenerateBarCode;
+        private System.Windows.Forms.Button buttonGenerateKode;
+        private System.Windows.Forms.TextBox textBoxKode;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button buttonSaveData;
     }
 }

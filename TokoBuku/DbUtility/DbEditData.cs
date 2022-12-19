@@ -98,5 +98,25 @@ namespace TokoBuku.DbUtility
 
             }
         }
+        public static void Rak(int Ids, string nama, string keterangan, string status="AKTIF")
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "update rak " +
+                    "set nama=@nama, keterangan=@keterangan, status=@status " +
+                    "where id=@id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama);
+                    cmd.Parameters.Add("@keterangan", keterangan);
+                    cmd.Parameters.Add("@status", status);
+                    cmd.Parameters.Add("@id", Ids);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+
+            }
+        }
     }
 }

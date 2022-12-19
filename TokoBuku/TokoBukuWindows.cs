@@ -1,29 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using TokoBuku.BaseForm.Transaksi;
 using TokoBuku.BaseForm.Master;
+using TokoBuku.BaseForm.Transaksi;
 
 namespace TokoBuku
 {
     public partial class TokoBukuWindows : Form
     {
-        public Penjualan formPenjualanView;
-        public Pembelian formPembelianView;
-        public FormMasterViewKategori formKategoriView;
-        public FormMasterViewBarang formBarangView;
-        public FormMasterViewPenerbit formPenerbitView;
-        public FormMasterViewRak formRakView;
-        public FormMasterViewSupplier formSupplierView;
-        public FormMasterViewPelanggan formPelangganView;
-        public FormMasterViewKasir formKasirView;
-        public FormMasterViewKasMaster formKasView;
-        
+        private Penjualan formPenjualanView;
+        private Pembelian formPembelianView;
+        private FormMasterViewKategori formKategoriView;
+        private FormMasterViewBarang formBarangView;
+        private FormMasterViewPenerbit formPenerbitView;
+        private FormMasterViewRak formRakView;
+        private FormMasterViewSupplier formSupplierView;
+        private FormMasterViewPelanggan formPelangganView;
+        private FormMasterViewKasir formKasirView;
+        private FormMasterViewKasMaster formKasView;
+
 
         public TokoBukuWindows()
         {
@@ -37,6 +32,12 @@ namespace TokoBuku
             this.formBarangView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.formBarangView.Dock = DockStyle.Fill;
             this.formBarangView.Show();
+
+            /*this.formPenjualanView = new Penjualan();
+            this.formPenjualanView.MdiParent = this;
+            this.formPenjualanView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
+            this.formPenjualanView.Dock = DockStyle.Fill;
+            this.formPenjualanView.Show();*/
         }
 
         private void DataBarangToolStripMenuItem_Click(object sender, EventArgs e)
@@ -160,6 +161,6 @@ namespace TokoBuku
             //this.formMasterView.SetDataGridSource(dt);
         }
 
-        
+
     }
 }

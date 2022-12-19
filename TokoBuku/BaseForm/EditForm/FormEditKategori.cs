@@ -49,6 +49,7 @@ namespace TokoBuku.BaseForm.EditForm
             {
                 this.DialogResult = DialogResult.OK;
                 this.ChangedName = textBoxNamaGanti.Text;
+                this.Keterangan = richTextBoxKeterangan.Text;
                 this.Close();
             }
         }

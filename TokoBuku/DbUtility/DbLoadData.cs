@@ -29,27 +29,32 @@ namespace TokoBuku.DbUtility
             return dt;
         }
 
-        public static DataTable Rak(FbConnection conn)
+        public static DataTable Rak()
         {
             DataTable dt = new DataTable();
-            FbDataAdapter da = new FbDataAdapter("select * from rak", conn);
+            FbDataAdapter da = new FbDataAdapter("select * from rak", ConnectDB.Connetc());
             //da.SelectCommand.Parameters.Add("@id", 123);
             da.Fill(dt);
             da.Dispose();
             return dt;
         }
 
-        public static DataTable Barang(FbConnection conn)
+        public static DataTable Barang()
         {
             DataTable dt = new DataTable();
             var query = "select "+
-                "b.id_barang, b.nama_barang, p.nama_penerbit, k.nama, rak.nama, b.stock, " +
-                "b.harga, b.isbn, b.penulis, b.diskon, b.status, b.barcode, b.keterangan " +
-                "from barang b " +
-                "INNER JOIN kategori k ON b.id_kategori = k.id " +
-                "INNER JOIN penerbit p ON b.id_penerbit = p.id " +
+                "b.id_barang, " +
+                "kode, " +
+                "b.nama_barang as Nama_Barang, " +
+                "p.nama_penerbit as Penerbit, " +
+                "k.nama as Kategori, " +
+                "rak.nama as Rak, " +
+                "b.stock, b.harga, b.isbn, b.penulis, b.diskon, b.status, b.barcode, b.keterangan " +
+                "from barang as b " +
+                "INNER JOIN kategori as k ON b.id_kategori = k.id " +
+                "INNER JOIN penerbit as p ON b.id_penerbit = p.id " +
                 "INNER JOIN rak ON b.id_rak = rak.id;";
-            FbDataAdapter da = new FbDataAdapter(query, conn);
+            FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
             da.Fill(dt);
             da.Dispose();
             return dt;

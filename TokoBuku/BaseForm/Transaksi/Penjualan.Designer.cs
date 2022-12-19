@@ -33,7 +33,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutPanelUtama = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.tableLayoutJenisPembayaran = new System.Windows.Forms.TableLayoutPanel();
-            this.label18 = new System.Windows.Forms.Label();
+            this.labelDp = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.comboJenisBayar = new System.Windows.Forms.ComboBox();
@@ -42,7 +42,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxPembayaranAwal = new System.Windows.Forms.TextBox();
             this.tableLayoutPanelAtas = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -51,7 +51,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label5 = new System.Windows.Forms.Label();
             this.buttonAdmin = new System.Windows.Forms.Button();
             this.buttonPelanggan = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelNoTransaksi = new System.Windows.Forms.Label();
             this.labelKasir = new System.Windows.Forms.Label();
             this.comboBoxNamaPelangganAtas = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -61,7 +61,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.buttonBawahProcess = new System.Windows.Forms.Button();
             this.buttonBawahCancel = new System.Windows.Forms.Button();
             this.labelKembalian = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.labelkembali = new System.Windows.Forms.Label();
             this.tableLayoutPesanKas = new System.Windows.Forms.TableLayoutPanel();
             this.dateTimePickerJatuhTempo = new System.Windows.Forms.DateTimePicker();
             this.comboBoxJenisKas = new System.Windows.Forms.ComboBox();
@@ -72,20 +72,12 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label19 = new System.Windows.Forms.Label();
             this.textBoxKeterangan = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Kode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NamaBarang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Jumlah = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Satuan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Harga = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Diskon = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Hapus = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxNamaItem = new System.Windows.Forms.ComboBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.comboSatuan = new System.Windows.Forms.ComboBox();
             this.textBoxQty = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBoxNamaItem = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxKodeItem = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -148,14 +140,14 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutJenisPembayaran.ColumnCount = 2;
             this.tableLayoutJenisPembayaran.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.5316F));
             this.tableLayoutJenisPembayaran.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.4684F));
-            this.tableLayoutJenisPembayaran.Controls.Add(this.label18, 0, 3);
+            this.tableLayoutJenisPembayaran.Controls.Add(this.labelDp, 0, 3);
             this.tableLayoutJenisPembayaran.Controls.Add(this.label16, 0, 2);
             this.tableLayoutJenisPembayaran.Controls.Add(this.label15, 0, 1);
             this.tableLayoutJenisPembayaran.Controls.Add(this.comboJenisBayar, 1, 0);
             this.tableLayoutJenisPembayaran.Controls.Add(this.label10, 0, 0);
             this.tableLayoutJenisPembayaran.Controls.Add(this.labelSubTotal, 1, 1);
             this.tableLayoutJenisPembayaran.Controls.Add(this.flowLayoutPanel3, 1, 2);
-            this.tableLayoutJenisPembayaran.Controls.Add(this.textBox2, 1, 3);
+            this.tableLayoutJenisPembayaran.Controls.Add(this.textBoxPembayaranAwal, 1, 3);
             this.tableLayoutJenisPembayaran.Location = new System.Drawing.Point(0, 314);
             this.tableLayoutJenisPembayaran.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutJenisPembayaran.Name = "tableLayoutJenisPembayaran";
@@ -167,17 +159,17 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutJenisPembayaran.Size = new System.Drawing.Size(269, 112);
             this.tableLayoutJenisPembayaran.TabIndex = 6;
             // 
-            // label18
+            // labelDp
             // 
-            this.label18.AutoSize = true;
-            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(3, 83);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(138, 29);
-            this.label18.TabIndex = 7;
-            this.label18.Text = "Pembayaran Awal :";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelDp.AutoSize = true;
+            this.labelDp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelDp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDp.Location = new System.Drawing.Point(3, 83);
+            this.labelDp.Name = "labelDp";
+            this.labelDp.Size = new System.Drawing.Size(138, 29);
+            this.labelDp.TabIndex = 7;
+            this.labelDp.Text = "Pembayaran Awal :";
+            this.labelDp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label16
             // 
@@ -238,7 +230,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.labelSubTotal.Size = new System.Drawing.Size(119, 28);
             this.labelSubTotal.TabIndex = 4;
             this.labelSubTotal.Text = "0";
-            this.labelSubTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelSubTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // flowLayoutPanel3
             // 
@@ -258,6 +250,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(82, 23);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "0";
             // 
             // label17
             // 
@@ -271,17 +264,16 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label17.Text = "%";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox2
+            // textBoxPembayaranAwal
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(147, 86);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(119, 23);
-            this.textBox2.TabIndex = 8;
-            this.textBox2.Text = "0";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBoxPembayaranAwal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxPembayaranAwal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPembayaranAwal.Location = new System.Drawing.Point(147, 86);
+            this.textBoxPembayaranAwal.Name = "textBoxPembayaranAwal";
+            this.textBoxPembayaranAwal.Size = new System.Drawing.Size(119, 23);
+            this.textBoxPembayaranAwal.TabIndex = 8;
+            this.textBoxPembayaranAwal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxPembayaranAwal.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // tableLayoutPanelAtas
             // 
@@ -321,7 +313,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutPanel3.Controls.Add(this.label5, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.buttonAdmin, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.buttonPelanggan, 2, 2);
-            this.tableLayoutPanel3.Controls.Add(this.label3, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.labelNoTransaksi, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.labelKasir, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.comboBoxNamaPelangganAtas, 1, 2);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -390,17 +382,17 @@ namespace TokoBuku.BaseForm.Transaksi
             this.buttonPelanggan.UseVisualStyleBackColor = true;
             this.buttonPelanggan.Click += new System.EventHandler(this.buttonPelanggan_Click);
             // 
-            // label3
+            // labelNoTransaksi
             // 
-            this.label3.AutoSize = true;
-            this.tableLayoutPanel3.SetColumnSpan(this.label3, 2);
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(113, 28);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(180, 28);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "--AUTO--";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelNoTransaksi.AutoSize = true;
+            this.tableLayoutPanel3.SetColumnSpan(this.labelNoTransaksi, 2);
+            this.labelNoTransaksi.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelNoTransaksi.Location = new System.Drawing.Point(113, 28);
+            this.labelNoTransaksi.Name = "labelNoTransaksi";
+            this.labelNoTransaksi.Size = new System.Drawing.Size(180, 28);
+            this.labelNoTransaksi.TabIndex = 9;
+            this.labelNoTransaksi.Text = "--AUTO--";
+            this.labelNoTransaksi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelKasir
             // 
@@ -417,15 +409,10 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.comboBoxNamaPelangganAtas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxNamaPelangganAtas.FormattingEnabled = true;
-            this.comboBoxNamaPelangganAtas.Items.AddRange(new object[] {
-            "Umum",
-            "Pelanggan 1",
-            "Pelanggan 2"});
             this.comboBoxNamaPelangganAtas.Location = new System.Drawing.Point(113, 59);
             this.comboBoxNamaPelangganAtas.Name = "comboBoxNamaPelangganAtas";
             this.comboBoxNamaPelangganAtas.Size = new System.Drawing.Size(114, 21);
             this.comboBoxNamaPelangganAtas.TabIndex = 12;
-            this.comboBoxNamaPelangganAtas.Text = "--Umum--";
             // 
             // tableLayoutPanel2
             // 
@@ -463,7 +450,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutPanelBayarTombol.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelBayarTombol.Controls.Add(this.flowLayoutPanel2, 0, 2);
             this.tableLayoutPanelBayarTombol.Controls.Add(this.labelKembalian, 0, 1);
-            this.tableLayoutPanelBayarTombol.Controls.Add(this.label12, 0, 0);
+            this.tableLayoutPanelBayarTombol.Controls.Add(this.labelkembali, 0, 0);
             this.tableLayoutPanelBayarTombol.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanelBayarTombol.Location = new System.Drawing.Point(648, 314);
             this.tableLayoutPanelBayarTombol.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
@@ -520,15 +507,15 @@ namespace TokoBuku.BaseForm.Transaksi
             this.labelKembalian.Text = "0";
             this.labelKembalian.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label12
+            // labelkembali
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(3, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(123, 17);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "Jumlah Kembalian";
+            this.labelkembali.AutoSize = true;
+            this.labelkembali.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelkembali.Location = new System.Drawing.Point(3, 0);
+            this.labelkembali.Name = "labelkembali";
+            this.labelkembali.Size = new System.Drawing.Size(123, 17);
+            this.labelkembali.TabIndex = 6;
+            this.labelkembali.Text = "Jumlah Kembalian";
             // 
             // tableLayoutPesanKas
             // 
@@ -649,15 +636,6 @@ namespace TokoBuku.BaseForm.Transaksi
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Kode,
-            this.NamaBarang,
-            this.Jumlah,
-            this.Satuan,
-            this.Harga,
-            this.Diskon,
-            this.Total,
-            this.Hapus});
             this.tableLayoutPanelUtama.SetColumnSpan(this.dataGridView1, 3);
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 188);
@@ -665,99 +643,44 @@ namespace TokoBuku.BaseForm.Transaksi
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(792, 101);
             this.dataGridView1.TabIndex = 2;
-            // 
-            // Kode
-            // 
-            this.Kode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Kode.FillWeight = 10F;
-            this.Kode.HeaderText = "Kode";
-            this.Kode.Name = "Kode";
-            this.Kode.ReadOnly = true;
-            this.Kode.ToolTipText = "Kode";
-            // 
-            // NamaBarang
-            // 
-            this.NamaBarang.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NamaBarang.FillWeight = 30F;
-            this.NamaBarang.HeaderText = "Nama Barang";
-            this.NamaBarang.Name = "NamaBarang";
-            this.NamaBarang.ReadOnly = true;
-            // 
-            // Jumlah
-            // 
-            this.Jumlah.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Jumlah.FillWeight = 10F;
-            this.Jumlah.HeaderText = "Jumlah";
-            this.Jumlah.Name = "Jumlah";
-            this.Jumlah.ReadOnly = true;
-            // 
-            // Satuan
-            // 
-            this.Satuan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Satuan.FillWeight = 10F;
-            this.Satuan.HeaderText = "Satuan";
-            this.Satuan.Name = "Satuan";
-            this.Satuan.ReadOnly = true;
-            // 
-            // Harga
-            // 
-            this.Harga.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Harga.FillWeight = 10F;
-            this.Harga.HeaderText = "Harga";
-            this.Harga.Name = "Harga";
-            this.Harga.ReadOnly = true;
-            // 
-            // Diskon
-            // 
-            this.Diskon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Diskon.FillWeight = 10F;
-            this.Diskon.HeaderText = "Diskon";
-            this.Diskon.Name = "Diskon";
-            this.Diskon.ReadOnly = true;
-            // 
-            // Total
-            // 
-            this.Total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Total.FillWeight = 10F;
-            this.Total.HeaderText = "Total";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            // 
-            // Hapus
-            // 
-            this.Hapus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Hapus.HeaderText = "Hapus";
-            this.Hapus.Name = "Hapus";
-            this.Hapus.ReadOnly = true;
-            this.Hapus.Width = 50;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanelUtama.SetColumnSpan(this.panel1, 3);
+            this.panel1.Controls.Add(this.textBoxNamaItem);
             this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Controls.Add(this.comboSatuan);
             this.panel1.Controls.Add(this.textBoxQty);
             this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.textBoxNamaItem);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.textBoxKodeItem);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Location = new System.Drawing.Point(3, 138);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(613, 34);
+            this.panel1.Size = new System.Drawing.Size(620, 34);
             this.panel1.TabIndex = 7;
+            // 
+            // textBoxNamaItem
+            // 
+            this.textBoxNamaItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNamaItem.FormattingEnabled = true;
+            this.textBoxNamaItem.Location = new System.Drawing.Point(261, 3);
+            this.textBoxNamaItem.Name = "textBoxNamaItem";
+            this.textBoxNamaItem.Size = new System.Drawing.Size(144, 24);
+            this.textBoxNamaItem.TabIndex = 7;
             // 
             // buttonAdd
             // 
             this.buttonAdd.Image = ((System.Drawing.Image)(resources.GetObject("buttonAdd.Image")));
-            this.buttonAdd.Location = new System.Drawing.Point(565, 3);
+            this.buttonAdd.Location = new System.Drawing.Point(577, 3);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(34, 26);
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.button1_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // comboSatuan
             // 
@@ -768,7 +691,7 @@ namespace TokoBuku.BaseForm.Transaksi
             "Packs"});
             this.comboSatuan.Location = new System.Drawing.Point(505, 4);
             this.comboSatuan.Name = "comboSatuan";
-            this.comboSatuan.Size = new System.Drawing.Size(54, 24);
+            this.comboSatuan.Size = new System.Drawing.Size(66, 24);
             this.comboSatuan.TabIndex = 6;
             this.comboSatuan.Text = "Pcs";
             this.comboSatuan.Leave += new System.EventHandler(this.comboSatuan_Leave);
@@ -792,14 +715,6 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label8.Text = "Qty :";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBoxNamaItem
-            // 
-            this.textBoxNamaItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNamaItem.Location = new System.Drawing.Point(265, 5);
-            this.textBoxNamaItem.Name = "textBoxNamaItem";
-            this.textBoxNamaItem.Size = new System.Drawing.Size(129, 23);
-            this.textBoxNamaItem.TabIndex = 3;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -812,6 +727,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             // textBoxKodeItem
             // 
+            this.textBoxKodeItem.Enabled = false;
             this.textBoxKodeItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxKodeItem.Location = new System.Drawing.Point(94, 5);
             this.textBoxKodeItem.Name = "textBoxKodeItem";
@@ -822,6 +738,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Enabled = false;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(9, 8);
             this.label6.Name = "label6";
@@ -890,26 +807,17 @@ namespace TokoBuku.BaseForm.Transaksi
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonAdmin;
         private System.Windows.Forms.Button buttonPelanggan;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelNoTransaksi;
         private System.Windows.Forms.Label labelKasir;
         private System.Windows.Forms.ComboBox comboBoxNamaPelangganAtas;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxKodeItem;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxNamaItem;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxQty;
         private System.Windows.Forms.ComboBox comboSatuan;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Kode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NamaBarang;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Jumlah;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Satuan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Harga;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Diskon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Total;
-        private System.Windows.Forms.DataGridViewButtonColumn Hapus;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboJenisBayar;
@@ -917,7 +825,7 @@ namespace TokoBuku.BaseForm.Transaksi
         private System.Windows.Forms.Button buttonBawahProcess;
         private System.Windows.Forms.Button buttonBawahCancel;
         private System.Windows.Forms.ComboBox comboBoxJenisKas;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label labelkembali;
         private System.Windows.Forms.Label labelKembalian;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBayarTombol;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPesanKas;
@@ -926,14 +834,14 @@ namespace TokoBuku.BaseForm.Transaksi
         private System.Windows.Forms.DateTimePicker dateTimePickerTglPesanan;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TableLayoutPanel tableLayoutJenisPembayaran;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label labelDp;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label labelSubTotal;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxPembayaranAwal;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
@@ -941,5 +849,6 @@ namespace TokoBuku.BaseForm.Transaksi
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox textBoxKeterangan;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ComboBox textBoxNamaItem;
     }
 }
