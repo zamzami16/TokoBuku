@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using FirebirdSql.Data.FirebirdClient;
 
 namespace TokoBuku.DbUtility
@@ -125,12 +127,13 @@ namespace TokoBuku.DbUtility
                 }
             }
         }
-        /*static public int Rak(string nama, string keterangan, string status = "AKTIF")
+
+        static public int Kategori(string nama, string keterangan, string status = "AKTIF")
         {
             using (var con = ConnectDB.Connetc())
             {
                 int ids;
-                var query = "insert into rak (nama, keterangan, status) " +
+                var query = "insert into kategori (nama, keterangan, status) " +
                     "values (@nama, @keterangan, @status) " +
                     "returning Id;";
                 using (var cmd = new FbCommand(query, con))
@@ -144,6 +147,65 @@ namespace TokoBuku.DbUtility
                     return ids;
                 }
             }
-        }*/
+        }
+
+        static public int Penerbit(string nama, string keterangan, string status = "AKTIF")
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                int ids;
+                var query = "insert into penerbit (nama_penerbit, keterangan, status) " +
+                    "values (@nama, @keterangan, @status) " +
+                    "returning Id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama);
+                    cmd.Parameters.Add("@keterangan", keterangan);
+                    cmd.Parameters.Add("@status", status);
+                    ids = (int)cmd.ExecuteScalar();
+                    cmd.Dispose();
+                    return ids;
+                }
+            }
+        }
+
+        static public int Barang(int inIdKategori, int inIdPenerbit, int inIdRak, string inKode,
+            string inNama, int inStock, double inHarga, string inIsbn, string inPenulis, 
+            double inDiskon, string inStatus, string inBarCode, string inKeterngan)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                int ids;
+                if (inKode == "--OTOMATIS--")
+                {
+                    inKode = TokoBuku.DbUtility.Etc.GenerateKodeBarang();
+                }
+                var strSql = "INSERT INTO BARANG (ID_KATEGORI, ID_PENERBIT, ID_RAK, KODE, NAMA_BARANG, STOCK, HARGA, " +
+                    "ISBN, PENULIS, DISKON, STATUS, BARCODE, KETERANGAN) " +
+                    "VALUES (@kategori, @penerbit, @rak, @kode, @nama, @stock, @harga, @isbn, @penulis, @diskon, @status, " +
+                    "@barcode, @keterangan) returning ID_BARANG;";
+                using (var cmd = new FbCommand(strSql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@kategori", inIdKategori);
+                    cmd.Parameters.Add("@penerbit", inIdPenerbit);
+                    cmd.Parameters.Add("@rak", inIdRak);
+                    cmd.Parameters.Add("@kode", inKode);
+                    cmd.Parameters.Add("@nama", inNama);
+                    cmd.Parameters.Add("@stock", inStock);
+                    cmd.Parameters.Add("@harga", inHarga);
+                    cmd.Parameters.Add("@isbn", inIsbn);
+                    cmd.Parameters.Add("@penulis", inPenulis);
+                    cmd.Parameters.Add("@diskon", inDiskon);
+                    cmd.Parameters.Add("@status", "AKTIF");
+                    cmd.Parameters.Add("@barcode", inBarCode);
+                    cmd.Parameters.Add("@keterangan", inKeterngan);
+                    ids = (int)cmd.ExecuteScalar();
+                    cmd.Dispose();
+                }
+                return ids;
+            }
+        }
     }
 }

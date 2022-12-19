@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using FirebirdSql.Data.FirebirdClient;
@@ -72,6 +73,35 @@ namespace TokoBuku.DbUtility
             using (var con = ConnectDB.Connetc())
             {
                 var strSql = "DELETE FROM rak WHERE id=@id";
+                using (var cmd = new FbCommand(strSql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@id", Ids);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+        }
+        static public void Kategori(int Ids)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var strSql = "DELETE FROM KATEGORI WHERE id=@id";
+                using (var cmd = new FbCommand(strSql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@id", Ids);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+        }
+
+        static public void Penerbit(int Ids)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var strSql = "DELETE FROM penerbit WHERE id=@id";
                 using (var cmd = new FbCommand(strSql, con))
                 {
                     cmd.CommandType = CommandType.Text;

@@ -167,6 +167,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.buttonGenerateKode.TabStop = false;
             this.toolTip1.SetToolTip(this.buttonGenerateKode, "Generate");
             this.buttonGenerateKode.UseVisualStyleBackColor = true;
+            this.buttonGenerateKode.Visible = false;
             this.buttonGenerateKode.Click += new System.EventHandler(this.buttonGenerateKode_Click);
             // 
             // textBoxKode
@@ -176,7 +177,9 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxKode.Location = new System.Drawing.Point(25, 88);
             this.textBoxKode.Name = "textBoxKode";
             this.textBoxKode.Size = new System.Drawing.Size(193, 23);
-            this.textBoxKode.TabIndex = 30;
+            this.textBoxKode.TabIndex = 1;
+            this.textBoxKode.Text = "--OTOMATIS--";
+            this.textBoxKode.Leave += new System.EventHandler(this.textBoxKode_Leave);
             // 
             // label13
             // 
@@ -193,9 +196,8 @@ namespace TokoBuku.BaseForm.Master.Input
             this.richTextBoxKeterangan.Location = new System.Drawing.Point(25, 305);
             this.richTextBoxKeterangan.Name = "richTextBoxKeterangan";
             this.richTextBoxKeterangan.Size = new System.Drawing.Size(489, 76);
-            this.richTextBoxKeterangan.TabIndex = 21;
+            this.richTextBoxKeterangan.TabIndex = 11;
             this.richTextBoxKeterangan.Text = "";
-            this.richTextBoxKeterangan.Move += new System.EventHandler(this.richTextBoxKeterangan_Move);
             // 
             // label12
             // 
@@ -212,7 +214,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.numericStock.Location = new System.Drawing.Point(25, 252);
             this.numericStock.Name = "numericStock";
             this.numericStock.Size = new System.Drawing.Size(108, 23);
-            this.numericStock.TabIndex = 15;
+            this.numericStock.TabIndex = 5;
             this.numericStock.Value = new decimal(new int[] {
             1,
             0,
@@ -274,7 +276,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxBarCode.Location = new System.Drawing.Point(289, 252);
             this.textBoxBarCode.Name = "textBoxBarCode";
             this.textBoxBarCode.Size = new System.Drawing.Size(226, 23);
-            this.textBoxBarCode.TabIndex = 20;
+            this.textBoxBarCode.TabIndex = 10;
             // 
             // textBoxISBN
             // 
@@ -282,7 +284,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxISBN.Location = new System.Drawing.Point(289, 197);
             this.textBoxISBN.Name = "textBoxISBN";
             this.textBoxISBN.Size = new System.Drawing.Size(226, 23);
-            this.textBoxISBN.TabIndex = 19;
+            this.textBoxISBN.TabIndex = 9;
             // 
             // textBoxPenulis
             // 
@@ -291,7 +293,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxPenulis.Location = new System.Drawing.Point(289, 143);
             this.textBoxPenulis.Name = "textBoxPenulis";
             this.textBoxPenulis.Size = new System.Drawing.Size(226, 23);
-            this.textBoxPenulis.TabIndex = 18;
+            this.textBoxPenulis.TabIndex = 8;
             // 
             // comboBoxRak
             // 
@@ -300,7 +302,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.comboBoxRak.Location = new System.Drawing.Point(25, 197);
             this.comboBoxRak.Name = "comboBoxRak";
             this.comboBoxRak.Size = new System.Drawing.Size(193, 24);
-            this.comboBoxRak.TabIndex = 14;
+            this.comboBoxRak.TabIndex = 4;
             // 
             // comboBoxPenerbit
             // 
@@ -309,7 +311,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.comboBoxPenerbit.Location = new System.Drawing.Point(289, 88);
             this.comboBoxPenerbit.Name = "comboBoxPenerbit";
             this.comboBoxPenerbit.Size = new System.Drawing.Size(226, 24);
-            this.comboBoxPenerbit.TabIndex = 17;
+            this.comboBoxPenerbit.TabIndex = 7;
             // 
             // comboBoxKategori
             // 
@@ -318,7 +320,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.comboBoxKategori.Location = new System.Drawing.Point(289, 35);
             this.comboBoxKategori.Name = "comboBoxKategori";
             this.comboBoxKategori.Size = new System.Drawing.Size(226, 24);
-            this.comboBoxKategori.TabIndex = 16;
+            this.comboBoxKategori.TabIndex = 6;
             // 
             // label11
             // 
@@ -337,7 +339,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxDiskon.Location = new System.Drawing.Point(188, 144);
             this.textBoxDiskon.Name = "textBoxDiskon";
             this.textBoxDiskon.Size = new System.Drawing.Size(41, 23);
-            this.textBoxDiskon.TabIndex = 13;
+            this.textBoxDiskon.TabIndex = 3;
             this.textBoxDiskon.Text = "0";
             this.textBoxDiskon.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxDiskon, "Diskon");
@@ -349,7 +351,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoXHarga.Location = new System.Drawing.Point(25, 143);
             this.textBoXHarga.Name = "textBoXHarga";
             this.textBoXHarga.Size = new System.Drawing.Size(156, 23);
-            this.textBoXHarga.TabIndex = 12;
+            this.textBoXHarga.TabIndex = 2;
             // 
             // textBoxNamaBarang
             // 
@@ -358,7 +360,8 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxNamaBarang.Location = new System.Drawing.Point(25, 35);
             this.textBoxNamaBarang.Name = "textBoxNamaBarang";
             this.textBoxNamaBarang.Size = new System.Drawing.Size(228, 23);
-            this.textBoxNamaBarang.TabIndex = 11;
+            this.textBoxNamaBarang.TabIndex = 0;
+            this.textBoxNamaBarang.Leave += new System.EventHandler(this.textBoxNamaBarang_Leave);
             // 
             // label10
             // 
@@ -477,7 +480,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.buttonSaveData.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
             this.buttonSaveData.Name = "buttonSaveData";
             this.buttonSaveData.Size = new System.Drawing.Size(75, 32);
-            this.buttonSaveData.TabIndex = 24;
+            this.buttonSaveData.TabIndex = 12;
             this.buttonSaveData.Text = "SIMPAN";
             this.toolTip1.SetToolTip(this.buttonSaveData, "SIMPAN DATA");
             this.buttonSaveData.UseVisualStyleBackColor = true;
@@ -489,7 +492,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.buttonCancel.Location = new System.Drawing.Point(106, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 32);
-            this.buttonCancel.TabIndex = 23;
+            this.buttonCancel.TabIndex = 13;
             this.buttonCancel.Text = "BATAL";
             this.toolTip1.SetToolTip(this.buttonCancel, "KELUAR");
             this.buttonCancel.UseVisualStyleBackColor = true;

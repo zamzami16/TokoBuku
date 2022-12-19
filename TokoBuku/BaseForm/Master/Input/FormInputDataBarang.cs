@@ -52,7 +52,6 @@ namespace TokoBuku.BaseForm.Master.Input
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
-
         }
 
         private void buttonSaveData_Click(object sender, EventArgs e)
@@ -126,26 +125,19 @@ namespace TokoBuku.BaseForm.Master.Input
 
         private void FormDataBarang_Load(object sender, EventArgs e)
         {
+            ///
+            this.ActiveControl = this.textBoxNamaBarang;
             /// Add Member to Rak
-            /// 
-            var rakTable = DbLoadData.Rak();
-            this.comboBoxRak.DataSource = rakTable;
-            this.comboBoxRak.DisplayMember = "NAMA";
-            this.comboBoxRak.ValueMember = "ID";
+            this.RefreshComboRak();
 
             /// Add Member to Kategori
-            /// 
-            var KategoriTable = DbLoadData.Kategori(ConnectDB.Connetc());
-            this.comboBoxKategori.DataSource = KategoriTable;
-            this.comboBoxKategori.DisplayMember = "NAMA";
-            this.comboBoxKategori.ValueMember = "ID";
+            this.RefreshComboKategori();
 
             /// Add member to Penerbit
-            /// 
-            var PenerbitTable = DbLoadData.Penerbit(ConnectDB.Connetc());
-            this.comboBoxPenerbit.DataSource = PenerbitTable;
-            this.comboBoxPenerbit.DisplayMember = "NAMA_PENERBIT";
-            this.comboBoxPenerbit.ValueMember = "ID";
+            this.RefreshComboPenerbit();
+
+            /// Generate Barcode
+            this.GenerateBarCode();
         }
 
         private void buttonTambahRak_Click(object sender, EventArgs e)
@@ -154,28 +146,62 @@ namespace TokoBuku.BaseForm.Master.Input
             using (var form = FormInput.Rak())
             {
                 form.ShowDialog();
-                var nama = form.ValueName;
-                var keterangan = form.ValueKeterangan;
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    var nama = form.ValueName;
+                    var keterangan = form.ValueKeterangan;
 
-                var id = TokoBuku.DbUtility.DbSaveData.Rak(nama: nama, keterangan: keterangan, status: "AKTIF");
+                    try
+                    {
+                        var id = TokoBuku.DbUtility.DbSaveData.Rak(nama: nama, keterangan: keterangan, status: "AKTIF");
+                        this.RefreshComboRak();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //throw;
+                    }
+                }
+                else
+                {
+                    this.RefreshComboRak();
+                }
             }
         }
 
         private void buttonTambahKategori_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (var form = FormInput.Kategori())
+            {
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    var nama = form.ValueName;
+                    var keterangan = form.ValueKeterangan;
+
+                    try
+                    {
+                        var id = TokoBuku.DbUtility.DbSaveData.Kategori(nama: nama, keterangan: keterangan, status: "AKTIF");
+                        this.RefreshComboRak();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //throw;
+                    }
+                }
+                else
+                {
+                    this.RefreshComboRak();
+                }
+            }
 
         }
 
         private void buttonTambahPenerbit_Click(object sender, EventArgs e)
         {
             MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void richTextBoxKeterangan_Move(object sender, EventArgs e)
-        {
-            //this.ActiveControl = this.buttonSaveData;
-            //this.buttonSaveData.Focus();
         }
 
         public void SetToEditForm()
@@ -199,9 +225,26 @@ namespace TokoBuku.BaseForm.Master.Input
 
         private void buttonGenerateKode_Click(object sender, EventArgs e)
         {
-            string kode_ = "B";
-            var last_kode_db = TokoBuku.DbUtility.Etc.GetLastKodeBarang();
-            if (last_kode_db.Length > 1)
+            /*var last_kode_db = TokoBuku.DbUtility.Etc.GetLastKodeBarang();
+            if (last_kode_db.ToString().Length >= 1)
+            {
+                var len_ = last_kode_db.ToString().Length;
+                string dump = "B";
+                for (int i = len_; i < 8; i++)
+                {
+                    if (i == 7)
+                    {
+                        dump = string.Concat(dump, (last_kode_db + 1).ToString());
+                    }
+                    else
+                    {
+                        dump = string.Concat(dump, "0");
+                    }
+                }
+                textBoxKode.Text = dump;
+            }*/
+            //MessageBox.Show(last_kode_db);
+           /* if (last_kode_db.Length > 1)
             {
                 var num_last_kode_db = Convert.ToInt32(last_kode_db.Remove(0, 1)).ToString();
                 var len_ = num_last_kode_db.Length;
@@ -219,14 +262,19 @@ namespace TokoBuku.BaseForm.Master.Input
                 }
                 textBoxKode.Text = dump;
                 //MessageBox.Show(len_.ToString());
-            }
-            else
+            }*/
+            /*else
             {
                 textBoxKode.Text = "B0000001";
-            }
+            }*/
         }
 
         private void buttonGenerateBarCode_Click(object sender, EventArgs e)
+        {
+            this.GenerateBarCode();
+        }
+
+        private void GenerateBarCode()
         {
             var dt = TokoBuku.DbUtility.Etc.GenerateBarCode();
             Random rnd = new Random();
@@ -240,20 +288,40 @@ namespace TokoBuku.BaseForm.Master.Input
                     break;
                 }
             }
-            /*if (dt.Columns["BARCODE"])
-            {
-                Random rnd = new Random();
-                string calon_barcode = rnd.Next().ToString();
-                // check existing data
-                bool contains = dt.AsEnumerable().Any(row => calon_barcode == row.Field<String>("BARCODE"));
-                MessageBox.Show(contains.ToString());
-            }
-            else
-            {
-                Random rnd = new Random();
-                string calon_barcode = rnd.Next().ToString();
-                this.textBoxBarCode.Text = calon_barcode;
-            }*/
         }
+
+        #region Active Control
+        private void textBoxNamaBarang_Leave(object sender, EventArgs e)
+        {
+            //this.ActiveControl = this.textBoxKode;
+        }
+        private void textBoxKode_Leave(object sender, EventArgs e)
+        {
+            //this.ActiveControl = this.textBoXHarga;
+        }
+
+        #endregion
+
+        #region Refresh Combo box
+        /// Rak
+        private void RefreshComboRak()
+        {
+            comboBoxRak.DataSource = DbLoadData.Rak(); ;
+            this.comboBoxRak.DisplayMember = "NAMA";
+            this.comboBoxRak.ValueMember = "ID";
+        }
+        private void RefreshComboKategori()
+        {
+            this.comboBoxKategori.DataSource = DbLoadData.Kategori();
+            this.comboBoxKategori.DisplayMember = "NAMA";
+            this.comboBoxKategori.ValueMember = "ID";
+        }
+        private void RefreshComboPenerbit()
+        {
+            this.comboBoxPenerbit.DataSource = DbLoadData.Penerbit();
+            this.comboBoxPenerbit.DisplayMember = "NAMA_PENERBIT";
+            this.comboBoxPenerbit.ValueMember = "ID";
+        }
+        #endregion
     }
 }

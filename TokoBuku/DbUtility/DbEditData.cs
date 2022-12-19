@@ -118,5 +118,46 @@ namespace TokoBuku.DbUtility
 
             }
         }
+        public static void Kategori(int Ids, string nama, string keterangan, string status = "AKTIF")
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "update kategori " +
+                    "set nama=@nama, keterangan=@keterangan, status=@status " +
+                    "where id=@id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama);
+                    cmd.Parameters.Add("@keterangan", keterangan);
+                    cmd.Parameters.Add("@status", status);
+                    cmd.Parameters.Add("@id", Ids);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+
+            }
+        }
+
+        public static void Penerbit(int Ids, string nama, string keterangan, string status = "AKTIF")
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "update penerbit " +
+                    "set nama_penerbit=@nama, keterangan=@keterangan, status=@status " +
+                    "where id=@id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama);
+                    cmd.Parameters.Add("@keterangan", keterangan);
+                    cmd.Parameters.Add("@status", status);
+                    cmd.Parameters.Add("@id", Ids);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+
+            }
+        }
     }
 }

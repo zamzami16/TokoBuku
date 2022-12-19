@@ -9,20 +9,20 @@ namespace TokoBuku.DbUtility
 {
     public static class DbLoadData
     {
-        public static DataTable Kategori(FbConnection conn)
+        public static DataTable Kategori()
         {
             DataTable dt = new DataTable();
-            FbDataAdapter da = new FbDataAdapter("select * from kategori", conn);
+            FbDataAdapter da = new FbDataAdapter("select * from kategori", ConnectDB.Connetc());
             //da.SelectCommand.Parameters.Add("@id", 123);
             da.Fill(dt);
             da.Dispose();
             return dt;
         }
 
-        public static DataTable Penerbit(FbConnection conn)
+        public static DataTable Penerbit()
         {
             DataTable dt = new DataTable();
-            FbDataAdapter da = new FbDataAdapter("select * from penerbit", conn);
+            FbDataAdapter da = new FbDataAdapter("select * from penerbit", ConnectDB.Connetc());
             //da.SelectCommand.Parameters.Add("@id", 123);
             da.Fill(dt);
             da.Dispose();
