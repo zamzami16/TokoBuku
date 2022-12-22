@@ -225,48 +225,7 @@ namespace TokoBuku.BaseForm.Master.Input
 
         private void buttonGenerateKode_Click(object sender, EventArgs e)
         {
-            /*var last_kode_db = TokoBuku.DbUtility.Etc.GetLastKodeBarang();
-            if (last_kode_db.ToString().Length >= 1)
-            {
-                var len_ = last_kode_db.ToString().Length;
-                string dump = "B";
-                for (int i = len_; i < 8; i++)
-                {
-                    if (i == 7)
-                    {
-                        dump = string.Concat(dump, (last_kode_db + 1).ToString());
-                    }
-                    else
-                    {
-                        dump = string.Concat(dump, "0");
-                    }
-                }
-                textBoxKode.Text = dump;
-            }*/
-            //MessageBox.Show(last_kode_db);
-           /* if (last_kode_db.Length > 1)
-            {
-                var num_last_kode_db = Convert.ToInt32(last_kode_db.Remove(0, 1)).ToString();
-                var len_ = num_last_kode_db.Length;
-                string dump = "B";
-                for (int i = len_; i < 8; i++)
-                {
-                    if (i == 7)
-                    {
-                        dump = string.Concat(dump, (Convert.ToInt32(num_last_kode_db) + 1).ToString());
-                    }
-                    else
-                    {
-                        dump = string.Concat(dump, "0");
-                    }
-                }
-                textBoxKode.Text = dump;
-                //MessageBox.Show(len_.ToString());
-            }*/
-            /*else
-            {
-                textBoxKode.Text = "B0000001";
-            }*/
+            this.textBoxKode.Text = "--OTOMATIS--";
         }
 
         private void buttonGenerateBarCode_Click(object sender, EventArgs e)

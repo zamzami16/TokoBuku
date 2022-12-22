@@ -14,6 +14,7 @@ namespace TokoBuku.DbUtility
             DataTable dt = new DataTable();
             var query = "select id, nama from pelanggan;";
             FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
+            //da.SelectCommand.Parameters.Add("@id", 123);
             da.Fill(dt);
             da.Dispose();
             return dt;
@@ -22,7 +23,7 @@ namespace TokoBuku.DbUtility
         public static DataTable Barang()
         {
             DataTable dt = new DataTable();
-            var query = "select id_barang, nama_barang from barang;";
+            var query = "select id_barang, nama_barang, kode from barang;";
             FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
             //da.SelectCommand.Parameters.Add("@id", 123);
             da.Fill(dt);
@@ -35,11 +36,18 @@ namespace TokoBuku.DbUtility
             DataTable dt = new DataTable();
             var query = "select id, nama from kas_master;";
             FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
-            //da.SelectCommand.Parameters.Add("@id", 123);
             da.Fill(dt);
             da.Dispose();
             return dt;
         }
+
+        public static DataTable ListPelanggan()
+        {
+            DataTable dt = new DataTable();
+            var query = "select nama";
+            return dt;
+        }
+
     }
 
 }

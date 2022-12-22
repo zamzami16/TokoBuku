@@ -27,17 +27,17 @@ namespace TokoBuku
 
         private void TokoBukuWindows_Load(object sender, EventArgs e)
         {
-            this.formBarangView = new FormMasterViewBarang();
+            /*this.formBarangView = new FormMasterViewBarang();
             this.formBarangView.MdiParent = this;
             this.formBarangView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.formBarangView.Dock = DockStyle.Fill;
-            this.formBarangView.Show();
+            this.formBarangView.Show();*/
 
-            /*this.formPenjualanView = new Penjualan();
+            this.formPenjualanView = new Penjualan();
             this.formPenjualanView.MdiParent = this;
             this.formPenjualanView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.formPenjualanView.Dock = DockStyle.Fill;
-            this.formPenjualanView.Show();*/
+            this.formPenjualanView.Show();
         }
 
         private void DataBarangToolStripMenuItem_Click(object sender, EventArgs e)

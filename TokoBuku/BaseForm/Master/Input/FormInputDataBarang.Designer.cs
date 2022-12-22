@@ -165,9 +165,8 @@ namespace TokoBuku.BaseForm.Master.Input
             this.buttonGenerateKode.Size = new System.Drawing.Size(29, 23);
             this.buttonGenerateKode.TabIndex = 31;
             this.buttonGenerateKode.TabStop = false;
-            this.toolTip1.SetToolTip(this.buttonGenerateKode, "Generate");
+            this.toolTip1.SetToolTip(this.buttonGenerateKode, "OTOMATIS");
             this.buttonGenerateKode.UseVisualStyleBackColor = true;
-            this.buttonGenerateKode.Visible = false;
             this.buttonGenerateKode.Click += new System.EventHandler(this.buttonGenerateKode_Click);
             // 
             // textBoxKode

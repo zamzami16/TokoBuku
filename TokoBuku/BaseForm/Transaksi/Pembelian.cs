@@ -12,6 +12,8 @@ namespace TokoBuku.BaseForm.Transaksi
 {
     public partial class Pembelian : Form
     {
+        private DataTable ListBarangDibeli = new DataTable();
+
         public Pembelian()
         {
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.dateTimePickerJatuhTempo.Enabled = true;
                 this.comboBoxJenisKas.Enabled = false;
             }
-            
+
 
             /*if (comboJenisBayar.Text != "CASH")
             {
@@ -75,6 +77,21 @@ namespace TokoBuku.BaseForm.Transaksi
             this.dateTimePickerJatuhTempo.Value = DateTime.Now.AddDays(7);
             this.dateTimePickerJatuhTempo.Enabled = false;
             this.comboJenisBayar.SelectedIndex = 0;
+            this.comboSatuan.SelectedIndex = 0;
+
+            /// init datagridview
+            this.dataGridView1.Columns["barang"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            ComboBox _satuan = new ComboBox();
+            _satuan.Items.Add("Pcs");
+            _satuan.Items.Add("Packs");
+            ((DataGridViewComboBoxColumn)dataGridView1.Columns["satuan"]).DataSource = _satuan.Items;
+            //DataGridViewNumericUpDownElements _jumlah = new DataGridViewNumericUpDownElements();
+            /*this.ListBarangDibeli.Columns.Add("Kode", typeof(string));
+            this.ListBarangDibeli.Columns.Add("Nama Barang", typeof(string));
+            this.ListBarangDibeli.Columns.Add("Jumlah", typeof(double));
+            this.ListBarangDibeli.Columns.Add("Satuan", typeof(string));*/
+
         }
 
 
@@ -105,14 +122,41 @@ namespace TokoBuku.BaseForm.Transaksi
             this.ActiveControl = this.buttonAdd;
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["jumlah"].Value = 1;
+            e.Row.Cells["satuan"].Value = "Pcs";
+        }
+
+        private string CariKodeBarang()
+        {
+
+            return "";
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        { 
+            int row_idx = e.RowIndex;
+            int col_idx = e.ColumnIndex;
+            string txt = "";
+            bool isnul = string.IsNullOrWhiteSpace(dataGridView1[col_idx, row_idx].Value.ToString());
+            if (!isnul)
+            {
+                txt = dataGridView1[col_idx, row_idx].Value.ToString();
+            }
+            MessageBox.Show(txt);
+            dataGridView1[col_idx, row_idx].Value = "makan";
+        }
+
+        private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            
         }
     }
 }

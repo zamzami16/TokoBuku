@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataGridViewNumericUpDownElements">
+      <HintPath>..\..\..\..\..\..\..\..\Visual Studio Samples\DataGridViewNumericUpDown\DataGridViewNumericUpDownElements\bin\Release\DataGridViewNumericUpDownElements.dll</HintPath>
+    </Reference>
     <Reference Include="FirebirdSql.Data.FirebirdClient, Version=4.9.0.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
       <HintPath>..\packages\FirebirdSql.Data.FirebirdClient.4.9.0.0\lib\net40-client\FirebirdSql.Data.FirebirdClient.dll</HintPath>
     </Reference>
@@ -109,6 +112,12 @@
       <DependentUpon>FormMasterViewBarang.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInput.cs" />
+    <Compile Include="BaseForm\Transaksi\Resources\PenjualanBk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Transaksi\Resources\PenjualanBk.Designer.cs">
+      <DependentUpon>PenjualanBk.cs</DependentUpon>
+    </Compile>
     <Compile Include="DbUtility\ConnectDB.cs" />
     <Compile Include="DbUtility\DbDeleteData.cs" />
     <Compile Include="DbUtility\DbEditData.cs" />
@@ -153,6 +162,7 @@
     <Compile Include="DbUtility\DbSearchLoadData.cs" />
     <Compile Include="DbUtility\Etc.cs" />
     <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />
+    <Compile Include="DbUtility\Transactions\Penjualan.cs" />
     <Compile Include="DbUtility\Transactions\TBarang.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -234,6 +244,9 @@
     <EmbeddedResource Include="BaseForm\FormMasterDataViewer.resx">
       <DependentUpon>FormMasterDataViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Transaksi\Resources\PenjualanBk.resx">
+      <DependentUpon>PenjualanBk.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -270,8 +283,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BaseForm\Transaksi\Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

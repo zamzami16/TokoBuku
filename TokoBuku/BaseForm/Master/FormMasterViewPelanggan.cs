@@ -33,7 +33,7 @@ namespace TokoBuku.BaseForm.Master
             //initTableRakKasKategoriPenerbitMaster();
             this.dataTableBase = DbLoadData.Pelanggan(this.DbConnection);
             this.dataGridView1.DataSource = this.dataTableBase;
-            this.dataGridView1.Columns[0].Width = 0;
+            this.dataGridView1.Columns[0].Visible = false;
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -150,21 +150,7 @@ namespace TokoBuku.BaseForm.Master
             }
         }
 
-        /*private void TampilTambahData()
-        {
-            DialogResult results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            while (results == DialogResult.Yes)
-            {
-                this.formData.ShowDialog();
-                results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            }
-        }*/
-
-        /*private void TampilkanBerhasilSimpan(string message)
-        {
-            MessageBox.Show(message, "Succes.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }*/
-
+        
         private void buttonEditData_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)

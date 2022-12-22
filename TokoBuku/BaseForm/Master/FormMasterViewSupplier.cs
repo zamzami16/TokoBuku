@@ -33,7 +33,7 @@ namespace TokoBuku.BaseForm.Master
             //initTableRakKasKategoriPenerbitMaster();
             this.dataTableBase = DbLoadData.Supplier();
             this.dataGridView1.DataSource = this.dataTableBase;
-            this.dataGridView1.Columns[0].Width = 0;
+            this.dataGridView1.Columns[0].Visible = false;
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
