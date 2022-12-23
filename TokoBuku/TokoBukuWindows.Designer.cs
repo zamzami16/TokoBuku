@@ -57,7 +57,7 @@ namespace TokoBuku
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(564, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(964, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -81,7 +81,7 @@ namespace TokoBuku
             this.PenerbitBukuToolStripMenuItem,
             this.rAKBUKUToolStripMenuItem});
             this.DataBarangToolStripMenuItem.Name = "DataBarangToolStripMenuItem";
-            this.DataBarangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DataBarangToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.DataBarangToolStripMenuItem.Text = "DATA BARANG";
             this.DataBarangToolStripMenuItem.ToolTipText = "Tampilkan Data Barang";
             this.DataBarangToolStripMenuItem.Click += new System.EventHandler(this.DataBarangToolStripMenuItem_Click);
@@ -110,7 +110,7 @@ namespace TokoBuku
             // DataSupplierToolStripMenuItem
             // 
             this.DataSupplierToolStripMenuItem.Name = "DataSupplierToolStripMenuItem";
-            this.DataSupplierToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DataSupplierToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.DataSupplierToolStripMenuItem.Text = "DATA SUPPLIER";
             this.DataSupplierToolStripMenuItem.ToolTipText = "Tampilkan Data Supplier";
             this.DataSupplierToolStripMenuItem.Click += new System.EventHandler(this.DataSupplierToolStripMenuItem_Click);
@@ -118,7 +118,7 @@ namespace TokoBuku
             // DataPelangganToolStripMenuItem
             // 
             this.DataPelangganToolStripMenuItem.Name = "DataPelangganToolStripMenuItem";
-            this.DataPelangganToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DataPelangganToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.DataPelangganToolStripMenuItem.Text = "DATA PELANGGAN";
             this.DataPelangganToolStripMenuItem.ToolTipText = "Tampilkan Data Pelanggan";
             this.DataPelangganToolStripMenuItem.Click += new System.EventHandler(this.DataPelangganToolStripMenuItem_Click);
@@ -126,14 +126,14 @@ namespace TokoBuku
             // DataKasirToolStripMenuItem
             // 
             this.DataKasirToolStripMenuItem.Name = "DataKasirToolStripMenuItem";
-            this.DataKasirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DataKasirToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.DataKasirToolStripMenuItem.Text = "DATA KASIR";
             this.DataKasirToolStripMenuItem.Click += new System.EventHandler(this.DataKasirToolStripMenuItem_Click);
             // 
             // DataKasMasterToolStripMenuItem
             // 
             this.DataKasMasterToolStripMenuItem.Name = "DataKasMasterToolStripMenuItem";
-            this.DataKasMasterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DataKasMasterToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.DataKasMasterToolStripMenuItem.Text = "DATA KAS";
             this.DataKasMasterToolStripMenuItem.Click += new System.EventHandler(this.KasMasterToolStripMenuItem_Click);
             // 
@@ -171,10 +171,11 @@ namespace TokoBuku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 371);
+            this.ClientSize = new System.Drawing.Size(964, 561);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(980, 600);
             this.Name = "TokoBukuWindows";
             this.Text = "TokoBukuWindows";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

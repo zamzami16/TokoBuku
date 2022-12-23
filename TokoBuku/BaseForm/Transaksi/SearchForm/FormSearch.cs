@@ -94,6 +94,26 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     //throw ex;
                 }
             }
+            else if (this.FormName == "supplier")
+            {
+                this.Text = "Cari Supplier";
+                this.labelTitle.Text = "Cari Supplier";
+                this.textSearch.Text = this.SearchText;
+                try
+                {
+                    this.data = DbSearchLoadData.Supplier();
+                    var da = new DataView(this.data);
+                    da.RowFilter = "[NAMA] LIKE '%" + this.SearchText + "%'";
+                    this.dataGridView1.DataSource = da.ToTable();
+                    this.dataGridView1.Columns[0].Visible = false;
+                    this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //throw;
+                }
+            }
         }
 
         private void buttonPilih_Click(object sender, EventArgs e)

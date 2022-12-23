@@ -162,6 +162,7 @@
     <Compile Include="DbUtility\DbSearchLoadData.cs" />
     <Compile Include="DbUtility\Etc.cs" />
     <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />
+    <Compile Include="DbUtility\Transactions\Pembelian.cs" />
     <Compile Include="DbUtility\Transactions\Penjualan.cs" />
     <Compile Include="DbUtility\Transactions\TBarang.cs" />
     <Compile Include="Program.cs" />

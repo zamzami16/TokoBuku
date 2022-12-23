@@ -41,6 +41,17 @@ namespace TokoBuku.DbUtility
             return dt;
         }
 
+        public static DataTable Supplier()
+        {
+            DataTable dt = new DataTable();
+            var query = "select id, nama from supplier;";
+            FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
+            //da.SelectCommand.Parameters.Add("@id", 123);
+            da.Fill(dt);
+            da.Dispose();
+            return dt;
+        }
+
         public static DataTable ListPelanggan()
         {
             DataTable dt = new DataTable();

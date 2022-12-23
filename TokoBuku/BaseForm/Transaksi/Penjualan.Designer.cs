@@ -673,6 +673,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.dataGridView1.Size = new System.Drawing.Size(846, 101);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
             // panel1
             // 
