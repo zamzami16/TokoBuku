@@ -270,6 +270,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxTotalPembayaran.Name = "textBoxTotalPembayaran";
             this.textBoxTotalPembayaran.Size = new System.Drawing.Size(119, 23);
             this.textBoxTotalPembayaran.TabIndex = 0;
+            this.textBoxTotalPembayaran.Text = "0";
             this.textBoxTotalPembayaran.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxTotalPembayaran, "Total Pembayaran (apabila ada potongan)");
             // 

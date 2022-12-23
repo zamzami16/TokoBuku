@@ -40,13 +40,18 @@ namespace TokoBuku.BaseForm.Transaksi
 				this.labelPembayaran.Text = "Pembayaran Awal";
                 this.labelPembayaran.Enabled = true;
                 this.textBoxPembayaranAwal.Enabled = true;
+                this.dateTimePickerTglPesanan.Value = DateTime.Now;
+                this.dateTimePickerJatuhTempo.Value = DateTime.Now.AddDays(7);
             }
-			else
+			else if (comboJenisBayar.Text == "CASH")
             {
 				this.labelPembayaran.Enabled = false;
                 this.textBoxPembayaranAwal.Text = "0";
                 this.textBoxPembayaranAwal.Enabled = false;
                 this.comboBoxJenisKas.Enabled = true;
+				this.dateTimePickerTglPesanan.Value = DateTime.Now;
+                this.dateTimePickerJatuhTempo.Value = DateTime.Now.AddDays(7);
+                this.dateTimePickerJatuhTempo.Enabled = false;
             }
 		}
 
@@ -306,7 +311,11 @@ namespace TokoBuku.BaseForm.Transaksi
 			this.comboJenisBayar.SelectedIndex = 0;
 			this.labelSubTotal.Text = "Rp.0";
 			this.textsubTotalHargaBeli.Text = "0";
+			this.textBoxTotalPembayaran.Text = "0";
 			this.richTextBox1.Text = string.Empty;
+			this.dateTimePickerTglPesanan.Value= DateTime.Now;
+			this.dateTimePickerJatuhTempo.Value= DateTime.Now;
+			this.comboJenisBayar.SelectedIndex= 0;
 		}
 
 		private void UpdateTotalBeli()
@@ -370,31 +379,33 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-
-			if (this.comboJenisBayar.Text.ToLower() == "cash")
+            if (string.IsNullOrWhiteSpace(this.labelKasir.Text))
+            {
+                MessageBox.Show("Pilih kasir terlebih dahulu", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.ActiveControl = this.labelKasir;
+            }
+            else if (string.IsNullOrWhiteSpace(this.textNoNota.Text))
+            {
+                MessageBox.Show("Masukkan nomor nota terlebih dahulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.ActiveControl = this.textNoNota;
+            }
+			else
 			{
-				this.ProsedurPembelianCash();
-			}
-			else if (this.comboJenisBayar.Text.ToLower() == "kredit")
-			{
-				this.ProsedurPembelianKredit();
-			}
+                if (this.comboJenisBayar.Text.ToLower() == "cash")
+                {
+                    this.ProsedurPembelianCash();
+                }
+                else if (this.comboJenisBayar.Text.ToLower() == "kredit")
+                {
+                    this.ProsedurPembelianKredit();
+                }
+            }
         }
 
 		private void ProsedurPembelianCash()
 		{
             double totalPembayaran = 0;
-            if (string.IsNullOrWhiteSpace(this.labelKasir.Text))
-			{
-				MessageBox.Show("Pilih kasir terlebih dahulu", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				this.ActiveControl = this.labelKasir;
-			}
-			else if (string.IsNullOrWhiteSpace(this.textNoNota.Text))
-			{
-				MessageBox.Show("Masukkan nomor nota terlebih dahulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				this.ActiveControl = this.textNoNota;
-			}
-			else if (!double.TryParse(this.textBoxTotalPembayaran.Text, out totalPembayaran) || totalPembayaran <=0)
+			if (!double.TryParse(this.textBoxTotalPembayaran.Text, out totalPembayaran) || totalPembayaran <=0)
 			{
                 MessageBox.Show("Check total pembayaran terlebih dahulu", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				this.ActiveControl= this.textBoxTotalPembayaran;
@@ -454,8 +465,66 @@ namespace TokoBuku.BaseForm.Transaksi
 
 		private void ProsedurPembelianKredit()
 		{
+            double totalPembayaran = 0;
+			double pembayaranAwal = 0;
+            if (!double.TryParse(this.textBoxTotalPembayaran.Text, out totalPembayaran) || totalPembayaran <= 0)
+            {
+                MessageBox.Show("Check total pembayaran terlebih dahulu", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.ActiveControl = this.textBoxTotalPembayaran;
+            }
+			else if (string.IsNullOrWhiteSpace(this.textBoxPembayaranAwal.Text))
+			{
+				this.textBoxPembayaranAwal.Text = "0";
+			}
+            else if (!double.TryParse(this.textBoxPembayaranAwal.Text, out pembayaranAwal) || pembayaranAwal < 0)
+			{
+                MessageBox.Show("Check pembayaran awal terlebih dahulu", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				this.ActiveControl = this.textBoxPembayaranAwal;
+            }
+			else if (this.dateTimePickerJatuhTempo.Value < this.dateTimePickerTglPesanan.Value)
+			{
+                MessageBox.Show("Tanggal jatuh tempo harus lebih banyak dari tanggal pesan. \nCheck tanggal jatuh tempo terlebih dahulu", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				this.ActiveControl = this.dateTimePickerJatuhTempo;
+            }
+			else
+			{
+				//var id_supplier = this.IdSupplierTerpilih;
+				DateTime tanggal_beli = this.dateTimePickerTglPesanan.Value;
+				string no_nota = this.textNoNota.Text;
+				//double total = totalPembayaran;
+				string status_pembelian = "KREDIT";
+				string id_kas = this.IdKasTerpilih;
+                if (this.comboBoxJenisKas.Enabled == false)
+                {
+                    id_kas = "0";
+                }
+                DateTime tgl_tenggat_bayar = this.dateTimePickerJatuhTempo.Value;
+				//double pembayaran_awal = pembayaranAwal;
+				try
+				{
+                    TokoBuku.DbUtility.Transactions.Pembelian
+						.SavePembelianKredit(
+							id_supplier: this.IdSupplierTerpilih,
+							tanggal_beli: tanggal_beli,
+							tgl_tenggat_bayar: tgl_tenggat_bayar,
+							no_nota: no_nota,
+							total: totalPembayaran,
+							pembayaran_awal: pembayaranAwal,
+							id_kas: id_kas,
+							status_pembelian: status_pembelian,
+							rows: this.ConvertDGVtoDT(this.dataGridView1));
+					this.ResetFormAll();
+                    MessageBox.Show("Data Berhasil disimpan.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Error @Save Pembelian Kredit: {ex.Message}", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					throw;
+				}
+				
 
-		}
+			}
+        }
 
         private void comboBoxJenisKas_SelectedValueChanged(object sender, EventArgs e)
         {
