@@ -148,6 +148,8 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void buttonBawahProcess_Click(object sender, EventArgs e)
         {
+            /// TODO: Ganti algoritma penyimpanan data ke database.
+            /// Pisahkan input penjualan dan detail penjualan. masukkan piutang
             if (dataGridView1.Rows.Count < 1)
             {
                 MessageBox.Show("Pilih barang terlebih dahulu.", "Gagal.", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -77,6 +77,11 @@ namespace TokoBuku
             this.formKasView.Show();
         }
 
+        /// <summary>
+        /// TODO: Tambah fitur laporan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lAPORANToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("MENU LAPORAN MASIH DALAM PENGEMBANGAN", "Information.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -143,6 +148,14 @@ namespace TokoBuku
             this.formPembelianView.Dock = DockStyle.Fill;
             this.formPembelianView.Show();
         }
+
+        /// TODO: tambah fitur lihat rincian data penjalan 
+        /// TODO: tambah fitur lihat hutang
+        /// TODO: tambah fitur lihat piutang
+        /// TODO: tambah fitur lihat rincian data pembelian
+        /// TODO: tambah fitur ganti harga jual
+        /// 
+
 
         private void AddDataTable()
         {
