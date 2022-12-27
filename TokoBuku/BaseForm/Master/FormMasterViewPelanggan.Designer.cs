@@ -37,6 +37,7 @@ namespace TokoBuku.BaseForm.Master
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEditData = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonBayarHutang = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -76,6 +77,7 @@ namespace TokoBuku.BaseForm.Master
             this.flowLayoutPanel1.Controls.Add(this.buttonAddData);
             this.flowLayoutPanel1.Controls.Add(this.buttonDelete);
             this.flowLayoutPanel1.Controls.Add(this.buttonEditData);
+            this.flowLayoutPanel1.Controls.Add(this.buttonBayarHutang);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 382);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -126,9 +128,21 @@ namespace TokoBuku.BaseForm.Master
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 53);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(607, 323);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+            // 
+            // buttonBayarHutang
+            // 
+            this.buttonBayarHutang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBayarHutang.Location = new System.Drawing.Point(321, 3);
+            this.buttonBayarHutang.Name = "buttonBayarHutang";
+            this.buttonBayarHutang.Size = new System.Drawing.Size(125, 32);
+            this.buttonBayarHutang.TabIndex = 3;
+            this.buttonBayarHutang.Text = "BAYAR HUTANG";
+            this.buttonBayarHutang.UseVisualStyleBackColor = true;
+            this.buttonBayarHutang.Click += new System.EventHandler(this.buttonBayarHutang_Click);
             // 
             // FormMasterViewPelanggan
             // 
@@ -166,5 +180,7 @@ namespace TokoBuku.BaseForm.Master
         {
             this.dataGridView1.DataSource = data;
         }
+
+        private System.Windows.Forms.Button buttonBayarHutang;
     }
 }

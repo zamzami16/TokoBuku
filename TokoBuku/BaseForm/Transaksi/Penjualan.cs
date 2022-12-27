@@ -11,6 +11,7 @@ using TokoBuku.DbUtility;
 using TokoBuku.DbUtility.Transactions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using DataGridViewNumericUpDownElements;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace TokoBuku.BaseForm.Transaksi
 {
@@ -79,11 +80,6 @@ namespace TokoBuku.BaseForm.Transaksi
             }*/
         }
 
-        private void buttonBawahCancel_Click(object sender, EventArgs e)
-        {
-            this.ResetForm();
-        }
-
         private void buttonPelanggan_Click(object sender, EventArgs e)
         {
             this.FilterDataPelanggan();
@@ -141,6 +137,9 @@ namespace TokoBuku.BaseForm.Transaksi
             this.RefreshDataKas();
             /// init Data Kode Barang
             this.RefreshKodeBarang();
+
+            this.textBoxPotongan.Text = 0.ToString("N2");
+            this.textBoxPembayaranAwal.Text = 0.ToString("N2");
         }
 
         private void buttonBawahProcess_Click(object sender, EventArgs e)
@@ -291,7 +290,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.labelSubTotal.Text = "0";
             this.textBoxPembayaranAwal.Text = "0";
             this.labelKembalian.Text = "0";
-            this.textBox1.Text = "0";
+            this.textBoxPotongan.Text = "0";
             this.comboBoxJenisKas.SelectedIndex = 0;
             this.comboJenisBayar.SelectedIndex = 0;
             this.textNamaPelangganAtas.Text = "UMUM";
@@ -312,7 +311,7 @@ namespace TokoBuku.BaseForm.Transaksi
                     double diskon = 0;
                     comboBoxJenisKas.Enabled = true;
                     double SubTotalPrice = this.ListBarang.AsEnumerable().Sum(row => row.Field<double>("Total"));
-                    var r_ = double.TryParse(textBox1.Text, out diskon);
+                    var r_ = double.TryParse(textBoxPotongan.Text, out diskon);
                     if (r_)
                     {
                         var totalHarga = (1.00 - diskon / 100) * SubTotalPrice;
@@ -375,10 +374,16 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
+            double stock_db;
             if (string.IsNullOrWhiteSpace(textNamaBarang.Text))
             {
                 MessageBox.Show("Pilih Kode atau Nama Barang dulu.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.ActiveControl = this.textKode;
+            }
+            else if (!IsValidStock(out stock_db))
+            {
+                MessageBox.Show($"Stock Barang tidak cukup!\nStock barang tinngal {stock_db} Pcs. (1 Packs = 10 Pcs)", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.ActiveControl = this.textBoxQty;
             }
             else
             {
@@ -522,11 +527,18 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.FilterDataKode();
-            }
-            else if (e.KeyCode == Keys.Down)
-            {
-                this.ActiveControl = this.dataGridView1;
+                DataTable data = TokoBuku.DbUtility.Transactions.Penjualan.GetKodeBarang(this.textKode.Text);
+                if (data.Rows.Count > 0)
+                {
+                    int id = data.Rows[0].Field<int>("ID");
+                    string kode = data.Rows[0].Field<string>(1);
+                    string nama = data.Rows[0].Field<string>(2);
+                    this.BarangIdTerpilih = id;
+                    this.textKode.Text = kode;
+                    this.textNamaBarang.Text = nama;
+                    this.ActiveControl = this.textBoxQty;
+                }
+                else { this.FilterDataKode(); }
             }
         }
 
@@ -556,11 +568,18 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.FilterDataBarang();
-            }
-            else if (e.KeyCode == Keys.Down)
-            {
-                this.ActiveControl = this.dataGridView1;
+                DataTable data = TokoBuku.DbUtility.Transactions.Penjualan.GetNamaBarang(this.textNamaBarang.Text);
+                if (data.Rows.Count > 0)
+                {
+                    int id = data.Rows[0].Field<int>("ID");
+                    string kode = data.Rows[0].Field<string>(1);
+                    string nama = data.Rows[0].Field<string>(2);
+                    this.BarangIdTerpilih = id;
+                    this.textKode.Text = kode;
+                    this.textNamaBarang.Text = nama;
+                    this.ActiveControl = this.textBoxQty;
+                }
+                else { this.FilterDataBarang(); }
             }
         }
 
@@ -596,14 +615,10 @@ namespace TokoBuku.BaseForm.Transaksi
             if (e.KeyData == Keys.Enter)
             {
                 this.UpdateTotalHarga();
-                /*double SubTotalPrice = this.ListBarang.AsEnumerable().Sum(row => row.Field<double>("Total"));
-                double diskon;
-                if (textBox1.Text.Length > 0)
-                {
-                    var r_ = double.TryParse(textBox1.Text, out diskon);
-                    var totalHarga = (1.00 - diskon / 100) * SubTotalPrice;
-                    this.LatbelHargaTotal.Text = totalHarga.ToString("C");
-                }*/
+            }
+            else
+            {
+                this.txtRealBox_KeyDown(sender, e);
             }
         }
 
@@ -656,9 +671,9 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             double subTotal = UpdateSubTotal();
             double diskon, totalHarga = 0;
-            if (subTotal > 0 && textBox1.Text.Length > 0)
+            if (subTotal > 0 && textBoxPotongan.Text.Length > 0)
             {
-                var r_ = double.TryParse(textBox1.Text, out diskon);
+                var r_ = double.TryParse(textBoxPotongan.Text, out diskon);
                 if (!r_)
                 {
                     diskon = 0;
@@ -673,6 +688,203 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             double SubTotalPrice = this.ListBarang.AsEnumerable().Sum(row => row.Field<double>("Total"));
             return SubTotalPrice;
+        }
+
+        private void textBoxQty_Validating(object sender, CancelEventArgs e)
+        {
+            /// TODO: **Sudah bisa validasi ** benerin validating stock dulu. ref: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.control.validating?view=windowsdesktop-7.0
+            double qty, qty_db;
+            if (string.IsNullOrWhiteSpace(this.textKode.Text) || string.IsNullOrWhiteSpace(this.textNamaBarang.Text))
+            {
+                MessageBox.Show("Pilih Barang terlebih dahulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.ActiveControl = this.textKode;
+            }
+            else if (!double.TryParse(this.textBoxQty.Text, out qty))
+            {
+                MessageBox.Show("Jumlah barang tidak boleh kosong.\nisi jumlah barang terlebih dahulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.ActiveControl = this.textBoxQty;
+            }
+            else if (!IsValidStock(out qty_db))
+            {
+                double stock_db = TokoBuku.DbUtility.Transactions.Penjualan.GetStockBarang(id_barang: this.BarangIdTerpilih);
+                MessageBox.Show($"Stock barang tidak cukup.\n" +
+                    $"Stock sekarang tinggal {stock_db} Pcs.");
+                this.ActiveControl = this.textBoxQty;
+            }
+        }
+
+        private bool IsValidStock(out double stock_db)
+        {
+            /// cek stock di DB
+            stock_db = TokoBuku.DbUtility.Transactions.Penjualan.GetStockBarang(id_barang: this.BarangIdTerpilih);
+            double stock_textBox;
+            if (!double.TryParse(this.textBoxQty.Text, out stock_textBox))
+            {
+                this.textBoxQty.Text = "1";
+                return false;
+            }
+            else if (this.comboSatuan.Text.ToLower() == "packs")
+            {
+                stock_textBox *= 10;
+            }
+            if ((stock_db - stock_textBox) >= 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /* #region MyRegion
+         private void txtRealBox_KeyPress(object sender, KeyPressEventArgs e)
+         {
+             if (char.IsDigit(e.KeyChar) || e.KeyChar == 45)
+             {
+                 /// char 45 = "-"
+                 TextBox t = (TextBox)sender;
+                 int cursorPosition = t.Text.Length - t.SelectionStart;      // Text in the box and Cursor position
+
+                 if (e.KeyChar == 45)
+                 {
+                     if (t.Text[0] == 45)
+                     {
+                         t.Text = t.Text.Remove(0);
+                     }
+                     else
+                     {
+                         t.Text = "-" + t.Text;
+                     }
+                 }
+                 else
+                     if (t.Text.Length < 20)
+                     t.Text = (decimal.Parse(t.Text.Insert(t.SelectionStart, e.KeyChar.ToString()).Replace(",00", "").Replace(".", "")) / 1).ToString("N2");
+                 //t.Text = (decimal.Parse(t.Text.Insert(t.SelectionStart, e.KeyChar.ToString()).Replace(",", "").Replace(".", "")) / 100).ToString("N2");
+
+                 t.SelectionStart = (t.Text.Length - cursorPosition < 0 ? 0 : t.Text.Length - cursorPosition);
+             }
+             e.Handled = true;
+         }
+         private void txtRealBox_KeyDown(object sender, KeyEventArgs e)
+         {
+             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)     // Deals with BackSpace e Delete keys
+             {
+                 TextBox t = (TextBox)sender;
+                 int cursorPosition = t.Text.Length - t.SelectionStart;
+
+                 string Left = t.Text.Substring(0, t.Text.Length - cursorPosition).Replace(".", "").Replace(",", "");
+                 string Right = t.Text.Substring(t.Text.Length - cursorPosition).Replace(".", "").Replace(",00", "");
+
+                 if (Left.Length > 0)
+                 {
+                     Left = Left.Remove(Left.Length - 1);                            // Take out the rightmost digit
+                     t.Text = (decimal.Parse(Left + Right) / 100).ToString("N2");
+                     //t.Text = (decimal.Parse(Left + Right) / 100).ToString("N2");
+                     t.SelectionStart = (t.Text.Length - cursorPosition < 0 ? 0 : t.Text.Length - cursorPosition);
+                 }
+                 e.Handled = true;
+             }
+
+             if (e.KeyCode == Keys.End)                                  // Treats End key
+             {
+                 TextBox t = (TextBox)sender;
+                 t.SelectionStart = t.Text.Length;                       // Moves the cursor o the rightmost position
+                 e.Handled = true;
+             }
+
+             if (e.KeyCode == Keys.Home)                                 // Trata tecla Home
+             {
+                 TextBox t = (TextBox)sender;
+                 //t.Text = 0.ToString("N2");                              // Set field value to zero 
+                 t.Text = 0.ToString("N2");
+                 t.SelectionStart = t.Text.Length;                       // Moves the cursor o the rightmost position
+                 e.Handled = true;
+             }
+         }
+         private void txtRealBox_Enter(object sender, EventArgs e)
+         {
+             TextBox t = (TextBox)sender;                                // Desliga seleção de texto
+             t.SelectionStart = t.Text.Length;
+         }
+         #endregion*/
+
+
+        #region HandleCurrency
+        private void txtRealBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar) || e.KeyChar == 45)
+            {
+                /// char 45 = "-"
+                TextBox t = (TextBox)sender;
+                int cursorPosition = t.Text.Length - t.SelectionStart;      // Text in the box and Cursor position
+
+                if (e.KeyChar == 45)
+                {
+                    if (t.Text[0] == 45)
+                    {
+                        t.Text = t.Text.Remove(0);
+                    }
+                    else
+                    {
+                        t.Text = "-" + t.Text;
+                    }
+                }
+                else
+                    if (t.Text.Length < 20)
+                    t.Text = (decimal.Parse(t.Text.Insert(t.SelectionStart, e.KeyChar.ToString()).Replace(",", "").Replace(".", "")) / 100).ToString("N2");
+                //t.Text = (decimal.Parse(t.Text.Insert(t.SelectionStart, e.KeyChar.ToString()).Replace(",", "").Replace(".", "")) / 100).ToString("N2");
+
+                t.SelectionStart = (t.Text.Length - cursorPosition < 0 ? 0 : t.Text.Length - cursorPosition);
+            }
+            e.Handled = true;
+        }
+        private void txtRealBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)     // Deals with BackSpace e Delete keys
+            {
+                TextBox t = (TextBox)sender;
+                int cursorPosition = t.Text.Length - t.SelectionStart;
+
+                string Left = t.Text.Substring(0, t.Text.Length - cursorPosition).Replace(".", "").Replace(",", "");
+                string Right = t.Text.Substring(t.Text.Length - cursorPosition).Replace(".", "").Replace(",", "");
+
+                if (Left.Length > 0)
+                {
+                    Left = Left.Remove(Left.Length - 1);                            // Take out the rightmost digit
+                    t.Text = (decimal.Parse(Left + Right) / 100).ToString("N2");
+                    //t.Text = (decimal.Parse(Left + Right) / 100).ToString("N2");
+                    t.SelectionStart = (t.Text.Length - cursorPosition < 0 ? 0 : t.Text.Length - cursorPosition);
+                }
+                e.Handled = true;
+            }
+
+            if (e.KeyCode == Keys.End)                                  // Treats End key
+            {
+                TextBox t = (TextBox)sender;
+                t.SelectionStart = t.Text.Length;                       // Moves the cursor o the rightmost position
+                e.Handled = true;
+            }
+
+            if (e.KeyCode == Keys.Home)                                 // Trata tecla Home
+            {
+                TextBox t = (TextBox)sender;
+                //t.Text = 0.ToString("N2");                              // Set field value to zero 
+                t.Text = 0.ToString("N2");
+                t.SelectionStart = t.Text.Length;                       // Moves the cursor o the rightmost position
+                e.Handled = true;
+            }
+        }
+        private void txtRealBox_Enter(object sender, EventArgs e)
+        {
+            TextBox t = (TextBox)sender;                                // Desliga seleção de texto
+            t.SelectionStart = t.Text.Length;
+        }
+        #endregion
+
+        private void buttonHistoriPenjualan_Click(object sender, EventArgs e)
+        {
+            using (HistoriPenjualan histori = new HistoriPenjualan())
+            {
+                histori.ShowDialog();
+            }
         }
     }
 }

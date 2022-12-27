@@ -23,7 +23,7 @@ namespace TokoBuku.DbUtility
         public static DataTable Barang()
         {
             DataTable dt = new DataTable();
-            var query = "select id_barang, nama_barang, kode from barang;";
+            var query = "select id_barang, nama_barang, kode, harga, stock from barang;";
             FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
             //da.SelectCommand.Parameters.Add("@id", 123);
             da.Fill(dt);

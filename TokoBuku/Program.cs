@@ -19,6 +19,11 @@ namespace TokoBuku
 
             Application.Run(new TokoBukuWindows());
 
+            //Application.Run(new FormUbahHarga());
+
+            //Application.Run(new TokoBuku.BaseForm.Master.FormMasterViewPelanggan());
+            //Application.Run(new TokoBuku.BaseForm.Transaksi.HutangPiutang.FormBayarHutang());
+
             //Application.Run(new FormMasterDataViewer());
             //Application.Run(new FormAddDataBarang());
             //Application.Run(new FormAddDataKasir());

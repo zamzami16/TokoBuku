@@ -18,6 +18,7 @@ namespace TokoBuku
         private FormMasterViewPelanggan formPelangganView;
         private FormMasterViewKasir formKasirView;
         private FormMasterViewKasMaster formKasView;
+        private FormUbahHarga formUbahHarga;
 
 
         public TokoBukuWindows()
@@ -149,11 +150,10 @@ namespace TokoBuku
             this.formPembelianView.Show();
         }
 
-        /// TODO: tambah fitur lihat rincian data penjalan 
-        /// TODO: tambah fitur lihat hutang
-        /// TODO: tambah fitur lihat piutang
+        /// TODO: tambah fitur lihat rincian data penjualan dan pembelian 
+        /// TODO: tambah fitur lihat hutang, langsung taruh di data supplier
+        /// TODO: tambah fitur lihat piutang, langsung taruh di data pelanggan
         /// TODO: tambah fitur lihat rincian data pembelian
-        /// TODO: tambah fitur ganti harga jual
         /// 
 
 
@@ -174,6 +174,13 @@ namespace TokoBuku
             //this.formMasterView.SetDataGridSource(dt);
         }
 
-
+        private void uBAHHARGAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.formUbahHarga = new FormUbahHarga();
+            this.formUbahHarga.MdiParent = this;
+            this.formUbahHarga.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
+            this.formUbahHarga.Dock = DockStyle.Fill;
+            this.formUbahHarga.Show();
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace TokoBuku.BaseForm.Master.Input
 
         #region Property access
         public string NamaBarang { get; set; }
+        public double HargaBeli { get; set; }
         public double Harga { get; set; }
         public double Diskon { get; set; }
         public string Rak { get; set; }
@@ -57,20 +58,24 @@ namespace TokoBuku.BaseForm.Master.Input
         private void buttonSaveData_Click(object sender, EventArgs e)
         {
             // set variable for each control
-            double harga, diskon;
+            double harga, diskon, hargaBeli;
 
             if (string.IsNullOrWhiteSpace(textBoxNamaBarang.Text))
             {
                 ShowErrorPrompt("NAMA BARANG TIDAK BOLEH KOSONG");
             }
+            else if (string.IsNullOrEmpty(textBoxHargaBeli.Text) || !double.TryParse(textBoxHargaBeli.Text, out hargaBeli))
+            {
+                ShowErrorPrompt("HARGA BELI TIDAK BOLEH KOSONG ATAU BERUPA HURUF");
+            }
             // for harga barang
             else if (string.IsNullOrWhiteSpace(textBoXHarga.Text) || !double.TryParse(textBoXHarga.Text, out harga))
             {
-                ShowErrorPrompt("HARGA TIDAK BOLEH KOSONG ATAU BERUPA HURUF");
+                ShowErrorPrompt("HARGA JUAL TIDAK BOLEH KOSONG ATAU BERUPA HURUF");
             }
-            else if (string.IsNullOrWhiteSpace(textBoxDiskon.Text) || !double.TryParse(textBoxDiskon.Text, out diskon))
+            else if (!double.TryParse(textBoxDiskon.Text, out diskon))
             {
-                ShowErrorPrompt("DISKON TIDAK BOLEH KOSONG ATAU BERUPA HURUF");
+                ShowErrorPrompt("DISKON TIDAK BOLEH BERUPA HURUF.");
             }
             else if (string.IsNullOrWhiteSpace(comboBoxRak.Text))
             {
@@ -88,14 +93,11 @@ namespace TokoBuku.BaseForm.Master.Input
             {
                 ShowErrorPrompt("DATA PENERBIT TIDAK BOLEH KOSONG");
             }
-            else if (string.IsNullOrWhiteSpace(comboBoxStatus.Text))
-            {
-                comboBoxStatus.Text = "AKTIF";
-            }
             else
             {
                 this.NamaBarang = textBoxNamaBarang.Text;
                 this.KodeBarang = textBoxKode.Text;
+                this.HargaBeli = hargaBeli;
                 this.Harga = harga;
                 this.Diskon = diskon;
                 this.Rak = this.comboBoxRak.SelectedValue.ToString();
@@ -155,6 +157,7 @@ namespace TokoBuku.BaseForm.Master.Input
                     {
                         var id = TokoBuku.DbUtility.DbSaveData.Rak(nama: nama, keterangan: keterangan, status: "AKTIF");
                         this.RefreshComboRak();
+                        this.comboBoxRak.SelectedValue = id;
                     }
                     catch (Exception ex)
                     {
@@ -171,7 +174,6 @@ namespace TokoBuku.BaseForm.Master.Input
 
         private void buttonTambahKategori_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             using (var form = FormInput.Kategori())
             {
                 form.ShowDialog();
@@ -183,7 +185,8 @@ namespace TokoBuku.BaseForm.Master.Input
                     try
                     {
                         var id = TokoBuku.DbUtility.DbSaveData.Kategori(nama: nama, keterangan: keterangan, status: "AKTIF");
-                        this.RefreshComboRak();
+                        this.RefreshComboKategori();
+                        this.comboBoxKategori.SelectedValue = id;
                     }
                     catch (Exception ex)
                     {
@@ -193,7 +196,7 @@ namespace TokoBuku.BaseForm.Master.Input
                 }
                 else
                 {
-                    this.RefreshComboRak();
+                    this.RefreshComboKategori();
                 }
             }
 
@@ -201,7 +204,33 @@ namespace TokoBuku.BaseForm.Master.Input
 
         private void buttonTambahPenerbit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("FITUR INI MASIH TAHAP PENGEMBANGAN.\nSILAKAN UNTUK TAMBAH MANUAL DARI MENU INPUT DATA", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (var form = FormInput.Penerbit())
+            {
+                form.ShowDialog();
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    var nama = form.ValueName;
+                    var keterangan = form.ValueKeterangan;
+
+                    try
+                    {
+                        var id = TokoBuku.DbUtility.DbSaveData.Penerbit(nama: nama, keterangan: keterangan, status: "AKTIF");
+                        this.RefreshComboPenerbit();
+                        this.comboBoxPenerbit.SelectedValue = id;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //throw;
+                    }
+                }
+                else
+                {
+                    this.RefreshComboPenerbit();
+                }
+            }
+
         }
 
         public void SetToEditForm()

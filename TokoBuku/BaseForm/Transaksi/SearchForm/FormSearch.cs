@@ -64,8 +64,11 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     da.RowFilter = "[KODE] LIKE '%" + this.SearchText + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
-                    this.dataGridView1.Columns[1].Visible = false;
-                    this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    this.dataGridView1.Columns[1].FillWeight = 100;
                 }
                 catch (Exception ex)
                 {
@@ -85,8 +88,11 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     da.RowFilter = "[NAMA_BARANG] LIKE '%" + this.SearchText + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
-                    this.dataGridView1.Columns[2].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    this.dataGridView1.Columns[1].FillWeight = 100;
                 }
                 catch (Exception ex)
                 {
@@ -265,6 +271,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     var kode = form.KodeBarang;
                     var namaBarang = form.NamaBarang;
                     var stock = form.Stock;
+                    double hargaBeli = form.HargaBeli;
                     double harga = form.Harga;
                     var isbn = form.ISBN;
                     var penulis = form.Penulis;
@@ -276,7 +283,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     try
                     {
                         int ids = DbSaveData.Barang(inIdKategori: kategori, inIdPenerbit: penerbit,
-                            inIdRak: rak, inKode: kode, inNama: namaBarang, inStock: stock,
+                            inIdRak: rak, inKode: kode, inNama: namaBarang, inStock: stock, inHargaBeli: hargaBeli,
                             inHarga: harga, inIsbn: isbn, inPenulis: penulis, inDiskon: diskon,
                             inStatus: status, inBarCode: barCode, inKeterngan: keterangan);
 

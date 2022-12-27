@@ -37,6 +37,7 @@ namespace TokoBuku.BaseForm.Master
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEditData = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.labelPersediaan = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -76,6 +77,7 @@ namespace TokoBuku.BaseForm.Master
             this.flowLayoutPanel1.Controls.Add(this.buttonAddData);
             this.flowLayoutPanel1.Controls.Add(this.buttonDelete);
             this.flowLayoutPanel1.Controls.Add(this.buttonEditData);
+            this.flowLayoutPanel1.Controls.Add(this.labelPersediaan);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 382);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -130,6 +132,18 @@ namespace TokoBuku.BaseForm.Master
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
+            // labelPersediaan
+            // 
+            this.labelPersediaan.AutoSize = true;
+            this.labelPersediaan.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelPersediaan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPersediaan.Location = new System.Drawing.Point(321, 0);
+            this.labelPersediaan.Name = "labelPersediaan";
+            this.labelPersediaan.Size = new System.Drawing.Size(120, 38);
+            this.labelPersediaan.TabIndex = 3;
+            this.labelPersediaan.Text = "Total Persediaan ";
+            this.labelPersediaan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FormMasterViewBarang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -147,6 +161,7 @@ namespace TokoBuku.BaseForm.Master
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -166,5 +181,7 @@ namespace TokoBuku.BaseForm.Master
         {
             this.dataGridView1.DataSource = data;
         }
+
+        private System.Windows.Forms.Label labelPersediaan;
     }
 }

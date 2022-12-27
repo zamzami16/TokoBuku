@@ -82,6 +82,11 @@ namespace TokoBuku.BaseForm.Transaksi
 			this.ListBarangDibeli.Columns.Add("Jumlah", typeof(double));
 			this.ListBarangDibeli.Columns.Add("Satuan", typeof(string));*/
 
+			this.textBoxPembayaranAwal.Text = 0.ToString("N2");
+			this.textBoxTotalPembayaran.Text = 0.ToString("N2");
+			this.textsubTotalHargaBeli.Text = 0.ToString("N2");
+
+			
 		}
 
         private void RefreshDataKas()
@@ -521,8 +526,6 @@ namespace TokoBuku.BaseForm.Transaksi
 					MessageBox.Show($"Error @Save Pembelian Kredit: {ex.Message}", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					throw;
 				}
-				
-
 			}
         }
 
@@ -542,6 +545,92 @@ namespace TokoBuku.BaseForm.Transaksi
             {
                 /// 
             }
+        }
+
+
+        #region HandleCurrency
+        private void txtRealBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar) || e.KeyChar == 45)
+            {
+                /// char 45 = "-"
+                TextBox t = (TextBox)sender;
+                int cursorPosition = t.Text.Length - t.SelectionStart;      // Text in the box and Cursor position
+
+                if (e.KeyChar == 45)
+                {
+                    if (t.Text[0] == 45)
+                    {
+                        t.Text = t.Text.Remove(0);
+                    }
+                    else
+                    {
+                        t.Text = "-" + t.Text;
+                    }
+                }
+                else
+                    if (t.Text.Length < 20)
+                    t.Text = (decimal.Parse(t.Text.Insert(t.SelectionStart, e.KeyChar.ToString()).Replace(",", "").Replace(".", "")) / 100).ToString("N2");
+                //t.Text = (decimal.Parse(t.Text.Insert(t.SelectionStart, e.KeyChar.ToString()).Replace(",", "").Replace(".", "")) / 100).ToString("N2");
+
+                t.SelectionStart = (t.Text.Length - cursorPosition < 0 ? 0 : t.Text.Length - cursorPosition);
+            }
+            e.Handled = true;
+        }
+        private void txtRealBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)     // Deals with BackSpace e Delete keys
+            {
+                TextBox t = (TextBox)sender;
+                int cursorPosition = t.Text.Length - t.SelectionStart;
+
+                string Left = t.Text.Substring(0, t.Text.Length - cursorPosition).Replace(".", "").Replace(",", "");
+                string Right = t.Text.Substring(t.Text.Length - cursorPosition).Replace(".", "").Replace(",", "");
+
+                if (Left.Length > 0)
+                {
+                    Left = Left.Remove(Left.Length - 1);                            // Take out the rightmost digit
+                    t.Text = (decimal.Parse(Left + Right) / 100).ToString("N2");
+                    //t.Text = (decimal.Parse(Left + Right) / 100).ToString("N2");
+                    t.SelectionStart = (t.Text.Length - cursorPosition < 0 ? 0 : t.Text.Length - cursorPosition);
+                }
+                e.Handled = true;
+            }
+
+            if (e.KeyCode == Keys.End)                                  // Treats End key
+            {
+                TextBox t = (TextBox)sender;
+                t.SelectionStart = t.Text.Length;                       // Moves the cursor o the rightmost position
+                e.Handled = true;
+            }
+
+            if (e.KeyCode == Keys.Home)                                 // Trata tecla Home
+            {
+                TextBox t = (TextBox)sender;
+                //t.Text = 0.ToString("N2");                              // Set field value to zero 
+                t.Text = 0.ToString("N2");
+                t.SelectionStart = t.Text.Length;                       // Moves the cursor o the rightmost position
+                e.Handled = true;
+            }
+        }
+        private void txtRealBox_Enter(object sender, EventArgs e)
+        {
+            TextBox t = (TextBox)sender;                                // Desliga seleção de texto
+            t.SelectionStart = t.Text.Length;
+        }
+        #endregion
+
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+			this.ResetFormAll();
+        }
+
+        private void buttonHistoriPembelian_Click(object sender, EventArgs e)
+        {
+			using (HistoriPembelian histori = new HistoriPembelian())
+			{
+				histori.ShowDialog();
+			}
         }
     }
 }

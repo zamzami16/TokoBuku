@@ -93,7 +93,7 @@ namespace TokoBuku.DbUtility.Transactions
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();
                         }
-                        /// TODO: Update stock -tips: taruh di loop data detail_
+                        UpdateStockBarangPenjualan(row);
                     }
                 }
             }
@@ -115,7 +115,7 @@ namespace TokoBuku.DbUtility.Transactions
 
             try
             { /// save detail penjualan
-                int id_piutang = SavePiutang(id_penjualan: id_penjualan, tgl_tenggat_bayar: tgl_tenggat_bayar, pembayaran_awal: pembayaran_awal);
+                int id_piutang = SavePiutang(id_pelanggan: id_pelanggan, id_penjualan: id_penjualan, tgl_tenggat_bayar: tgl_tenggat_bayar, pembayaran_awal: pembayaran_awal);
                 try
                 {
                     using (var con = ConnectDB.Connetc())
@@ -136,7 +136,7 @@ namespace TokoBuku.DbUtility.Transactions
                                 cmd.ExecuteNonQuery();
                                 cmd.Dispose();
                             }
-                            /// TODO: Update stock -tips: taruh di loop data detail_
+                            UpdateStockBarangPenjualan(row);
                         }
                     }
                 }
@@ -147,27 +147,27 @@ namespace TokoBuku.DbUtility.Transactions
                     throw ex;
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex){ throw ex; }
         }
 
 
-        internal static int SavePiutang(int id_penjualan, DateTime tgl_tenggat_bayar, double pembayaran_awal, int sudah_lunas = 0)
+        internal static int SavePiutang(int id_pelanggan, int id_penjualan, DateTime tgl_tenggat_bayar, double pembayaran_awal, int sudah_lunas = 0)
         {
             int ids = 0;
             using (var con = ConnectDB.Connetc())
             {
+                /// TODO: SImpan piutang dg algoritma baru
                 var query = "insert into piutang " +
-                    "(id_penjualan, tgl_tenggat_bayar, pembayaran_awal, sudah_lunas) " +
-                    "values (@id_penjualan, @tgl_tenggat_bayar, @pembayaran_awal, @sudah_lunas) " +
+                    "(id_pelanggan, id_penjualan, tgl_tenggat_bayar, posisi, pembayaran_awal, sudah_lunas) " +
+                    "values (@id_pelanggan, @id_penjualan, @tgl_tenggat_bayar, @posisi, @pembayaran_awal, @sudah_lunas) " +
                     "returning id;";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@id_pelanggan", id_pelanggan);
                     cmd.Parameters.Add("@id_penjualan", id_penjualan);
                     cmd.Parameters.Add("@tgl_tenggat_bayar", tgl_tenggat_bayar);
+                    cmd.Parameters.Add("@posisi", 1);
                     cmd.Parameters.Add("@pembayaran_awal", pembayaran_awal);
                     cmd.Parameters.Add("@sudah_lunas", sudah_lunas);
                     ids = (int)cmd.ExecuteScalar();
@@ -248,6 +248,134 @@ namespace TokoBuku.DbUtility.Transactions
                 }
             }
             return num + 1;
+        }
+
+        internal static double GetStockBarang(int id_barang)
+        {
+            double stock = 0;
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "select stock from barang where id_barang=@id_barang";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@id_barang", id_barang);
+                    var x = cmd.ExecuteReader();
+                    if (x.FieldCount > 0)
+                    {
+                        while (x.Read())
+                        {
+                            string dump_ = x[x.FieldCount - 1].ToString();
+                            stock = Convert.ToDouble(dump_);
+                        }
+                    }
+                    cmd.Dispose();
+                }
+            }
+            return stock;
+        }
+
+        internal static void UpdateStockBarangPenjualan(DataRow row)
+        {
+            int id_barang = Convert.ToInt32(row["Id"].ToString());
+            var stock_db = GetStockBarang(id_barang);
+            double stock_minus = Convert.ToDouble(row["Jumlah"].ToString());
+            if (row["Satuan"].ToString().ToLower() == "packs")
+            {
+                stock_minus *= 10;
+            }
+            var stock_ = stock_db - stock_minus;
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "update barang " +
+                    "set stock=@stock_ " +
+                    "where id_barang=@id_barang;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@stock_", stock_);
+                    cmd.Parameters.Add("@id_barang", id_barang);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+        }
+
+        internal static DataTable GetKodeBarang(string kode)
+        {
+            DataTable data = new DataTable();
+            //data.Columns.Add("id", typeof(int));
+            //data.Columns.Add("kode", typeof(string));
+            //data.Columns.Add("nama", typeof(string));
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "select id_barang as id, kode, nama_barang as nama from barang where kode=@kode";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@kode", kode);
+                    FbDataAdapter da = new FbDataAdapter(cmd);
+                    try
+                    {
+                        da.Fill(data);
+                    }
+                    catch (Exception) {}
+                    finally { cmd.Dispose(); }
+                }
+            }
+            return data;
+        }
+        internal static DataTable GetNamaBarang(string nama)
+        {
+            DataTable data = new DataTable();
+            //data.Columns.Add("id", typeof(int));
+            //data.Columns.Add("kode", typeof(string));
+            //data.Columns.Add("nama", typeof(string));
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "select id_barang as id, kode, NAMA_BARANG as nama from barang where NAMA_BARANG=@nama";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama.ToUpper());
+                    FbDataAdapter da = new FbDataAdapter(cmd);
+                    try
+                    {
+                        da.Fill(data);
+                    }
+                    catch (Exception) { }
+                    finally { cmd.Dispose(); }
+                }
+            }
+            return data;
+        }
+
+        internal static DataTable GetHistoriPenjualan()
+        {
+            DataTable data = new DataTable();
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "select p.id, p.kode_transaksi as no_transaksi, k.nama as nama_kasir, " +
+                    "pe.nama as nama_pelanggan, p.total, p.tanggal, " +
+                    "p.status_pembayaran as pembayaran, ka.nama as nama_kas, " +
+                    "p.keterangan " +
+                    "from penjualan as p " +
+                    "left join kasir as k " +
+                    "on p.id_kasir=k.id " +
+                    "left join pelanggan as pe " +
+                    "on p.id_pelanggan=pe.id " +
+                    "left join kas_master as ka " +
+                    "on p.id_kas=ka.id " +
+                    "order by p.tanggal desc;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    FbDataAdapter da = new FbDataAdapter(cmd);
+                    da.Fill(data);
+                    da.Dispose();
+                }
+            }
+            return data;
         }
     }
 }

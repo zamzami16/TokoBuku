@@ -81,6 +81,10 @@ namespace TokoBuku.BaseForm.Master
                         var nama = form.inputNama;
                         var alamat = form.inputALamat;
                         var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
+                        if (no_hp.Length < 6)
+                        {
+                            no_hp = string.Empty;
+                        }
                         var email = form.inputEmail;
                         var keterangan = form.inputKeterangan;
                         var status = form.inputStatus;
@@ -175,6 +179,10 @@ namespace TokoBuku.BaseForm.Master
                         var nama = form.inputNama;
                         var alamat = form.inputALamat;
                         var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
+                        if (no_hp.Length < 6)
+                        {
+                            no_hp = string.Empty;
+                        }
                         var email = form.inputEmail;
                         var keterangan = form.inputKeterangan;
                         var status = form.inputStatus;

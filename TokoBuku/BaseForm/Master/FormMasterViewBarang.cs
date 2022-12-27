@@ -73,6 +73,9 @@ namespace TokoBuku.BaseForm.Master
             // Diskon
             this.dataGridView1.Columns[10].DefaultCellStyle.Format = "0.00'%'";
             this.dataGridView1.Columns[10].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            this.labelPersediaan.Text = "Total Persediaan: " +
+                TokoBuku.DbUtility.MasterDataBarang.GetPersediaan().ToString("C");
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -115,6 +118,7 @@ namespace TokoBuku.BaseForm.Master
                         var kode = form.KodeBarang;
                         var namaBarang = form.NamaBarang;
                         var stock = form.Stock;
+                        double hargaBeli = form.HargaBeli;
                         double harga = form.Harga;
                         var isbn = form.ISBN;
                         var penulis = form.Penulis;
@@ -132,7 +136,7 @@ namespace TokoBuku.BaseForm.Master
 
                         try
                         {
-                            int ids = DbSaveData.Barang(inIdKategori: kategori, inIdPenerbit: penerbit,
+                            int ids = DbSaveData.Barang(inIdKategori: kategori, inIdPenerbit: penerbit, inHargaBeli: hargaBeli,
                                 inIdRak: rak, inKode: kode, inNama: namaBarang, inStock: stock,
                                 inHarga: harga, inIsbn: isbn, inPenulis: penulis, inDiskon: diskon,
                                 inStatus: status, inBarCode: barCode, inKeterngan: keterangan);

@@ -171,7 +171,7 @@ namespace TokoBuku.DbUtility
         }
 
         static public int Barang(int inIdKategori, int inIdPenerbit, int inIdRak, string inKode,
-            string inNama, int inStock, double inHarga, string inIsbn, string inPenulis, 
+            string inNama, int inStock, double inHargaBeli, double inHarga, string inIsbn, string inPenulis, 
             double inDiskon, string inStatus, string inBarCode, string inKeterngan)
         {
             using (var con = ConnectDB.Connetc())
@@ -181,9 +181,9 @@ namespace TokoBuku.DbUtility
                 {
                     inKode = TokoBuku.DbUtility.Etc.GenerateKodeBarang();
                 }
-                var strSql = "INSERT INTO BARANG (ID_KATEGORI, ID_PENERBIT, ID_RAK, KODE, NAMA_BARANG, STOCK, HARGA, " +
+                var strSql = "INSERT INTO BARANG (ID_KATEGORI, ID_PENERBIT, ID_RAK, KODE, NAMA_BARANG, STOCK, HARGA, beli," +
                     "ISBN, PENULIS, DISKON, STATUS, BARCODE, KETERANGAN) " +
-                    "VALUES (@kategori, @penerbit, @rak, @kode, @nama, @stock, @harga, @isbn, @penulis, @diskon, @status, " +
+                    "VALUES (@kategori, @penerbit, @rak, @kode, @nama, @stock, @harga, @beli, @isbn, @penulis, @diskon, @status, " +
                     "@barcode, @keterangan) returning ID_BARANG;";
                 using (var cmd = new FbCommand(strSql, con))
                 {
@@ -195,6 +195,7 @@ namespace TokoBuku.DbUtility
                     cmd.Parameters.Add("@nama", inNama);
                     cmd.Parameters.Add("@stock", inStock);
                     cmd.Parameters.Add("@harga", inHarga);
+                    cmd.Parameters.Add("@beli", inHargaBeli);
                     cmd.Parameters.Add("@isbn", inIsbn);
                     cmd.Parameters.Add("@penulis", inPenulis);
                     cmd.Parameters.Add("@diskon", inDiskon);

@@ -90,6 +90,8 @@ namespace TokoBuku.DbUtility.Transactions
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();
                         }
+                        UpdateStockBarangPembelian(row);
+                        UpdateHargaBeli(row);
                     }
                 }
             }
@@ -129,6 +131,8 @@ namespace TokoBuku.DbUtility.Transactions
                                 cmd.ExecuteNonQuery();
                                 cmd.Dispose();
                             }
+                            UpdateStockBarangPembelian(row);
+                            UpdateHargaBeli(row);
                         }
                     }
                 }
@@ -191,6 +195,106 @@ namespace TokoBuku.DbUtility.Transactions
                     cmd.Dispose();
                 }
             }
+        }
+
+        internal static void UpdateStockBarangPembelian(DataRow row)
+        {
+            int id_barang = Convert.ToInt32(row["id"].ToString());
+            var stock_db = GetStockBarang(id_barang);
+            double stock_minus = Convert.ToDouble(row["jumlah"].ToString());
+            if (row["satuan"].ToString().ToLower() == "packs")
+            {
+                stock_minus *= 10;
+            }
+            var stock_ = stock_db + stock_minus;
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "update barang " +
+                    "set stock=@stock_ " +
+                    "where id_barang=@id_barang;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@stock_", stock_);
+                    cmd.Parameters.Add("@id_barang", id_barang);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+        }
+
+        internal static double GetStockBarang(int id_barang)
+        {
+            double stock = 0;
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "select stock from barang where id_barang=@id_barang";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@id_barang", id_barang);
+                    var x = cmd.ExecuteReader();
+                    if (x.FieldCount > 0)
+                    {
+                        while (x.Read())
+                        {
+                            string dump_ = x[x.FieldCount - 1].ToString();
+                            stock = Convert.ToDouble(dump_);
+                        }
+                    }
+                    cmd.Dispose();
+                }
+            }
+            return stock;
+        }
+
+        internal static void UpdateHargaBeli(DataRow row)
+        {
+            int id_barang = Convert.ToInt32(row["id"].ToString());
+            double harga_beli = Convert.ToDouble(row["harga_Satuan"].ToString());
+            if (row["satuan"].ToString().ToLower() == "packs")
+            {
+                harga_beli /= 10;
+            }
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "update barang " +
+                    "set beli=@harga_beli " +
+                    "where id_barang=id_barang;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@harga_beli", harga_beli);
+                    cmd.Parameters.Add("@id_barang", id_barang);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+        }
+
+        internal static DataTable HistoriPembelian()
+        {
+            DataTable data = new DataTable();
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "select pem.id_pembelian, sup.nama as suplier, " +
+                    "pem.tanggal_beli, pem.no_nota as nota, pem.total, " +
+                    "pem.status_pembelian as pembayaran, k.nama as kas " +
+                    "from pembelian as pem " +
+                    "left join supplier as sup " +
+                    "on pem.id_supplier=sup.id " +
+                    "left join kas_master as k " +
+                    "on pem.id_kas=k.id " +
+                    "order by pem.tanggal_beli desc;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    FbDataAdapter da = new FbDataAdapter(cmd);
+                    da.Fill(data);
+                    da.Dispose();
+                }
+            }
+            return data;
         }
     }
 }

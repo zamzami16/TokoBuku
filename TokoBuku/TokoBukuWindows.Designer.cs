@@ -43,6 +43,7 @@ namespace TokoBuku
             this.tRANSAKSIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PenjualanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PembelianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uBAHHARGAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lAPORANToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
@@ -141,7 +142,8 @@ namespace TokoBuku
             // 
             this.tRANSAKSIToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.PenjualanToolStripMenuItem,
-            this.PembelianToolStripMenuItem});
+            this.PembelianToolStripMenuItem,
+            this.uBAHHARGAToolStripMenuItem});
             this.tRANSAKSIToolStripMenuItem.Name = "tRANSAKSIToolStripMenuItem";
             this.tRANSAKSIToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.tRANSAKSIToolStripMenuItem.Text = "TRANSAKSI";
@@ -149,16 +151,23 @@ namespace TokoBuku
             // PenjualanToolStripMenuItem
             // 
             this.PenjualanToolStripMenuItem.Name = "PenjualanToolStripMenuItem";
-            this.PenjualanToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.PenjualanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.PenjualanToolStripMenuItem.Text = "PENJUALAN";
             this.PenjualanToolStripMenuItem.Click += new System.EventHandler(this.PenjualanToolStripMenuItem_Click);
             // 
             // PembelianToolStripMenuItem
             // 
             this.PembelianToolStripMenuItem.Name = "PembelianToolStripMenuItem";
-            this.PembelianToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.PembelianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.PembelianToolStripMenuItem.Text = "PEMBELIAN";
             this.PembelianToolStripMenuItem.Click += new System.EventHandler(this.PembelianToolStripMenuItem_Click);
+            // 
+            // uBAHHARGAToolStripMenuItem
+            // 
+            this.uBAHHARGAToolStripMenuItem.Name = "uBAHHARGAToolStripMenuItem";
+            this.uBAHHARGAToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uBAHHARGAToolStripMenuItem.Text = "UBAH HARGA";
+            this.uBAHHARGAToolStripMenuItem.Click += new System.EventHandler(this.uBAHHARGAToolStripMenuItem_Click);
             // 
             // lAPORANToolStripMenuItem
             // 
@@ -204,5 +213,6 @@ namespace TokoBuku
         private System.Windows.Forms.ToolStripMenuItem KategoriBukuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem PenerbitBukuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rAKBUKUToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uBAHHARGAToolStripMenuItem;
     }
 }

@@ -10,6 +10,7 @@ using FirebirdSql.Data.FirebirdClient;
 using TokoBuku.DbUtility;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.BaseForm.Transaksi.HutangPiutang;
 
 namespace TokoBuku.BaseForm.Master
 {
@@ -31,19 +32,18 @@ namespace TokoBuku.BaseForm.Master
             this.ActiveControl = this.buttonAddData;
             this.dataTableBase = new DataTable();
             //initTableRakKasKategoriPenerbitMaster();
-            this.dataTableBase = DbLoadData.Pelanggan(this.DbConnection);
+            this.dataTableBase = DbLoadData.Pelanggan();
             this.dataGridView1.DataSource = this.dataTableBase;
             this.dataGridView1.Columns[0].Visible = false;
-            this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[1].FillWeight = 20;
-            this.dataGridView1.Columns[2].FillWeight = 20;
-            this.dataGridView1.Columns[3].FillWeight = 15;
-            this.dataGridView1.Columns[4].FillWeight = 15;
-            this.dataGridView1.Columns[5].FillWeight = 30;
+            this.dataGridView1.Columns[5].DefaultCellStyle.Format = "c";
+            this.dataGridView1.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                                                           
+            this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[6].FillWeight = 20;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -172,7 +172,7 @@ namespace TokoBuku.BaseForm.Master
                         {
                             DbEditData.Pelanggan(Ids: Ids, nama: nama, alamat: alamat, no_hp: no_hp, email: email, keterangan: keterangan);
                             MessageBox.Show($"Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.dataTableBase = DbLoadData.Pelanggan(this.DbConnection);
+                            this.dataTableBase = DbLoadData.Pelanggan();
                             this.dataGridView1.DataSource = this.dataTableBase;
                         }
                         catch (Exception ex)
@@ -183,6 +183,16 @@ namespace TokoBuku.BaseForm.Master
                     }
                 }
             }
+        }
+
+        private void buttonBayarHutang_Click(object sender, EventArgs e)
+        {
+            /// TODO: Lanjutkan untuk pembayaran hutang
+            /// TODO: Buat Form untuk pembayaran hutang
+            /// 
+            FormBayarHutang formBayarHutang = new FormBayarHutang();
+            formBayarHutang.Show();
+            //this.Close();
         }
     }
 }

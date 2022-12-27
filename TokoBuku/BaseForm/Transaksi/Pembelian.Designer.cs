@@ -99,6 +99,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.panel1 = new System.Windows.Forms.Panel();
             this.label21 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonHistoriPembelian = new System.Windows.Forms.Button();
             this.tableLayoutPanelUtama.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -273,6 +274,9 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxTotalPembayaran.Text = "0";
             this.textBoxTotalPembayaran.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxTotalPembayaran, "Total Pembayaran (apabila ada potongan)");
+            this.textBoxTotalPembayaran.Enter += new System.EventHandler(this.txtRealBox_Enter);
+            this.textBoxTotalPembayaran.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRealBox_KeyDown);
+            this.textBoxTotalPembayaran.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRealBox_KeyPress);
             // 
             // textBoxPembayaranAwal
             // 
@@ -285,6 +289,9 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxPembayaranAwal.Text = "0";
             this.textBoxPembayaranAwal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxPembayaranAwal.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBoxPembayaranAwal.Enter += new System.EventHandler(this.txtRealBox_Enter);
+            this.textBoxPembayaranAwal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRealBox_KeyDown);
+            this.textBoxPembayaranAwal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRealBox_KeyPress);
             // 
             // tableLayoutPanelAtas
             // 
@@ -552,6 +559,9 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textsubTotalHargaBeli.TabIndex = 5;
             this.textsubTotalHargaBeli.Text = "0";
             this.textsubTotalHargaBeli.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textsubTotalHargaBeli.Enter += new System.EventHandler(this.txtRealBox_Enter);
+            this.textsubTotalHargaBeli.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRealBox_KeyDown);
+            this.textsubTotalHargaBeli.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRealBox_KeyPress);
             // 
             // label19
             // 
@@ -573,6 +583,9 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textHargaBeliSatuan.Text = "0";
             this.textHargaBeliSatuan.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textHargaBeliSatuan.TextChanged += new System.EventHandler(this.textHargaBeliSatuan_TextChanged);
+            this.textHargaBeliSatuan.Enter += new System.EventHandler(this.txtRealBox_Enter);
+            this.textHargaBeliSatuan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRealBox_KeyDown);
+            this.textHargaBeliSatuan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRealBox_KeyPress);
             // 
             // label11
             // 
@@ -703,6 +716,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 2);
             this.flowLayoutPanel1.Controls.Add(this.buttonSave);
             this.flowLayoutPanel1.Controls.Add(this.buttonReset);
+            this.flowLayoutPanel1.Controls.Add(this.buttonHistoriPembelian);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 66);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -732,6 +746,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.buttonReset.TabIndex = 8;
             this.buttonReset.Text = "RESET";
             this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
             // tableLayoutPanel5
             // 
@@ -934,6 +949,18 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label21.Text = "Tips: [F2] untuk Edit Entry-an";
             this.label21.Visible = false;
             // 
+            // buttonHistoriPembelian
+            // 
+            this.buttonHistoriPembelian.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonHistoriPembelian.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHistoriPembelian.Location = new System.Drawing.Point(3, 43);
+            this.buttonHistoriPembelian.Name = "buttonHistoriPembelian";
+            this.buttonHistoriPembelian.Size = new System.Drawing.Size(158, 34);
+            this.buttonHistoriPembelian.TabIndex = 9;
+            this.buttonHistoriPembelian.Text = "HISTORI PEMBELIAN";
+            this.buttonHistoriPembelian.UseVisualStyleBackColor = true;
+            this.buttonHistoriPembelian.Click += new System.EventHandler(this.buttonHistoriPembelian_Click);
+            // 
             // Pembelian
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1043,5 +1070,6 @@ namespace TokoBuku.BaseForm.Transaksi
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal_harga;
         private System.Windows.Forms.DataGridViewButtonColumn hapus;
         private System.Windows.Forms.Label labelSubTotal;
+        private System.Windows.Forms.Button buttonHistoriPembelian;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FirebirdSql.Data.FirebirdClient;
+using System.Data.Common;
 
 namespace TokoBuku.DbUtility
 {
@@ -60,13 +61,41 @@ namespace TokoBuku.DbUtility
             return dt;
         }
 
-        public static DataTable Pelanggan(FbConnection fbConnection)
+        public static DataTable Pelanggan()
         {
             DataTable dt = new DataTable();
-            var query = "select * from pelanggan";
-            FbDataAdapter da = new FbDataAdapter(query, fbConnection);
-            da.Fill(dt);
-            da.Dispose();
+            using (var con = ConnectDB.Connetc())
+            {
+                /*var query = "select p.id,  p.nama, p.alamat,  p.no_hp, p.email, " +
+                    "d.total_hutang, p.keterangan " +
+                    "from pelanggan as p," +
+                    "left join " +
+                    "(select pi.id_pelanggan as id_pelanggan, " +
+                    "sum(pen.total + pi.posisi * pi.pembayaran_awal) as total_hutang" +
+                    "from piutang as pi " +
+                    "left join penjualan as pen " +
+                    "on pi.id_penjualan = pen.id " +
+                    "where pi.sudah_lunas=0 " +
+                    "group by pi.id_pelanggan) as d " +
+                    "on p.id=d.id_pelanggan;";*/
+                var query = @"select p.id,  p.nama, p.alamat,  p.no_hp, p.email, d.total_hutang, p.keterangan
+from pelanggan as p
+left join 
+(select pi.id_pelanggan as id_pelanggan,
+sum(pen.total + pi.posisi * pi.pembayaran_awal) as total_hutang
+from piutang as pi
+left join penjualan as pen
+on pi.id_penjualan = pen.id
+where pi.sudah_lunas=0
+group by pi.id_pelanggan) as d
+on p.id=d.id_pelanggan;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    FbDataAdapter da = new FbDataAdapter(cmd);
+                    da.Fill(dt);
+                    da.Dispose();
+                }
+            }
             return dt;
         }
         public static DataTable Supplier()

@@ -62,7 +62,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(396, 286);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(475, 286);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelTitle
@@ -72,7 +72,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(3, 0);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(390, 50);
+            this.labelTitle.Size = new System.Drawing.Size(469, 50);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "PILIH DATA";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -85,7 +85,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 88);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(390, 145);
+            this.dataGridView1.Size = new System.Drawing.Size(469, 145);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
@@ -103,7 +103,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(390, 44);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(469, 44);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // ButtAdd
@@ -124,7 +124,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             // 
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(297, 3);
+            this.buttonCancel.Location = new System.Drawing.Point(349, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(90, 38);
             this.buttonCancel.TabIndex = 1;
@@ -136,7 +136,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             // 
             this.buttonPilih.Dock = System.Windows.Forms.DockStyle.Right;
             this.buttonPilih.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPilih.Location = new System.Drawing.Point(198, 3);
+            this.buttonPilih.Location = new System.Drawing.Point(250, 3);
             this.buttonPilih.Name = "buttonPilih";
             this.buttonPilih.Size = new System.Drawing.Size(93, 38);
             this.buttonPilih.TabIndex = 0;
@@ -151,7 +151,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 53);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(390, 29);
+            this.panel1.Size = new System.Drawing.Size(469, 29);
             this.panel1.TabIndex = 3;
             // 
             // buttonSearch
@@ -180,7 +180,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 286);
+            this.ClientSize = new System.Drawing.Size(475, 286);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;

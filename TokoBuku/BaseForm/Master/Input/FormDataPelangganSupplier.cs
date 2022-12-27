@@ -45,18 +45,18 @@ namespace TokoBuku.BaseForm.Master.Input
             {
                 ShowErrorPrompt("NAMA TIDAK BOLOEH KOSONG");
             }
-            else if (string.IsNullOrWhiteSpace(textBoxAlamat.Text))
-            {
-                ShowErrorPrompt("ALAMAT TIDAK BOLOEH KOSONG");
-            }
-            else if (string.IsNullOrWhiteSpace(maskedTextBox1.Text))
-            {
-                ShowErrorPrompt("NAMA TIDAK BOLOEH KOSONG");
-            }
-            else if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
-            {
-                ShowErrorPrompt("NAMA TIDAK BOLOEH KOSONG");
-            }
+            //else if (string.IsNullOrWhiteSpace(textBoxAlamat.Text))
+            //{
+            //    ShowErrorPrompt("ALAMAT TIDAK BOLOEH KOSONG");
+            //}
+            //else if (string.IsNullOrWhiteSpace(maskedTextBox1.Text))
+            //{
+            //    ShowErrorPrompt("NAMA TIDAK BOLOEH KOSONG");
+            //}
+            //else if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
+            //{
+            //    ShowErrorPrompt("NAMA TIDAK BOLOEH KOSONG");
+            //}
             else if (string.IsNullOrWhiteSpace(comboBox1.Text))
             {
                 comboBox1.Text = "AKTIF";
