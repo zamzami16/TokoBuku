@@ -1,6 +1,6 @@
 ﻿namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 {
-    partial class FormBayarHutang
+    partial class FormBayarHutangPelanggan
     {
         /// <summary>
         /// Required designer variable.

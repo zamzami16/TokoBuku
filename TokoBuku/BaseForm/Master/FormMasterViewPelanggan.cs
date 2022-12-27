@@ -190,7 +190,7 @@ namespace TokoBuku.BaseForm.Master
             /// TODO: Lanjutkan untuk pembayaran hutang
             /// TODO: Buat Form untuk pembayaran hutang
             /// 
-            FormBayarHutang formBayarHutang = new FormBayarHutang();
+            FormBayarHutangPelanggan formBayarHutang = new FormBayarHutangPelanggan();
             formBayarHutang.Show();
             //this.Close();
         }

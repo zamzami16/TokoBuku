@@ -10,7 +10,7 @@ using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 {
-    public partial class FormBayarHutang : Form
+    public partial class FormBayarHutangPelanggan : Form
     {
         public int IdPelanggan { get; set; }
         public string NamaPelanggan { get; set; }
@@ -18,7 +18,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
         private DataTable dataHutang;
         private DataTable DataKas;
 
-        public FormBayarHutang()
+        public FormBayarHutangPelanggan()
         {
             InitializeComponent();
         }
