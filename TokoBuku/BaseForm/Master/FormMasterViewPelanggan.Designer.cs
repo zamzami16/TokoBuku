@@ -36,11 +36,11 @@ namespace TokoBuku.BaseForm.Master
             this.buttonAddData = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEditData = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonBayarHutang = new System.Windows.Forms.Button();
+            this.Dgv1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dgv1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -49,7 +49,7 @@ namespace TokoBuku.BaseForm.Master
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.DataViewTitle, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.Dgv1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -118,21 +118,6 @@ namespace TokoBuku.BaseForm.Master
             this.buttonEditData.UseVisualStyleBackColor = true;
             this.buttonEditData.Click += new System.EventHandler(this.buttonEditData_Click);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 53);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(607, 323);
-            this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
-            // 
             // buttonBayarHutang
             // 
             this.buttonBayarHutang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -143,6 +128,23 @@ namespace TokoBuku.BaseForm.Master
             this.buttonBayarHutang.Text = "BAYAR HUTANG";
             this.buttonBayarHutang.UseVisualStyleBackColor = true;
             this.buttonBayarHutang.Click += new System.EventHandler(this.buttonBayarHutang_Click);
+            // 
+            // Dgv1
+            // 
+            this.Dgv1.AllowUserToAddRows = false;
+            this.Dgv1.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Dgv1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.Dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dgv1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Dgv1.Location = new System.Drawing.Point(3, 53);
+            this.Dgv1.Name = "Dgv1";
+            this.Dgv1.ReadOnly = true;
+            this.Dgv1.Size = new System.Drawing.Size(607, 323);
+            this.Dgv1.TabIndex = 2;
+            this.Dgv1.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Dgv1_RowHeaderMouseClick);
+            this.Dgv1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+            this.Dgv1.SelectionChanged += new System.EventHandler(this.Dgv1_SelectionChanged);
             // 
             // FormMasterViewPelanggan
             // 
@@ -161,7 +163,7 @@ namespace TokoBuku.BaseForm.Master
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dgv1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -174,11 +176,11 @@ namespace TokoBuku.BaseForm.Master
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonAddData;
         private System.Windows.Forms.Button buttonEditData;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView Dgv1;
 
         public void SetDataGridSource(object data)
         {
-            this.dataGridView1.DataSource = data;
+            this.Dgv1.DataSource = data;
         }
 
         private System.Windows.Forms.Button buttonBayarHutang;

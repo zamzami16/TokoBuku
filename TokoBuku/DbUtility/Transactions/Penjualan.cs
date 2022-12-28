@@ -115,7 +115,7 @@ namespace TokoBuku.DbUtility.Transactions
 
             try
             { /// save detail penjualan
-                int id_piutang = SavePiutang(id_pelanggan: id_pelanggan, id_penjualan: id_penjualan, tgl_tenggat_bayar: tgl_tenggat_bayar, pembayaran_awal: pembayaran_awal);
+                int id_piutang = SavePiutang(id_pelanggan: id_pelanggan, id_penjualan: id_penjualan, tgl_tenggat_bayar: tgl_tenggat_bayar, tgl_beli: tanggal, total: total_bayar, pembayaran_awal: pembayaran_awal, id_kas: id_kas);
                 try
                 {
                     using (var con = ConnectDB.Connetc())
@@ -147,19 +147,19 @@ namespace TokoBuku.DbUtility.Transactions
                     throw ex;
                 }
             }
-            catch (Exception ex){ throw ex; }
+            catch (Exception ex) { DeleteSavePenjualan(id_penjualan); throw ex; }
+
         }
 
 
-        internal static int SavePiutang(int id_pelanggan, int id_penjualan, DateTime tgl_tenggat_bayar, double pembayaran_awal, int sudah_lunas = 0)
+        internal static int SavePiutang(int id_pelanggan, int id_penjualan, DateTime tgl_tenggat_bayar, DateTime tgl_beli, double total, double pembayaran_awal, string id_kas, string sudah_lunas = "belum")
         {
             int ids = 0;
             using (var con = ConnectDB.Connetc())
             {
-                /// TODO: SImpan piutang dg algoritma baru
                 var query = "insert into piutang " +
-                    "(id_pelanggan, id_penjualan, tgl_tenggat_bayar, posisi, pembayaran_awal, sudah_lunas) " +
-                    "values (@id_pelanggan, @id_penjualan, @tgl_tenggat_bayar, @posisi, @pembayaran_awal, @sudah_lunas) " +
+                    "(id_pelanggan, id_penjualan, tgl_tenggat_bayar, total, sudah_lunas) " +
+                    "values (@id_pelanggan, @id_penjualan, @tgl_tenggat_bayar, @total, @sudah_lunas) " +
                     "returning id;";
                 using (var cmd = new FbCommand(query, con))
                 {
@@ -167,13 +167,33 @@ namespace TokoBuku.DbUtility.Transactions
                     cmd.Parameters.Add("@id_pelanggan", id_pelanggan);
                     cmd.Parameters.Add("@id_penjualan", id_penjualan);
                     cmd.Parameters.Add("@tgl_tenggat_bayar", tgl_tenggat_bayar);
-                    cmd.Parameters.Add("@posisi", 1);
-                    cmd.Parameters.Add("@pembayaran_awal", pembayaran_awal);
+                    cmd.Parameters.Add("@total", total);
                     cmd.Parameters.Add("@sudah_lunas", sudah_lunas);
                     ids = (int)cmd.ExecuteScalar();
                     cmd.Dispose();
                 }
+                BayarPiutang(id_piutang: ids, pembayaran: pembayaran_awal, tgl_bayar: tgl_beli, id_kas: id_kas);
                 return ids;
+            }
+        }
+
+        internal static void BayarPiutang(int id_piutang, double pembayaran, DateTime tgl_bayar, string id_kas)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "insert into bayar_piutang " +
+                    "(id_piutang, pembayaran, tgl_bayar, id_kas) " +
+                    "values (@id_piutang, @pembayaran, @tgl_bayar, @id_kas);";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@id_piutang", id_piutang);
+                    cmd.Parameters.Add("@pembayaran", pembayaran);
+                    cmd.Parameters.Add("@tgl_bayar", tgl_bayar);
+                    cmd.Parameters.Add("@id_kas", id_kas);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
             }
         }
 
@@ -196,6 +216,15 @@ namespace TokoBuku.DbUtility.Transactions
         {
             using (var con = ConnectDB.Connetc())
             {
+                /// hapus bayar hutang dulu
+                var query_ = "delete from bayar_piutang where id_piutang=@id_piutang";
+                using (var cmd = new FbCommand(query_, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@id_piutang", id_piutang);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
                 var query = "delete from piutang where id=@id;";
                 using (var cmd = new FbCommand(query, con))
                 {

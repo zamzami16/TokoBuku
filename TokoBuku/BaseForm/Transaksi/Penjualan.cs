@@ -207,7 +207,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 TokoBuku.DbUtility
                     .Transactions.Penjualan.SaveKredit(
                     kode_transaksi: this.labelNoTransaksi.Text,
-                    id_kasir: 1,
+                    id_kasir: 1, /// TODO: Ganti id kasir ya, dengan sistem login
                     id_pelanggan: this.PelangganIdTerpilih,
                     tanggal: this.dateTimePickerTglPesanan.Value,
                     waktu: DateTime.Now,
@@ -692,7 +692,8 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void textBoxQty_Validating(object sender, CancelEventArgs e)
         {
-            /// TODO: **Sudah bisa validasi ** benerin validating stock dulu. ref: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.control.validating?view=windowsdesktop-7.0
+            /*///  **Sudah bisa validasi ** benerin validating stock dulu. ref: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.control.validating?view=windowsdesktop-7.0*/
+
             double qty, qty_db;
             if (string.IsNullOrWhiteSpace(this.textKode.Text) || string.IsNullOrWhiteSpace(this.textNamaBarang.Text))
             {

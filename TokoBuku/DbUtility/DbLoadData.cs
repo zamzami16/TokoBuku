@@ -66,30 +66,7 @@ namespace TokoBuku.DbUtility
             DataTable dt = new DataTable();
             using (var con = ConnectDB.Connetc())
             {
-                /*var query = "select p.id,  p.nama, p.alamat,  p.no_hp, p.email, " +
-                    "d.total_hutang, p.keterangan " +
-                    "from pelanggan as p," +
-                    "left join " +
-                    "(select pi.id_pelanggan as id_pelanggan, " +
-                    "sum(pen.total + pi.posisi * pi.pembayaran_awal) as total_hutang" +
-                    "from piutang as pi " +
-                    "left join penjualan as pen " +
-                    "on pi.id_penjualan = pen.id " +
-                    "where pi.sudah_lunas=0 " +
-                    "group by pi.id_pelanggan) as d " +
-                    "on p.id=d.id_pelanggan;";*/
-                var query =
-                    "select p.id,  p.nama, p.alamat,  p.no_hp, p.email, d.total_hutang, p.keterangan " +
-                    "from pelanggan as p " +
-                    "left join " +
-                    "(select pi.id_pelanggan as id_pelanggan, " +
-                    "sum(pen.total + pi.posisi * pi.pembayaran_awal) as total_hutang " +
-                    "from piutang as pi " +
-                    "left join penjualan as pen " +
-                    "on pi.id_penjualan = pen.id " +
-                    "where pi.sudah_lunas=0 " +
-                    "group by pi.id_pelanggan) as d " +
-                    "on p.id=d.id_pelanggan;";
+                var query = "select pel.id as id_pelanggan, pel.nama as nama_pelanggan, pel.alamat, pel.no_hp, pel.email, total_hutang.tot_hutang as total_hutang, total_hutang.tenggat_bayar, pel.keterangan from pelanggan as pel left join (select pi.id_pelanggan, sum(pi.total - jumbayar.terbayar) as tot_hutang, min(pi.tgl_tenggat_bayar) as tenggat_bayar from piutang as pi inner join (select bp.id_piutang, sum(bp.pembayaran) as terbayar from bayar_piutang as bp group by bp.id_piutang) as jumbayar on jumbayar.id_piutang=pi.id where pi.sudah_lunas='belum' group by pi.id_pelanggan) as total_hutang on pel.id=total_hutang.id_pelanggan";
                 using (var cmd = new FbCommand(query, con))
                 {
                     FbDataAdapter da = new FbDataAdapter(cmd);

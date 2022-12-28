@@ -10,26 +10,11 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
     internal static class BayarHutangPelanggan
     {
         internal static DataTable DataHutangPelanggan(int id_pelanggan)
-        {
+        {/// TODO: Cari ini ya ges ya
             DataTable table= new DataTable();
             using (var con = ConnectDB.Connetc())
             {
-                var query = "select pi.id as id_piutang, pen.nama_kasir, " +
-                    "pi.tgl_tenggat_bayar as tenggat_bayar, " +
-                    "pi.pembayaran_awal, pen.total, " +
-                    "pen.keterangan as keterangan_pembelian, " +
-                    "pi.id_penjualan as id_penjualan, " +
-                    "pen.kode_transaksi " +
-                    "from piutang as pi " +
-                    "left join " +
-                    "(select penj.id as id_penjualan, k.nama as nama_kasir, " +
-                    "penj.total, penj.keterangan, penj.kode_transaksi " +
-                    "from penjualan as penj " +
-                    "inner join kasir as k " +
-                    "on penj.id_kasir=k.id " +
-                    "where penj.status_pembayaran='KREDIT') as pen " +
-                    "on pi.id_penjualan=pen.id_penjualan " +
-                    "where pi.id_pelanggan=7;";
+                var query = "select pi.id as id_piutang, pi.id_pelanggan, pi.id_penjualan, pen.kode_transaksi, pel.nama as nama_pelanggan, (pi.total - tterbayar.terbayar) as total, pi.tgl_tenggat_bayar as tenggat_bayar from piutang as pi inner join (select bp.id_piutang, sum(bp.pembayaran) as terbayar from bayar_piutang as bp group by bp.id_piutang) as tterbayar on pi.id=tterbayar.id_piutang inner join penjualan as pen on pi.id_penjualan=pen.id inner join pelanggan as pel on pi.id_pelanggan=pel.id where pi.id_pelanggan=10 and pi.sudah_lunas='belum'";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType= CommandType.Text;
@@ -42,24 +27,35 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
             return table;
         }
 
-        internal static void BayarHutang(int id_pelanggan, int id_penjualan, DateTime tanggal_bayar, double pembayaran_awal, int posisi = -1, int sudah_lunas = 1)
+        internal static void BayarHutang(int id_piutang, DateTime tanggal_bayar, double pembayaran, string id_kas, bool sudah_lunas = false)
         {
             using (var con = ConnectDB.Connetc())
             {
-                var query = "insert into piutang " +
-                    "(id_pelanggan, id_penjualan, tgl_bayar, posisi, pembayaran_awal, sudah_lunas) " +
-                    "values (@id_pelanggan, @id_penjualan, @tgl_bayar, @pembayaran_awal, @posisi, @sudah_lunas);";
+                var query = "insert into bayar_piutang " +
+                    "(id_piutang, pembayaran, tgl_bayar, id_kas) " +
+                    "values (@id_piutang, @pembayaran, @tgl_bayar, @id_kas);";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add("@id_pelanggan", id_pelanggan);
-                    cmd.Parameters.Add("@id_penjualan", id_penjualan);
+                    cmd.Parameters.Add("@id_piutang", id_piutang);
+                    cmd.Parameters.Add("@pembayaran", pembayaran);
                     cmd.Parameters.Add("@tgl_bayar", tanggal_bayar);
-                    cmd.Parameters.Add("@posisi", posisi);
-                    cmd.Parameters.Add("@pembayaran_awal", pembayaran_awal);
-                    cmd.Parameters.Add("@sudah_lunas", sudah_lunas);
+                    cmd.Parameters.Add("@id_kas", id_kas);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
+                }
+                if (sudah_lunas)
+                {
+                    string lunas = "sudah";
+                    using (var cmd = new FbCommand())
+                    {
+                        cmd.CommandText = "update piutang set sudah_lunas=@sudah_lunas where id=@id_piutang";
+                        cmd.Parameters.Add("@sudah_lunas", lunas);
+                        cmd.Parameters.Add("@id_piutang", id_piutang);
+                        cmd.Connection = con;
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
                 }
             }
         }

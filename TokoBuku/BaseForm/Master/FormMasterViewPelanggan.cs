@@ -30,20 +30,24 @@ namespace TokoBuku.BaseForm.Master
         private void FormMasterDataViewer_Load(object sender, EventArgs e)
         {
             this.ActiveControl = this.buttonAddData;
+            this.RefreshDataPelanggan();
+        }
+
+        private void RefreshDataPelanggan()
+        {
             this.dataTableBase = new DataTable();
             //initTableRakKasKategoriPenerbitMaster();
             this.dataTableBase = DbLoadData.Pelanggan();
-            this.dataGridView1.DataSource = this.dataTableBase;
-            this.dataGridView1.Columns[0].Visible = false;
-            this.dataGridView1.Columns[5].DefaultCellStyle.Format = "c";
-            this.dataGridView1.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                                                           
-            this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[6].FillWeight = 20;
+            this.Dgv1.DataSource = this.dataTableBase;
+            this.Dgv1.DefaultCellStyle.NullValue = "-";
+            this.Dgv1.Columns[0].Visible = false;
+            this.Dgv1.Columns[5].DefaultCellStyle.Format = "c";
+            this.Dgv1.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.Dgv1.Columns[6].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            for (int i = 1; i < this.Dgv1.ColumnCount; i++) { this.Dgv1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; }
+            this.Dgv1.Columns[this.Dgv1.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.Dgv1.Columns[this.Dgv1.ColumnCount - 1].MinimumWidth = 75;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -130,7 +134,7 @@ namespace TokoBuku.BaseForm.Master
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            foreach (DataGridViewRow row in Dgv1.SelectedRows)
             {
                 int ids = Convert.ToInt32(row.Cells[0].Value.ToString());
                 string nama = row.Cells[1].Value.ToString();
@@ -153,7 +157,7 @@ namespace TokoBuku.BaseForm.Master
         
         private void buttonEditData_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            foreach (DataGridViewRow row in Dgv1.SelectedRows)
             {
                 int Ids = Convert.ToInt32(row.Cells[0].Value.ToString());
                 var namaAwal = row.Cells[1].Value.ToString();
@@ -173,7 +177,7 @@ namespace TokoBuku.BaseForm.Master
                             DbEditData.Pelanggan(Ids: Ids, nama: nama, alamat: alamat, no_hp: no_hp, email: email, keterangan: keterangan);
                             MessageBox.Show($"Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.dataTableBase = DbLoadData.Pelanggan();
-                            this.dataGridView1.DataSource = this.dataTableBase;
+                            this.Dgv1.DataSource = this.dataTableBase;
                         }
                         catch (Exception ex)
                         {
@@ -188,11 +192,31 @@ namespace TokoBuku.BaseForm.Master
         private void buttonBayarHutang_Click(object sender, EventArgs e)
         {
             /// TODO: Lanjutkan untuk pembayaran hutang
-            /// TODO: Buat Form untuk pembayaran hutang
-            /// 
-            FormBayarHutangPelanggan formBayarHutang = new FormBayarHutangPelanggan();
-            formBayarHutang.Show();
-            //this.Close();
+            foreach (DataGridViewRow row in this.Dgv1.SelectedRows)
+            {
+                int id_pelanggan = Convert.ToInt32(row.Cells[0].Value.ToString());
+                double total_hutang = 0;
+                if (double.TryParse(row.Cells["total_hutang"].Value.ToString(), out total_hutang) && total_hutang > 0)
+                {
+                    using (var form = new FormBayarHutangPelanggan())
+                    {
+                        form.IdPelanggan = id_pelanggan;
+                        form.NamaPelanggan = row.Cells[1].Value.ToString();
+                        form.TotalHutang = total_hutang;
+                        form.ShowDialog();
+                    }
+                }
+
+            }
+        }
+
+        private void Dgv1_SelectionChanged(object sender, EventArgs e) { }
+
+        private void Dgv1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            double total_hutang = 0;
+            if (!double.TryParse(this.Dgv1[5, e.RowIndex].Value.ToString(), out total_hutang) || total_hutang <= 0) { this.buttonBayarHutang.Enabled = false; }
+            else { this.buttonBayarHutang.Enabled = true; }
         }
     }
 }
