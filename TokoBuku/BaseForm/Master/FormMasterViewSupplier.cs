@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using FirebirdSql.Data.FirebirdClient;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using FirebirdSql.Data.FirebirdClient;
-using TokoBuku.DbUtility;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.BaseForm.Transaksi.HutangPiutang;
+using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master
 {
@@ -29,21 +26,7 @@ namespace TokoBuku.BaseForm.Master
         private void FormMasterDataViewer_Load(object sender, EventArgs e)
         {
             this.ActiveControl = this.buttonAddData;
-            this.dataTableBase = new DataTable();
-            //initTableRakKasKategoriPenerbitMaster();
-            this.dataTableBase = DbLoadData.Supplier();
-            this.dataGridView1.DataSource = this.dataTableBase;
-            this.dataGridView1.Columns[0].Visible = false;
-            this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[1].FillWeight = 20;
-            this.dataGridView1.Columns[2].FillWeight = 20;
-            this.dataGridView1.Columns[3].FillWeight = 15;
-            this.dataGridView1.Columns[4].FillWeight = 15;
-            this.dataGridView1.Columns[5].FillWeight = 30;
+            this.RefreshDataSupplier();
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -94,17 +77,7 @@ namespace TokoBuku.BaseForm.Master
                             ids = DbSaveData.Supplier(nama: nama, alamat: alamat, email: email,
                             no_hp: no_hp, keterangan: keterangan, status: status);
 
-                            DataRow dataRow = this.dataTableBase.NewRow();
-                            dataRow["ID"] = ids;
-                            dataRow["NAMA"] = nama;
-                            dataRow["ALAMAT"] = alamat;
-                            dataRow["EMAIL"] = email;
-                            dataRow["NO_HP"] = no_hp;
-                            dataRow["KETERANGAN"] = keterangan;
-                            dataRow["STATUS"] = "AKTIF";
-
-                            this.dataTableBase.Rows.Add(dataRow);
-
+                            this.RefreshDataSupplier();
                             var lanjut = MessageBox.Show("Data Berhasil disimpan.\nAnda mau menambah data lagi?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (lanjut != DialogResult.Yes)
                             {
@@ -126,6 +99,23 @@ namespace TokoBuku.BaseForm.Master
                 }
 
             }
+        }
+
+        private void RefreshDataSupplier()
+        {
+            this.dataTableBase = new DataTable();
+            this.dataTableBase = TokoBuku.DbUtility.Master.Supplier.GetDataSupplier();
+            var xxx = this.dataTableBase;
+            this.dataGridView1.DataSource = this.dataTableBase;
+            this.dataGridView1.Columns[0].Visible = false;
+            this.dataGridView1.Columns[this.dataGridView1.ColumnCount-1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Keterangan
+            this.dataGridView1.Columns[this.dataGridView1.ColumnCount - 1].MinimumWidth = 75;
+            for (int i = 1; i < this.dataGridView1.ColumnCount-1; i++)
+            {
+                this.dataGridView1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            this.dataGridView1.Columns["total_hutang"].DefaultCellStyle.Format = "C";
+            this.dataGridView1.Columns["total_hutang"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -179,19 +169,17 @@ namespace TokoBuku.BaseForm.Master
                         var nama = form.inputNama;
                         var alamat = form.inputALamat;
                         var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
-                        if (no_hp.Length < 6)
-                        {
-                            no_hp = string.Empty;
-                        }
+                        if (no_hp.Length < 6) no_hp = string.Empty;
                         var email = form.inputEmail;
                         var keterangan = form.inputKeterangan;
                         var status = form.inputStatus;
                         try
                         {
-                            DbEditData.Supplier(Ids: Ids, nama: nama, alamat: alamat, no_hp: no_hp, email: email, keterangan: keterangan);
+                            TokoBuku.DbUtility.Master.Supplier.EditSupplier(Ids: Ids, nama: nama, 
+                                alamat: alamat, no_hp: no_hp, email: email, keterangan: keterangan);
+
                             MessageBox.Show($"Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.dataTableBase = DbLoadData.Supplier();
-                            this.dataGridView1.DataSource = this.dataTableBase;
+                            this.RefreshDataSupplier();
                         }
                         catch (Exception ex)
                         {
@@ -201,6 +189,32 @@ namespace TokoBuku.BaseForm.Master
                     }
                 }
             }
+        }
+
+        private void buttonBayarHutang_Click(object sender, EventArgs e)
+        {
+            /// TODO: Tambahkan metode bayar hutang
+            foreach (DataGridViewRow row in this.dataGridView1.SelectedRows)
+            {
+                int id_supplier = Convert.ToInt32(row.Cells[0].Value.ToString());
+                double total_hutang;
+                if (double.TryParse(row.Cells["total_hutang"].Value.ToString(), out total_hutang))
+                {
+                    using (var form = new FormBayarHutangSupplier())
+                    {
+                        form.IdSupplier = id_supplier;
+                        form.NamaSupplier = row.Cells[1].Value.ToString();
+                        form.TotalHutang = total_hutang;
+                        form.ShowDialog();
+                    }
+                } 
+
+            }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

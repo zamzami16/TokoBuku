@@ -78,17 +78,18 @@ namespace TokoBuku.DbUtility
                     "where pi.sudah_lunas=0 " +
                     "group by pi.id_pelanggan) as d " +
                     "on p.id=d.id_pelanggan;";*/
-                var query = @"select p.id,  p.nama, p.alamat,  p.no_hp, p.email, d.total_hutang, p.keterangan
-from pelanggan as p
-left join 
-(select pi.id_pelanggan as id_pelanggan,
-sum(pen.total + pi.posisi * pi.pembayaran_awal) as total_hutang
-from piutang as pi
-left join penjualan as pen
-on pi.id_penjualan = pen.id
-where pi.sudah_lunas=0
-group by pi.id_pelanggan) as d
-on p.id=d.id_pelanggan;";
+                var query =
+                    "select p.id,  p.nama, p.alamat,  p.no_hp, p.email, d.total_hutang, p.keterangan " +
+                    "from pelanggan as p " +
+                    "left join " +
+                    "(select pi.id_pelanggan as id_pelanggan, " +
+                    "sum(pen.total + pi.posisi * pi.pembayaran_awal) as total_hutang " +
+                    "from piutang as pi " +
+                    "left join penjualan as pen " +
+                    "on pi.id_penjualan = pen.id " +
+                    "where pi.sudah_lunas=0 " +
+                    "group by pi.id_pelanggan) as d " +
+                    "on p.id=d.id_pelanggan;";
                 using (var cmd = new FbCommand(query, con))
                 {
                     FbDataAdapter da = new FbDataAdapter(cmd);
@@ -98,17 +99,30 @@ on p.id=d.id_pelanggan;";
             }
             return dt;
         }
-        public static DataTable Supplier()
+        internal static DataTable Supplier()
         {
             DataTable dt = new DataTable();
-            var query = "select * from supplier";
+            var query = "select su.id as id_supplier, su.nama as nama_supplier, " +
+                "su.alamat, su.no_hp, su.email, hu.id as id_hutang, " +
+                "hu.total as total_hutang, hu.tgl_tenggat_bayar as tenggat_bayar, " +
+                "hu.sudah_lunas as lunas " +
+                "from hutang as hu " +
+                "left join " +
+                "(select bh.id_hutang, sum(bh.pembayaran) as pembayaran " +
+                "from bayar_hutang as bh " +
+                "group by bh.id_hutang) as bhut " +
+                "on bhut.id_hutang=hu.id " +
+                "left join pembelian as pem " +
+                "on hu.id_pembelian=pem.id_pembelian " +
+                "right join supplier as su " +
+                "on hu.id_supplier=su.id";
             FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
             da.Fill(dt);
             da.Dispose();
             return dt;
         }
 
-        public static DataTable Kas()
+        internal static DataTable Kas()
         {
             DataTable dt = new DataTable();
             FbDataAdapter da = new FbDataAdapter("select * from kas_master", ConnectDB.Connetc());

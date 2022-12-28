@@ -79,6 +79,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
+            this.buttonHistoriPembelian = new System.Windows.Forms.Button();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.dateTimePickerJatuhTempo = new System.Windows.Forms.DateTimePicker();
             this.comboBoxJenisKas = new System.Windows.Forms.ComboBox();
@@ -99,7 +100,6 @@ namespace TokoBuku.BaseForm.Transaksi
             this.panel1 = new System.Windows.Forms.Panel();
             this.label21 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonHistoriPembelian = new System.Windows.Forms.Button();
             this.tableLayoutPanelUtama.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -748,6 +748,18 @@ namespace TokoBuku.BaseForm.Transaksi
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
+            // buttonHistoriPembelian
+            // 
+            this.buttonHistoriPembelian.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonHistoriPembelian.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHistoriPembelian.Location = new System.Drawing.Point(3, 43);
+            this.buttonHistoriPembelian.Name = "buttonHistoriPembelian";
+            this.buttonHistoriPembelian.Size = new System.Drawing.Size(158, 34);
+            this.buttonHistoriPembelian.TabIndex = 9;
+            this.buttonHistoriPembelian.Text = "HISTORI PEMBELIAN";
+            this.buttonHistoriPembelian.UseVisualStyleBackColor = true;
+            this.buttonHistoriPembelian.Click += new System.EventHandler(this.buttonHistoriPembelian_Click);
+            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 2;
@@ -948,18 +960,6 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label21.TabIndex = 0;
             this.label21.Text = "Tips: [F2] untuk Edit Entry-an";
             this.label21.Visible = false;
-            // 
-            // buttonHistoriPembelian
-            // 
-            this.buttonHistoriPembelian.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.buttonHistoriPembelian.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHistoriPembelian.Location = new System.Drawing.Point(3, 43);
-            this.buttonHistoriPembelian.Name = "buttonHistoriPembelian";
-            this.buttonHistoriPembelian.Size = new System.Drawing.Size(158, 34);
-            this.buttonHistoriPembelian.TabIndex = 9;
-            this.buttonHistoriPembelian.Text = "HISTORI PEMBELIAN";
-            this.buttonHistoriPembelian.UseVisualStyleBackColor = true;
-            this.buttonHistoriPembelian.Click += new System.EventHandler(this.buttonHistoriPembelian_Click);
             // 
             // Pembelian
             // 

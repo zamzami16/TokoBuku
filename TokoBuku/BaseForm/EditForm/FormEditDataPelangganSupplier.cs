@@ -100,13 +100,14 @@ namespace TokoBuku.BaseForm.EditForm
 
         public void SetToEditForm(DataGridViewRow row)
         {
-            string formated_no_hp = row.Cells[3].Value.ToString().Remove(0, 1);
+            //string formated_no_hp = row.Cells["no_hp"].Value.ToString().Remove(0, 1);
 
-            this.textBoxNama.Text = row.Cells[1].Value.ToString();
-            this.textBoxAlamat.Text = row.Cells[2].Value.ToString();
-            this.maskedTextBox1.Text = row.Cells[3].Value.ToString().Remove(0, 2);
-            this.textBoxEmail.Text = row.Cells[4].Value.ToString();
-            this.richTextBoxKeterangan.Text = row.Cells[5].Value.ToString();
+            this.textBoxNama.Text = row.Cells["nama_supplier"].Value.ToString();
+            this.textBoxAlamat.Text = row.Cells["alamat"].Value.ToString();
+            try { this.maskedTextBox1.Text = row.Cells["no_hp"].Value.ToString().Remove(0, 2); }
+            catch (Exception) { this.maskedTextBox1.Text = string.Empty; }
+            this.textBoxEmail.Text = row.Cells["email"].Value.ToString();
+            this.richTextBoxKeterangan.Text = row.Cells["keterangan"].Value.ToString();
         }
     }
 }

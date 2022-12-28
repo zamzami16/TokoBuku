@@ -42,6 +42,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.textBoxPembayaranAwal.Enabled = true;
                 this.dateTimePickerTglPesanan.Value = DateTime.Now;
                 this.dateTimePickerJatuhTempo.Value = DateTime.Now.AddDays(7);
+				this.textBoxTotalPembayaran.Enabled = false;
             }
 			else if (comboJenisBayar.Text == "CASH")
             {
@@ -75,7 +76,14 @@ namespace TokoBuku.BaseForm.Transaksi
 			_satuan.Items.Add("Packs");
 			((DataGridViewComboBoxColumn)dataGridView1.Columns["satuan"]).DataSource = _satuan.Items;
 
-			this.RefreshDataKas();
+
+			this.dataGridView1.Columns["subtotal_harga"].DefaultCellStyle.Format = "C";
+            this.dataGridView1.Columns["harga_Satuan"].DefaultCellStyle.Format = "C";
+
+			this.dataGridView1.Columns["subtotal_harga"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
+            this.dataGridView1.Columns["harga_Satuan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
+
+            this.RefreshDataKas();
 			//DataGridViewNumericUpDownElements _jumlah = new DataGridViewNumericUpDownElements();
 			/*this.ListBarangDibeli.Columns.Add("Kode", typeof(string));
 			this.ListBarangDibeli.Columns.Add("Nama Barang", typeof(string));
@@ -288,8 +296,9 @@ namespace TokoBuku.BaseForm.Transaksi
 				if (this.comboSatuan.Text.ToLower() == "packs")
 				{
 					satuan *= 10;
-				}
-				this.ResetFormInput();
+                    this.dataGridView1.Rows[row_idx].Cells["subtotal_harga"].Value = subhargabeli * 10;
+                }
+                this.ResetFormInput();
 				this.UpdateTotalBeli();
 			}
 		}

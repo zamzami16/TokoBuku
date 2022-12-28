@@ -10,7 +10,7 @@ namespace TokoBuku.DbUtility.Transactions
     internal static class Pembelian
     {
         public static int SavePembelian_cash(int id_supplier, DateTime tanggal_beli,
-            string no_nota, double total, int id_kas, string status_pembayaran="CASH")
+            string no_nota, double total, int id_kas, string status_pembayaran = "CASH")
         {
             int ids = 0;
             using (var con = ConnectDB.Connetc())
@@ -103,14 +103,14 @@ namespace TokoBuku.DbUtility.Transactions
         }
 
         internal static void SavePembelianKredit(int id_supplier, DateTime tanggal_beli,
-            DateTime tgl_tenggat_bayar, double pembayaran_awal, string no_nota, 
+            DateTime tgl_tenggat_bayar, double pembayaran_awal, string no_nota,
             double total, string status_pembelian, string id_kas, DataTable rows)
         {
             var ids = SavePembelian_kredit(id_supplier: id_supplier, tanggal_beli: tanggal_beli,
                 no_nota: no_nota, total: total, id_kas: id_kas, status_pembayaran: status_pembelian);
             try
             {
-                var id_hutang = SaveHutang(id_pembelian: ids, tgl_tenggat_bayar: tgl_tenggat_bayar, pembayaran_awal: pembayaran_awal);
+                var id_hutang = SaveHutang(id_pembelian: ids, id_supplier: id_supplier, tgl_tenggat_bayar: tgl_tenggat_bayar, total: total, pembayaran_awal: pembayaran_awal, id_kas: id_kas, tgl_bayar: tanggal_beli);
                 try
                 {
                     using (var con = ConnectDB.Connetc())
@@ -147,25 +147,50 @@ namespace TokoBuku.DbUtility.Transactions
             }
         }
 
-        internal static int SaveHutang(int id_pembelian, DateTime tgl_tenggat_bayar, double pembayaran_awal)
+        internal static int SaveHutang(int id_pembelian, int id_supplier, DateTime tgl_tenggat_bayar, DateTime tgl_bayar, double total, double pembayaran_awal, string id_kas)
         {
             using (var con = ConnectDB.Connetc())
             {
                 int id = 0;
                 var query = "insert into hutang " +
-                    "(id_pembelian, tgl_tenggat_bayar, pembayaran_awal) " +
-                    "values (@id_pembelian, @tgl_tenggat_bayar, @pembayaran_awal) " +
+                    "(id_pembelian, id_supplier, tgl_tenggat_bayar, total) " +
+                    "values (@id_pembelian, @id_supplier, @tgl_tenggat_bayar, @total) " +
                     "returning id;";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add("@id_pembelian", id_pembelian);
+                    cmd.Parameters.Add("@id_supplier", id_supplier);
                     cmd.Parameters.Add("@tgl_tenggat_bayar", tgl_tenggat_bayar);
-                    cmd.Parameters.Add("@pembayaran_awal", pembayaran_awal);
+                    cmd.Parameters.Add("@total", total);
                     id = (int)cmd.ExecuteScalar();
                     cmd.Dispose();
                 }
+                if (pembayaran_awal >= 0)
+                {
+                    BayarHutang(id_hutang: id, pembayaran: pembayaran_awal, tgl_bayar: tgl_bayar, id_kas: id_kas);
+                }
                 return id;
+            }
+        }
+
+        internal static void BayarHutang (int id_hutang, double pembayaran, DateTime tgl_bayar, string id_kas)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "insert into bayar_hutang " +
+                    "(id_hutang, pembayaran, tgl_bayar, id_kas) " +
+                    "values (@id_hutang, @pembayaran, @tgl_bayar, @id_kas);";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@id_hutang", id_hutang);
+                    cmd.Parameters.Add("@pembayaran", pembayaran);
+                    cmd.Parameters.Add("@tgl_bayar", tgl_bayar);
+                    cmd.Parameters.Add("@id_kas", id_kas);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
             }
         }
 
@@ -260,7 +285,7 @@ namespace TokoBuku.DbUtility.Transactions
             {
                 var query = "update barang " +
                     "set beli=@harga_beli " +
-                    "where id_barang=id_barang;";
+                    "where id_barang=@id_barang;";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
