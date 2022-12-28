@@ -28,64 +28,50 @@ namespace TokoBuku.BaseForm.Master
 
         private void FormMasterDataViewer_Load(object sender, EventArgs e)
         {
-            //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.RefreshDataBarang();
+        }
+
+        private void RefreshDataBarang()
+        {
             this.dataTableBase = new DataTable();
             this.ActiveControl = this.buttonAddData;
 
-            this.dataTableBase = DbLoadData.Barang();
+            this.dataTableBase = DbUtility.Master.Barang.GetDataBarang();
             this.dataGridView1.DataSource = this.dataTableBase;
             this.dataGridView1.Columns[0].Visible = false;      // id
-            this.dataGridView1.Columns[11].Visible = false;     // Status
-            this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells; // kode
-            this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;           // nama
-            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells; // 
-            this.dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridView1.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[12].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridView1.Columns[13].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[1].FillWeight = 5;
-            this.dataGridView1.Columns[2].FillWeight = 20;
-            this.dataGridView1.Columns[3].FillWeight = 10;
-            this.dataGridView1.Columns[4].FillWeight = 10;
-            this.dataGridView1.Columns[5].FillWeight = 10;
-            this.dataGridView1.Columns[6].FillWeight = 5;
-            this.dataGridView1.Columns[7].FillWeight = 10;
-            this.dataGridView1.Columns[8].FillWeight = 10;
-            this.dataGridView1.Columns[9].FillWeight = 10;
-            this.dataGridView1.Columns[10].FillWeight = 5;
-            this.dataGridView1.Columns[11].FillWeight = 5;
-            this.dataGridView1.Columns[12].FillWeight = 10;
-            this.dataGridView1.Columns[13].FillWeight = 20;
+            for (int i = 1; i < this.dataGridView1.ColumnCount; i++)
+            {
+                this.dataGridView1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            this.dataGridView1.Columns["nama_barang"].MinimumWidth = 75;
+            this.dataGridView1.Columns["nama_barang"].HeaderText = "Nama Barang";
+            this.dataGridView1.Columns["keterangan"].MinimumWidth = 75;
 
             /// Format Grid View
-            //this.dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
-            //this.dataGridView1.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            // Harga
-            this.dataGridView1.Columns[7].DefaultCellStyle.Format = "C";
-            this.dataGridView1.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            // Harga jual
+            this.dataGridView1.Columns["harga_jual"].DefaultCellStyle.Format = "C";
+            this.dataGridView1.Columns["harga_jual"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dataGridView1.Columns["harga_jual"].HeaderText = "Harga Jual";
+            // Harga Beli
+            this.dataGridView1.Columns["harga_beli"].DefaultCellStyle.Format = "C";
+            this.dataGridView1.Columns["harga_beli"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dataGridView1.Columns["harga_beli"].HeaderText = "Harga Beli";
+
             // Diskon
-            this.dataGridView1.Columns[10].DefaultCellStyle.Format = "0.00'%'";
-            this.dataGridView1.Columns[10].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dataGridView1.Columns["diskon"].DefaultCellStyle.Format = "0.00'%'";
+            this.dataGridView1.Columns["diskon"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            // Stock
+            this.dataGridView1.Columns["stock"].DefaultCellStyle.Format = "0' pcs'";
+            // status
+            this.dataGridView1.Columns["status"].Visible = false;
 
             this.labelPersediaan.Text = "Total Persediaan: " +
                 TokoBuku.DbUtility.MasterDataBarang.GetPersediaan().ToString("C");
         }
 
-        private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)  { this.Close(); }
 
-       
-        ///Iki bagian init tabel besti
-        ///
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             var grid = sender as DataGridView;
@@ -208,6 +194,7 @@ namespace TokoBuku.BaseForm.Master
                         var namaBarang = form.NamaBarang;
                         var stock = form.Stock;
                         double harga = form.Harga;
+                        double hargaBeli = form.HargaBeli;
                         var isbn = form.ISBN;
                         var penulis = form.Penulis;
                         double diskon = form.Diskon;
@@ -215,57 +202,22 @@ namespace TokoBuku.BaseForm.Master
                         var barCode = form.BarCode;
                         var keterangan = form.Keterangan;
 
-                        
-                        using (var con = ConnectDB.Connetc())
+                        try
                         {
-                            var strSql = "UPDATE barang " +
-                                "SET NAMA_BARANG=@nama, " +
-                                "Kode=@kode, " +
-                                "ID_KATEGORI=@kategori, " +
-                                "id_penerbit=@penerbit, " +
-                                "id_rak=@rak, " +
-                                "stock=@Stock, " +
-                                "harga=@Harga, " +
-                                "isbn=@Isbn, " +
-                                "penulis=@Penulis, " +
-                                "diskon=@Diskon, " +
-                                "barcode=@Barcode, " +
-                                "keterangan=@Keterangan " +
-                                "where id_barang=@Id";
-                            using (var cmd = new FbCommand(strSql, con))
-                            {
-                                cmd.CommandType = CommandType.Text;
-                                cmd.Parameters.Add("@nama", namaBarang);
-                                cmd.Parameters.Add("@kode", kode);
-                                cmd.Parameters.Add("@kategori", kategori);
-                                cmd.Parameters.Add("@penerbit", penerbit);
-                                cmd.Parameters.Add("@rak", rak);
-                                cmd.Parameters.Add("@Stock", stock);
-                                cmd.Parameters.Add("@Harga", harga);
-                                cmd.Parameters.Add("@Isbn", isbn);
-                                cmd.Parameters.Add("@Penulis", penulis);
-                                cmd.Parameters.Add("@Diskon", diskon);
-                                cmd.Parameters.Add("@Barcode", barCode);
-                                cmd.Parameters.Add("@Keterangan", keterangan);
-                                cmd.Parameters.Add("@Id", selectedId);
-                                cmd.ExecuteNonQuery();
-                                cmd.Dispose();
-                            }
-                            MessageBox.Show("Data berhasil diupdated.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            DbUtility.Master.Barang.UpdateDataBarang(idBarang: selectedId, 
+                                namaBarang: namaBarang, kode: kode, idKategori: kategori, 
+                                idPenerbit: penerbit, idRak: rak, stock: stock, harga: harga,
+                                hargaBeli: hargaBeli, isbn: isbn, penulis: penulis, 
+                                diskon: diskon, barcode: barCode, keterangan: keterangan);
+                            MessageBox.Show("Data berhasil diupdated.", "Success.",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.DbRefresh();
                         }
-                        this.DbRefresh();
-                        /*this.dataGridView1.Rows[row.Index].Cells[1].Value = kode;
-                        this.dataGridView1.Rows[row.Index].Cells[2].Value = namaBarang;
-                        this.dataGridView1.Rows[row.Index].Cells[3].Value = form.KategoriText;
-                        this.dataGridView1.Rows[row.Index].Cells[4].Value = form.PenerbitText;
-                        this.dataGridView1.Rows[row.Index].Cells[5].Value = form.RakText;
-                        this.dataGridView1.Rows[row.Index].Cells[6].Value = stock;
-                        this.dataGridView1.Rows[row.Index].Cells[7].Value = harga;
-                        this.dataGridView1.Rows[row.Index].Cells[8].Value = isbn;
-                        this.dataGridView1.Rows[row.Index].Cells[9].Value = penulis;
-                        this.dataGridView1.Rows[row.Index].Cells[10].Value = diskon;
-                        this.dataGridView1.Rows[row.Index].Cells[12].Value = barCode;
-                        this.dataGridView1.Rows[row.Index].Cells[13].Value = keterangan;*/
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error @Edit barang :" + ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            throw;
+                        }
                     }
                 }
             }
@@ -273,8 +225,10 @@ namespace TokoBuku.BaseForm.Master
 
         private void DbRefresh()
         {
-            this.dataTableBase = DbLoadData.Barang();
+            this.dataTableBase = DbUtility.Master.Barang.GetDataBarang();
             this.dataGridView1.DataSource = this.dataTableBase;
+            this.labelPersediaan.Text = "Total Persediaan: " +
+                TokoBuku.DbUtility.MasterDataBarang.GetPersediaan().ToString("C");
         }
     }
 }

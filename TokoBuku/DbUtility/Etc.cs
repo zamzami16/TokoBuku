@@ -51,7 +51,7 @@ namespace TokoBuku.DbUtility
             {
                 /*var query = "select substring(kode from 2 for 8), count(*) from barang group by substring(kode from 2 for 8);";*/
                 //var query = "select count(*) from (select substring(kode from 2 for 8) as kode from barang) kode;";
-                var query = "select substring(kode from 2 for 8) as kode from barang;";
+                var query = "select substring(kode from 2 for 8) as kode from barang order by kode asc;";
 
                 using (var cmd = new FbCommand(query, con))
                 {

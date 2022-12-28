@@ -192,6 +192,7 @@
     <Compile Include="DbUtility\DbSearchLoadData.cs" />
     <Compile Include="DbUtility\Etc.cs" />
     <Compile Include="DbUtility\MasterDataBarang.cs" />
+    <Compile Include="DbUtility\Master\Barang.cs" />
     <Compile Include="DbUtility\Master\Supplier.cs" />
     <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />
     <Compile Include="DbUtility\Transactions\HutangPiutang\BayarHutangKeSupplier.cs" />

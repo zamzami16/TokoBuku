@@ -50,11 +50,13 @@ namespace TokoBuku.DbUtility
                 "p.nama_penerbit as Penerbit, " +
                 "k.nama as Kategori, " +
                 "rak.nama as Rak, " +
-                "b.stock, b.harga, b.isbn, b.penulis, b.diskon, b.status, b.barcode, b.keterangan " +
+                "b.stock, b.harga as harga_jual, b.beli as harga_beli, b.isbn, " +
+                "b.penulis, b.diskon, b.status, b.barcode, b.keterangan " +
                 "from barang as b " +
                 "INNER JOIN kategori as k ON b.id_kategori = k.id " +
                 "INNER JOIN penerbit as p ON b.id_penerbit = p.id " +
-                "INNER JOIN rak ON b.id_rak = rak.id;";
+                "INNER JOIN rak ON b.id_rak = rak.id " +
+                "order by b.kode asc;";
             FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
             da.Fill(dt);
             da.Dispose();

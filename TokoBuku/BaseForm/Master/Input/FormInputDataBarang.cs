@@ -244,10 +244,12 @@ namespace TokoBuku.BaseForm.Master.Input
             this.comboBoxRak.Text = this.Rak;
             this.numericStock.Value = this.Stock;
             this.textBoXHarga.Text = this.Harga.ToString();
+            this.textBoxHargaBeli.Text = this.HargaBeli.ToString();
             this.textBoxISBN.Text = this.ISBN;
             this.textBoxPenulis.Text = this.Penulis;
             this.textBoxDiskon.Text = this.Diskon.ToString();
             this.textBoxBarCode.Text = this.BarCode;
+            this.richTextBoxKeterangan.Text = this.Keterangan;
             this.textBoxKode.Enabled = false;
             this.buttonGenerateKode.Enabled=false;
         }

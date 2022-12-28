@@ -191,7 +191,6 @@ namespace TokoBuku.BaseForm.Master
 
         private void buttonBayarHutang_Click(object sender, EventArgs e)
         {
-            /// TODO: Lanjutkan untuk pembayaran hutang
             foreach (DataGridViewRow row in this.Dgv1.SelectedRows)
             {
                 int id_pelanggan = Convert.ToInt32(row.Cells[0].Value.ToString());
