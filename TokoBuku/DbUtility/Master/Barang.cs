@@ -1,5 +1,6 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System.Data;
+using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.DbUtility.Master
 {
@@ -15,7 +16,7 @@ namespace TokoBuku.DbUtility.Master
                 "p.nama_penerbit as Penerbit, " +
                 "k.nama as Kategori, " +
                 "rak.nama as Rak, " +
-                "b.stock, b.harga as harga_jual, b.beli as harga_beli, b.isbn, " +
+                "b.stock, b.harga_jual as harga_jual, b.harga_beli as harga_beli, b.isbn, " +
                 "b.penulis, b.diskon, b.status, b.barcode, b.keterangan " +
                 "from barang as b " +
                 "INNER JOIN kategori as k ON b.id_kategori = k.id " +
@@ -28,7 +29,7 @@ namespace TokoBuku.DbUtility.Master
             return dt;
         }
 
-        internal static void UpdateDataBarang(int idBarang, string namaBarang, string kode, int idKategori, int idPenerbit, int idRak, double stock, double harga, double hargaBeli, string isbn, string penulis, double diskon, string barcode, string keterangan)
+        internal static void UpdateDataBarang(DbBarang dbBarang)
         {
             using (var con = ConnectDB.Connetc())
             {
@@ -39,8 +40,8 @@ namespace TokoBuku.DbUtility.Master
                     "id_penerbit=@penerbit, " +
                     "id_rak=@rak, " +
                     "stock=@Stock, " +
-                    "harga=@Harga, " +
-                    "beli=@hargaBeli, " +
+                    "harga_jual=@Harga, " +
+                    "harga_beli=@hargaBeli, " +
                     "isbn=@Isbn, " +
                     "penulis=@Penulis, " +
                     "diskon=@Diskon, " +
@@ -50,24 +51,62 @@ namespace TokoBuku.DbUtility.Master
                 using (var cmd = new FbCommand(strSql, con))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add("@nama", namaBarang);
-                    cmd.Parameters.Add("@kode", kode);
-                    cmd.Parameters.Add("@kategori", idKategori);
-                    cmd.Parameters.Add("@penerbit", idPenerbit);
-                    cmd.Parameters.Add("@rak", idRak);
-                    cmd.Parameters.Add("@Stock", stock);
-                    cmd.Parameters.Add("@Harga", harga);
-                    cmd.Parameters.Add("@hargaBeli", hargaBeli);
-                    cmd.Parameters.Add("@Isbn", isbn);
-                    cmd.Parameters.Add("@Penulis", penulis);
-                    cmd.Parameters.Add("@Diskon", diskon);
-                    cmd.Parameters.Add("@Barcode", barcode);
-                    cmd.Parameters.Add("@Keterangan", keterangan);
-                    cmd.Parameters.Add("@Id", idBarang);
+                    cmd.Parameters.Add("@nama", dbBarang.NamaBarang);
+                    cmd.Parameters.Add("@kode", dbBarang.Kode);
+                    cmd.Parameters.Add("@kategori", dbBarang.IdKategori);
+                    cmd.Parameters.Add("@penerbit", dbBarang.IdPenerbit);
+                    cmd.Parameters.Add("@rak", dbBarang.IdRak);
+                    cmd.Parameters.Add("@Stock", dbBarang.Stock);
+                    cmd.Parameters.Add("@Harga", dbBarang.HargaJual);
+                    cmd.Parameters.Add("@hargaBeli", dbBarang.HargaBeli);
+                    cmd.Parameters.Add("@Isbn", dbBarang.ISBN);
+                    cmd.Parameters.Add("@Penulis", dbBarang.Penulis);
+                    cmd.Parameters.Add("@Diskon", dbBarang.Diskon);
+                    cmd.Parameters.Add("@Barcode", dbBarang.BarCode);
+                    cmd.Parameters.Add("@Keterangan", dbBarang.Keterangan);
+                    cmd.Parameters.Add("@Id", dbBarang.IdBarang);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
             }
         }
+
+        static public int SaveBarang(DbBarang dbBarang)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                int ids;
+                if (dbBarang.Kode == "--OTOMATIS--")
+                {
+                    dbBarang.Kode = TokoBuku.DbUtility.Etc.GenerateKodeBarang();
+                }
+                var strSql = "INSERT INTO BARANG (ID_KATEGORI, ID_PENERBIT, ID_RAK, KODE, NAMA_BARANG, STOCK, HARGA_jual, harga_beli," +
+                    "ISBN, PENULIS, DISKON, STATUS, BARCODE, KETERANGAN) " +
+                    "VALUES (@kategori, @penerbit, @rak, @kode, @nama, @stock, @harga, @beli, @isbn, @penulis, @diskon, @status, " +
+                    "@barcode, @keterangan) returning ID_BARANG;";
+                using (var cmd = new FbCommand(strSql, con))
+                {/// TODO: cek variabel dio data base
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@kategori", dbBarang.IdKategori);
+                    cmd.Parameters.Add("@penerbit", dbBarang.IdPenerbit);
+                    cmd.Parameters.Add("@rak", dbBarang.IdRak);
+                    cmd.Parameters.Add("@kode", dbBarang.Kode);
+                    cmd.Parameters.Add("@nama", dbBarang.NamaBarang);
+                    cmd.Parameters.Add("@stock", dbBarang.Stock);
+                    cmd.Parameters.Add("@harga", dbBarang.HargaJual);
+                    cmd.Parameters.Add("@beli", dbBarang.HargaBeli);
+                    cmd.Parameters.Add("@isbn", dbBarang.ISBN);
+                    cmd.Parameters.Add("@penulis", dbBarang.Penulis);
+                    cmd.Parameters.Add("@diskon", dbBarang.Diskon);
+                    cmd.Parameters.Add("@status", dbBarang.Status);
+                    cmd.Parameters.Add("@barcode", dbBarang.BarCode);
+                    cmd.Parameters.Add("@keterangan", dbBarang.Keterangan);
+                    ids = (int)cmd.ExecuteScalar();
+                    cmd.Dispose();
+                }
+                return ids;
+            }
+        }
     }
 }
+

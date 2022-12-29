@@ -459,10 +459,18 @@ namespace TokoBuku.BaseForm.Transaksi
         private void RefreshDataKas()
         {
             this.DataKas = DbSearchLoadData.Kas();
+            if (this.DataKas.Rows.Count < 1)
+            {
+                DataRow drow = this.DataKas.NewRow();
+                drow["ID"] = -1;
+                drow["NAMA"] = "Kosong";
+                this.DataKas.Rows.Add(drow);
+            }
             this.comboBoxJenisKas.DataSource = this.DataKas;
             this.comboBoxJenisKas.DisplayMember = "NAMA";
             this.comboBoxJenisKas.ValueMember = "ID";
-            this.comboBoxJenisKas.SelectedIndex = 0;
+            this.comboBoxJenisKas.SelectedIndex = 0; 
+
         }
 
         private void RefreshKodeBarang()

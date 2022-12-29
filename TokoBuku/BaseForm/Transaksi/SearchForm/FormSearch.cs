@@ -199,7 +199,6 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     da.RowFilter = "[NAMA_BARANG] LIKE '%" + this.textSearch.Text.Trim() + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
-                    //this.dataGridView1.Columns[2].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 catch (Exception ex)
@@ -261,30 +260,12 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    var kategori = Convert.ToInt32(form.Kategori);
-                    var penerbit = Convert.ToInt32(form.Penerbit);
-                    var rak = Convert.ToInt32(form.Rak);
-                    var kode = form.KodeBarang;
-                    var namaBarang = form.NamaBarang;
-                    var stock = form.Stock;
-                    double hargaBeli = form.HargaBeli;
-                    double harga = form.Harga;
-                    var isbn = form.ISBN;
-                    var penulis = form.Penulis;
-                    double diskon = form.Diskon;
-                    var status = form.Status;
-                    var barCode = form.BarCode;
-                    var keterangan = form.Keterangan;
+                    var barang = form.DbBarang;
 
                     try
                     {
-                        int ids = DbSaveData.Barang(inIdKategori: kategori, inIdPenerbit: penerbit,
-                            inIdRak: rak, inKode: kode, inNama: namaBarang, inStock: stock, inHargaBeli: hargaBeli,
-                            inHarga: harga, inIsbn: isbn, inPenulis: penulis, inDiskon: diskon,
-                            inStatus: status, inBarCode: barCode, inKeterngan: keterangan);
-
-                        this.data = DbSearchLoadData.Barang();
-                        this.dataGridView1.DataSource = this.data;
+                        int ids = DbUtility.Master.Barang.SaveBarang(barang);
+                        this.RefreshDataBarang();
 
                         MessageBox.Show("Data Berhasil disimpan.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -295,6 +276,13 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 }
             }
         }
+
+        private void RefreshDataBarang()
+        {
+            this.data = DbSearchLoadData.Barang();
+            this.dataGridView1.DataSource = this.data;
+        }
+
         private void textSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

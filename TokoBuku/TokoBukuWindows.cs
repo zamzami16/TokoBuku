@@ -34,6 +34,16 @@ namespace TokoBuku
             this.formBarangView.Dock = DockStyle.Fill;
             this.formBarangView.Show();*/
 
+            /// Login dulu gaes
+            /*using (var formLogin = new Login.FormLogin())
+            {
+                var res_ = formLogin.ShowDialog();
+                if (res_ != DialogResult.OK)
+                {
+                    Application.Exit();
+                }
+            }*/
+
             this.formPenjualanView = new Penjualan();
             this.formPenjualanView.MdiParent = this;
             this.formPenjualanView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
@@ -185,7 +195,8 @@ namespace TokoBuku
 
         private void rESETDATABASEToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TokoBuku.DbUtility.Database.ResetDatabase();
+            var x_ = MessageBox.Show("Semua data di Database (kecuali data kasir) akan dihapus. Anda yakin?", "Warning.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (x_ == DialogResult.Yes) { TokoBuku.DbUtility.Database.ResetDatabase(); }
         }
     }
 }

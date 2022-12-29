@@ -195,6 +195,7 @@ namespace TokoBuku.BaseForm.Master
                 }
 
             }
+            this.RefreshDataSupplier();
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e) { }

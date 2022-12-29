@@ -2,18 +2,16 @@
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master.Input
 {
     public partial class FormInputDataBarang : Form
     {
-        public bool SuccesSaved { get; set; }
         ///Atribut Form
-        ///
         public string NamaForm { get; set; }
         public string TitleForm { get; set; }
-
 
         #region Property access
         public string NamaBarang { get; set; }
@@ -35,13 +33,12 @@ namespace TokoBuku.BaseForm.Master.Input
         public string KodeBarang { get; set; }
         #endregion
 
-
+        public DbBarang DbBarang { get; set; }
 
         public FormInputDataBarang()
         {
             InitializeComponent();
-            this.SuccesSaved = false;
-            this.NamaBarang = "TAMBAH DATA BARANG";
+            this.NamaForm = "TAMBAH DATA BARANG";
             this.TitleForm = "TAMBAH DATA BARANG";
         }
 
@@ -53,7 +50,7 @@ namespace TokoBuku.BaseForm.Master.Input
         private void buttonSaveData_Click(object sender, EventArgs e)
         {
             // set variable for each control
-            double harga, diskon, hargaBeli;
+            double hargaJual, diskon, hargaBeli;
 
             if (string.IsNullOrWhiteSpace(textBoxNamaBarang.Text))
             {
@@ -64,7 +61,7 @@ namespace TokoBuku.BaseForm.Master.Input
                 ShowErrorPrompt("HARGA BELI TIDAK BOLEH KOSONG ATAU BERUPA HURUF");
             }
             // for harga barang
-            else if (string.IsNullOrWhiteSpace(textBoXHarga.Text) || !double.TryParse(textBoXHarga.Text, out harga))
+            else if (string.IsNullOrWhiteSpace(textBoXHarga.Text) || !double.TryParse(textBoXHarga.Text, out hargaJual))
             {
                 ShowErrorPrompt("HARGA JUAL TIDAK BOLEH KOSONG ATAU BERUPA HURUF");
             }
@@ -90,26 +87,22 @@ namespace TokoBuku.BaseForm.Master.Input
             }
             else
             {
-                this.NamaBarang = textBoxNamaBarang.Text;
-                this.KodeBarang = textBoxKode.Text;
-                this.HargaBeli = hargaBeli;
-                this.Harga = harga;
-                this.Diskon = diskon;
-                this.Rak = this.comboBoxRak.SelectedValue.ToString();
-                this.Stock = Convert.ToInt32(numericStock.Value.ToString());
-                this.Kategori = this.comboBoxKategori.SelectedValue.ToString();
-                this.Penerbit = this.comboBoxPenerbit.SelectedValue.ToString();
-                this.Penulis = this.textBoxPenulis.Text;
-                this.ISBN = this.textBoxISBN.Text;
-                this.BarCode = this.textBoxBarCode.Text;
-                this.Keterangan = this.richTextBoxKeterangan.Text;
-                this.Status = "AKTIF";
-                this.KategoriText = this.comboBoxKategori.Text;
-                this.RakText = this.comboBoxRak.Text;
-                this.PenerbitText = this.comboBoxPenerbit.Text;
+                this.DbBarang.IdKategori = Convert.ToInt32(this.comboBoxKategori.SelectedValue.ToString());
+                this.DbBarang.IdPenerbit = Convert.ToInt32(this.comboBoxPenerbit.SelectedValue.ToString());
+                this.DbBarang.IdRak = Convert.ToInt32(this.comboBoxRak.SelectedValue.ToString());
+                this.DbBarang.Kode = textBoxKode.Text;
+                this.DbBarang.NamaBarang = textBoxNamaBarang.Text;
+                this.DbBarang.Stock = Convert.ToDouble(numericStock.Value.ToString());
+                this.DbBarang.HargaJual = hargaJual;
+                this.DbBarang.HargaBeli = hargaBeli;
+                this.DbBarang.ISBN = textBoxISBN.Text;
+                this.DbBarang.Penulis = textBoxPenulis.Text;
+                this.DbBarang.Diskon = diskon;
+                this.DbBarang.Status = StatusPenggunaan.Aktif;
+                this.DbBarang.BarCode = this.textBoxBarCode.Text;
+                this.DbBarang.Keterangan = this.richTextBoxKeterangan.Text;
 
                 this.DialogResult = DialogResult.OK;
-                this.SuccesSaved = true;
                 this.Close();
             }
         }
@@ -135,6 +128,8 @@ namespace TokoBuku.BaseForm.Master.Input
 
             /// Generate Barcode
             this.GenerateBarCode();
+
+            this.DbBarang = new DbBarang();
         }
 
         private void buttonTambahRak_Click(object sender, EventArgs e)
@@ -246,6 +241,8 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxBarCode.Text = this.BarCode;
             this.richTextBoxKeterangan.Text = this.Keterangan;
             this.textBoxKode.Enabled = false;
+            this.numericStock.Enabled = false;
+            this.textBoxHargaBeli.Enabled = false;
             this.buttonGenerateKode.Enabled = false;
         }
 
@@ -297,6 +294,7 @@ namespace TokoBuku.BaseForm.Master.Input
         }
         private void RefreshComboKategori()
         {
+            var xx = DbLoadData.Kategori();
             this.comboBoxKategori.DataSource = DbLoadData.Kategori();
             this.comboBoxKategori.DisplayMember = "NAMA";
             this.comboBoxKategori.ValueMember = "ID";

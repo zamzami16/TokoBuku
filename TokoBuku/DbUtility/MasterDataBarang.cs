@@ -10,7 +10,7 @@ namespace TokoBuku.DbUtility
             double persediaan = 0;
             using (var con = ConnectDB.Connetc())
             {
-                var query = "select sum(beli * stock) from barang;";
+                var query = "select sum(harga_beli * stock) as harga from barang;";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = System.Data.CommandType.Text;
@@ -19,7 +19,8 @@ namespace TokoBuku.DbUtility
                     {
                         while (x.Read())
                         {
-                            persediaan = Convert.ToDouble(x[x.FieldCount - 1].ToString());
+                            try { persediaan = Convert.ToDouble(x[x.FieldCount - 1].ToString()); }
+                            catch (Exception) { persediaan= 0; } 
                         }
                     }
                 }

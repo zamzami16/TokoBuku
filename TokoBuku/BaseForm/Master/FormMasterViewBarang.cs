@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master
@@ -41,6 +42,7 @@ namespace TokoBuku.BaseForm.Master
             }
             this.dataGridView1.Columns["nama_barang"].MinimumWidth = 75;
             this.dataGridView1.Columns["nama_barang"].HeaderText = "Nama Barang";
+            this.dataGridView1.Columns["keterangan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns["keterangan"].MinimumWidth = 75;
 
             /// Format Grid View
@@ -94,7 +96,7 @@ namespace TokoBuku.BaseForm.Master
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var kategori = Convert.ToInt32(form.Kategori);
+                        /*var kategori = Convert.ToInt32(form.Kategori);
                         var penerbit = Convert.ToInt32(form.Penerbit);
                         var rak = Convert.ToInt32(form.Rak);
                         var kode = form.KodeBarang;
@@ -107,21 +109,13 @@ namespace TokoBuku.BaseForm.Master
                         double diskon = form.Diskon;
                         var status = form.Status;
                         var barCode = form.BarCode;
-                        var keterangan = form.Keterangan;
+                        var keterangan = form.Keterangan;*/
 
-                        /*string messages = "DATA SAVED FROM MASTER DATA VIEWER FORM.\n" +
-                            $"Nama Barang: {namaBarang}\n" +
-                            $"Harga: {harga} Rupiah\n" +
-                            $"Diskon {diskon} %\n"+
-                            $"Id Rak: {rak}.";
-                        TampilkanBerhasilSimpan(messages);*/
+                        var dbBarang = form.DbBarang;
 
                         try
                         {
-                            int ids = DbSaveData.Barang(inIdKategori: kategori, inIdPenerbit: penerbit, inHargaBeli: hargaBeli,
-                                inIdRak: rak, inKode: kode, inNama: namaBarang, inStock: stock,
-                                inHarga: harga, inIsbn: isbn, inPenulis: penulis, inDiskon: diskon,
-                                inStatus: status, inBarCode: barCode, inKeterngan: keterangan);
+                            int ids = DbUtility.Master.Barang.SaveBarang(dbBarang: dbBarang);
 
                             var results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             this.DbRefresh();
@@ -176,14 +170,14 @@ namespace TokoBuku.BaseForm.Master
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                string selectedName = row.Cells[2].Value.ToString();
+                //string selectedName = row.Cells[2].Value.ToString();
                 int selectedId = Convert.ToInt32(row.Cells[0].Value.ToString());
                 using (var form = FormEdit.Barang(row))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var kategori = Convert.ToInt32(form.Kategori);
+                        /*var kategori = Convert.ToInt32(form.Kategori);
                         var penerbit = Convert.ToInt32(form.Penerbit);
                         var rak = Convert.ToInt32(form.Rak);
                         var kode = form.KodeBarang;
@@ -196,15 +190,12 @@ namespace TokoBuku.BaseForm.Master
                         double diskon = form.Diskon;
                         var status = form.Status;
                         var barCode = form.BarCode;
-                        var keterangan = form.Keterangan;
-
+                        var keterangan = form.Keterangan;*/
+                        var barang = form.DbBarang;
+                        barang.IdBarang= selectedId;
                         try
                         {
-                            DbUtility.Master.Barang.UpdateDataBarang(idBarang: selectedId,
-                                namaBarang: namaBarang, kode: kode, idKategori: kategori,
-                                idPenerbit: penerbit, idRak: rak, stock: stock, harga: harga,
-                                hargaBeli: hargaBeli, isbn: isbn, penulis: penulis,
-                                diskon: diskon, barcode: barCode, keterangan: keterangan);
+                            DbUtility.Master.Barang.UpdateDataBarang(dbBarang: barang);
                             MessageBox.Show("Data berhasil diupdated.", "Success.",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.DbRefresh();
