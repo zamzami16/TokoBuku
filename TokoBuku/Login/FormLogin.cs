@@ -24,7 +24,7 @@ namespace TokoBuku.Login
             if (kasir.Count > 0)
             {
                 var idKasir = kasir["id"];
-                var username = kasir["uname"];
+                var username = kasir["pwd"];
             }
         }
 

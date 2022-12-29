@@ -25,9 +25,9 @@ namespace TokoBuku.DbUtility.Login
                         while (x.Read())
                         {
                             string id = x[0].ToString();
-                            string pas = x[1].ToString();
+                            string nama = x[1].ToString();
                             DataKasir.Add("id", id);
-                            DataKasir.Add("pwd", pas);
+                            DataKasir.Add("nama", nama);
                         }
                     }
                 }
