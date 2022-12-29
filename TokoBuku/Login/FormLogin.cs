@@ -23,7 +23,8 @@ namespace TokoBuku.Login
             Dictionary<string,string> kasir = TokoBuku.DbUtility.Login.GetKasir.LoginKasir(uname, pwd);
             if (kasir.Count > 0)
             {
-
+                var idKasir = kasir["id"];
+                var username = kasir["uname"];
             }
         }
 
