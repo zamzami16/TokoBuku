@@ -14,7 +14,9 @@ namespace TokoBuku
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new TokoBukuWindows());
+            //Application.Run(new TokoBukuWindows());
+
+            Application.Run(new TokoBuku.Login.FormLogin());
 
             //Application.Run(new FormUbahHarga());
 
