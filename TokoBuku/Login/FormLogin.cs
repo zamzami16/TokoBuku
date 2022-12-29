@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TokoBuku.Login
@@ -12,6 +7,8 @@ namespace TokoBuku.Login
     public partial class FormLogin : Form
     {
         private bool showed = false;
+        public string IdKasir { get; set; }
+        public string NamaKasir { get;set; }
         public FormLogin() { InitializeComponent(); }
 
         private void buttonCancell_Click(object sender, EventArgs e) { this.Close(); }
@@ -24,7 +21,16 @@ namespace TokoBuku.Login
             if (kasir.Count > 0)
             {
                 var idKasir = kasir["id"];
-                var username = kasir["pwd"];
+                var nama = kasir["nama"];
+                this.IdKasir = idKasir;
+                this.NamaKasir = nama;
+                this.DialogResult= DialogResult.OK;
+                MessageBox.Show("Login Berhasil. Selamat datang" + nama, "Login Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Masukkan username dan password yang benar.", "Login Failed.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
