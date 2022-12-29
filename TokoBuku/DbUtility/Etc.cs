@@ -1,19 +1,12 @@
-﻿using System;
-using FirebirdSql.Data.FirebirdClient;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FirebirdSql.Data.FirebirdClient;
+using System;
 using System.Data;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Drawing;
-using System.Runtime.Remoting.Messaging;
 
 namespace TokoBuku.DbUtility
 {
     public static class Etc
     {
-        
+
         /*public static string GetLastKodeBarang()
         {
             using (var con = ConnectDB.Connetc())
@@ -95,6 +88,6 @@ namespace TokoBuku.DbUtility
             return dump;
         }
 
-        
+
     }
 }

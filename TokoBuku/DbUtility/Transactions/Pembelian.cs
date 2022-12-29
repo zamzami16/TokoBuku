@@ -1,9 +1,6 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
 using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TokoBuku.DbUtility.Transactions
 {
@@ -174,7 +171,7 @@ namespace TokoBuku.DbUtility.Transactions
             }
         }
 
-        internal static void BayarHutang (int id_hutang, double pembayaran, DateTime tgl_bayar, string id_kas)
+        internal static void BayarHutang(int id_hutang, double pembayaran, DateTime tgl_bayar, string id_kas)
         {
             using (var con = ConnectDB.Connetc())
             {

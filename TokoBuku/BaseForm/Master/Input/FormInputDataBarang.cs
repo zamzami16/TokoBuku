@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TokoBuku.DbUtility;
-using TokoBuku.BaseForm.Master.Input;
 
 namespace TokoBuku.BaseForm.Master.Input
 {
@@ -251,7 +246,7 @@ namespace TokoBuku.BaseForm.Master.Input
             this.textBoxBarCode.Text = this.BarCode;
             this.richTextBoxKeterangan.Text = this.Keterangan;
             this.textBoxKode.Enabled = false;
-            this.buttonGenerateKode.Enabled=false;
+            this.buttonGenerateKode.Enabled = false;
         }
 
         private void buttonGenerateKode_Click(object sender, EventArgs e)

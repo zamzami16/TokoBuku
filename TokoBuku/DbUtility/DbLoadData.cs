@@ -1,10 +1,5 @@
-﻿using System;
+﻿using FirebirdSql.Data.FirebirdClient;
 using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FirebirdSql.Data.FirebirdClient;
-using System.Data.Common;
 
 namespace TokoBuku.DbUtility
 {
@@ -43,7 +38,7 @@ namespace TokoBuku.DbUtility
         public static DataTable Barang()
         {
             DataTable dt = new DataTable();
-            var query = "select "+
+            var query = "select " +
                 "b.id_barang, " +
                 "kode, " +
                 "b.nama_barang as Nama_Barang, " +

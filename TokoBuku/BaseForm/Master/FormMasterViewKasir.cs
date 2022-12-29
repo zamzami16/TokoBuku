@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using FirebirdSql.Data.FirebirdClient;
-using TokoBuku.DbUtility;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master
 {
@@ -132,18 +127,22 @@ namespace TokoBuku.BaseForm.Master
             {
                 int ids = Convert.ToInt32(row.Cells[0].Value.ToString());
                 string nama = row.Cells[1].Value.ToString();
-                try
+                var res_ = MessageBox.Show($"Apakah anda yakin mau menghapus data {nama}?", "Hapus Data", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res_ != DialogResult.Yes)
                 {
-                    DbDeleteData.Kasir(ids);
-                    MessageBox.Show($"Data {nama} berhasil dihapus.");
+                    try
+                    {
+                        DbDeleteData.Kasir(ids);
+                        MessageBox.Show($"Data {nama} berhasil dihapus.");
 
-                    DataRow rows = ((DataRowView)row.DataBoundItem).Row;
-                    this.dataTableBase.Rows.Remove(rows);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //throw;
+                        DataRow rows = ((DataRowView)row.DataBoundItem).Row;
+                        this.dataTableBase.Rows.Remove(rows);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //throw;
+                    }
                 }
             }
         }

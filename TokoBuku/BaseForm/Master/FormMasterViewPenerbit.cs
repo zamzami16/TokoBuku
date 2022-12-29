@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using FirebirdSql.Data.FirebirdClient;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using FirebirdSql.Data.FirebirdClient;
-using TokoBuku.DbUtility;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master
 {
@@ -35,8 +31,8 @@ namespace TokoBuku.BaseForm.Master
             this.dataGridView1.Columns[0].Visible = false;
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[1].FillWeight = 80;
-            this.dataGridView1.Columns[2].FillWeight = 20;
+            this.dataGridView1.Columns[1].FillWeight = 60;
+            this.dataGridView1.Columns[2].FillWeight = 40;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)

@@ -1,12 +1,6 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using TokoBuku.DbUtility;
 
 namespace TokoBuku.DbUtility.Transactions
 {
@@ -69,7 +63,7 @@ namespace TokoBuku.DbUtility.Transactions
         }
 
         internal static void SaveCash(
-            string kode_transaksi, int id_kasir, int id_pelanggan,  DateTime tanggal, DateTime waktu, double total_bayar,
+            string kode_transaksi, int id_kasir, int id_pelanggan, DateTime tanggal, DateTime waktu, double total_bayar,
             string id_kas, DataTable rows, string keterangan, string status_pembayaran = "CASH")
         {
             int id_penjualan = SavePenjualan(kode_transaksi: kode_transaksi, id_kasir: id_kasir, id_pelanggan: id_pelanggan, total_bayar: total_bayar, tanggal: tanggal, waktu: waktu, id_kas: id_kas, status_pembayaran: status_pembayaran, keterangan: keterangan);
@@ -104,7 +98,7 @@ namespace TokoBuku.DbUtility.Transactions
             }
         }
 
-        
+
         internal static void SaveKredit(
             string kode_transaksi, int id_kasir, int id_pelanggan, double total_bayar, DateTime tanggal, DateTime waktu,
             DateTime tgl_tenggat_bayar, double pembayaran_awal,
@@ -249,7 +243,7 @@ namespace TokoBuku.DbUtility.Transactions
                     {
                         while (x.Read())
                         {
-                            ids = Convert.ToInt32(x[x.FieldCount- 1].ToString());
+                            ids = Convert.ToInt32(x[x.FieldCount - 1].ToString());
                         }
                     }
                 }
@@ -348,7 +342,7 @@ namespace TokoBuku.DbUtility.Transactions
                     {
                         da.Fill(data);
                     }
-                    catch (Exception) {}
+                    catch (Exception) { }
                     finally { cmd.Dispose(); }
                 }
             }

@@ -1,9 +1,6 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 
 namespace TokoBuku.DbUtility.Transactions
 {
@@ -47,7 +44,7 @@ namespace TokoBuku.DbUtility.Transactions
 
         internal static DataTable FilterDataBarang(int id_kategori, int id_rak, int id_penerbit)
         {
-            DataTable dataTable= InitDataTable();
+            DataTable dataTable = InitDataTable();
             using (var con = ConnectDB.Connetc())
             {
                 var query = "select " +
@@ -155,7 +152,7 @@ namespace TokoBuku.DbUtility.Transactions
                     {
                         da.Fill(dataTable);
                     }
-                    catch (Exception){}
+                    catch (Exception) { }
                     finally { da.Dispose(); }
                     da.Dispose();
                 }
@@ -165,13 +162,13 @@ namespace TokoBuku.DbUtility.Transactions
 
         internal static DataTable GetDataKategori()
         {
-            DataTable dataTable= new DataTable();
+            DataTable dataTable = new DataTable();
             using (var con = ConnectDB.Connetc())
             {
                 using (var cmd = new FbCommand())
                 {
                     cmd.CommandText = "select id as id, nama as nama from kategori;";
-                    cmd.Connection= con;
+                    cmd.Connection = con;
                     FbDataAdapter da = new FbDataAdapter(cmd);
                     da.Fill(dataTable);
                     da.Dispose();
@@ -225,7 +222,7 @@ namespace TokoBuku.DbUtility.Transactions
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add("@diskon", diskon);
-                    cmd.Parameters.Add("@id", id); 
+                    cmd.Parameters.Add("@id", id);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }

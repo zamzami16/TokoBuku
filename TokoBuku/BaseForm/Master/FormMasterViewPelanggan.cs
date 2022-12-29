@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using FirebirdSql.Data.FirebirdClient;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using FirebirdSql.Data.FirebirdClient;
-using TokoBuku.DbUtility;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
 using TokoBuku.BaseForm.Transaksi.HutangPiutang;
+using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master
 {
@@ -88,7 +84,7 @@ namespace TokoBuku.BaseForm.Master
                     {
                         var nama = form.inputNama;
                         var alamat = form.inputALamat;
-                        var no_hp = form.inputNoHP.Replace("-", "").Replace("(","").Replace(")", "").Replace("+","").Replace(" ", "");
+                        var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
                         var email = form.inputEmail;
                         var keterangan = form.inputKeterangan;
                         var status = form.inputStatus;
@@ -109,7 +105,7 @@ namespace TokoBuku.BaseForm.Master
 
                             this.dataTableBase.Rows.Add(dataRow);
 
-                            var lanjut = MessageBox.Show("Data Berhasil disimpan.\nAnda mau menambah data lagi?", "Success.",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            var lanjut = MessageBox.Show("Data Berhasil disimpan.\nAnda mau menambah data lagi?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (lanjut != DialogResult.Yes)
                             {
                                 Loop = false;
@@ -154,7 +150,7 @@ namespace TokoBuku.BaseForm.Master
             }
         }
 
-        
+
         private void buttonEditData_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in Dgv1.SelectedRows)

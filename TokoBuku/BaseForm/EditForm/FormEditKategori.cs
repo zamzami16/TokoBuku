@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TokoBuku.BaseForm.EditForm
@@ -22,7 +16,7 @@ namespace TokoBuku.BaseForm.EditForm
         public string FormName { get; set; }
         public string FormTitle { get; set; }
 
-        public FormEditKategori(string OriginalName, string keterangan="")
+        public FormEditKategori(string OriginalName, string keterangan = "")
         {
             InitializeComponent();
             this.OriginalName = OriginalName;

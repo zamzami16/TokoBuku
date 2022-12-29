@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TokoBuku.BaseForm.Transaksi
@@ -25,7 +21,7 @@ namespace TokoBuku.BaseForm.Transaksi
         private void UbahHarga_Load(object sender, EventArgs e)
         {
             this.GetDataBarang();
-            this.bindingSource= new BindingSource();
+            this.bindingSource = new BindingSource();
             this.bindingSource.DataSource = this.DataBarang;
             this.DGV.DataSource = this.bindingSource;
             this.DGV.Columns[0].ReadOnly = true;
@@ -35,8 +31,8 @@ namespace TokoBuku.BaseForm.Transaksi
             this.DGV.Columns[4].ReadOnly = false;
             this.DGV.Columns[5].ReadOnly = false;
             this.DGV.Columns[6].ReadOnly = false;
-            this.DGV.Columns[0].Visible= false;
-            this.DGV.Columns[2].AutoSizeMode=DataGridViewAutoSizeColumnMode.Fill;
+            this.DGV.Columns[0].Visible = false;
+            this.DGV.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             this.DGV.Columns[1].HeaderText = "Kode";
             this.DGV.Columns[2].HeaderText = "Nama Barang";

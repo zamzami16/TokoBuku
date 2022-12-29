@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Transaksi.SearchForm;
 using TokoBuku.DbUtility;
 using TokoBuku.DbUtility.Transactions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using DataGridViewNumericUpDownElements;
 using TextBox = System.Windows.Forms.TextBox;
 
 namespace TokoBuku.BaseForm.Transaksi
@@ -33,7 +29,7 @@ namespace TokoBuku.BaseForm.Transaksi
         public Penjualan()
         {
             InitializeComponent();
-            
+
         }
 
         private void comboJenisBayar_SelectedValueChanged(object sender, EventArgs e)
@@ -56,7 +52,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.labelDp.Text = "Cash :";
                 this.labelkembali.Text = "Jumlah Kembalian";
             }
-            
+
 
             /*if (comboJenisBayar.Text != "CASH")
             {
@@ -162,7 +158,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 }
 
                 /// Kredit
-                else if(this.comboJenisBayar.Text == "KREDIT")
+                else if (this.comboJenisBayar.Text == "KREDIT")
                 {
                     double totalPembayaranAwal = 0;
                     bool t_ = double.TryParse(this.textBoxPembayaranAwal.Text, out totalPembayaranAwal);
@@ -451,7 +447,7 @@ namespace TokoBuku.BaseForm.Transaksi
 
             this.DataPelanggan = DbSearchLoadData.Pelanggan();
             this.textNamaPelangganAtas.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            this.textNamaPelangganAtas.AutoCompleteMode= AutoCompleteMode.SuggestAppend;
+            this.textNamaPelangganAtas.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
         }
 
         private void RefreshDataBarang()
@@ -465,7 +461,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.comboBoxJenisKas.DataSource = this.DataKas;
             this.comboBoxJenisKas.DisplayMember = "NAMA";
             this.comboBoxJenisKas.ValueMember = "ID";
-            this.comboBoxJenisKas.SelectedIndex= 0;
+            this.comboBoxJenisKas.SelectedIndex = 0;
         }
 
         private void RefreshKodeBarang()
@@ -473,8 +469,8 @@ namespace TokoBuku.BaseForm.Transaksi
             this.DataBarang = DbSearchLoadData.Barang();
         }
         #endregion
-        
-   
+
+
         #region ACtiveControl
         private void comboSatuan_Leave(object sender, EventArgs e)
         {

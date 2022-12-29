@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TokoBuku.BaseForm.Transaksi
@@ -19,7 +14,7 @@ namespace TokoBuku.BaseForm.Transaksi
         private void HistoriPembelian_Load(object sender, EventArgs e)
         {
             this.dgv.DataSource = TokoBuku.DbUtility.Transactions.Pembelian.HistoriPembelian();
-            this.dgv.Columns[0].Visible= false;
+            this.dgv.Columns[0].Visible = false;
             this.dgv.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             for (int i = 2; i < this.dgv.ColumnCount; i++)
             {

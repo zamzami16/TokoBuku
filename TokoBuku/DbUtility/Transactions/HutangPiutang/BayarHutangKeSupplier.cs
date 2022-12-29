@@ -1,9 +1,6 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 
 namespace TokoBuku.DbUtility.Transactions.HutangPiutang
 {
@@ -11,7 +8,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
     {
         internal static DataTable DataHutangKeSupplier(int id_supplier)
         {
-            DataTable dataTable= new DataTable();
+            DataTable dataTable = new DataTable();
             using (var con = ConnectDB.Connetc())
             {
                 var query = "select hu.id as id_hutang, hu.id_pembelian as id_pembelian, " +
@@ -27,10 +24,11 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
                     "on hu.id_pembelian=pem.id_pembelian " +
                     "right join supplier as sup " +
                     "on hu.id_supplier=sup.id " +
-                    "where sup.id=@id_supplier;";
+                    "where sup.id=@id_supplier " +
+                    "and hu.sudah_lunas='belum';";
                 using (var cmd = new FbCommand(query, con))
                 {
-                    cmd.CommandType= CommandType.Text;
+                    cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add("@id_supplier", id_supplier);
                     FbDataAdapter da = new FbDataAdapter(cmd);
                     da.Fill(dataTable);
@@ -59,12 +57,13 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
                 }
                 if (lunas)
                 {
-                    var query_ = "update hutang set sudah_lunas=@sudah_lunas where id_hutang=@id_hutang";
-                    using (var cmd = new FbCommand(query_, con)) 
+                    var lunas_ = "sudah";
+                    var query_ = "update hutang set sudah_lunas=@sudah_lunas where id=@id_hutang";
+                    using (var cmd = new FbCommand(query_, con))
                     {
                         cmd.Parameters.Clear();
                         cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add("@sudah_lunas", "sudah");
+                        cmd.Parameters.Add("@sudah_lunas", lunas_);
                         cmd.Parameters.Add("@id_hutang", id_hutang);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();

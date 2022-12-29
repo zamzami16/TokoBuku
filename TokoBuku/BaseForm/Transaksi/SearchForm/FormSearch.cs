@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Master.Input;
 using TokoBuku.DbUtility;
@@ -185,7 +181,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     da.RowFilter = "[KODE] LIKE '%" + this.textSearch.Text.Trim() + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
-                    this.dataGridView1.Columns[1].Visible = false;
+                    //this.dataGridView1.Columns[1].Visible = false;
                     this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 catch (Exception ex)
@@ -203,7 +199,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     da.RowFilter = "[NAMA_BARANG] LIKE '%" + this.textSearch.Text.Trim() + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
-                    this.dataGridView1.Columns[2].Visible = false;
+                    //this.dataGridView1.Columns[2].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 catch (Exception ex)
@@ -219,7 +215,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             {
                 this.AddPelanggan();
             }
-            else if(this.FormName == "kode" || this.FormName == "barang")
+            else if (this.FormName == "kode" || this.FormName == "barang")
             {
                 this.AddBarang();
             }
@@ -245,7 +241,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                         no_hp: no_hp, keterangan: keterangan, status: status);
 
                         this.data = DbSearchLoadData.Pelanggan();
-                        this.dataGridView1.DataSource= this.data;
+                        this.dataGridView1.DataSource = this.data;
 
                         MessageBox.Show("Data Berhasil disimpan.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -320,11 +316,27 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     break;
                 case Keys.F7:
                     this.buttonCancel_Click(sender, e);
-                    break; 
-                case Keys.F8:   
+                    break;
+                case Keys.F8:
                     this.ButtAdd_Click(sender, e);
                     break;
             }
+        }
+
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            var rowIdx = (e.RowIndex + 1).ToString();
+
+            var centerFormat = new StringFormat()
+            {
+                // right alignment might actually make more sense for numbers
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
     }
 }

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TokoBuku.DbUtility;
 
@@ -49,7 +45,8 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
         private void RefreshDataHutang()
         {
-            this.dataHutang = TokoBuku.DbUtility.Transactions.HutangPiutang.BayarHutangKeSupplier.DataHutangKeSupplier(this.IdSupplier); // id_supplier
+            this.dataHutang = TokoBuku.DbUtility.Transactions.HutangPiutang.BayarHutangKeSupplier
+                .DataHutangKeSupplier(this.IdSupplier); // id_supplier
             this.DgvListHutang.DataSource = this.dataHutang;
             this.DgvListHutang.Columns[0].Visible = false;
             this.DgvListHutang.Columns[1].Visible = false;
@@ -136,7 +133,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
         private DataTable GetKodeTransaksi()
         {
-            DataTable data= new DataTable();
+            DataTable data = new DataTable();
             data.Columns.Add("id_pembelian", typeof(int));
             data.Columns.Add("no_nota", typeof(string));
             DataRow drow = data.NewRow();

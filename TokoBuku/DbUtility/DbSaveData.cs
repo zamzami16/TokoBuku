@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FirebirdSql.Data.FirebirdClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using FirebirdSql.Data.FirebirdClient;
 
 namespace TokoBuku.DbUtility
 {
@@ -13,7 +8,7 @@ namespace TokoBuku.DbUtility
     /// </summary>
     static public class DbSaveData
     {
-        static public int Pelanggan(string nama, string alamat, string email, string no_hp, string keterangan, string status="AKTIF")
+        static public int Pelanggan(string nama, string alamat, string email, string no_hp, string keterangan, string status = "AKTIF")
         {
             using (var con = ConnectDB.Connetc())
             {
@@ -171,7 +166,7 @@ namespace TokoBuku.DbUtility
         }
 
         static public int Barang(int inIdKategori, int inIdPenerbit, int inIdRak, string inKode,
-            string inNama, int inStock, double inHargaBeli, double inHarga, string inIsbn, string inPenulis, 
+            string inNama, int inStock, double inHargaBeli, double inHarga, string inIsbn, string inPenulis,
             double inDiskon, string inStatus, string inBarCode, string inKeterngan)
         {
             using (var con = ConnectDB.Connetc())

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using FirebirdSql.Data.FirebirdClient;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using FirebirdSql.Data.FirebirdClient;
-using TokoBuku.DbUtility;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master
 {
@@ -70,7 +66,7 @@ namespace TokoBuku.BaseForm.Master
                 TokoBuku.DbUtility.MasterDataBarang.GetPersediaan().ToString("C");
         }
 
-        private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)  { this.Close(); }
+        private void FormMasterDataViewer_Deactivate(object sender, EventArgs e) { this.Close(); }
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
@@ -172,10 +168,10 @@ namespace TokoBuku.BaseForm.Master
                         }
                     }
                     this.DbRefresh();
-                }            
+                }
             }
         }
-                
+
         private void buttonEditData_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
@@ -204,10 +200,10 @@ namespace TokoBuku.BaseForm.Master
 
                         try
                         {
-                            DbUtility.Master.Barang.UpdateDataBarang(idBarang: selectedId, 
-                                namaBarang: namaBarang, kode: kode, idKategori: kategori, 
+                            DbUtility.Master.Barang.UpdateDataBarang(idBarang: selectedId,
+                                namaBarang: namaBarang, kode: kode, idKategori: kategori,
                                 idPenerbit: penerbit, idRak: rak, stock: stock, harga: harga,
-                                hargaBeli: hargaBeli, isbn: isbn, penulis: penulis, 
+                                hargaBeli: hargaBeli, isbn: isbn, penulis: penulis,
                                 diskon: diskon, barcode: barCode, keterangan: keterangan);
                             MessageBox.Show("Data berhasil diupdated.", "Success.",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -1,6 +1,4 @@
-﻿using TokoBuku.BaseForm.Master;
-
-namespace TokoBuku.BaseForm.Master.Input
+﻿namespace TokoBuku.BaseForm.Master.Input
 {
     public static class FormInput
     {

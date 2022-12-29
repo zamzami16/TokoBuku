@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Transaksi.SearchForm;
 using TokoBuku.DbUtility;
 using TokoBuku.DbUtility.Transactions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TokoBuku.BaseForm.Transaksi.Resource
 {
@@ -23,7 +18,7 @@ namespace TokoBuku.BaseForm.Transaksi.Resource
         public PenjualanBk()
         {
             InitializeComponent();
-            
+
         }
 
         private void textBoxKodeItem_TextChanged(object sender, EventArgs e)
@@ -49,7 +44,7 @@ namespace TokoBuku.BaseForm.Transaksi.Resource
                 this.labelkembali.Enabled = true;
                 this.labelDp.Text = "Cash :";
             }
-            
+
 
             /*if (comboJenisBayar.Text != "CASH")
             {
@@ -143,7 +138,7 @@ namespace TokoBuku.BaseForm.Transaksi.Resource
             float harga = 0;
             if (comboJenisBayar.Text == "KREDIT")
             {
-                
+
                 if (!string.IsNullOrWhiteSpace(textBoxPembayaranAwal.Text) && float.TryParse(textBoxPembayaranAwal.Text, out harga))
                 {
                     if (harga > 0)
@@ -163,7 +158,7 @@ namespace TokoBuku.BaseForm.Transaksi.Resource
                 comboBoxJenisKas.Enabled = true;
                 //this.textBoxPembayaranAwal.Text = harga.ToString("C");
             }
-            
+
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -227,9 +222,9 @@ namespace TokoBuku.BaseForm.Transaksi.Resource
             this.comboBoxNamaPelangganAtas.DataSource = this.DataPelanggan;
             this.comboBoxNamaPelangganAtas.DisplayMember = "NAMA";
             this.comboBoxNamaPelangganAtas.ValueMember = "ID";
-            this.comboBoxNamaPelangganAtas.SelectedIndex= 0;
+            this.comboBoxNamaPelangganAtas.SelectedIndex = 0;
             this.comboBoxNamaPelangganAtas.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            this.comboBoxNamaPelangganAtas.AutoCompleteMode= AutoCompleteMode.SuggestAppend;
+            this.comboBoxNamaPelangganAtas.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
         }
 
         private void RefreshDataBarang()
@@ -295,7 +290,7 @@ namespace TokoBuku.BaseForm.Transaksi.Resource
             _needUpdate = true;
             if (_needUpdate)
             {
-                _canUpdate= true;
+                _canUpdate = true;
                 if (_canUpdate)
                 {
                     _canUpdate = false;
@@ -344,10 +339,10 @@ namespace TokoBuku.BaseForm.Transaksi.Resource
             if (dataSource.Rows.Count > 0)
             {
                 this.comboBoxNamaPelangganAtas.DataSource = dataSource;
-/*
-                //var sText = comboBoxNamaPelangganAtas.Items[0].ToString();
-                //comboBoxNamaPelangganAtas.SelectionStart = text.Length;
-                //comboBoxNamaPelangganAtas.SelectionLength = sText.Length - text.Length;*/
+                /*
+                                //var sText = comboBoxNamaPelangganAtas.Items[0].ToString();
+                                //comboBoxNamaPelangganAtas.SelectionStart = text.Length;
+                                //comboBoxNamaPelangganAtas.SelectionLength = sText.Length - text.Length;*/
                 comboBoxNamaPelangganAtas.DroppedDown = true;
                 return;
             }
@@ -361,7 +356,7 @@ namespace TokoBuku.BaseForm.Transaksi.Resource
 
         private void textBoxKodeItem_TextChanged_1(object sender, EventArgs e)
         {
-            
+
             /*DataView dataView = new DataView(this.DataBarang);
             dataView.RowFilter = "KODE LIKE '%" + textBoxKodeItem.Text + "%'";
             var searchData = dataView.ToTable();

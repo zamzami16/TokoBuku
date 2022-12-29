@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Master.Input;
-using TokoBuku.DbUtility.Transactions;
 
 namespace TokoBuku.BaseForm.EditForm
 {

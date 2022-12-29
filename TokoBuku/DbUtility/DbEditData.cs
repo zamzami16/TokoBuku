@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FirebirdSql.Data.FirebirdClient;
+﻿using FirebirdSql.Data.FirebirdClient;
 
 namespace TokoBuku.DbUtility
 {
@@ -98,7 +94,7 @@ namespace TokoBuku.DbUtility
 
             }
         }
-        public static void Rak(int Ids, string nama, string keterangan, string status="AKTIF")
+        public static void Rak(int Ids, string nama, string keterangan, string status = "AKTIF")
         {
             using (var con = ConnectDB.Connetc())
             {

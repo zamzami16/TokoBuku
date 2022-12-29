@@ -105,17 +105,17 @@ namespace TokoBuku.BaseForm.Master
         {
             this.dataTableBase = new DataTable();
             this.dataTableBase = TokoBuku.DbUtility.Master.Supplier.GetDataSupplier();
-            var xxx = this.dataTableBase;
             this.dataGridView1.DataSource = this.dataTableBase;
             this.dataGridView1.Columns[0].Visible = false;
-            this.dataGridView1.Columns[this.dataGridView1.ColumnCount-1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Keterangan
+            this.dataGridView1.Columns[this.dataGridView1.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Keterangan
             this.dataGridView1.Columns[this.dataGridView1.ColumnCount - 1].MinimumWidth = 75;
-            for (int i = 1; i < this.dataGridView1.ColumnCount-1; i++)
+            for (int i = 1; i < this.dataGridView1.ColumnCount - 1; i++)
             {
                 this.dataGridView1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
             this.dataGridView1.Columns["total_hutang"].DefaultCellStyle.Format = "C";
             this.dataGridView1.Columns["total_hutang"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dataGridView1.DefaultCellStyle.NullValue = "-";
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -140,21 +140,6 @@ namespace TokoBuku.BaseForm.Master
             }
         }
 
-        /*private void TampilTambahData()
-        {
-            DialogResult results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            while (results == DialogResult.Yes)
-            {
-                this.formData.ShowDialog();
-                results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            }
-        }
-
-        private void TampilkanBerhasilSimpan(string message)
-        {
-            MessageBox.Show(message, "Succes.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }*/
-
         private void buttonEditData_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
@@ -175,7 +160,7 @@ namespace TokoBuku.BaseForm.Master
                         var status = form.inputStatus;
                         try
                         {
-                            TokoBuku.DbUtility.Master.Supplier.EditSupplier(Ids: Ids, nama: nama, 
+                            TokoBuku.DbUtility.Master.Supplier.EditSupplier(Ids: Ids, nama: nama,
                                 alamat: alamat, no_hp: no_hp, email: email, keterangan: keterangan);
 
                             MessageBox.Show($"Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -207,14 +192,18 @@ namespace TokoBuku.BaseForm.Master
                         form.TotalHutang = total_hutang;
                         form.ShowDialog();
                     }
-                } 
+                }
 
             }
         }
 
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e) { }
+
+        private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            
+            double total_hutang = 0;
+            if (!double.TryParse(this.dataGridView1[5, e.RowIndex].Value.ToString(), out total_hutang) || total_hutang <= 0) { this.buttonBayarHutang.Enabled = false; }
+            else { this.buttonBayarHutang.Enabled = true; }
         }
     }
 }
