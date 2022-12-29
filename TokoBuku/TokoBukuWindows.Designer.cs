@@ -46,6 +46,8 @@ namespace TokoBuku
             this.uBAHHARGAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lAPORANToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.dATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rESETDATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +56,8 @@ namespace TokoBuku
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.iNPUTDATAToolStripMenuItem,
             this.tRANSAKSIToolStripMenuItem,
-            this.lAPORANToolStripMenuItem});
+            this.lAPORANToolStripMenuItem,
+            this.dATABASEToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -151,21 +154,21 @@ namespace TokoBuku
             // PenjualanToolStripMenuItem
             // 
             this.PenjualanToolStripMenuItem.Name = "PenjualanToolStripMenuItem";
-            this.PenjualanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.PenjualanToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.PenjualanToolStripMenuItem.Text = "PENJUALAN";
             this.PenjualanToolStripMenuItem.Click += new System.EventHandler(this.PenjualanToolStripMenuItem_Click);
             // 
             // PembelianToolStripMenuItem
             // 
             this.PembelianToolStripMenuItem.Name = "PembelianToolStripMenuItem";
-            this.PembelianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.PembelianToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.PembelianToolStripMenuItem.Text = "PEMBELIAN";
             this.PembelianToolStripMenuItem.Click += new System.EventHandler(this.PembelianToolStripMenuItem_Click);
             // 
             // uBAHHARGAToolStripMenuItem
             // 
             this.uBAHHARGAToolStripMenuItem.Name = "uBAHHARGAToolStripMenuItem";
-            this.uBAHHARGAToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uBAHHARGAToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.uBAHHARGAToolStripMenuItem.Text = "UBAH HARGA";
             this.uBAHHARGAToolStripMenuItem.Click += new System.EventHandler(this.uBAHHARGAToolStripMenuItem_Click);
             // 
@@ -175,6 +178,21 @@ namespace TokoBuku
             this.lAPORANToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.lAPORANToolStripMenuItem.Text = "LAPORAN";
             this.lAPORANToolStripMenuItem.Click += new System.EventHandler(this.lAPORANToolStripMenuItem_Click);
+            // 
+            // dATABASEToolStripMenuItem
+            // 
+            this.dATABASEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rESETDATABASEToolStripMenuItem});
+            this.dATABASEToolStripMenuItem.Name = "dATABASEToolStripMenuItem";
+            this.dATABASEToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.dATABASEToolStripMenuItem.Text = "DATABASE";
+            // 
+            // rESETDATABASEToolStripMenuItem
+            // 
+            this.rESETDATABASEToolStripMenuItem.Name = "rESETDATABASEToolStripMenuItem";
+            this.rESETDATABASEToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rESETDATABASEToolStripMenuItem.Text = "RESET DATABASE";
+            this.rESETDATABASEToolStripMenuItem.Click += new System.EventHandler(this.rESETDATABASEToolStripMenuItem_Click);
             // 
             // TokoBukuWindows
             // 
@@ -214,5 +232,7 @@ namespace TokoBuku
         private System.Windows.Forms.ToolStripMenuItem PenerbitBukuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rAKBUKUToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uBAHHARGAToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dATABASEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rESETDATABASEToolStripMenuItem;
     }
 }

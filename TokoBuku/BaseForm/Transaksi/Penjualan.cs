@@ -232,6 +232,7 @@ namespace TokoBuku.BaseForm.Transaksi
             {
                 try
                 {
+                    //TBarang barang_ = new TBarang();
                     TokoBuku.DbUtility.Transactions.Penjualan.SaveCash(
                         kode_transaksi: this.labelNoTransaksi.Text,
                         id_kasir: 1,

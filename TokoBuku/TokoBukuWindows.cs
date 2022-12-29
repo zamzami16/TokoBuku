@@ -182,5 +182,10 @@ namespace TokoBuku
             this.formUbahHarga.Dock = DockStyle.Fill;
             this.formUbahHarga.Show();
         }
+
+        private void rESETDATABASEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TokoBuku.DbUtility.Database.ResetDatabase();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
 using System.Data;
+using TokoBuku.BaseForm.TipeData;
 
 namespace TokoBuku.DbUtility.Transactions
 {

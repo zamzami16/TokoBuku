@@ -112,6 +112,7 @@
       <DependentUpon>FormMasterViewBarang.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInput.cs" />
+    <Compile Include="BaseForm\TipeData\TipePembayaran.cs" />
     <Compile Include="BaseForm\Transaksi\HistoriPenjualan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +195,7 @@
     <Compile Include="DbUtility\MasterDataBarang.cs" />
     <Compile Include="DbUtility\Master\Barang.cs" />
     <Compile Include="DbUtility\Master\Supplier.cs" />
+    <Compile Include="DbUtility\Database.cs" />
     <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />
     <Compile Include="DbUtility\Transactions\HutangPiutang\BayarHutangKeSupplier.cs" />
     <Compile Include="DbUtility\Transactions\HutangPiutang\BayarHutangPelanggan.cs" />
