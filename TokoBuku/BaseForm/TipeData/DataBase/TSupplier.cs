@@ -2,7 +2,7 @@
 {
     public class TSupplier : TPelanggan
     {
-        public TSupplier() { }
+        public TSupplier() { this.Status = TStatus.Aktif; }
         public TSupplier(TPelanggan pelanggan) 
         {
             this.Id= pelanggan.Id;

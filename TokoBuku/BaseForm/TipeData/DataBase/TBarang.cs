@@ -1,6 +1,6 @@
 ﻿namespace TokoBuku.BaseForm.TipeData.DataBase
 {
-    public class DbBarang
+    public class TBarang
     {
         #region Property access
         public int IdBarang { get; set; }
@@ -23,8 +23,8 @@
         public string Penerbit { get; set; }
         #endregion
 
-        public DbBarang() { }
-        public DbBarang(int IdBarang, int IdKategori, int IdPenerbit, int IdRak, string Kode, string NamaBarang, double Stock, double HargaJual, double HargaBeli, string ISBN, string Penulis, double Diskon, TStatus statusPenggunaan, string BarCode, string Keterangan)
+        public TBarang() { this.Status = TStatus.Aktif; }
+        public TBarang(int IdBarang, int IdKategori, int IdPenerbit, int IdRak, string Kode, string NamaBarang, double Stock, double HargaJual, double HargaBeli, string ISBN, string Penulis, double Diskon, string BarCode, string Keterangan, TStatus statusPenggunaan=TStatus.Aktif)
         {
             this.IdBarang = IdBarang;
             this.IdKategori = IdKategori;

@@ -29,7 +29,7 @@ namespace TokoBuku.DbUtility.Master
             return dt;
         }
 
-        internal static void UpdateDataBarang(DbBarang dbBarang)
+        internal static void UpdateDataBarang(TBarang dbBarang)
         {
             using (var con = ConnectDB.Connetc())
             {
@@ -71,7 +71,7 @@ namespace TokoBuku.DbUtility.Master
             }
         }
 
-        static public int SaveBarang(DbBarang dbBarang)
+        static public int SaveBarang(TBarang dbBarang)
         {
             using (var con = ConnectDB.Connetc())
             {

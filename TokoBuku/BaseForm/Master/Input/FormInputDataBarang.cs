@@ -33,7 +33,7 @@ namespace TokoBuku.BaseForm.Master.Input
         public string KodeBarang { get; set; }
         #endregion
 
-        public DbBarang DbBarang { get; set; }
+        public TBarang DbBarang { get; set; }
 
         public FormInputDataBarang()
         {
@@ -129,7 +129,7 @@ namespace TokoBuku.BaseForm.Master.Input
             /// Generate Barcode
             this.GenerateBarCode();
 
-            this.DbBarang = new DbBarang();
+            this.DbBarang = new TBarang();
         }
 
         private void buttonTambahRak_Click(object sender, EventArgs e)

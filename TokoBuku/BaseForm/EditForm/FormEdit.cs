@@ -64,11 +64,9 @@ namespace TokoBuku.BaseForm.EditForm
             return form;
         }
 
-        public static FormEditKategori Kas(string OrigialName, string keterangan)
+        public static FormEditKas Kas(TKas kas)
         {
-            FormEditKategori form = new FormEditKategori(OrigialName, keterangan);
-            form.FormTitle = "Edit Data Kas";
-            form.FormTitle = "EDIT DATA KAS";
+            FormEditKas form = new FormEditKas(kas: kas);
             return form;
         }
 

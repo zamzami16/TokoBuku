@@ -166,7 +166,7 @@ namespace TokoBuku.DbUtility
             }
         }
 
-        static public int Barang(DbBarang dbBarang)
+        static public int Barang(TBarang dbBarang)
         {
             using (var con = ConnectDB.Connetc())
             {

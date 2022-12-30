@@ -63,6 +63,12 @@
     <Compile Include="BaseForm\EditForm\FormEditDataKasir.Designer.cs">
       <DependentUpon>FormEditDataKasir.cs</DependentUpon>
     </Compile>
+    <Compile Include="BaseForm\EditForm\FormEditKas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\EditForm\FormEditKas.Designer.cs">
+      <DependentUpon>FormEditKas.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm\Master\FormMasterViewKasMaster.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,8 +118,15 @@
       <DependentUpon>FormMasterViewBarang.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInput.cs" />
+    <Compile Include="BaseForm\Master\Input\FormInputDataKas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Master\Input\FormInputDataKas.Designer.cs">
+      <DependentUpon>FormInputDataKas.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm\TipeData\DataBase\DbBarang.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TJenisPembayaran.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TKas.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TStatus.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TPelanggan.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TSupplier.cs" />
@@ -164,11 +177,11 @@
     <Compile Include="BaseForm\EditForm\FormEditKategori.Designer.cs">
       <DependentUpon>FormEditKategori.cs</DependentUpon>
     </Compile>
-    <Compile Include="BaseForm\Master\Input\FormInputDataRakKasKategoriPenerbitMaster.cs">
+    <Compile Include="BaseForm\Master\Input\FormInputDataRakKategoriPenerbitMaster.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BaseForm\Master\Input\FormInputDataRakKasKategoriPenerbitMaster.Designer.cs">
-      <DependentUpon>FormInputDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
+    <Compile Include="BaseForm\Master\Input\FormInputDataRakKategoriPenerbitMaster.Designer.cs">
+      <DependentUpon>FormInputDataRakKategoriPenerbitMaster.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInputDataBarang.cs">
       <SubType>Form</SubType>
@@ -200,6 +213,7 @@
     <Compile Include="DbUtility\Login\GetKasir.cs" />
     <Compile Include="DbUtility\MasterDataBarang.cs" />
     <Compile Include="DbUtility\Master\Barang.cs" />
+    <Compile Include="DbUtility\Master\Kas.cs" />
     <Compile Include="DbUtility\Master\Pelanggan.cs" />
     <Compile Include="DbUtility\Master\Supplier.cs" />
     <Compile Include="DbUtility\Database.cs" />
@@ -253,6 +267,9 @@
     <EmbeddedResource Include="BaseForm\EditForm\FormEditDataKasir.resx">
       <DependentUpon>FormEditDataKasir.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\EditForm\FormEditKas.resx">
+      <DependentUpon>FormEditKas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Master\FormMasterViewKasMaster.resx">
       <DependentUpon>FormMasterViewKasMaster.cs</DependentUpon>
     </EmbeddedResource>
@@ -280,8 +297,11 @@
     <EmbeddedResource Include="BaseForm\EditForm\FormEditKategori.resx">
       <DependentUpon>FormEditKategori.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataRakKasKategoriPenerbitMaster.resx">
-      <DependentUpon>FormInputDataRakKasKategoriPenerbitMaster.cs</DependentUpon>
+    <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataKas.resx">
+      <DependentUpon>FormInputDataKas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataRakKategoriPenerbitMaster.resx">
+      <DependentUpon>FormInputDataRakKategoriPenerbitMaster.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Master\Input\FormInputDataBarang.resx">
       <DependentUpon>FormInputDataBarang.cs</DependentUpon>

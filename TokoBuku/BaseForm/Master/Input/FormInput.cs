@@ -2,28 +2,27 @@
 {
     public static class FormInput
     {
-        public static FormInputDataRakKasKategoriPenerbitMaster Kategori()
+        public static FormInputDataRakKategoriPenerbitMaster Kategori()
         {
-            FormInputDataRakKasKategoriPenerbitMaster form = new FormInputDataRakKasKategoriPenerbitMaster();
+            FormInputDataRakKategoriPenerbitMaster form = new FormInputDataRakKategoriPenerbitMaster();
             form.type_of = form.type_of_kategori;
             return form;
         }
 
-        public static FormInputDataRakKasKategoriPenerbitMaster Rak()
+        public static FormInputDataRakKategoriPenerbitMaster Rak()
         {
-            FormInputDataRakKasKategoriPenerbitMaster form = new FormInputDataRakKasKategoriPenerbitMaster();
+            FormInputDataRakKategoriPenerbitMaster form = new FormInputDataRakKategoriPenerbitMaster();
             form.type_of = form.type_of_rak;
             return form;
         }
-        public static FormInputDataRakKasKategoriPenerbitMaster Kas()
+        public static FormInputDataKas Kas()
         {
-            FormInputDataRakKasKategoriPenerbitMaster form = new FormInputDataRakKasKategoriPenerbitMaster();
-            form.type_of = form.type_of_kas;
+            FormInputDataKas form = new FormInputDataKas();
             return form;
         }
-        public static FormInputDataRakKasKategoriPenerbitMaster Penerbit()
+        public static FormInputDataRakKategoriPenerbitMaster Penerbit()
         {
-            FormInputDataRakKasKategoriPenerbitMaster form = new FormInputDataRakKasKategoriPenerbitMaster();
+            FormInputDataRakKategoriPenerbitMaster form = new FormInputDataRakKategoriPenerbitMaster();
             form.type_of = form.type_of_penerbit;
             return form;
         }

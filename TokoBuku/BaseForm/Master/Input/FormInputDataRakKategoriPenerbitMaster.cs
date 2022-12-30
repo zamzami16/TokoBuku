@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace TokoBuku.BaseForm.Master.Input
 {
-    public partial class FormInputDataRakKasKategoriPenerbitMaster : Form
+    public partial class FormInputDataRakKategoriPenerbitMaster : Form
     {
         //private bool isEdit = true;
         //private string Type_OF = "kas";
@@ -25,7 +25,7 @@ namespace TokoBuku.BaseForm.Master.Input
         public tipeForm type_of_penerbit { get; set; }
         public tipeForm type_of_rak { get; set; }
 
-        public FormInputDataRakKasKategoriPenerbitMaster()
+        public FormInputDataRakKategoriPenerbitMaster()
         {
             InitializeComponent();
             type_of_kas = tipeForm.Kas;

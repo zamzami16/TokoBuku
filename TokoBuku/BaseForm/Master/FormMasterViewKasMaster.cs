@@ -1,17 +1,15 @@
-﻿using FirebirdSql.Data.FirebirdClient;
-using System;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
-using TokoBuku.DbUtility;
+using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewKasMaster : Form
     {
-        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
         public Form formData;
@@ -25,15 +23,23 @@ namespace TokoBuku.BaseForm.Master
         private void FormMasterDataViewer_Load(object sender, EventArgs e)
         {
             this.ActiveControl = this.buttonAddData;
+            this.RefreshDataKas();
+        }
+
+        private void RefreshDataKas()
+        {
             this.dataTableBase = new DataTable();
             //initTableRakKasKategoriPenerbitMaster();
-            this.dataTableBase = DbLoadData.Kas();
+            this.dataTableBase = DbUtility.Master.Kas.LoadKas();
             this.dataGridView1.DataSource = this.dataTableBase;
             this.dataGridView1.Columns[0].Visible = false;
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridView1.Columns[2].DefaultCellStyle.Format = "C";
+            this.dataGridView1.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[1].FillWeight = 40;
-            this.dataGridView1.Columns[2].FillWeight = 60;
+            this.dataGridView1.Columns[3].FillWeight = 60;
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -68,18 +74,12 @@ namespace TokoBuku.BaseForm.Master
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var namaInput = form.ValueName;
-                        var keterangan = form.ValueKeterangan;
+                        var kas = form.Kas;
                         int Ids;
                         try
                         {
-                            Ids = DbSaveData.Kas(nama: namaInput, keterangan: keterangan);
-                            DataRow dataRow = this.dataTableBase.NewRow();
-                            dataRow["ID"] = Ids;
-                            dataRow["NAMA"] = namaInput;
-                            dataRow["KETERANGAN"] = keterangan;
-
-                            this.dataTableBase.Rows.Add(dataRow);
+                            Ids = DbUtility.Master.Kas.SaveKas(kas);
+                            this.RefreshDataKas();
 
                             var lanjut = MessageBox.Show("Data Berhasil disimpan.\nAnda mau menambah data lagi?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (lanjut != DialogResult.Yes)
@@ -112,61 +112,38 @@ namespace TokoBuku.BaseForm.Master
                 int ids = Convert.ToInt32(row.Cells[0].Value.ToString());
                 string nama = row.Cells[1].Value.ToString();
                 var res_ = MessageBox.Show($"Apakah anda yakin mau menghapus data {nama}?", "Hapus Data", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res_ != DialogResult.Yes)
+                if (res_ == DialogResult.Yes)
                 {
                     try
                     {
-                        DbDeleteData.Kas(ids);
+                        DbUtility.Master.Kas.DeleteKas(ids);
                         MessageBox.Show($"Data {nama} berhasil dihapus.");
-
-                        DataRow rows = ((DataRowView)row.DataBoundItem).Row;
-                        this.dataTableBase.Rows.Remove(rows);
+                        this.RefreshDataKas();
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //throw;
+                        throw;
                     }
                 }
             }
         }
 
-        /*private void TampilTambahData()
-        {
-            DialogResult results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            while (results == DialogResult.Yes)
-            {
-                this.formData.ShowDialog();
-                results = MessageBox.Show("DATA BERHASIL DISIMPAN.\nANDA MAU MENAMBAH DATA LAGI?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            }
-        }
-
-        private void TampilkanBerhasilSimpan(string message)
-        {
-            MessageBox.Show(message, "Succes.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }*/
-
         private void buttonEditData_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                int Ids = Convert.ToInt32(row.Cells[0].Value.ToString());
-                string nama = row.Cells[1].Value.ToString();
-                string keterangan = row.Cells[2].Value.ToString();
-                var namaAwal = row.Cells[1].Value.ToString();
-                using (var form = FormEdit.Kas(nama, keterangan))
+                using (var form = FormEdit.Kas(this.ConvertRowToKas(row)))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var namaBaru = form.ChangedName;
-                        var keteranganBaru = form.Keterangan;
+                        var Kas = form.Kas;
                         try
                         {
-                            DbEditData.Kas(Ids: Ids, nama: namaBaru, keterangan: keterangan);
-                            MessageBox.Show($"Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.dataTableBase = DbLoadData.Kas();
-                            this.dataGridView1.DataSource = this.dataTableBase;
+                            DbUtility.Master.Kas.EditKas(Kas);
+                            MessageBox.Show("Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.RefreshDataKas();
                         }
                         catch (Exception ex)
                         {
@@ -176,6 +153,16 @@ namespace TokoBuku.BaseForm.Master
                     }
                 }
             }
+        }
+
+        private TKas ConvertRowToKas(DataGridViewRow row)
+        {
+            TKas kas = new TKas();
+            kas.Id = Convert.ToInt32(row.Cells[0].Value.ToString());
+            kas.Nama = row.Cells[1].Value.ToString();
+            kas.Saldo = Convert.ToDouble(row.Cells[2].Value.ToString());
+            kas.Keterangan = row.Cells["keterangan"].Value.ToString();
+            return kas;
         }
     }
 }
