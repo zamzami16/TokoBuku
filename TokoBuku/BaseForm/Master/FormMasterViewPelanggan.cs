@@ -1,10 +1,10 @@
-﻿using FirebirdSql.Data.FirebirdClient;
-using System;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.BaseForm.Transaksi.HutangPiutang;
 using TokoBuku.DbUtility;
 
@@ -12,10 +12,9 @@ namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewPelanggan : Form
     {
-        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
-        public Form formData;
+        public FormMasterViewPelanggan formData;
 
         public FormMasterViewPelanggan()
         {
@@ -82,28 +81,12 @@ namespace TokoBuku.BaseForm.Master
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var nama = form.inputNama;
-                        var alamat = form.inputALamat;
-                        var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
-                        var email = form.inputEmail;
-                        var keterangan = form.inputKeterangan;
-                        var status = form.inputStatus;
+                        var pelanggan = form.Pelanggan;
                         int ids;
                         try
                         {
-                            ids = DbSaveData.Pelanggan(nama: nama, alamat: alamat, email: email,
-                            no_hp: no_hp, keterangan: keterangan, status: status);
-
-                            DataRow dataRow = this.dataTableBase.NewRow();
-                            dataRow["ID"] = ids;
-                            dataRow["NAMA"] = nama;
-                            dataRow["ALAMAT"] = alamat;
-                            dataRow["EMAIL"] = email;
-                            dataRow["NO_HP"] = no_hp;
-                            dataRow["KETERANGAN"] = keterangan;
-                            dataRow["STATUS"] = "AKTIF";
-
-                            this.dataTableBase.Rows.Add(dataRow);
+                            ids = DbUtility.Master.Pelanggan.SavePelanggan(pelanggan: pelanggan);
+                            this.RefreshDataPelanggan();
 
                             var lanjut = MessageBox.Show("Data Berhasil disimpan.\nAnda mau menambah data lagi?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (lanjut != DialogResult.Yes)
@@ -134,18 +117,21 @@ namespace TokoBuku.BaseForm.Master
             {
                 int ids = Convert.ToInt32(row.Cells[0].Value.ToString());
                 string nama = row.Cells[1].Value.ToString();
-                try
+                if (MessageBox.Show($"Apakah anda yakin mau menghapus Data Pelanggan {nama}?", "Hapus Data?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    DbDeleteData.Pelanggan(ids);
-                    MessageBox.Show($"Data {nama} berhasil dihapus.");
-
-                    DataRow rows = ((DataRowView)row.DataBoundItem).Row;
-                    this.dataTableBase.Rows.Remove(rows);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //throw;
+                    try
+                    {
+                        DbDeleteData.Pelanggan(ids);
+                        MessageBox.Show($"Data {nama} berhasil dihapus.", "Success.");
+                        this.RefreshDataPelanggan();
+                        /*DataRow rows = ((DataRowView)row.DataBoundItem).Row;
+                        this.dataTableBase.Rows.Remove(rows);*/
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw;
+                    }
                 }
             }
         }
@@ -157,23 +143,18 @@ namespace TokoBuku.BaseForm.Master
             {
                 int Ids = Convert.ToInt32(row.Cells[0].Value.ToString());
                 var namaAwal = row.Cells[1].Value.ToString();
-                using (var form = FormEdit.Pelanggan(row))
+                using (var form = FormEdit.Pelanggan(this.ConvertRowToPelanggan(row)))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var nama = form.inputNama;
-                        var alamat = form.inputALamat;
-                        var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
-                        var email = form.inputEmail;
-                        var keterangan = form.inputKeterangan;
-                        var status = form.inputStatus;
+                        var pelanggan = form.Pelanggan;
+                        pelanggan.Id = Ids;
                         try
                         {
-                            DbEditData.Pelanggan(Ids: Ids, nama: nama, alamat: alamat, no_hp: no_hp, email: email, keterangan: keterangan);
+                            DbUtility.Master.Pelanggan.EditPelanggan(pelanggan);
                             MessageBox.Show($"Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.dataTableBase = DbLoadData.Pelanggan();
-                            this.Dgv1.DataSource = this.dataTableBase;
+                            this.RefreshDataPelanggan();
                         }
                         catch (Exception ex)
                         {
@@ -183,6 +164,18 @@ namespace TokoBuku.BaseForm.Master
                     }
                 }
             }
+        }
+
+        private TPelanggan ConvertRowToPelanggan(DataGridViewRow row)
+        {
+            TPelanggan pelanggan = new TPelanggan();
+            pelanggan.Id = Convert.ToInt32(row.Cells[0].Value.ToString());
+            pelanggan.Nama = row.Cells[1].Value.ToString();
+            pelanggan.Alamat = row.Cells[2].Value.ToString();
+            pelanggan.NoHp = row.Cells[3].Value.ToString();
+            pelanggan.Email = row.Cells[4].Value.ToString();
+            pelanggan.Keterangan = row.Cells["keterangan"].Value.ToString();
+            return pelanggan;
         }
 
         private void buttonBayarHutang_Click(object sender, EventArgs e)

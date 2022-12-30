@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.BaseForm.Transaksi.HutangPiutang;
 using TokoBuku.DbUtility;
 
@@ -146,7 +147,7 @@ namespace TokoBuku.BaseForm.Master
             {
                 int Ids = Convert.ToInt32(row.Cells[0].Value.ToString());
                 var namaAwal = row.Cells[1].Value.ToString();
-                using (var form = FormEdit.Supplier(row))
+                using (var form = FormEdit.Supplier(this.ConvertRowToSupplier(row)))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
@@ -174,6 +175,18 @@ namespace TokoBuku.BaseForm.Master
                     }
                 }
             }
+        }
+
+        private TPelanggan ConvertRowToSupplier(DataGridViewRow row)
+        {
+            TPelanggan supplier = new TSupplier();
+            supplier.Id = Convert.ToInt32(row.Cells[0].Value.ToString());
+            supplier.Nama = row.Cells[1].Value.ToString();
+            supplier.Alamat = row.Cells[2].Value.ToString();
+            supplier.NoHp = row.Cells[3].Value.ToString();
+            supplier.Email = row.Cells[4].Value.ToString();
+            supplier.Keterangan = row.Cells["keterangan"].Value.ToString();
+            return supplier;
         }
 
         private void buttonBayarHutang_Click(object sender, EventArgs e)

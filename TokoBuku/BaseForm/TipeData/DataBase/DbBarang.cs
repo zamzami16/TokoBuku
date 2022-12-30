@@ -15,7 +15,7 @@
         public string ISBN { get; set; }
         public string Penulis { get; set; }
         public double Diskon { get; set; }
-        public StatusPenggunaan Status { get; set; }
+        public TStatus Status { get; set; }
         public string BarCode { get; set; }
         public string Keterangan { get; set; }
         public string Rak { get; set; }
@@ -24,7 +24,7 @@
         #endregion
 
         public DbBarang() { }
-        public DbBarang(int IdBarang, int IdKategori, int IdPenerbit, int IdRak, string Kode, string NamaBarang, double Stock, double HargaJual, double HargaBeli, string ISBN, string Penulis, double Diskon, StatusPenggunaan statusPenggunaan, string BarCode, string Keterangan)
+        public DbBarang(int IdBarang, int IdKategori, int IdPenerbit, int IdRak, string Kode, string NamaBarang, double Stock, double HargaJual, double HargaBeli, string ISBN, string Penulis, double Diskon, TStatus statusPenggunaan, string BarCode, string Keterangan)
         {
             this.IdBarang = IdBarang;
             this.IdKategori = IdKategori;

@@ -98,7 +98,7 @@ namespace TokoBuku.BaseForm.Master.Input
                 this.DbBarang.ISBN = textBoxISBN.Text;
                 this.DbBarang.Penulis = textBoxPenulis.Text;
                 this.DbBarang.Diskon = diskon;
-                this.DbBarang.Status = StatusPenggunaan.Aktif;
+                this.DbBarang.Status = TStatus.Aktif;
                 this.DbBarang.BarCode = this.textBoxBarCode.Text;
                 this.DbBarang.Keterangan = this.richTextBoxKeterangan.Text;
 

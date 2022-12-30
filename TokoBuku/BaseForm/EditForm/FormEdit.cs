@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.BaseForm.EditForm
 {
@@ -50,16 +51,16 @@ namespace TokoBuku.BaseForm.EditForm
             return form;
         }
 
-        public static FormEditDataPelangganSupplier Pelanggan(DataGridViewRow row)
+        public static FormEditDataPelangganSupplier Pelanggan(TPelanggan pelanggan)
         {
             FormEditDataPelangganSupplier form = new FormEditDataPelangganSupplier();
-            form.SetToEditForm(row);
+            form.SetToEditForm(pelanggan);
             return form;
         }
-        public static FormEditDataPelangganSupplier Supplier(DataGridViewRow row)
+        public static FormEditDataPelangganSupplier Supplier(TPelanggan supplier)
         {
             FormEditDataPelangganSupplier form = new FormEditDataPelangganSupplier();
-            form.SetToEditForm(row);
+            form.SetToEditForm(supplier);
             return form;
         }
 

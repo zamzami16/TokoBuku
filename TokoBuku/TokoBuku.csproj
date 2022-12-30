@@ -113,8 +113,10 @@
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInput.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\DbBarang.cs" />
-    <Compile Include="BaseForm\TipeData\DataBase\JenisPembayaran.cs" />
-    <Compile Include="BaseForm\TipeData\DataBase\StatusPenggunaan.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TJenisPembayaran.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TStatus.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TPelanggan.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TSupplier.cs" />
     <Compile Include="BaseForm\TipeData\TipePembayaran.cs" />
     <Compile Include="BaseForm\Transaksi\HistoriPenjualan.cs">
       <SubType>Form</SubType>
@@ -198,6 +200,7 @@
     <Compile Include="DbUtility\Login\GetKasir.cs" />
     <Compile Include="DbUtility\MasterDataBarang.cs" />
     <Compile Include="DbUtility\Master\Barang.cs" />
+    <Compile Include="DbUtility\Master\Pelanggan.cs" />
     <Compile Include="DbUtility\Master\Supplier.cs" />
     <Compile Include="DbUtility\Database.cs" />
     <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />

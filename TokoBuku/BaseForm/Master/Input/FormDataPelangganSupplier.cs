@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.BaseForm.Master.Input
 {
@@ -20,6 +21,8 @@ namespace TokoBuku.BaseForm.Master.Input
         public string inputEmail { get; set; }
         public string inputKeterangan { get; set; }
         public string inputStatus { get; set; }
+        public TPelanggan Pelanggan { get; set; }
+
 
         public FormDataPelangganSupplier()
         {
@@ -39,30 +42,21 @@ namespace TokoBuku.BaseForm.Master.Input
             {
                 ShowErrorPrompt("NAMA TIDAK BOLOEH KOSONG");
             }
-            //else if (string.IsNullOrWhiteSpace(textBoxAlamat.Text))
-            //{
-            //    ShowErrorPrompt("ALAMAT TIDAK BOLOEH KOSONG");
-            //}
-            //else if (string.IsNullOrWhiteSpace(maskedTextBox1.Text))
-            //{
-            //    ShowErrorPrompt("NAMA TIDAK BOLOEH KOSONG");
-            //}
-            //else if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
-            //{
-            //    ShowErrorPrompt("NAMA TIDAK BOLOEH KOSONG");
-            //}
             else if (string.IsNullOrWhiteSpace(comboBox1.Text))
             {
                 comboBox1.Text = "AKTIF";
             }
             else
             {
-                this.inputALamat = this.textBoxAlamat.Text;
-                this.inputEmail = this.textBoxEmail.Text;
-                this.inputKeterangan = this.richTextBoxKeterangan.Text;
-                this.inputNama = this.textBoxNama.Text;
-                this.inputNoHP = this.maskedTextBox1.Text;
-                this.inputStatus = "AKTIF";
+                string hp = this.maskedTextBox1.Text.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
+                if (hp.Length < 3) { hp = string.Empty; }
+                this.Pelanggan.Nama = this.textBoxNama.Text;
+                this.Pelanggan.Alamat = this.textBoxAlamat.Text;
+                this.Pelanggan.NoHp = hp;
+                this.Pelanggan.Email = this.textBoxEmail.Text;
+                this.Pelanggan.Keterangan = this.richTextBoxKeterangan.Text;
+                this.Pelanggan.Status = TStatus.Aktif;
+
                 this.DialogResult = DialogResult.OK;
             }
         }
@@ -72,18 +66,13 @@ namespace TokoBuku.BaseForm.Master.Input
             MessageBox.Show(message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void ShowSaved(string message)
-        {
-            MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-        }
-
         private void FormDataPelangganSupplier_Load(object sender, EventArgs e)
         {
             if (this.type_of == TipeForm.Pelanggan)
             {
                 this.Text = "Data Pelanggan";
                 this.labelTitle.Text = "Data Pelanggan";
+                this.Pelanggan = new TPelanggan();
             }
             else if (this.type_of == TipeForm.Supplier)
             {

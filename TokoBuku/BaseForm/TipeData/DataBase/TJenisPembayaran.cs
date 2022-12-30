@@ -1,6 +1,6 @@
 ﻿namespace TokoBuku.BaseForm.TipeData.DataBase
 {
-    internal enum JenisPembayaran
+    internal enum TJenisPembayaran
     {
         Cash,
         Kredit

@@ -1,6 +1,6 @@
 ﻿namespace TokoBuku.BaseForm.TipeData.DataBase
 {
-    public enum StatusPenggunaan
+    public enum TStatus
     {
         Nonaktif,
         Aktif
