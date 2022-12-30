@@ -54,13 +54,13 @@ namespace TokoBuku.BaseForm.EditForm
         public static FormEditDataPelangganSupplier Pelanggan(TPelanggan pelanggan)
         {
             FormEditDataPelangganSupplier form = new FormEditDataPelangganSupplier();
-            form.SetToEditForm(pelanggan);
+            form.SetToEditFormPelanggan(pelanggan);
             return form;
         }
-        public static FormEditDataPelangganSupplier Supplier(TPelanggan supplier)
+        public static FormEditDataPelangganSupplier Supplier(TSupplier supplier)
         {
             FormEditDataPelangganSupplier form = new FormEditDataPelangganSupplier();
-            form.SetToEditForm(supplier);
+            form.SetToEditFormSupplier(supplier);
             return form;
         }
 

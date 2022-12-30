@@ -22,6 +22,7 @@ namespace TokoBuku.BaseForm.Master.Input
         public string inputKeterangan { get; set; }
         public string inputStatus { get; set; }
         public TPelanggan Pelanggan { get; set; }
+        public TSupplier Supplier { get; set; }
 
 
         public FormDataPelangganSupplier()
@@ -57,6 +58,12 @@ namespace TokoBuku.BaseForm.Master.Input
                 this.Pelanggan.Keterangan = this.richTextBoxKeterangan.Text;
                 this.Pelanggan.Status = TStatus.Aktif;
 
+                if (this.type_of == TipeForm.Supplier)
+                {
+                    this.Supplier = new TSupplier(Pelanggan);
+                    this.Pelanggan = null;
+                }
+
                 this.DialogResult = DialogResult.OK;
             }
         }
@@ -78,6 +85,8 @@ namespace TokoBuku.BaseForm.Master.Input
             {
                 this.Text = "Data Supplier";
                 this.labelTitle.Text = "Data Supplier";
+                this.Pelanggan = new TPelanggan();
+                this.Supplier = new TSupplier();
             }
         }
     }

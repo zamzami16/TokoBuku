@@ -1,5 +1,6 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System.Data;
+using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.DbUtility.Master
 {
@@ -15,7 +16,7 @@ namespace TokoBuku.DbUtility.Master
             return dt;
         }
 
-        internal static void EditSupplier(int Ids, string nama, string alamat, string no_hp, string email, string keterangan)
+        internal static void EditSupplier(TSupplier supplier)
         {
             using (var con = ConnectDB.Connetc())
             {
@@ -25,16 +26,40 @@ namespace TokoBuku.DbUtility.Master
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.Parameters.Add("@nama", nama);
-                    cmd.Parameters.Add("@alamat", alamat);
-                    cmd.Parameters.Add("@hp", no_hp);
-                    cmd.Parameters.Add("@email", email);
-                    cmd.Parameters.Add("@keterangan", keterangan);
-                    cmd.Parameters.Add("@id", Ids);
+                    cmd.Parameters.Add("@nama", supplier.Nama);
+                    cmd.Parameters.Add("@alamat", supplier.Alamat);
+                    cmd.Parameters.Add("@hp", supplier.NoHp);
+                    cmd.Parameters.Add("@email", supplier.Email);
+                    cmd.Parameters.Add("@keterangan", supplier.Keterangan);
+                    cmd.Parameters.Add("@id", supplier.Id);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
 
+            }
+        }
+
+        internal static int SaveSupplier(TSupplier supplier)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                int ids;
+                var query = "insert into supplier (nama, alamat, no_hp, email, keterangan, status) " +
+                    "values (@nama, @alamat, @no_hp, @email, @keterangan, @status) " +
+                    "returning Id;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@nama", supplier.Nama);
+                    cmd.Parameters.Add("@alamat", supplier.Alamat);
+                    cmd.Parameters.Add("@no_hp", supplier.NoHp);
+                    cmd.Parameters.Add("@email", supplier.Email);
+                    cmd.Parameters.Add("@keterangan", supplier.Keterangan);
+                    cmd.Parameters.Add("@status", supplier.Status);
+                    ids = (int)cmd.ExecuteScalar();
+                    cmd.Dispose();
+                    return ids;
+                }
             }
         }
     }

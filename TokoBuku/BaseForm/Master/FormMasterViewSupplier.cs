@@ -62,22 +62,11 @@ namespace TokoBuku.BaseForm.Master
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var nama = form.inputNama;
-                        var alamat = form.inputALamat;
-                        var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
-                        if (no_hp.Length < 6)
-                        {
-                            no_hp = string.Empty;
-                        }
-                        var email = form.inputEmail;
-                        var keterangan = form.inputKeterangan;
-                        var status = form.inputStatus;
+                        var supplier = form.Supplier;
                         int ids;
                         try
                         {
-                            ids = DbSaveData.Supplier(nama: nama, alamat: alamat, email: email,
-                            no_hp: no_hp, keterangan: keterangan, status: status);
-
+                            ids = DbUtility.Master.Supplier.SaveSupplier(supplier);
                             this.RefreshDataSupplier();
                             var lanjut = MessageBox.Show("Data Berhasil disimpan.\nAnda mau menambah data lagi?", "Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (lanjut != DialogResult.Yes)
@@ -89,7 +78,7 @@ namespace TokoBuku.BaseForm.Master
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            //throw;
+                            throw;
                         }
                     }
                     else
@@ -98,7 +87,6 @@ namespace TokoBuku.BaseForm.Master
                         break;
                     }
                 }
-
             }
         }
 
@@ -125,18 +113,21 @@ namespace TokoBuku.BaseForm.Master
             {
                 int ids = Convert.ToInt32(row.Cells[0].Value.ToString());
                 string nama = row.Cells[1].Value.ToString();
-                try
+                if (MessageBox.Show($"Apakah anda yakin mau menghapus data {nama}?", "Hapus data.", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    DbDeleteData.Supplier(ids);
-                    MessageBox.Show($"Data {nama} berhasil dihapus.");
-
-                    DataRow rows = ((DataRowView)row.DataBoundItem).Row;
-                    this.dataTableBase.Rows.Remove(rows);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //throw;
+                    try
+                    {
+                        DbDeleteData.Supplier(ids);
+                        MessageBox.Show($"Data {nama} berhasil dihapus.");
+                        this.RefreshDataSupplier();
+                        /*DataRow rows = ((DataRowView)row.DataBoundItem).Row;
+                        this.dataTableBase.Rows.Remove(rows);*/
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //throw;
+                    }
                 }
             }
         }
@@ -152,17 +143,10 @@ namespace TokoBuku.BaseForm.Master
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var nama = form.inputNama;
-                        var alamat = form.inputALamat;
-                        var no_hp = form.inputNoHP.Replace("-", "").Replace("(", "").Replace(")", "").Replace("+", "").Replace(" ", "");
-                        if (no_hp.Length < 6) no_hp = string.Empty;
-                        var email = form.inputEmail;
-                        var keterangan = form.inputKeterangan;
-                        var status = form.inputStatus;
+                        var supplier = form.Supplier;
                         try
                         {
-                            TokoBuku.DbUtility.Master.Supplier.EditSupplier(Ids: Ids, nama: nama,
-                                alamat: alamat, no_hp: no_hp, email: email, keterangan: keterangan);
+                            DbUtility.Master.Supplier.EditSupplier(supplier);
 
                             MessageBox.Show($"Data berhasil di update.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.RefreshDataSupplier();
@@ -177,9 +161,9 @@ namespace TokoBuku.BaseForm.Master
             }
         }
 
-        private TPelanggan ConvertRowToSupplier(DataGridViewRow row)
+        private TSupplier ConvertRowToSupplier(DataGridViewRow row)
         {
-            TPelanggan supplier = new TSupplier();
+            TSupplier supplier = new TSupplier();
             supplier.Id = Convert.ToInt32(row.Cells[0].Value.ToString());
             supplier.Nama = row.Cells[1].Value.ToString();
             supplier.Alamat = row.Cells[2].Value.ToString();

@@ -10,9 +10,9 @@
         public string Keterangan { set; get; }
         public TStatus Status { set; get; }
 
-        public TPelanggan() { }
+        public TPelanggan() { this.Status = TStatus.Aktif; }
 
-        public TPelanggan(int idPelanggan, string namaPelanggan, string alamat, string noHp, string email, string keterangan, TStatus status)
+        public TPelanggan(int idPelanggan, string namaPelanggan, string alamat, string noHp, string email, string keterangan, TStatus status=TStatus.Aktif)
         {
             Id = idPelanggan;
             Nama = namaPelanggan;
