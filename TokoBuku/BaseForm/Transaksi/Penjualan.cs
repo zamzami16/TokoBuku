@@ -555,6 +555,7 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             using (var form = new FormSearch())
             {
+                form.HideAddBarang();
                 form.FormName = "kode";
                 form.SearchText = this.textKode.Text;
                 var result = form.ShowDialog();
@@ -596,6 +597,7 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             using (var form = new FormSearch())
             {
+                form.HideAddBarang();
                 form.FormName = "barang";
                 form.SearchText = this.textNamaBarang.Text;
                 var result = form.ShowDialog();

@@ -3,6 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Master.Input;
+using TokoBuku.BaseForm.TipeData.Search;
 using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Transaksi.SearchForm
@@ -14,6 +15,10 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
         public string SearchedKode { get; set; }
         public int SearchIndex { get; set; }
         public string FormName { get; set; }
+        public double HargaBeli { get; set; }
+        public double HargaJual { get; set; }
+
+        TSearchBarang SearchBarang { get; set; }
         private DataTable data;
 
         public FormSearch()
@@ -37,7 +42,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 {
                     this.data = DbSearchLoadData.Pelanggan();
                     var da = new DataView(this.data);
-                    da.RowFilter = "[NAMA] LIKE '%" + this.SearchText + "%'";
+                    da.RowFilter = "[NAMA] LIKE '%" + this.SearchText.Trim().Replace("\'", "") + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -57,7 +62,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 {
                     this.data = DbSearchLoadData.Barang();
                     var da = new DataView(this.data);
-                    da.RowFilter = "[KODE] LIKE '%" + this.SearchText + "%'";
+                    da.RowFilter = "[KODE] LIKE '%" + this.SearchText.Trim().Replace("\'", "") + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -81,7 +86,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 {
                     this.data = DbSearchLoadData.Barang();
                     var da = new DataView(this.data);
-                    da.RowFilter = "[NAMA_BARANG] LIKE '%" + this.SearchText + "%'";
+                    da.RowFilter = "[NAMA_BARANG] LIKE '%" + this.SearchText.Replace("\'", "") + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -105,7 +110,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 {
                     this.data = DbSearchLoadData.Supplier();
                     var da = new DataView(this.data);
-                    da.RowFilter = "[NAMA] LIKE '%" + this.SearchText + "%'";
+                    da.RowFilter = "[NAMA] LIKE '%" + this.SearchText.Trim().Replace("\'", "") + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -161,7 +166,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 {
                     this.data = DbSearchLoadData.Pelanggan();
                     var da = new DataView(this.data);
-                    da.RowFilter = "[NAMA] LIKE '%" + this.textSearch.Text.Trim() + "%'";
+                    da.RowFilter = "[NAMA] LIKE '%" + this.textSearch.Text.Trim().Replace("\'", "") + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -178,7 +183,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 {
                     this.data = DbSearchLoadData.Barang();
                     var da = new DataView(this.data);
-                    da.RowFilter = "[KODE] LIKE '%" + this.textSearch.Text.Trim() + "%'";
+                    da.RowFilter = "[KODE] LIKE '%" + this.textSearch.Text.Trim().Replace("\'", "") + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
                     //this.dataGridView1.Columns[1].Visible = false;
@@ -196,7 +201,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 {
                     this.data = DbSearchLoadData.Barang();
                     var da = new DataView(this.data);
-                    da.RowFilter = "[NAMA_BARANG] LIKE '%" + this.textSearch.Text.Trim() + "%'";
+                    da.RowFilter = "[NAMA_BARANG] LIKE '%" + this.textSearch.Text.Trim().Replace("\'", "") + "%'";
                     this.dataGridView1.DataSource = da.ToTable();
                     this.dataGridView1.Columns[0].Visible = false;
                     this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -309,6 +314,11 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                     this.ButtAdd_Click(sender, e);
                     break;
             }
+        }
+
+        public void HideAddBarang()
+        {
+            this.ButtAdd.Enabled = false;
         }
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)

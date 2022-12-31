@@ -58,6 +58,10 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label22 = new System.Windows.Forms.Label();
             this.textNoNota = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.buttUbahHargaJual = new System.Windows.Forms.Button();
+            this.textBoxHargaJual = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.ButSearchBarang = new System.Windows.Forms.Button();
             this.ButSearchKode = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
@@ -118,7 +122,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.tableLayoutPanelUtama.ColumnCount = 3;
             this.tableLayoutPanelUtama.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 274F));
-            this.tableLayoutPanelUtama.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 332F));
+            this.tableLayoutPanelUtama.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 281F));
             this.tableLayoutPanelUtama.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelUtama.Controls.Add(this.label9, 0, 4);
             this.tableLayoutPanelUtama.Controls.Add(this.tableLayoutPanel6, 0, 6);
@@ -141,7 +145,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutPanelUtama.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanelUtama.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.tableLayoutPanelUtama.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanelUtama.Size = new System.Drawing.Size(960, 461);
+            this.tableLayoutPanelUtama.Size = new System.Drawing.Size(1012, 461);
             this.tableLayoutPanelUtama.TabIndex = 0;
             // 
             // label9
@@ -220,9 +224,6 @@ namespace TokoBuku.BaseForm.Transaksi
             this.comboJenisBayar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboJenisBayar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboJenisBayar.FormattingEnabled = true;
-            this.comboJenisBayar.Items.AddRange(new object[] {
-            "CASH",
-            "KREDIT"});
             this.comboJenisBayar.Location = new System.Drawing.Point(147, 3);
             this.comboJenisBayar.Name = "comboJenisBayar";
             this.comboJenisBayar.Size = new System.Drawing.Size(119, 24);
@@ -297,8 +298,8 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.tableLayoutPanelAtas.ColumnCount = 2;
             this.tableLayoutPanelUtama.SetColumnSpan(this.tableLayoutPanelAtas, 3);
-            this.tableLayoutPanelAtas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 331F));
-            this.tableLayoutPanelAtas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 623F));
+            this.tableLayoutPanelAtas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 321F));
+            this.tableLayoutPanelAtas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 685F));
             this.tableLayoutPanelAtas.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanelAtas.Controls.Add(this.panel3, 1, 0);
             this.tableLayoutPanelAtas.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -306,7 +307,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutPanelAtas.Name = "tableLayoutPanelAtas";
             this.tableLayoutPanelAtas.RowCount = 1;
             this.tableLayoutPanelAtas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelAtas.Size = new System.Drawing.Size(954, 115);
+            this.tableLayoutPanelAtas.Size = new System.Drawing.Size(1006, 115);
             this.tableLayoutPanelAtas.TabIndex = 0;
             // 
             // panel2
@@ -317,15 +318,15 @@ namespace TokoBuku.BaseForm.Transaksi
             this.panel2.Location = new System.Drawing.Point(1, 1);
             this.panel2.Margin = new System.Windows.Forms.Padding(1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(329, 113);
+            this.panel2.Size = new System.Drawing.Size(319, 113);
             this.panel2.TabIndex = 3;
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.35945F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.64055F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.98245F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.01754F));
             this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.buttonAdmin, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.labelKasir, 1, 0);
@@ -346,7 +347,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(327, 111);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(317, 111);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // label1
@@ -364,10 +365,10 @@ namespace TokoBuku.BaseForm.Transaksi
             // buttonAdmin
             // 
             this.buttonAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonAdmin.Location = new System.Drawing.Point(247, 1);
+            this.buttonAdmin.Location = new System.Drawing.Point(245, 1);
             this.buttonAdmin.Margin = new System.Windows.Forms.Padding(1);
             this.buttonAdmin.Name = "buttonAdmin";
-            this.buttonAdmin.Size = new System.Drawing.Size(79, 25);
+            this.buttonAdmin.Size = new System.Drawing.Size(71, 25);
             this.buttonAdmin.TabIndex = 5;
             this.buttonAdmin.Text = "admin";
             this.buttonAdmin.UseVisualStyleBackColor = true;
@@ -378,7 +379,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.labelKasir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelKasir.Location = new System.Drawing.Point(92, 0);
             this.labelKasir.Name = "labelKasir";
-            this.labelKasir.Size = new System.Drawing.Size(151, 27);
+            this.labelKasir.Size = new System.Drawing.Size(149, 27);
             this.labelKasir.TabIndex = 10;
             this.labelKasir.Text = "Nama Kasir";
             this.labelKasir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -400,18 +401,18 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxSupplier.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxSupplier.Location = new System.Drawing.Point(92, 84);
             this.textBoxSupplier.Name = "textBoxSupplier";
-            this.textBoxSupplier.Size = new System.Drawing.Size(151, 20);
-            this.textBoxSupplier.TabIndex = 15;
+            this.textBoxSupplier.Size = new System.Drawing.Size(149, 20);
+            this.textBoxSupplier.TabIndex = 2;
             this.textBoxSupplier.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSupplier_KeyDown);
             // 
             // buttCariSupplier
             // 
             this.buttCariSupplier.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttCariSupplier.Image = ((System.Drawing.Image)(resources.GetObject("buttCariSupplier.Image")));
-            this.buttCariSupplier.Location = new System.Drawing.Point(247, 82);
+            this.buttCariSupplier.Location = new System.Drawing.Point(245, 82);
             this.buttCariSupplier.Margin = new System.Windows.Forms.Padding(1);
             this.buttCariSupplier.Name = "buttCariSupplier";
-            this.buttCariSupplier.Size = new System.Drawing.Size(79, 28);
+            this.buttCariSupplier.Size = new System.Drawing.Size(71, 28);
             this.buttCariSupplier.TabIndex = 8;
             this.buttCariSupplier.Text = "Cari [F4]";
             this.buttCariSupplier.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -438,18 +439,18 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxNotaAsli.Enabled = false;
             this.textBoxNotaAsli.Location = new System.Drawing.Point(92, 57);
             this.textBoxNotaAsli.Name = "textBoxNotaAsli";
-            this.textBoxNotaAsli.Size = new System.Drawing.Size(151, 20);
-            this.textBoxNotaAsli.TabIndex = 14;
+            this.textBoxNotaAsli.Size = new System.Drawing.Size(149, 20);
+            this.textBoxNotaAsli.TabIndex = 1;
             // 
             // butNotaAsli
             // 
             this.butNotaAsli.Dock = System.Windows.Forms.DockStyle.Fill;
             this.butNotaAsli.Enabled = false;
             this.butNotaAsli.Image = ((System.Drawing.Image)(resources.GetObject("butNotaAsli.Image")));
-            this.butNotaAsli.Location = new System.Drawing.Point(247, 55);
+            this.butNotaAsli.Location = new System.Drawing.Point(245, 55);
             this.butNotaAsli.Margin = new System.Windows.Forms.Padding(1);
             this.butNotaAsli.Name = "butNotaAsli";
-            this.butNotaAsli.Size = new System.Drawing.Size(79, 25);
+            this.butNotaAsli.Size = new System.Drawing.Size(71, 25);
             this.butNotaAsli.TabIndex = 13;
             this.butNotaAsli.UseVisualStyleBackColor = true;
             this.butNotaAsli.Click += new System.EventHandler(this.button1_Click_1);
@@ -471,12 +472,17 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textNoNota.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textNoNota.Location = new System.Drawing.Point(92, 30);
             this.textNoNota.Name = "textNoNota";
-            this.textNoNota.Size = new System.Drawing.Size(232, 20);
-            this.textNoNota.TabIndex = 17;
+            this.textNoNota.Size = new System.Drawing.Size(222, 20);
+            this.textNoNota.TabIndex = 0;
             // 
             // panel3
             // 
             this.panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.buttUbahHargaJual);
+            this.panel3.Controls.Add(this.textBoxHargaJual);
+            this.panel3.Controls.Add(this.label18);
+            this.panel3.Controls.Add(this.label17);
             this.panel3.Controls.Add(this.ButSearchBarang);
             this.panel3.Controls.Add(this.ButSearchKode);
             this.panel3.Controls.Add(this.label20);
@@ -493,18 +499,59 @@ namespace TokoBuku.BaseForm.Transaksi
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.textBoxNamaItem);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(351, 3);
-            this.panel3.Margin = new System.Windows.Forms.Padding(20, 3, 3, 3);
+            this.panel3.Location = new System.Drawing.Point(324, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(600, 109);
+            this.panel3.Size = new System.Drawing.Size(682, 115);
             this.panel3.TabIndex = 4;
+            // 
+            // buttUbahHargaJual
+            // 
+            this.buttUbahHargaJual.Location = new System.Drawing.Point(556, 54);
+            this.buttUbahHargaJual.Name = "buttUbahHargaJual";
+            this.buttUbahHargaJual.Size = new System.Drawing.Size(114, 25);
+            this.buttUbahHargaJual.TabIndex = 17;
+            this.buttUbahHargaJual.Text = "Ubah Harga Jual";
+            this.buttUbahHargaJual.UseVisualStyleBackColor = true;
+            this.buttUbahHargaJual.Click += new System.EventHandler(this.buttUbahHargaJual_Click);
+            // 
+            // textBoxHargaJual
+            // 
+            this.textBoxHargaJual.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxHargaJual.Location = new System.Drawing.Point(556, 28);
+            this.textBoxHargaJual.Name = "textBoxHargaJual";
+            this.textBoxHargaJual.Size = new System.Drawing.Size(114, 23);
+            this.textBoxHargaJual.TabIndex = 16;
+            this.textBoxHargaJual.Text = "0";
+            this.textBoxHargaJual.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(553, 7);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(64, 13);
+            this.label18.TabIndex = 15;
+            this.label18.Text = "Harga Jual :";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(174, 59);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(31, 17);
+            this.label17.TabIndex = 14;
+            this.label17.Text = "Pcs";
             // 
             // ButSearchBarang
             // 
             this.ButSearchBarang.Image = ((System.Drawing.Image)(resources.GetObject("ButSearchBarang.Image")));
-            this.ButSearchBarang.Location = new System.Drawing.Point(277, 27);
+            this.ButSearchBarang.Location = new System.Drawing.Point(239, 27);
             this.ButSearchBarang.Name = "ButSearchBarang";
-            this.ButSearchBarang.Size = new System.Drawing.Size(85, 23);
+            this.ButSearchBarang.Size = new System.Drawing.Size(77, 23);
             this.ButSearchBarang.TabIndex = 13;
             this.ButSearchBarang.TabStop = false;
             this.ButSearchBarang.Text = "[Shift+F5]";
@@ -516,9 +563,9 @@ namespace TokoBuku.BaseForm.Transaksi
             // ButSearchKode
             // 
             this.ButSearchKode.Image = ((System.Drawing.Image)(resources.GetObject("ButSearchKode.Image")));
-            this.ButSearchKode.Location = new System.Drawing.Point(277, 2);
+            this.ButSearchKode.Location = new System.Drawing.Point(239, 2);
             this.ButSearchKode.Name = "ButSearchKode";
-            this.ButSearchKode.Size = new System.Drawing.Size(85, 23);
+            this.ButSearchKode.Size = new System.Drawing.Size(77, 23);
             this.ButSearchKode.TabIndex = 4;
             this.ButSearchKode.TabStop = false;
             this.ButSearchKode.Text = "Cari [F5]";
@@ -536,11 +583,12 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label20.TabIndex = 5;
             this.label20.Text = "Satuan :";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label20.Visible = false;
             // 
             // buttonAdd
             // 
             this.buttonAdd.Image = ((System.Drawing.Image)(resources.GetObject("buttonAdd.Image")));
-            this.buttonAdd.Location = new System.Drawing.Point(478, 54);
+            this.buttonAdd.Location = new System.Drawing.Point(423, 54);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(114, 26);
             this.buttonAdd.TabIndex = 6;
@@ -553,7 +601,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // textsubTotalHargaBeli
             // 
             this.textsubTotalHargaBeli.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textsubTotalHargaBeli.Location = new System.Drawing.Point(478, 30);
+            this.textsubTotalHargaBeli.Location = new System.Drawing.Point(423, 30);
             this.textsubTotalHargaBeli.Name = "textsubTotalHargaBeli";
             this.textsubTotalHargaBeli.Size = new System.Drawing.Size(114, 23);
             this.textsubTotalHargaBeli.TabIndex = 5;
@@ -566,7 +614,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(435, 35);
+            this.label19.Location = new System.Drawing.Point(380, 35);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(37, 13);
             this.label19.TabIndex = 9;
@@ -576,7 +624,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // textHargaBeliSatuan
             // 
             this.textHargaBeliSatuan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textHargaBeliSatuan.Location = new System.Drawing.Point(478, 2);
+            this.textHargaBeliSatuan.Location = new System.Drawing.Point(423, 2);
             this.textHargaBeliSatuan.Name = "textHargaBeliSatuan";
             this.textHargaBeliSatuan.Size = new System.Drawing.Size(114, 23);
             this.textHargaBeliSatuan.TabIndex = 4;
@@ -591,7 +639,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(393, 7);
+            this.label11.Location = new System.Drawing.Point(338, 7);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(79, 13);
             this.label11.TabIndex = 7;
@@ -612,6 +660,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // comboSatuan
             // 
             this.comboSatuan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboSatuan.Enabled = false;
             this.comboSatuan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboSatuan.FormattingEnabled = true;
             this.comboSatuan.Items.AddRange(new object[] {
@@ -621,14 +670,14 @@ namespace TokoBuku.BaseForm.Transaksi
             this.comboSatuan.Name = "comboSatuan";
             this.comboSatuan.Size = new System.Drawing.Size(81, 24);
             this.comboSatuan.TabIndex = 3;
-            this.comboSatuan.Leave += new System.EventHandler(this.comboSatuan_Leave);
+            this.comboSatuan.Visible = false;
             // 
             // textBoxKodeItem
             // 
             this.textBoxKodeItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxKodeItem.Location = new System.Drawing.Point(87, 4);
             this.textBoxKodeItem.Name = "textBoxKodeItem";
-            this.textBoxKodeItem.Size = new System.Drawing.Size(179, 20);
+            this.textBoxKodeItem.Size = new System.Drawing.Size(149, 20);
             this.textBoxKodeItem.TabIndex = 0;
             this.textBoxKodeItem.TextChanged += new System.EventHandler(this.textBoxKodeItem_TextChanged);
             this.textBoxKodeItem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxKodeItem_KeyDown);
@@ -668,7 +717,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxNamaItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxNamaItem.Location = new System.Drawing.Point(87, 30);
             this.textBoxNamaItem.Name = "textBoxNamaItem";
-            this.textBoxNamaItem.Size = new System.Drawing.Size(179, 20);
+            this.textBoxNamaItem.Size = new System.Drawing.Size(149, 20);
             this.textBoxNamaItem.TabIndex = 1;
             this.textBoxNamaItem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxNamaItem_KeyDown);
             // 
@@ -676,19 +725,18 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.Controls.Add(this.label12, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(656, 314);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(558, 317);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.42623F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65.57377F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(304, 112);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(451, 106);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // label12
@@ -703,25 +751,23 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             // richTextBox1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.richTextBox1, 2);
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 26);
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.richTextBox1.Location = new System.Drawing.Point(3, 24);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(298, 37);
+            this.richTextBox1.Size = new System.Drawing.Size(345, 34);
             this.richTextBox1.TabIndex = 9;
             this.richTextBox1.Text = "";
             // 
             // flowLayoutPanel1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 2);
             this.flowLayoutPanel1.Controls.Add(this.buttonSave);
             this.flowLayoutPanel1.Controls.Add(this.buttonReset);
             this.flowLayoutPanel1.Controls.Add(this.buttonHistoriPembelian);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 66);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 61);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(304, 46);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(351, 45);
             this.flowLayoutPanel1.TabIndex = 10;
             // 
             // buttonSave
@@ -752,7 +798,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.buttonHistoriPembelian.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.buttonHistoriPembelian.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHistoriPembelian.Location = new System.Drawing.Point(3, 43);
+            this.buttonHistoriPembelian.Location = new System.Drawing.Point(189, 3);
             this.buttonHistoriPembelian.Name = "buttonHistoriPembelian";
             this.buttonHistoriPembelian.Size = new System.Drawing.Size(158, 34);
             this.buttonHistoriPembelian.TabIndex = 9;
@@ -763,7 +809,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Controls.Add(this.dateTimePickerJatuhTempo, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.comboBoxJenisKas, 1, 3);
@@ -772,22 +818,22 @@ namespace TokoBuku.BaseForm.Transaksi
             this.tableLayoutPanel5.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.label14, 0, 3);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(324, 314);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(294, 314);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 4;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.58273F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.4964F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.17986F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(282, 112);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(261, 112);
             this.tableLayoutPanel5.TabIndex = 5;
             // 
             // dateTimePickerJatuhTempo
             // 
             this.dateTimePickerJatuhTempo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dateTimePickerJatuhTempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerJatuhTempo.Location = new System.Drawing.Point(122, 30);
+            this.dateTimePickerJatuhTempo.Location = new System.Drawing.Point(101, 30);
             this.dateTimePickerJatuhTempo.Name = "dateTimePickerJatuhTempo";
             this.dateTimePickerJatuhTempo.Size = new System.Drawing.Size(157, 23);
             this.dateTimePickerJatuhTempo.TabIndex = 14;
@@ -798,7 +844,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.comboBoxJenisKas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxJenisKas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxJenisKas.FormattingEnabled = true;
-            this.comboBoxJenisKas.Location = new System.Drawing.Point(122, 85);
+            this.comboBoxJenisKas.Location = new System.Drawing.Point(101, 85);
             this.comboBoxJenisKas.Name = "comboBoxJenisKas";
             this.comboBoxJenisKas.Size = new System.Drawing.Size(157, 24);
             this.comboBoxJenisKas.TabIndex = 1;
@@ -811,7 +857,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(3, 27);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(113, 23);
+            this.label13.Size = new System.Drawing.Size(92, 23);
             this.label13.TabIndex = 12;
             this.label13.Text = "Jatuh Tempo :";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -820,7 +866,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.dateTimePickerTglPesanan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dateTimePickerTglPesanan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerTglPesanan.Location = new System.Drawing.Point(122, 3);
+            this.dateTimePickerTglPesanan.Location = new System.Drawing.Point(101, 3);
             this.dateTimePickerTglPesanan.Name = "dateTimePickerTglPesanan";
             this.dateTimePickerTglPesanan.Size = new System.Drawing.Size(157, 23);
             this.dateTimePickerTglPesanan.TabIndex = 13;
@@ -832,7 +878,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(113, 27);
+            this.label4.Size = new System.Drawing.Size(92, 27);
             this.label4.TabIndex = 3;
             this.label4.Text = "Tanggal Pesan :";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -844,7 +890,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(3, 82);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(113, 30);
+            this.label14.Size = new System.Drawing.Size(92, 30);
             this.label14.TabIndex = 15;
             this.label14.Text = "Jenis KAS :";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -868,9 +914,8 @@ namespace TokoBuku.BaseForm.Transaksi
             this.dataGridView1.Location = new System.Drawing.Point(3, 161);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(954, 120);
+            this.dataGridView1.Size = new System.Drawing.Size(1006, 120);
             this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             this.dataGridView1.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
@@ -933,7 +978,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(954, 29);
+            this.label3.Size = new System.Drawing.Size(1006, 29);
             this.label3.TabIndex = 8;
             this.label3.Text = "PEMBELIAN";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -947,7 +992,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(3, 429);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(954, 29);
+            this.panel1.Size = new System.Drawing.Size(1006, 29);
             this.panel1.TabIndex = 9;
             // 
             // label21
@@ -965,7 +1010,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(960, 461);
+            this.ClientSize = new System.Drawing.Size(1012, 461);
             this.Controls.Add(this.tableLayoutPanelUtama);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
@@ -1071,5 +1116,9 @@ namespace TokoBuku.BaseForm.Transaksi
         private System.Windows.Forms.DataGridViewButtonColumn hapus;
         private System.Windows.Forms.Label labelSubTotal;
         private System.Windows.Forms.Button buttonHistoriPembelian;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBoxHargaJual;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button buttUbahHargaJual;
     }
 }
