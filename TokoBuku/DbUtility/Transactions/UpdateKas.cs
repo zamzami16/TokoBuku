@@ -11,16 +11,19 @@ namespace TokoBuku.DbUtility.Transactions
     {
         internal static void TambahKasPenjualan(TPenjualan penjualan)
         {
-            double newSaldo = GetKasSekarang((int)penjualan.IdKas);
-            if (penjualan.StatusPembayaran == TJenisPembayaran.Cash)
+            if (penjualan.UangPembayaran > 0)
             {
-                newSaldo = GetKasSekarang((int)penjualan.IdKas) + penjualan.Total;
+                double newSaldo = 0;
+                if (penjualan.StatusPembayaran == TJenisPembayaran.Cash)
+                {
+                    newSaldo = GetKasSekarang((int)penjualan.IdKas) + penjualan.Total;
+                }
+                else if (penjualan.StatusPembayaran == TJenisPembayaran.Kredit)
+                {
+                    newSaldo = GetKasSekarang((int)penjualan.IdKas) + penjualan.UangPembayaran;
+                }
+                UpdateNominalKas((int)penjualan.IdKas, newSaldo);
             }
-            else if (penjualan.StatusPembayaran == TJenisPembayaran.Kredit)
-            {
-                newSaldo = GetKasSekarang((int)penjualan.IdKas) + penjualan.UangPembayaran;
-            }
-            UpdateNominalKas((int)penjualan.IdKas, newSaldo);
         }
 
         internal static void KurangKasPembelianCash(TPembelian pembelian)

@@ -75,6 +75,7 @@ namespace TokoBuku.DbUtility.Transactions
                     DeleteSavePenjualan(ids);
                     throw;
                 }
+                UpdateKas.TambahKasPenjualan(penjualan);
             }
             return ids;
         }
