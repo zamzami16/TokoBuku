@@ -142,7 +142,6 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void buttonBawahProcess_Click(object sender, EventArgs e)
         {
-            /// TODO: Tambahkan penyimpanan kembalian, uang tunai, dan potongan
             if (dataGridView1.Rows.Count < 1)
             {
                 MessageBox.Show("Pilih barang terlebih dahulu.", "Gagal.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -175,7 +174,7 @@ namespace TokoBuku.BaseForm.Transaksi
                         if (results == DialogResult.Yes)
                         {
                             this.comboJenisBayar.SelectedIndex = 0;
-                            /// TODO: lanjutkan untuk pembayaran cash
+                            /// TODO: -No Priority-lanjutkan untuk pembayaran cash
                         }
                     }
                     else if (this.textNamaPelangganAtas.Text.ToLower() == "umum" || this.PelangganIdTerpilih == TokoBuku.DbUtility.Transactions.Penjualan.GetIdPelangganUmum())

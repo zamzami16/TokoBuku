@@ -180,7 +180,7 @@ namespace TokoBuku.DbUtility
                     "VALUES (@kategori, @penerbit, @rak, @kode, @nama, @stock, @harga, @beli, @isbn, @penulis, @diskon, @status, " +
                     "@barcode, @keterangan) returning ID_BARANG;";
                 using (var cmd = new FbCommand(strSql, con))
-                {/// TODO: cek variabel dio data base
+                {
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add("@kategori", dbBarang.Kategori);
                     cmd.Parameters.Add("@penerbit", dbBarang.Penerbit);

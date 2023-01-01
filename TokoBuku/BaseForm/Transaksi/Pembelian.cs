@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.BaseForm.Transaksi.SearchForm;
 using TokoBuku.DbUtility;
+using TokoBuku.DbUtility.Transactions;
 
 namespace TokoBuku.BaseForm.Transaksi
 {
@@ -301,6 +302,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textsubTotalHargaBeli.Text = "0";
             this.textBoxHargaJual.Text = "0";
             this.buttUbahHargaJual.Enabled = false;
+            this.IdBarangTerpilih = -1;
             this.ActiveControl = this.textBoxKodeItem;
         }
 
@@ -416,6 +418,11 @@ namespace TokoBuku.BaseForm.Transaksi
                 MessageBox.Show("Check total pembayaran terlebih dahulu", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.ActiveControl = this.textBoxTotalPembayaran;
             }
+            else if (!this.CekSaldoKasCukupPembayaran(Convert.ToInt32(this.IdKasTerpilih), totalPembayaran))
+            {
+                MessageBox.Show("Saldo kas tidak cukup. Tolong gunakan kas yang lain atau update saldo kas terlebih dahulu.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ActiveControl = this.comboBoxJenisKas;
+            }
             else
             {
                 TPembelian pembelian= new TPembelian(TJenisPembayaran.Cash);
@@ -496,6 +503,11 @@ namespace TokoBuku.BaseForm.Transaksi
             {
                 MessageBox.Show("Tanggal jatuh tempo harus lebih banyak dari tanggal pesan. \nCheck tanggal jatuh tempo terlebih dahulu", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.ActiveControl = this.dateTimePickerJatuhTempo;
+            }
+            else if (!this.CekSaldoKasCukupPembayaran(Convert.ToInt32(this.IdKasTerpilih), pembayaranAwal))
+            {
+                MessageBox.Show("Saldo kas tidak cukup. Tolong gunakan kas yang lain atau update saldo kas terlebih dahulu.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ActiveControl = this.comboBoxJenisKas;
             }
             else
             {
@@ -641,8 +653,6 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void buttUbahHargaJual_Click(object sender, EventArgs e)
         {
-            /// TODO: Ubah harga jual lewat pembelian
-            /// tanyakan untuk update harga, dan tampilkan harga lama dan harga baru
             double hargaBaru;
             string TempMsg = "";
             if (!double.TryParse(this.textBoxHargaJual.Text, out hargaBaru))
@@ -675,6 +685,13 @@ namespace TokoBuku.BaseForm.Transaksi
                     throw ex;
                 }
             }
+        }
+
+        private bool CekSaldoKasCukupPembayaran(int idKas, double pembayaran)
+        {
+            bool cukup;
+            cukup = (UpdateKas.GetKasSekarang(idKas) - pembayaran >= 0);
+            return cukup;
         }
     }
 }

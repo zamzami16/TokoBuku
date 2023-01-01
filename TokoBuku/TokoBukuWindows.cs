@@ -160,13 +160,6 @@ namespace TokoBuku
             this.formPembelianView.Show();
         }
 
-        /// TODO: tambah fitur lihat rincian data penjualan dan pembelian 
-        /// TODO: tambah fitur lihat hutang, langsung taruh di data supplier
-        /// TODO: tambah fitur lihat piutang, langsung taruh di data pelanggan
-        /// TODO: tambah fitur lihat rincian data pembelian
-        /// 
-
-
         private void AddDataTable()
         {
             DataTable dt = new DataTable();

@@ -184,7 +184,6 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
         private void textBoxNominalBayar_TextChanged(object sender, EventArgs e)
         {
-            /// TODO: tambahkan update kembalian
             this.UpdateKembalian();
         }
 

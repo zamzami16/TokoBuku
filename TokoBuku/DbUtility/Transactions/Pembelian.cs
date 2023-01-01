@@ -32,37 +32,10 @@ namespace TokoBuku.DbUtility.Transactions
                     ids = (int)cmd.ExecuteScalar();
                     cmd.Dispose();
                 }
+                UpdateKas.KurangKasPembelianCash(pembelian);
             }
             return ids;
         }
-
-        /*public static int SavePembelian_kredit(int id_supplier, DateTime tanggal_beli,
-            string no_nota, double total, string id_kas, string status_pembayaran = "CASH")
-        {
-            int ids = 0;
-            using (var con = ConnectDB.Connetc())
-            {
-                var query = "insert into pembelian " +
-                    "(id_supplier, tanggal_beli, no_nota, " +
-                    "total, status_pembelian, id_kas) " +
-                    "values (@id_supplier, @tanggal_beli, @no_nota, " +
-                    "@total, @status_pembayaran, @id_kas) " +
-                    "returning id_pembelian;";
-                using (var cmd = new FbCommand(query, con))
-                {
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.Parameters.Add("@id_supplier", id_supplier);
-                    cmd.Parameters.Add("@tanggal_beli", tanggal_beli);
-                    cmd.Parameters.Add("@no_nota", no_nota);
-                    cmd.Parameters.Add("@total", total);
-                    cmd.Parameters.Add("@status_pembayaran", status_pembayaran);
-                    cmd.Parameters.Add("id_kas", id_kas);
-                    ids = (int)cmd.ExecuteScalar();
-                    cmd.Dispose();
-                }
-            }
-            return ids;
-        }*/
 
         internal static int SavePembelianCash(TPembelian pembelian, List<TDetailPembelian> detailPembelian)
         {
@@ -176,6 +149,7 @@ namespace TokoBuku.DbUtility.Transactions
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
+                UpdateKas.KurangKasPembelianKredit(bayarHutang);
             }
         }
 

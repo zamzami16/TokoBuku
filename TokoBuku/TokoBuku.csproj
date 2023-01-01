@@ -242,6 +242,7 @@
     <Compile Include="DbUtility\Transactions\Penjualan.cs" />
     <Compile Include="DbUtility\Transactions\Search\Barang.cs" />
     <Compile Include="DbUtility\Transactions\UbahHarga.cs" />
+    <Compile Include="DbUtility\Transactions\UpdateKas.cs" />
     <Compile Include="Login\FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
