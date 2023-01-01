@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.BaseForm.Transaksi.SearchForm;
 using TokoBuku.DbUtility;
+using TokoBuku.DbUtility.Master;
 using TokoBuku.DbUtility.Transactions;
 using TextBox = System.Windows.Forms.TextBox;
 
@@ -13,7 +16,6 @@ namespace TokoBuku.BaseForm.Transaksi
 {
     public partial class Penjualan : Form
     {
-        private DataTable DataPenjualan;
         private DataTable DataBarang;
         private DataTable DataKas;
         private DataTable DataPelanggan;
@@ -22,9 +24,6 @@ namespace TokoBuku.BaseForm.Transaksi
         private int PelangganIdTerpilih;
         private string KodeTerpilih;
         private int BarangIdTerpilih;
-        private string BarangTerpilih;
-        private double TotalHarga = 0;
-        private double TotalKembalian = 0;
 
         public Penjualan()
         {
@@ -34,7 +33,8 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void comboJenisBayar_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (comboJenisBayar.Text == "KREDIT")
+            var x_ = (TJenisPembayaran)Enum.Parse(typeof(TJenisPembayaran), this.comboJenisBayar.Text);
+            if (x_ == TJenisPembayaran.Kredit)
             {
                 this.dateTimePickerJatuhTempo.Enabled = true;
                 this.comboBoxJenisKas.Enabled = false;
@@ -43,7 +43,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.labelDp.Text = "Pembayaran Awal :";
                 this.labelkembali.Text = "Jumlah Kekurangan";
             }
-            else
+            else if (x_ == TJenisPembayaran.Cash)
             {
                 this.dateTimePickerJatuhTempo.Enabled = false;
                 this.comboBoxJenisKas.Enabled = true;
@@ -89,7 +89,6 @@ namespace TokoBuku.BaseForm.Transaksi
 
             this.dateTimePickerJatuhTempo.Value = DateTime.Now.AddDays(7);
             this.dateTimePickerJatuhTempo.Enabled = false;
-            this.comboJenisBayar.SelectedIndex = 0;
             this.labelNoTransaksi.Text = this.GenerateNoTransaksi();
             this.ActiveControl = this.textKode;
 
@@ -136,38 +135,41 @@ namespace TokoBuku.BaseForm.Transaksi
 
             this.textBoxPotongan.Text = 0.ToString("N2");
             this.textBoxPembayaranAwal.Text = 0.ToString("N2");
+
+            this.comboJenisBayar.DataSource = Enum.GetValues(typeof(TJenisPembayaran));
+            this.comboJenisBayar.SelectedIndex = 0;
         }
 
         private void buttonBawahProcess_Click(object sender, EventArgs e)
         {
+            /// TODO: Tambahkan penyimpanan kembalian, uang tunai, dan potongan
             if (dataGridView1.Rows.Count < 1)
             {
                 MessageBox.Show("Pilih barang terlebih dahulu.", "Gagal.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.ActiveControl = this.textKode;
             }
-            else if (string.IsNullOrWhiteSpace(this.comboBoxJenisKas.Text))
+            /*else if (string.IsNullOrWhiteSpace(this.comboBoxJenisKas.Text))
             {
                 MessageBox.Show("Pilih jenis kas dulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.ActiveControl = this.comboBoxJenisKas;
-            }
+            }*/
             else
             {
-                if (this.comboJenisBayar.Text == "CASH")
+                var x_ = (TJenisPembayaran)Enum.Parse(typeof(TJenisPembayaran), this.comboJenisBayar.Text);
+                if (x_ == TJenisPembayaran.Cash)
                 {
                     this.ProsedurPenjualanCash();
                 }
-
                 /// Kredit
-                else if (this.comboJenisBayar.Text == "KREDIT")
+                else if (x_ == TJenisPembayaran.Kredit)
                 {
                     double totalPembayaranAwal = 0;
-                    bool t_ = double.TryParse(this.textBoxPembayaranAwal.Text, out totalPembayaranAwal);
-                    if (!t_ && totalPembayaranAwal < 0)
+                    if (!double.TryParse(this.textBoxPembayaranAwal.Text, out totalPembayaranAwal) && totalPembayaranAwal < 0)
                     {
                         totalPembayaranAwal = 0;
                         this.textBoxPembayaranAwal.Text = "0";
                     }
-                    else if (this.TotalKembalian >= 0 && totalPembayaranAwal > 0)
+                    else if (this.GetKembalian() >= 0 && totalPembayaranAwal > 0)
                     {
                         var results = MessageBox.Show("Jumlah uang pembayaran bisa digunakan untuk pembayaran CASH.\nApakah anda mau menggunakan metode pembayaran CASH?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (results == DialogResult.Yes)
@@ -181,6 +183,7 @@ namespace TokoBuku.BaseForm.Transaksi
                         this.textNamaPelangganAtas.Text = string.Empty;
                         MessageBox.Show("Pelanggan tidak boleh Umum.\nPilih nama pelanggan terlebih dahulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         this.ActiveControl = this.textNamaPelangganAtas;
+                        this.buttonPelanggan_Click(null, null);
                     }
                     else
                     {
@@ -200,20 +203,32 @@ namespace TokoBuku.BaseForm.Transaksi
             try
             {
 
+                TPenjualan penjualan = new TPenjualan();
+                penjualan.KodeTransaksi = this.labelNoTransaksi.Text;
+                penjualan.IdKasir = 1; /// TODO: Ganti dengan system login
+                penjualan.IdPelanggan = this.PelangganIdTerpilih;
+                penjualan.Total = this.GetTotalHarga();
+                penjualan.UangPembayaran = Convert.ToDouble(this.textBoxPembayaranAwal.Text);
+                penjualan.UangKembalian = 0;
+                penjualan.Potongan = this.GetPotongan();
+                penjualan.Tanggal = this.dateTimePickerTglPesanan.Value;
+                penjualan.Waktu = DateTime.Now;
+                penjualan.StatusPembayaran = TJenisPembayaran.Kredit;
+                if (penjualan.UangPembayaran > 0)
+                {
+                    penjualan.IdKas = Convert.ToInt32(this.comboBoxJenisKas.SelectedValue.ToString());
+                }
+                penjualan.Keterangan = this.textBoxKeterangan.Text;
+
+                TPiutang piutang = new TPiutang()
+                {
+                    Total = this.GetTotalHarga() - penjualan.UangPembayaran,
+                    IdPelanggan = penjualan.IdPelanggan,
+                    TanggalTenggatBayar = dateTimePickerJatuhTempo.Value,
+                    Lunas = TLunas.Belum
+                };
                 TokoBuku.DbUtility
-                    .Transactions.Penjualan.SaveKredit(
-                    kode_transaksi: this.labelNoTransaksi.Text,
-                    id_kasir: 1, /// TODO: Ganti id kasir ya, dengan sistem login
-                    id_pelanggan: this.PelangganIdTerpilih,
-                    tanggal: this.dateTimePickerTglPesanan.Value,
-                    waktu: DateTime.Now,
-                    tgl_tenggat_bayar: this.dateTimePickerJatuhTempo.Value,
-                    pembayaran_awal: Convert.ToDouble(this.textBoxPembayaranAwal.Text),
-                    id_kas: id_kas,
-                    total_bayar: TotalHarga,
-                    keterangan: this.textBoxKeterangan.Text,
-                    dt: this.ConvertDGVtoDT(this.dataGridView1)
-                    );
+                    .Transactions.Penjualan.SaveKredit(penjualan, this.ConvertDGVToDetailPenjualan(this.dataGridView1), piutang: piutang);
                 MessageBox.Show("Data Berhasil disimpan.", "Success.");
                 this.ResetForm();
                 this.GenerateNoTransaksi();
@@ -228,22 +243,25 @@ namespace TokoBuku.BaseForm.Transaksi
         private void ProsedurPenjualanCash()
         {
             double temp_TotalBayar = 0;
-            if (this.TotalKembalian >= 0 && double.TryParse(this.textBoxPembayaranAwal.Text, out temp_TotalBayar) && temp_TotalBayar > 0)
+            if (this.GetKembalian() >= 0 && double.TryParse(this.textBoxPembayaranAwal.Text, out temp_TotalBayar) && temp_TotalBayar > 0)
             {
                 try
                 {
-                    //TBarang barang_ = new TBarang();
-                    TokoBuku.DbUtility.Transactions.Penjualan.SaveCash(
-                        kode_transaksi: this.labelNoTransaksi.Text,
-                        id_kasir: 1,
-                        id_pelanggan: this.PelangganIdTerpilih,
-                        tanggal: this.dateTimePickerTglPesanan.Value,
-                        waktu: DateTime.Now,
-                        id_kas: this.comboBoxJenisKas.SelectedValue.ToString(),
-                        rows: this.ConvertDGVtoDT(this.dataGridView1),
-                        total_bayar: TotalHarga,
-                        keterangan: this.textBoxKeterangan.Text
-                        );
+                    TPenjualan penjualan = new TPenjualan();
+                    penjualan.KodeTransaksi = this.labelNoTransaksi.Text;
+                    penjualan.IdKasir = 1; /// TODO: Ganti dengan system login
+                    penjualan.IdPelanggan = this.PelangganIdTerpilih;
+                    penjualan.Total = this.GetTotalHarga();
+                    penjualan.UangPembayaran = temp_TotalBayar;
+                    penjualan.UangKembalian = this.GetKembalian();
+                    penjualan.Potongan = this.GetPotongan();
+                    penjualan.Tanggal = this.dateTimePickerTglPesanan.Value;
+                    penjualan.Waktu = DateTime.Now;
+                    penjualan.StatusPembayaran = TJenisPembayaran.Cash;
+                    penjualan.IdKas = Convert.ToInt32(this.comboBoxJenisKas.SelectedValue.ToString());
+                    penjualan.Keterangan = this.textBoxKeterangan.Text;
+
+                    DbUtility.Transactions.Penjualan.SaveCash(penjualan, detailPenjualan: ConvertDGVToDetailPenjualan(this.dataGridView1));
                     MessageBox.Show("Data Berhasil disimpan.", "Success.");
                     this.ResetForm();
                     this.GenerateNoTransaksi();
@@ -251,7 +269,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    throw ex;
+                    throw;
                 }
             }
             else
@@ -260,6 +278,22 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.ActiveControl = this.textBoxPembayaranAwal;
             }
         }
+
+        private List<TDetailPenjualan> ConvertDGVToDetailPenjualan(DataGridView dgv)
+        {
+            List<TDetailPenjualan> detailPenjualan = new List<TDetailPenjualan>();
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                TDetailPenjualan detail = new TDetailPenjualan();
+                detail.IdBarang = Convert.ToInt32(row.Cells["Id"].Value.ToString());
+                detail.Jumlah = Convert.ToDouble(row.Cells["Jumlah"].Value.ToString());
+                detail.Harga = Convert.ToDouble(row.Cells["Harga"].Value.ToString());
+                detail.Satuan = row.Cells["Satuan"].Value.ToString();
+                detailPenjualan.Add(detail);
+            }
+            return detailPenjualan;
+        }
+
         private DataTable ConvertDGVtoDT(DataGridView dgv)
         {
             DataTable dt = new DataTable();
@@ -293,80 +327,20 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textNamaPelangganAtas.Text = "UMUM";
             this.PelangganIdTerpilih = TokoBuku.DbUtility.Transactions.Penjualan.GetIdPelangganUmum();
             this.textBoxKeterangan.Text = string.Empty;
-            this.TotalKembalian = 0;
         }
 
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void textBoxPembayaranAwal_TextChanged(object sender, EventArgs e)
         {
-            float harga = 0;
+            float _pembayaranAwal = 0;
             comboBoxJenisKas.Enabled = true;
-            if (!string.IsNullOrWhiteSpace(textBoxPembayaranAwal.Text) && float.TryParse(textBoxPembayaranAwal.Text, out harga))
+            if (!string.IsNullOrWhiteSpace(textBoxPembayaranAwal.Text) && float.TryParse(textBoxPembayaranAwal.Text, out _pembayaranAwal))
             {
-                if (harga > 0)
+                if (_pembayaranAwal > 0)
                 {
-                    double diskon = 0;
-                    comboBoxJenisKas.Enabled = true;
-                    double SubTotalPrice = this.ListBarang.AsEnumerable().Sum(row => row.Field<double>("Total"));
-                    var r_ = double.TryParse(textBoxPotongan.Text, out diskon);
-                    if (r_)
-                    {
-                        var totalHarga = (1.00 - diskon / 100) * SubTotalPrice;
-                        this.labelKembalian.Text = (harga - totalHarga).ToString("C");
-                        this.TotalHarga = totalHarga;
-                        this.TotalKembalian = harga - totalHarga;
-                    }
-                    else
-                    {
-                        this.labelKembalian.Text = (harga - SubTotalPrice).ToString("C");
-                        this.TotalHarga = SubTotalPrice;
-                        this.TotalKembalian = harga - this.TotalHarga;
-                    }
+                    this.UpdateLabelKembalian();
                 }
             }
-            /*if (comboJenisBayar.Text == "KREDIT")
-            {
-                if (!string.IsNullOrWhiteSpace(textBoxPembayaranAwal.Text) && float.TryParse(textBoxPembayaranAwal.Text, out harga))
-                {
-                    if (harga > 0)
-                    {
-                        comboBoxJenisKas.Enabled = true;
-                        this.labelKembalian.Text = 0.ToString("C");
-                    }
-                }
-                else
-                {
-                    comboBoxJenisKas.Enabled = false;
-                    this.labelKembalian.Text = 0.ToString("C");
-                }
-            }
-            else
-            {
-                comboBoxJenisKas.Enabled = true;
-                if (!string.IsNullOrWhiteSpace(textBoxPembayaranAwal.Text) && float.TryParse(textBoxPembayaranAwal.Text, out harga))
-                {
-                    if (harga > 0)
-                    {
-                        double diskon = 0;
-                        double SubTotalPrice = this.ListBarang.AsEnumerable().Sum(row => row.Field<double>("Total"));
-                        var r_ = double.TryParse(textBox1.Text, out diskon);
-                        if (r_)
-                        {
-                            var totalHarga = (1.00 - diskon / 100) * SubTotalPrice;
-                            this.labelKembalian.Text = (harga - totalHarga).ToString("C");
-                            this.TotalHarga = totalHarga;
-                            this.TotalKembalian = harga - totalHarga;
-                        }
-                        else
-                        {
-                            this.labelKembalian.Text = (harga - SubTotalPrice).ToString("C");
-                            this.TotalHarga = SubTotalPrice;
-                            this.TotalKembalian = harga - this.TotalHarga;
-                        }
-                    }
-                }
-            }*/
-
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -406,12 +380,14 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.dataGridView1.Columns[7].DefaultCellStyle.Format = "C";
                 this.dataGridView1.Refresh();
 
+                // Update label subtotal harga
+                this.UpdateLabelSubTotal();
+
+                // Reset input add barang
                 this.textNamaBarang.Text = string.Empty;
                 this.textKode.Text = string.Empty;
                 this.textBoxQty.Text = "1";
                 this.comboSatuan.SelectedIndex = 0;
-                double SubTotalPrice = this.ListBarang.AsEnumerable().Sum(row => row.Field<double>("Total"));
-                this.labelSubTotal.Text = SubTotalPrice.ToString("C");
                 this.ActiveControl = this.textKode;
             }
         }
@@ -444,11 +420,9 @@ namespace TokoBuku.BaseForm.Transaksi
 
         #region RefreshDataBarangPelangganKas
         private void RefreshDataPelanggan()
-        {
-
-            this.DataPelanggan = DbSearchLoadData.Pelanggan();
-            this.textNamaPelangganAtas.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            this.textNamaPelangganAtas.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+        {/// data pelanggan di buat ke umum
+            this.PelangganIdTerpilih = DbUtility.Transactions.Penjualan.GetIdPelangganUmum();
+            this.textNamaPelangganAtas.Text = "UMUM";
         }
 
         private void RefreshDataBarang()
@@ -553,7 +527,7 @@ namespace TokoBuku.BaseForm.Transaksi
         }
         private void FilterDataKode()
         {
-            using (var form = new FormSearch())
+            /*using (var form = new FormSearch())
             {
                 form.HideAddBarang();
                 form.FormName = "kode";
@@ -565,6 +539,23 @@ namespace TokoBuku.BaseForm.Transaksi
                     this.BarangIdTerpilih = form.SearchIndex;
                     this.textKode.Text = form.SearchedKode;
                     this.textNamaBarang.Text = form.SearchedText;
+                    this.ActiveControl = this.textBoxQty;
+                }
+            }*/
+
+            using (var form = new FormSearchBarang())
+            {
+                form.FormName = "kode";
+                form.SearchText = this.textKode.Text;
+                form.TipeForm = "penjualan";
+                form.HideAddBarang();
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    this.KodeTerpilih = form.SearchBarang.Kode;
+                    this.BarangIdTerpilih = form.SearchBarang.Id;
+                    this.textKode.Text = form.SearchBarang.Kode;
+                    this.textNamaBarang.Text = form.SearchBarang.Nama;
                     this.ActiveControl = this.textBoxQty;
                 }
             }
@@ -595,18 +586,19 @@ namespace TokoBuku.BaseForm.Transaksi
         }
         private void FilterDataBarang()
         {
-            using (var form = new FormSearch())
+            using (var form = new FormSearchBarang())
             {
-                form.HideAddBarang();
                 form.FormName = "barang";
                 form.SearchText = this.textNamaBarang.Text;
+                form.TipeForm = "penjualan";
+                form.HideAddBarang();
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    this.KodeTerpilih = form.SearchedKode;
-                    this.BarangIdTerpilih = form.SearchIndex;
-                    this.textKode.Text = form.SearchedKode;
-                    this.textNamaBarang.Text = form.SearchedText;
+                    this.KodeTerpilih = form.SearchBarang.Kode;
+                    this.BarangIdTerpilih = form.SearchBarang.Id;
+                    this.textKode.Text = form.SearchBarang.Kode;
+                    this.textNamaBarang.Text = form.SearchBarang.Nama;
                     this.ActiveControl = this.textBoxQty;
                 }
             }
@@ -621,7 +613,7 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             if (e.KeyData == Keys.Enter)
             {
-                this.UpdateTotalHarga();
+                this.UpdateLabelTotalHarga();
             }
             else
             {
@@ -669,58 +661,75 @@ namespace TokoBuku.BaseForm.Transaksi
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        
+        /// <summary>
+        /// Update label total harga
+        /// </summary>
+        private void UpdateLabelTotalHarga()
         {
-            this.UpdateTotalHarga();
+            this.LatbelHargaTotal.Text = this.GetTotalHarga().ToString("C");
         }
 
-        private double UpdateTotalHarga()
+        /// <summary>
+        /// Get Total Harga barang. (Subtotal - Potongan)
+        /// </summary>
+        /// <returns>Total Harga</returns>
+        private double GetTotalHarga()
         {
-            double subTotal = UpdateSubTotal();
-            double diskon, totalHarga = 0;
-            if (subTotal > 0 && textBoxPotongan.Text.Length > 0)
-            {
-                var r_ = double.TryParse(textBoxPotongan.Text, out diskon);
-                if (!r_)
-                {
-                    diskon = 0;
-                }
-                totalHarga = (1.00 - diskon / 100) * subTotal;
-                this.LatbelHargaTotal.Text = totalHarga.ToString("C");
-            }
+            double totalHarga = GetSubTotal() - GetPotongan();
             return totalHarga;
         }
 
-        private double UpdateSubTotal()
+        /// <summary>
+        /// Get potongan harga
+        /// </summary>
+        /// <returns>Potongan harga / Diskon</returns>
+        private double GetPotongan()
+        {
+            double subTotal = GetSubTotal();
+            double diskon = 0;
+            if (subTotal > 0 && textBoxPotongan.Text.Length > 0)
+            {
+                if (!double.TryParse(textBoxPotongan.Text, out diskon)) { diskon = 0; }
+            }
+            return diskon;
+        }
+
+        /// <summary>
+        /// Get subtotal harga
+        /// </summary>
+        /// <returns>subtotal harga</returns>
+        private double GetSubTotal()
         {
             double SubTotalPrice = this.ListBarang.AsEnumerable().Sum(row => row.Field<double>("Total"));
             return SubTotalPrice;
         }
 
-        private void textBoxQty_Validating(object sender, CancelEventArgs e)
+        /// <summary>
+        /// Update label subtotal
+        /// </summary>
+        private void UpdateLabelSubTotal()
         {
-            /*///  **Sudah bisa validasi ** benerin validating stock dulu. ref: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.control.validating?view=windowsdesktop-7.0*/
-
-            double qty, qty_db;
-            if (string.IsNullOrWhiteSpace(this.textKode.Text) || string.IsNullOrWhiteSpace(this.textNamaBarang.Text))
-            {
-                MessageBox.Show("Pilih Barang terlebih dahulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.ActiveControl = this.textKode;
-            }
-            else if (!double.TryParse(this.textBoxQty.Text, out qty))
-            {
-                MessageBox.Show("Jumlah barang tidak boleh kosong.\nisi jumlah barang terlebih dahulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.ActiveControl = this.textBoxQty;
-            }
-            else if (!IsValidStock(out qty_db))
-            {
-                double stock_db = TokoBuku.DbUtility.Transactions.Penjualan.GetStockBarang(id_barang: this.BarangIdTerpilih);
-                MessageBox.Show($"Stock barang tidak cukup.\n" +
-                    $"Stock sekarang tinggal {stock_db} Pcs.");
-                this.ActiveControl = this.textBoxQty;
-            }
+            this.labelSubTotal.Text= this.GetSubTotal().ToString("C");
         }
 
+        private void UpdateLabelKembalian()
+        {
+            this.labelKembalian.Text = this.GetKembalian().ToString("C");
+        }
+
+        private double GetKembalian()
+        {
+            double _totalPembayaran;
+            double.TryParse(this.textBoxPembayaranAwal.Text, out _totalPembayaran);
+            return _totalPembayaran - this.GetTotalHarga();
+        }
+
+        /// <summary>
+        /// Get stock barang masih apa tidak
+        /// </summary>
+        /// <param name="stock_db"></param>
+        /// <returns>bool="Stock valid or not"</returns>
         private bool IsValidStock(out double stock_db)
         {
             /// cek stock di DB
@@ -741,79 +750,6 @@ namespace TokoBuku.BaseForm.Transaksi
             }
             return false;
         }
-
-        /* #region MyRegion
-         private void txtRealBox_KeyPress(object sender, KeyPressEventArgs e)
-         {
-             if (char.IsDigit(e.KeyChar) || e.KeyChar == 45)
-             {
-                 /// char 45 = "-"
-                 TextBox t = (TextBox)sender;
-                 int cursorPosition = t.Text.Length - t.SelectionStart;      // Text in the box and Cursor position
-
-                 if (e.KeyChar == 45)
-                 {
-                     if (t.Text[0] == 45)
-                     {
-                         t.Text = t.Text.Remove(0);
-                     }
-                     else
-                     {
-                         t.Text = "-" + t.Text;
-                     }
-                 }
-                 else
-                     if (t.Text.Length < 20)
-                     t.Text = (decimal.Parse(t.Text.Insert(t.SelectionStart, e.KeyChar.ToString()).Replace(",00", "").Replace(".", "")) / 1).ToString("N2");
-                 //t.Text = (decimal.Parse(t.Text.Insert(t.SelectionStart, e.KeyChar.ToString()).Replace(",", "").Replace(".", "")) / 100).ToString("N2");
-
-                 t.SelectionStart = (t.Text.Length - cursorPosition < 0 ? 0 : t.Text.Length - cursorPosition);
-             }
-             e.Handled = true;
-         }
-         private void txtRealBox_KeyDown(object sender, KeyEventArgs e)
-         {
-             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)     // Deals with BackSpace e Delete keys
-             {
-                 TextBox t = (TextBox)sender;
-                 int cursorPosition = t.Text.Length - t.SelectionStart;
-
-                 string Left = t.Text.Substring(0, t.Text.Length - cursorPosition).Replace(".", "").Replace(",", "");
-                 string Right = t.Text.Substring(t.Text.Length - cursorPosition).Replace(".", "").Replace(",00", "");
-
-                 if (Left.Length > 0)
-                 {
-                     Left = Left.Remove(Left.Length - 1);                            // Take out the rightmost digit
-                     t.Text = (decimal.Parse(Left + Right) / 100).ToString("N2");
-                     //t.Text = (decimal.Parse(Left + Right) / 100).ToString("N2");
-                     t.SelectionStart = (t.Text.Length - cursorPosition < 0 ? 0 : t.Text.Length - cursorPosition);
-                 }
-                 e.Handled = true;
-             }
-
-             if (e.KeyCode == Keys.End)                                  // Treats End key
-             {
-                 TextBox t = (TextBox)sender;
-                 t.SelectionStart = t.Text.Length;                       // Moves the cursor o the rightmost position
-                 e.Handled = true;
-             }
-
-             if (e.KeyCode == Keys.Home)                                 // Trata tecla Home
-             {
-                 TextBox t = (TextBox)sender;
-                 //t.Text = 0.ToString("N2");                              // Set field value to zero 
-                 t.Text = 0.ToString("N2");
-                 t.SelectionStart = t.Text.Length;                       // Moves the cursor o the rightmost position
-                 e.Handled = true;
-             }
-         }
-         private void txtRealBox_Enter(object sender, EventArgs e)
-         {
-             TextBox t = (TextBox)sender;                                // Desliga seleção de texto
-             t.SelectionStart = t.Text.Length;
-         }
-         #endregion*/
-
 
         #region HandleCurrency
         private void txtRealBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -893,6 +829,20 @@ namespace TokoBuku.BaseForm.Transaksi
             {
                 histori.ShowDialog();
             }
+        }
+
+        private void textBoxQty_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.ActiveControl = this.buttonAdd;
+            }
+        }
+
+        private void textBoxPotongan_TextChanged(object sender, EventArgs e)
+        {
+            this.UpdateLabelTotalHarga();
+            this.UpdateLabelKembalian();
         }
     }
 }

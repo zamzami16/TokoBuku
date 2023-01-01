@@ -19,7 +19,7 @@ namespace TokoBuku.DbUtility.Transactions
             dataTable.Columns.Add("Total", typeof(double));     // 7
             dataTable.Columns[3].DefaultValue = jumlah;
             dataTable.Columns[4].DefaultValue = satuan;
-            var query = "select id_barang AS ID, kode as KODE, nama_barang AS NAMA, harga, diskon " +
+            var query = "select id_barang AS ID, kode as KODE, nama_barang AS NAMA, harga_jual as harga, diskon " +
                 "from barang where id_BARANG=@id;";
             using (FbCommand cmd = new FbCommand(query, ConnectDB.Connetc()))
             {

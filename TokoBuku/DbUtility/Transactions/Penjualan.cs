@@ -1,153 +1,103 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
-using TokoBuku.BaseForm.TipeData;
+using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.DbUtility.Transactions
 {
     internal static class Penjualan
     {
-        internal static void SaveDetailPenjualan(DataTable Dt, int id_pembelian)
+        internal static void SaveDetailPenjualan(List<TDetailPenjualan> detailPenjualan, int id_penjualan)
         {
             using (var con = ConnectDB.Connetc())
             {
                 var query = "insert into detail_penjualan " +
-                    "(id_barang, id_pembelian, jumlah, harga, satuan) " +
-                    "values (@id_barang, @id_pembelian, @jumlah, @harga, @satuan);";
-                foreach (DataRow row in Dt.Rows)
+                    "(id_penjualan, id_barang, jumlah, harga, satuan) " +
+                    "values (@id_penjualan, @id_barang, @jumlah, @harga, @satuan);";
+                foreach (TDetailPenjualan detail in detailPenjualan)
                 {
                     using (var cmd = new FbCommand(query, con))
                     {
                         cmd.CommandType = System.Data.CommandType.Text;
-                        cmd.Parameters.Add("@id_barang", Convert.ToInt32(row["id"].ToString()));
-                        cmd.Parameters.Add("@id_pembelian", id_pembelian);
-                        cmd.Parameters.Add("@jumlah", Convert.ToDouble(row["jumlah"].ToString()));
-                        cmd.Parameters.Add("@harga", Convert.ToDouble(row["subtotal_harga"].ToString()));
-                        cmd.Parameters.Add("@satuan", row["satuan"].ToString());
+                        cmd.Parameters.Add("@id_penjualan", id_penjualan);
+                        cmd.Parameters.Add("@id_barang", detail.IdBarang);
+                        cmd.Parameters.Add("@jumlah", detail.Jumlah);
+                        cmd.Parameters.Add("@harga", detail.Harga);
+                        cmd.Parameters.Add("@satuan", detail.Satuan);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
                     }
+                    // Update stock barang
+                    /// TODO: Saat transaksi error, stock barang belum bisa di re-Update
+                    UpdateStockBarangPenjualan(detail);
                 }
             }
         }
 
-        internal static int SavePenjualan(
-            string kode_transaksi, int id_kasir, int id_pelanggan, double total_bayar, DateTime tanggal, DateTime waktu,
-            string id_kas, string keterangan, string status_pembayaran)
+        internal static int SavePenjualan(TPenjualan penjualan, List<TDetailPenjualan> detailPenjualan)
         {
             int ids = 0;
             using (var con = ConnectDB.Connetc())
             {
                 var query = "insert into Penjualan " +
-                    "(kode_transaksi, id_kasir, id_pelanggan, total, tanggal, waktu, status_pembayaran, " +
-                    "id_kas, keterangan) " +
-                    "values (@kode_transaksi, @id_kasir, @id_pelanggan, @total, @tanggal, @waktu, @status_pembayaran, " +
-                    "@id_kas, @keterangan)" +
+                    "(kode_transaksi, id_kasir, id_pelanggan, total, " +
+                    "uang_pembayaran, uang_kembalian, potongan, tanggal, waktu, " +
+                    "status_pembayaran, id_kas, keterangan) " +
+                    "values (@kode_transaksi, @id_kasir, @id_pelanggan, @total, " +
+                    "@uang_pembayaran, @uang_kembalian, @potongan, @tanggal, @waktu, " +
+                    "@status_pembayaran, @id_kas, @keterangan)" +
                     "returning id;";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.Parameters.Add("@kode_transaksi", kode_transaksi);
-                    cmd.Parameters.Add("@id_kasir", id_kasir);
-                    cmd.Parameters.Add("@id_pelanggan", id_pelanggan);
-                    cmd.Parameters.Add("@total", total_bayar);
-                    cmd.Parameters.Add("@tanggal", tanggal);
-                    cmd.Parameters.Add("@waktu", waktu);
-                    cmd.Parameters.Add("@status_pembayaran", status_pembayaran);
-                    cmd.Parameters.Add("@id_kas", id_kas);
-                    cmd.Parameters.Add("@keterangan", keterangan);
+                    cmd.Parameters.Add("@kode_transaksi", penjualan.KodeTransaksi);
+                    cmd.Parameters.Add("@id_kasir", penjualan.IdKasir);
+                    cmd.Parameters.Add("@id_pelanggan", penjualan.IdPelanggan);
+                    cmd.Parameters.Add("@total", penjualan.Total);
+                    cmd.Parameters.Add("@uang_pembayaran", penjualan.UangPembayaran);
+                    cmd.Parameters.Add("@uang_kembalian", penjualan.UangKembalian);
+                    cmd.Parameters.Add("@potongan", penjualan.Potongan);
+                    cmd.Parameters.Add("@tanggal", penjualan.Tanggal);
+                    cmd.Parameters.Add("@waktu", penjualan.Waktu);
+                    cmd.Parameters.Add("@status_pembayaran", penjualan.StatusPembayaran);
+                    cmd.Parameters.Add("@id_kas", penjualan.IdKas);
+                    cmd.Parameters.Add("@keterangan", penjualan.Keterangan);
                     ids = (int)cmd.ExecuteScalar();
                     cmd.Dispose();
+                }
+                try
+                {
+                    SaveDetailPenjualan(detailPenjualan, ids);
+                }
+                catch (Exception)
+                {
+                    DeleteSavePenjualan(ids);
+                    throw;
                 }
             }
             return ids;
         }
 
-        internal static void SaveCash(
-            string kode_transaksi, int id_kasir, int id_pelanggan, DateTime tanggal, DateTime waktu, double total_bayar,
-            string id_kas, DataTable rows, string keterangan, string status_pembayaran = "CASH")
+        internal static void SaveCash(TPenjualan penjualan, List<TDetailPenjualan> detailPenjualan)
         {
-            int id_penjualan = SavePenjualan(kode_transaksi: kode_transaksi, id_kasir: id_kasir, id_pelanggan: id_pelanggan, total_bayar: total_bayar, tanggal: tanggal, waktu: waktu, id_kas: id_kas, status_pembayaran: status_pembayaran, keterangan: keterangan);
-            try
-            {
-                using (var con = ConnectDB.Connetc())
-                {
-                    var query = "insert into detail_penjualan " +
-                        "(id_barang, id_penjualan, jumlah, harga, satuan) " +
-                        "values (@id_barang, @id_penjualan, @jumlah, @harga, @satuan);";
-                    foreach (DataRow row in rows.Rows)
-                    {
-                        using (var cmd = new FbCommand(query, con))
-                        {
-                            cmd.CommandType = System.Data.CommandType.Text;
-                            cmd.Parameters.Add("@id_barang", Convert.ToInt32(row["Id"].ToString()));
-                            cmd.Parameters.Add("@id_penjualan", id_penjualan);
-                            cmd.Parameters.Add("@jumlah", Convert.ToDouble(row["Jumlah"].ToString()));
-                            cmd.Parameters.Add("@harga", Convert.ToDouble(row["Total"].ToString()));
-                            cmd.Parameters.Add("@satuan", row["Satuan"].ToString());
-                            cmd.ExecuteNonQuery();
-                            cmd.Dispose();
-                        }
-                        UpdateStockBarangPenjualan(row);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DeleteSavePenjualan(id_penjualan: id_penjualan);
-                throw ex;
-            }
+            SavePenjualan(penjualan, detailPenjualan);
         }
 
 
-        internal static void SaveKredit(
-            string kode_transaksi, int id_kasir, int id_pelanggan, double total_bayar, DateTime tanggal, DateTime waktu,
-            DateTime tgl_tenggat_bayar, double pembayaran_awal,
-            string id_kas, DataTable dt, string keterangan,
-            string status_pembayaran = "KREDIT")
+        internal static void SaveKredit(TPenjualan penjualan, List<TDetailPenjualan> detailPenjualan, TPiutang piutang)
         {
-            int id_penjualan = SavePenjualan(kode_transaksi: kode_transaksi, id_kasir: id_kasir, id_pelanggan: id_pelanggan, total_bayar: total_bayar, tanggal: tanggal, waktu: waktu, id_kas: id_kas, status_pembayaran: status_pembayaran, keterangan: keterangan);
+            int id_penjualan = SavePenjualan(penjualan, detailPenjualan);
 
             try
-            { /// save detail penjualan
-                int id_piutang = SavePiutang(id_pelanggan: id_pelanggan, id_penjualan: id_penjualan, tgl_tenggat_bayar: tgl_tenggat_bayar, tgl_beli: tanggal, total: total_bayar, pembayaran_awal: pembayaran_awal, id_kas: id_kas);
-                try
-                {
-                    using (var con = ConnectDB.Connetc())
-                    {
-                        var query = "insert into detail_penjualan " +
-                            "(id_barang, id_penjualan, jumlah, harga, satuan) " +
-                            "values (@id_barang, @id_penjualan, @jumlah, @harga, @satuan);";
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            using (var cmd = new FbCommand(query, con))
-                            {
-                                cmd.CommandType = System.Data.CommandType.Text;
-                                cmd.Parameters.Add("@id_barang", Convert.ToInt32(row["Id"].ToString()));
-                                cmd.Parameters.Add("@id_penjualan", id_penjualan);
-                                cmd.Parameters.Add("@jumlah", Convert.ToDouble(row["Jumlah"].ToString()));
-                                cmd.Parameters.Add("@harga", Convert.ToDouble(row["Total"].ToString()));
-                                cmd.Parameters.Add("@satuan", row["Satuan"].ToString());
-                                cmd.ExecuteNonQuery();
-                                cmd.Dispose();
-                            }
-                            UpdateStockBarangPenjualan(row);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    DeleteSavePenjualan(id_penjualan);
-                    DeleteSavePiutang(id_piutang);
-                    throw ex;
-                }
+            {// Save piutang
+                piutang.IdPenjualan = id_penjualan;
+                int id_piutang = SavePiutang(piutang);
             }
             catch (Exception ex) { DeleteSavePenjualan(id_penjualan); throw ex; }
-
         }
 
-
-        internal static int SavePiutang(int id_pelanggan, int id_penjualan, DateTime tgl_tenggat_bayar, DateTime tgl_beli, double total, double pembayaran_awal, string id_kas, string sudah_lunas = "belum")
+        internal static int SavePiutang(TPiutang piutang)
         {
             int ids = 0;
             using (var con = ConnectDB.Connetc())
@@ -159,33 +109,33 @@ namespace TokoBuku.DbUtility.Transactions
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.Parameters.Add("@id_pelanggan", id_pelanggan);
-                    cmd.Parameters.Add("@id_penjualan", id_penjualan);
-                    cmd.Parameters.Add("@tgl_tenggat_bayar", tgl_tenggat_bayar);
-                    cmd.Parameters.Add("@total", total);
-                    cmd.Parameters.Add("@sudah_lunas", sudah_lunas);
+                    cmd.Parameters.Add("@id_pelanggan", piutang.IdPelanggan);
+                    cmd.Parameters.Add("@id_penjualan", piutang.IdPenjualan);
+                    cmd.Parameters.Add("@tgl_tenggat_bayar", piutang.TanggalTenggatBayar);
+                    cmd.Parameters.Add("@total", piutang.Total);
+                    cmd.Parameters.Add("@sudah_lunas", piutang.Lunas);
                     ids = (int)cmd.ExecuteScalar();
                     cmd.Dispose();
                 }
-                BayarPiutang(id_piutang: ids, pembayaran: pembayaran_awal, tgl_bayar: tgl_beli, id_kas: id_kas);
-                return ids;
             }
+            return ids;
         }
 
-        internal static void BayarPiutang(int id_piutang, double pembayaran, DateTime tgl_bayar, string id_kas)
+        internal static void BayarPiutang(TBayarPiutang bayarPiutang)
         {
             using (var con = ConnectDB.Connetc())
             {
                 var query = "insert into bayar_piutang " +
-                    "(id_piutang, pembayaran, tgl_bayar, id_kas) " +
-                    "values (@id_piutang, @pembayaran, @tgl_bayar, @id_kas);";
+                    "(id_piutang, pembayaran, tgl_bayar, id_kas, is_dp) " +
+                    "values (@id_piutang, @pembayaran, @tgl_bayar, @id_kas, @is_dp);";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add("@id_piutang", id_piutang);
-                    cmd.Parameters.Add("@pembayaran", pembayaran);
-                    cmd.Parameters.Add("@tgl_bayar", tgl_bayar);
-                    cmd.Parameters.Add("@id_kas", id_kas);
+                    cmd.Parameters.Add("@id_piutang", bayarPiutang.IdPiutang);
+                    cmd.Parameters.Add("@pembayaran", bayarPiutang.Pembayaran);
+                    cmd.Parameters.Add("@tgl_bayar", bayarPiutang.TglBayar);
+                    cmd.Parameters.Add("@id_kas", bayarPiutang.IdKas);
+                    cmd.Parameters.Add("@is_dp", bayarPiutang.isDP);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
@@ -196,10 +146,16 @@ namespace TokoBuku.DbUtility.Transactions
         {
             using (var con = ConnectDB.Connetc())
             {
-                var query = "delete from penjualan where id=@id;";
-                using (var cmd = new FbCommand(query, con))
+                var query_ = "delete from detail_penjualan where id_penjualan=@id_penjualan;";
+                using (var cmd = new FbCommand(query_, con))
                 {
                     cmd.CommandType = System.Data.CommandType.Text;
+                    // delete detail penjualan
+                    cmd.Parameters.Add("@id_penjualan", id_penjualan);
+                    cmd.ExecuteNonQuery();
+                    // delete penjualan
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "delete from penjualan where id=@id;";
                     cmd.Parameters.Add("@id", id_penjualan);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
@@ -248,6 +204,10 @@ namespace TokoBuku.DbUtility.Transactions
                         }
                     }
                 }
+            }
+            if (ids == 0)
+            {
+                ids = AddPelangganUmum();
             }
             return ids;
         }
@@ -299,15 +259,16 @@ namespace TokoBuku.DbUtility.Transactions
             return stock;
         }
 
-        internal static void UpdateStockBarangPenjualan(DataRow row)
+        internal static void UpdateStockBarangPenjualan(TDetailPenjualan detail)
         {
-            int id_barang = Convert.ToInt32(row["Id"].ToString());
+            int id_barang = detail.IdBarang;
             var stock_db = GetStockBarang(id_barang);
-            double stock_minus = Convert.ToDouble(row["Jumlah"].ToString());
-            if (row["Satuan"].ToString().ToLower() == "packs")
+            double stock_minus = detail.Jumlah;
+            // Untuk sementara, satuan masih pcs tok
+            /*if (row["Satuan"].ToString().ToLower() == "packs")
             {
                 stock_minus *= 10;
-            }
+            }*/
             var stock_ = stock_db - stock_minus;
             using (var con = ConnectDB.Connetc())
             {
@@ -400,6 +361,29 @@ namespace TokoBuku.DbUtility.Transactions
                 }
             }
             return data;
+        }
+
+        public static int AddPelangganUmum()
+        {
+            int ids = 0;
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "insert into pelanggan (nama, alamat, no_hp) " +
+                    "values (@nama, @alamat, @noHp) returning id";
+                var nama = "UMUM";
+                var alamat = "Alamat umum";
+                var noHp = "Hp Umum";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@nama", nama);
+                    cmd.Parameters.Add("@alamat", alamat);
+                    cmd.Parameters.Add("@noHp", noHp);
+                    ids = (int)cmd.ExecuteScalar();
+                    cmd.Dispose();
+                    return ids;
+                }
+            }
         }
     }
 }

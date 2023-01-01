@@ -125,19 +125,24 @@
       <DependentUpon>FormInputDataKas.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\TipeData\DataBase\TBarang.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TBayarPiutang.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TBayarHutang.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TDetailPenjualan.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TDetailPembelian.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TPiutang.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\THutang.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TIsDP.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TJenisPembayaran.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TKas.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TLunas.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TPembelian.cs" />
+    <Compile Include="BaseForm\TipeData\DataBase\TPenjualan.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TStatus.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TPelanggan.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TSupplier.cs" />
     <Compile Include="BaseForm\TipeData\Search\TSearchBarang.cs" />
     <Compile Include="BaseForm\TipeData\TipePembayaran.cs" />
+    <Compile Include="BaseForm\TipeData\TSatuan.cs" />
     <Compile Include="BaseForm\Transaksi\HistoriPenjualan.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -31,7 +31,7 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Penjualan));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanelUtama = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.tableLayoutJenisPembayaran = new System.Windows.Forms.TableLayoutPanel();
@@ -75,6 +75,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxKeterangan = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.textNamaBarang = new System.Windows.Forms.TextBox();
             this.butCariBarang = new System.Windows.Forms.Button();
             this.butCariKode = new System.Windows.Forms.Button();
@@ -205,9 +206,6 @@ namespace TokoBuku.BaseForm.Transaksi
             this.comboJenisBayar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboJenisBayar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboJenisBayar.FormattingEnabled = true;
-            this.comboJenisBayar.Items.AddRange(new object[] {
-            "CASH",
-            "KREDIT"});
             this.comboJenisBayar.Location = new System.Drawing.Point(147, 3);
             this.comboJenisBayar.Name = "comboJenisBayar";
             this.comboJenisBayar.Size = new System.Drawing.Size(119, 24);
@@ -260,7 +258,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxPotongan.TabIndex = 9;
             this.textBoxPotongan.Text = "0";
             this.textBoxPotongan.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBoxPotongan.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBoxPotongan.TextChanged += new System.EventHandler(this.textBoxPotongan_TextChanged);
             this.textBoxPotongan.Enter += new System.EventHandler(this.txtRealBox_Enter);
             this.textBoxPotongan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             this.textBoxPotongan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRealBox_KeyPress);
@@ -287,7 +285,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxPembayaranAwal.TabIndex = 10;
             this.textBoxPembayaranAwal.Text = "0";
             this.textBoxPembayaranAwal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBoxPembayaranAwal.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBoxPembayaranAwal.TextChanged += new System.EventHandler(this.textBoxPembayaranAwal_TextChanged);
             this.textBoxPembayaranAwal.Enter += new System.EventHandler(this.txtRealBox_Enter);
             this.textBoxPembayaranAwal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRealBox_KeyDown);
             this.textBoxPembayaranAwal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRealBox_KeyPress);
@@ -668,8 +666,8 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanelUtama.SetColumnSpan(this.dataGridView1, 3);
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -685,6 +683,7 @@ namespace TokoBuku.BaseForm.Transaksi
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanelUtama.SetColumnSpan(this.panel1, 3);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.textNamaBarang);
             this.panel1.Controls.Add(this.butCariBarang);
             this.panel1.Controls.Add(this.butCariKode);
@@ -700,6 +699,16 @@ namespace TokoBuku.BaseForm.Transaksi
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(771, 34);
             this.panel1.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(598, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Pcs";
             // 
             // textNamaBarang
             // 
@@ -770,6 +779,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.comboSatuan.Name = "comboSatuan";
             this.comboSatuan.Size = new System.Drawing.Size(66, 24);
             this.comboSatuan.TabIndex = 3;
+            this.comboSatuan.Visible = false;
             this.comboSatuan.Leave += new System.EventHandler(this.comboSatuan_Leave);
             // 
             // textBoxQty
@@ -780,6 +790,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.textBoxQty.Size = new System.Drawing.Size(53, 23);
             this.textBoxQty.TabIndex = 2;
             this.textBoxQty.Text = "1";
+            this.textBoxQty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxQty_KeyDown);
             // 
             // label8
             // 
@@ -919,5 +930,6 @@ namespace TokoBuku.BaseForm.Transaksi
         private System.Windows.Forms.Button butCariKode;
         private System.Windows.Forms.TextBox textKode;
         private System.Windows.Forms.TextBox textNamaBarang;
+        private System.Windows.Forms.Label label3;
     }
 }

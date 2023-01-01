@@ -2,21 +2,21 @@
 
 namespace TokoBuku.BaseForm.TipeData.DataBase
 {
-    internal class THutang
+    internal class TPiutang
     {
         public int Id { get; set; }
-        public int IdPembelian { get; set; }
-        public int IdSupplier { get; set; }
+        public int IdPenjualan { get; set; }
+        public int IdPelanggan { get; set; }
         public DateTime TanggalTenggatBayar { get; set; }
         public double Total { get; set; }
         public TLunas Lunas { get; set; }
-        public THutang() { this.Lunas = TLunas.Belum; }
+        public TPiutang() { this.Lunas = TLunas.Belum; }
 
-        public THutang(int id, int idPembelian, int idSupplier, DateTime tanggalTenggatBayar, double total, TLunas lunas)
+        public TPiutang(int id, int idPenjualan, int idPelanggan, DateTime tanggalTenggatBayar, double total, TLunas lunas)
         {
             Id = id;
-            IdPembelian = idPembelian;
-            IdSupplier = idSupplier;
+            IdPenjualan = idPenjualan;
+            IdPelanggan = idPelanggan;
             TanggalTenggatBayar = tanggalTenggatBayar;
             Total = total;
             Lunas = lunas;
