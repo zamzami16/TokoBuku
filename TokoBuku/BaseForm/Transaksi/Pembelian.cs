@@ -226,15 +226,15 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void FilterDataSupplier()
         {
-            using (var form = new FormSearch())
+            using (var form = new FormSearchSupplierPelanggan())
             {
                 form.FormName = "supplier";
                 form.SearchText = this.textBoxSupplier.Text;
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    this.IdSupplierTerpilih = form.SearchIndex;
-                    this.textBoxSupplier.Text = form.SearchedText;
+                    this.IdSupplierTerpilih = form.Supplier.Id;
+                    this.textBoxSupplier.Text = form.Supplier.Nama;
                 }
             }
         }
