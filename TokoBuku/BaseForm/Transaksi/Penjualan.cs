@@ -24,11 +24,14 @@ namespace TokoBuku.BaseForm.Transaksi
         private int PelangganIdTerpilih;
         private string KodeTerpilih;
         private int BarangIdTerpilih;
+        private int IdKasir { get; set; }
+        private string NamaKasir { set; get; }
 
-        public Penjualan()
+        public Penjualan(int idKasir, string namaKasir)
         {
             InitializeComponent();
-
+            this.IdKasir = idKasir;
+            this.NamaKasir= namaKasir;
         }
 
         private void comboJenisBayar_SelectedValueChanged(object sender, EventArgs e)
@@ -138,6 +141,9 @@ namespace TokoBuku.BaseForm.Transaksi
 
             this.comboJenisBayar.DataSource = Enum.GetValues(typeof(TJenisPembayaran));
             this.comboJenisBayar.SelectedIndex = 0;
+
+            // Set label kasir
+            this.labelKasir.Text = this.NamaKasir;
         }
 
         private void buttonBawahProcess_Click(object sender, EventArgs e)
@@ -204,7 +210,7 @@ namespace TokoBuku.BaseForm.Transaksi
 
                 TPenjualan penjualan = new TPenjualan();
                 penjualan.KodeTransaksi = this.labelNoTransaksi.Text;
-                penjualan.IdKasir = 1; /// TODO: Ganti dengan system login
+                penjualan.IdKasir = this.IdKasir; /// TODO: Ganti dengan system login
                 penjualan.IdPelanggan = this.PelangganIdTerpilih;
                 penjualan.Total = this.GetTotalHarga();
                 penjualan.UangPembayaran = Convert.ToDouble(this.textBoxPembayaranAwal.Text);
@@ -248,7 +254,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 {
                     TPenjualan penjualan = new TPenjualan();
                     penjualan.KodeTransaksi = this.labelNoTransaksi.Text;
-                    penjualan.IdKasir = 1; /// TODO: Ganti dengan system login
+                    penjualan.IdKasir = this.IdKasir; /// TODO: Ganti dengan system login
                     penjualan.IdPelanggan = this.PelangganIdTerpilih;
                     penjualan.Total = this.GetTotalHarga();
                     penjualan.UangPembayaran = temp_TotalBayar;

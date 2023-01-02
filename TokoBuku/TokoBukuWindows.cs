@@ -19,32 +19,24 @@ namespace TokoBuku
         private FormMasterViewKasir formKasirView;
         private FormMasterViewKasMaster formKasView;
         private FormUbahHarga formUbahHarga;
+        private int IdKasir { get; set; }
+        private string NamaKasir { set; get; }
+        private bool IsAdmin { get; set; }
 
 
-        public TokoBukuWindows()
-        {
-            InitializeComponent();
-        }
+        public TokoBukuWindows() { InitializeComponent(); }
 
         private void TokoBukuWindows_Load(object sender, EventArgs e)
         {
-            /*this.formBarangView = new FormMasterViewBarang();
-            this.formBarangView.MdiParent = this;
-            this.formBarangView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
-            this.formBarangView.Dock = DockStyle.Fill;
-            this.formBarangView.Show();*/
-
-            /// Login dulu gaes
-            /*using (var formLogin = new Login.FormLogin())
+            if (this.IsAdmin)
             {
-                var res_ = formLogin.ShowDialog();
-                if (res_ != DialogResult.OK)
-                {
-                    Application.Exit();
-                }
-            }*/
-
-            this.formPenjualanView = new Penjualan();
+                this.DataKasirToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                this.DataKasirToolStripMenuItem.Enabled = false;
+            }
+            this.formPenjualanView = new Penjualan(this.IdKasir, this.NamaKasir);
             this.formPenjualanView.MdiParent = this;
             this.formPenjualanView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.formPenjualanView.Dock = DockStyle.Fill;
@@ -144,7 +136,7 @@ namespace TokoBuku
         /// <param name="e"></param>
         private void PenjualanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.formPenjualanView = new Penjualan();
+            this.formPenjualanView = new Penjualan(this.IdKasir, this.NamaKasir);
             this.formPenjualanView.MdiParent = this;
             this.formPenjualanView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.formPenjualanView.Dock = DockStyle.Fill;
@@ -190,6 +182,17 @@ namespace TokoBuku
         {
             var x_ = MessageBox.Show("Semua data di Database (kecuali data kasir) akan dihapus. Anda yakin?", "Warning.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (x_ == DialogResult.Yes) { TokoBuku.DbUtility.Database.ResetDatabase(); }
+        }
+
+        public void SetKasirTerpilih(int idKasir, string namaKasir)
+        {
+            this.IdKasir = idKasir;
+            this.NamaKasir = namaKasir;
+        }
+
+        public void SetAdmin(bool isAdmin)
+        {
+            this.IsAdmin = isAdmin;
         }
     }
 }

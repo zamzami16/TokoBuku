@@ -14,12 +14,22 @@ namespace TokoBuku
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new TokoBukuWindows());
-            //using (var formLogin = new Login.FormLogin())
-            //{
-            //    Application.Run(formLogin);
+            //Application.Run(new TokoBukuWindows());
 
-            //}
+            using (var formLogin = new Login.FormLogin())
+            {
+                Application.Run(formLogin);
+                if (formLogin.DialogResult == DialogResult.OK)
+                {
+                    using (var form = new TokoBukuWindows())
+                    {
+                        form.SetKasirTerpilih(Convert.ToInt32(formLogin.IdKasir), formLogin.NamaKasir);
+                        bool isAdmin = (formLogin.NamaKasir.ToLower() == "admin") ? true : false;
+                        form.SetAdmin(isAdmin);
+                        Application.Run(form);
+                    }
+                }
+            }
 
 
             //Application.Run(new FormUbahHarga());
