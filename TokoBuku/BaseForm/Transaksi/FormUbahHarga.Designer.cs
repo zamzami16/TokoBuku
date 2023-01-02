@@ -31,6 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttTerapkan = new System.Windows.Forms.Button();
+            this.comboPenerbit = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboRak = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.comboKategori = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,11 +43,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.formUbahHargaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboRak = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboPenerbit = new System.Windows.Forms.ComboBox();
-            this.buttTerapkan = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -83,6 +83,53 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(169, 383);
             this.panel1.TabIndex = 0;
+            // 
+            // buttTerapkan
+            // 
+            this.buttTerapkan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttTerapkan.Location = new System.Drawing.Point(9, 237);
+            this.buttTerapkan.Name = "buttTerapkan";
+            this.buttTerapkan.Size = new System.Drawing.Size(153, 31);
+            this.buttTerapkan.TabIndex = 6;
+            this.buttTerapkan.Text = "Terapkan";
+            this.buttTerapkan.UseVisualStyleBackColor = true;
+            this.buttTerapkan.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // comboPenerbit
+            // 
+            this.comboPenerbit.FormattingEnabled = true;
+            this.comboPenerbit.Location = new System.Drawing.Point(9, 163);
+            this.comboPenerbit.Name = "comboPenerbit";
+            this.comboPenerbit.Size = new System.Drawing.Size(153, 21);
+            this.comboPenerbit.TabIndex = 5;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(9, 143);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 17);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Penerbit";
+            // 
+            // comboRak
+            // 
+            this.comboRak.FormattingEnabled = true;
+            this.comboRak.Location = new System.Drawing.Point(9, 108);
+            this.comboRak.Name = "comboRak";
+            this.comboRak.Size = new System.Drawing.Size(153, 21);
+            this.comboRak.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(9, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 17);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Rak";
             // 
             // comboKategori
             // 
@@ -154,53 +201,6 @@
             // formUbahHargaBindingSource
             // 
             this.formUbahHargaBindingSource.DataSource = typeof(TokoBuku.BaseForm.Transaksi.FormUbahHarga);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(9, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 17);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Rak";
-            // 
-            // comboRak
-            // 
-            this.comboRak.FormattingEnabled = true;
-            this.comboRak.Location = new System.Drawing.Point(9, 108);
-            this.comboRak.Name = "comboRak";
-            this.comboRak.Size = new System.Drawing.Size(153, 21);
-            this.comboRak.TabIndex = 3;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(9, 143);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 17);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Penerbit";
-            // 
-            // comboPenerbit
-            // 
-            this.comboPenerbit.FormattingEnabled = true;
-            this.comboPenerbit.Location = new System.Drawing.Point(9, 163);
-            this.comboPenerbit.Name = "comboPenerbit";
-            this.comboPenerbit.Size = new System.Drawing.Size(153, 21);
-            this.comboPenerbit.TabIndex = 5;
-            // 
-            // buttTerapkan
-            // 
-            this.buttTerapkan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttTerapkan.Location = new System.Drawing.Point(9, 237);
-            this.buttTerapkan.Name = "buttTerapkan";
-            this.buttTerapkan.Size = new System.Drawing.Size(153, 31);
-            this.buttTerapkan.TabIndex = 6;
-            this.buttTerapkan.Text = "Terapkan";
-            this.buttTerapkan.UseVisualStyleBackColor = true;
-            this.buttTerapkan.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormUbahHarga
             // 

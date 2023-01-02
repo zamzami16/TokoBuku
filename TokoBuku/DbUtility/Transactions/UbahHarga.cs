@@ -28,8 +28,8 @@ namespace TokoBuku.DbUtility.Transactions
                     "id_barang as id, " +
                     "kode, " +
                     "nama_barang as nama_barang, " +
-                    "beli as harga_beli, " +
-                    "harga as harga_jual, " +
+                    "harga_beli as harga_beli, " +
+                    "harga_jual as harga_jual, " +
                     "diskon as diskon_ " +
                     "from barang;";
                 using (var cmd = new FbCommand(query, con))
@@ -51,8 +51,8 @@ namespace TokoBuku.DbUtility.Transactions
                     "id_barang as id, " +
                     "kode, " +
                     "nama_barang as nama_barang, " +
-                    "beli as harga_beli, " +
-                    "harga as harga_jual, " +
+                    "harga_beli as harga_beli, " +
+                    "harga_jual as harga_jual, " +
                     "diskon as diskon_ " +
                     "from barang " +
                     "where ";
@@ -63,8 +63,8 @@ namespace TokoBuku.DbUtility.Transactions
                         "id_barang as id, " +
                         "kode, " +
                         "nama_barang as nama_barang, " +
-                        "beli as harga_beli, " +
-                        "harga as harga_jual, " +
+                        "harga_beli as harga_beli, " +
+                        "harga_jual as harga_jual, " +
                         "diskon as diskon_ " +
                         "from barang;";
                 }
@@ -233,7 +233,7 @@ namespace TokoBuku.DbUtility.Transactions
         {
             using (var con = ConnectDB.Connetc())
             {
-                var query = "update barang set harga=@harga where id_barang=@id";
+                var query = "update barang set harga_jual=@harga where id_barang=@id";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
