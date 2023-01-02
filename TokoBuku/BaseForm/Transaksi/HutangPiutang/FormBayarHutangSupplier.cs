@@ -65,7 +65,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
         private void buttonBayar_Click(object sender, EventArgs e)
         {
-            /// TODO: cek catatan. perform jika cicil bagaimana
+            
             double total_bayar;
             if (!double.TryParse(this.textBoxNominalBayar.Text, out total_bayar))
             {
@@ -90,7 +90,9 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                             DbUtility.Transactions.HutangPiutang.BayarHutangKeSupplier
                                 .BayarHutang(bayarHutang, TLunas.Sudah);
                         }
-                        MessageBox.Show("Pembayaran Hutang Berhasil.", "SUcccess.");
+                        MessageBox.Show("Pembayaran Hutang Berhasil.", "Succcess.");
+                        this.RefreshDataHutang();
+                        this.Close();
                     }
                     catch (Exception ex)
                     {
@@ -105,7 +107,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                 }
             }
             else
-            { /// TODO: perform untuk masing2 pembayaran
+            { 
                 TLunas lunas = TLunas.Belum;TBayarHutang bayarHutang = new TBayarHutang();
                 bayarHutang.IdHutang = Convert.ToInt32(this.DgvListHutang.Rows[0].Cells["id"].Value.ToString());
                 bayarHutang.Pembayaran = total_bayar;

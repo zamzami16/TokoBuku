@@ -26,6 +26,15 @@ namespace TokoBuku.DbUtility.Transactions
             }
         }
 
+        internal static void TambahKasHutangPelanggan(TBayarPiutang bayarPiutang)
+        {
+            if (bayarPiutang.Pembayaran > 0)
+            {
+                double newSaldo = GetKasSekarang((int)bayarPiutang.IdKas) + bayarPiutang.Pembayaran;
+                UpdateNominalKas((int)bayarPiutang.IdKas, newSaldo);
+            }
+        }
+
         internal static void KurangKasPembelianCash(TPembelian pembelian)
         {
             if (pembelian.JenisPembayaran == TJenisPembayaran.Cash)
