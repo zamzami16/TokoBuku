@@ -25,7 +25,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
             return table;
         }
 
-        internal static void BayarHutang(TBayarPiutang bayarPiutang, TLunas lunas=TLunas.Belum)
+        internal static void BayarHutang(TBayarPiutang bayarPiutang, double kembalian, TLunas lunas=TLunas.Belum)
         {
             using (var con = ConnectDB.Connetc())
             {
@@ -55,9 +55,25 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
                     }
+                    SimpanKembalian(kembalian, bayarPiutang.IdPiutang);
                 }
             }
         }
 
+        internal static void SimpanKembalian(double kembalian, int IdPiutang)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "update piutang set kembalian=@kembalian where id=@id_piutang;";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@kembalian", kembalian);
+                    cmd.Parameters.Add("@id_piutang", IdPiutang);
+                    cmd.ExecuteNonQuery ();
+                    cmd.Dispose();
+                }
+            }
+        }
     }
 }
