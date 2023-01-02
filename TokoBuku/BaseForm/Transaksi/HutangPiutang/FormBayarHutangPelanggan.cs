@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
@@ -48,13 +50,25 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
             this.DgvListHutang.Columns[0].Visible = false; // id piutang
             this.DgvListHutang.Columns[1].Visible = false; // id pelanggan
-            this.DgvListHutang.Columns[2].Visible = false; // id penjualan
-            for (int i = 1; i < this.DgvListHutang.ColumnCount; i++) { this.DgvListHutang.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; }
+            this.DgvListHutang.Columns[3].Visible = false; // id penjualan
+            for (int i = 0; i < this.DgvListHutang.ColumnCount; i++) { this.DgvListHutang.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; }
 
-            this.DgvListHutang.Columns[5].DefaultCellStyle.Format = "C";
-            this.DgvListHutang.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            this.DgvListHutang.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.DgvListHutang.Columns[6].MinimumWidth = 100;
+            this.DgvListHutang.Columns["total_hutang"].DefaultCellStyle.Format = "C";
+            this.DgvListHutang.Columns["piutang_terbayar"].DefaultCellStyle.Format = "C";
+            this.DgvListHutang.Columns["piutang_belum_dibayar"].DefaultCellStyle.Format = "C";
+
+            this.DgvListHutang.Columns["total_hutang"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.DgvListHutang.Columns["piutang_terbayar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.DgvListHutang.Columns["piutang_belum_dibayar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.DgvListHutang.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.DgvListHutang.Columns[2].MinimumWidth = 100;
+
+            this.DgvListHutang.Columns["nama_pelanggan"].HeaderText = "Pelanggan";
+            this.DgvListHutang.Columns["kode_transaksi"].HeaderText = "Kode Transaksi";
+            this.DgvListHutang.Columns["tgl_tenggat_bayar"].HeaderText = "Tenggat Bayar";
+            this.DgvListHutang.Columns["total_hutang"].HeaderText = "Total Hutang";
+            this.DgvListHutang.Columns["piutang_terbayar"].HeaderText = "Sudah Bayar";
+            this.DgvListHutang.Columns["piutang_belum_dibayar"].HeaderText = "Belum Bayar";
         }
 
         private void buttonBayar_Click(object sender, EventArgs e)
@@ -76,13 +90,16 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                         {
                             /// TODO: Lakukan pembayaran hutang untuk masing-masih row
                             bool lunas = true;
-                            int id_hutang = Convert.ToInt32(row.Cells["id_piutang"].Value.ToString());
-                            double pembayaran = Convert.ToDouble(row.Cells["total"].Value.ToString());
-                            DateTime tgl_bayar = dateTimePicker1.Value;
-                            string id_kas = this.comboBoxJenisKas.SelectedValue.ToString();
+
+                            TBayarPiutang bayarPiutang = new TBayarPiutang();
+                            bayarPiutang.IdPiutang = Convert.ToInt32(row.Cells["id_piutang"].Value.ToString());
+                            bayarPiutang.Pembayaran = Convert.ToDouble(row.Cells["total"].Value.ToString());
+                            bayarPiutang.TglBayar = dateTimePicker1.Value;
+                            bayarPiutang.IdKas = Convert.ToInt32(this.comboBoxJenisKas.SelectedValue.ToString());
+                            bayarPiutang.isDP = TIsDP.bukan;
 
                             DbUtility.Transactions.HutangPiutang.BayarHutangPelanggan
-                                .BayarHutang(id_piutang: id_hutang, tanggal_bayar: tgl_bayar, pembayaran: pembayaran, id_kas: id_kas, sudah_lunas: lunas);
+                                .BayarHutang(bayarPiutang, TLunas.Sudah);
                         }
                         MessageBox.Show("Pembayaran Hutang Berhasil.", "SUcccess.");
                         this.Close();
@@ -101,19 +118,25 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
             }
             else
             { /// TODO: perform untuk masing2 pembayaran
-                bool lunas = false;
                 double pembayaran;
-                int id_hutang = Convert.ToInt32(this.DgvListHutang.Rows[0].Cells["id_piutang"].Value.ToString());
+                TLunas lunas = TLunas.Belum;
                 var i_ = double.TryParse(this.textBoxNominalBayar.Text, out pembayaran);
-                DateTime tgl_bayar = dateTimePicker1.Value;
-                string id_kas = this.comboBoxJenisKas.SelectedValue.ToString();
-                if (pembayaran - Convert.ToDouble(this.textBoxTotal.Text.Replace("Rp", "")) >= 0) { lunas = true; }
+                if (pembayaran - double.Parse(this.textBoxTotal.Text, NumberStyles.AllowCurrencySymbol | NumberStyles.Currency) >= 0) { lunas = TLunas.Sudah; }
+
+                
+                TBayarPiutang bayarPiutang = new TBayarPiutang();
+                bayarPiutang.IdPiutang = Convert.ToInt32(this.DgvListHutang.Rows[0].Cells["id_piutang"].Value.ToString());
+                bayarPiutang.Pembayaran = pembayaran;
+                bayarPiutang.TglBayar = dateTimePicker1.Value;
+                bayarPiutang.IdKas = Convert.ToInt32(this.comboBoxJenisKas.SelectedValue.ToString());
+                bayarPiutang.isDP = TIsDP.bukan;
+
                 if (pembayaran > 0)
                 {
                     try
                     {
                         DbUtility.Transactions.HutangPiutang.BayarHutangPelanggan
-                            .BayarHutang(id_piutang: id_hutang, tanggal_bayar: tgl_bayar, pembayaran: pembayaran, id_kas: id_kas, sudah_lunas: lunas);
+                            .BayarHutang(bayarPiutang, lunas);
                         MessageBox.Show("Pembayaran berhasil");
                         this.RefreshDataHutangPelanggan();
                         this.Close();
@@ -141,6 +164,9 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
             DataTable data1 = this.dataHutang.Copy();
             data1.Columns.RemoveAt(0);
             data1.Columns.RemoveAt(0);
+            data1.Columns.RemoveAt(0);
+            data1.Columns.RemoveAt(2);
+            data1.Columns.RemoveAt(2);
             data1.Columns.RemoveAt(2);
             data1.Columns.RemoveAt(2);
             data.Merge(data1);
@@ -165,7 +191,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
         private void DgvListHutang_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             double total_ = DgvListHutang.Rows.Cast<DataGridViewRow>()
-                    .Sum(t => Convert.ToDouble(t.Cells["total"].Value));
+                    .Sum(t => Convert.ToDouble(t.Cells["piutang_belum_dibayar"].Value));
             this.textBoxTotal.Text = total_.ToString("c");
             //this.textBoxNominalBayar.Text = Convert.ToDouble(this.textBoxTotal.Text.Replace("Rp", "")).ToString();
         }

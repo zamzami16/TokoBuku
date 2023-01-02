@@ -36,13 +36,21 @@ namespace TokoBuku.BaseForm.Master
             this.Dgv1.DataSource = this.dataTableBase;
             this.Dgv1.DefaultCellStyle.NullValue = "-";
             this.Dgv1.Columns[0].Visible = false;
-            this.Dgv1.Columns[5].DefaultCellStyle.Format = "c";
-            this.Dgv1.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            this.Dgv1.Columns[6].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.Dgv1.Columns["total_hutang"].DefaultCellStyle.Format = "c";
+            this.Dgv1.Columns["piutang_sudah_dibayar"].DefaultCellStyle.Format = "c";
+            this.Dgv1.Columns["piutang_belum_dibayar"].DefaultCellStyle.Format = "c";
+            this.Dgv1.Columns["total_hutang"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.Dgv1.Columns["piutang_sudah_dibayar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.Dgv1.Columns["piutang_belum_dibayar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             for (int i = 1; i < this.Dgv1.ColumnCount; i++) { this.Dgv1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells; }
             this.Dgv1.Columns[this.Dgv1.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.Dgv1.Columns[this.Dgv1.ColumnCount - 1].MinimumWidth = 75;
+
+            this.Dgv1.Columns["total_hutang"].HeaderText = "Total Hutang";
+            this.Dgv1.Columns["piutang_sudah_dibayar"].HeaderText = "Sudah Bayar";
+            this.Dgv1.Columns["piutang_belum_dibayar"].HeaderText = "Belum Bayar";
+            this.Dgv1.Columns["tenggat_bayar_terdekat"].HeaderText = "Tenggat Bayar Terdekat";
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e)
@@ -194,7 +202,7 @@ namespace TokoBuku.BaseForm.Master
                         form.ShowDialog();
                     }
                 }
-
+                this.RefreshDataPelanggan();
             }
         }
 

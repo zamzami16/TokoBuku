@@ -1,6 +1,7 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
 using System.Data;
+using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.DbUtility.Transactions.HutangPiutang
 {
@@ -11,7 +12,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
             DataTable table = new DataTable();
             using (var con = ConnectDB.Connetc())
             {
-                var query = "select pi.id as id_piutang, pi.id_pelanggan, pi.id_penjualan, pen.kode_transaksi, pel.nama as nama_pelanggan, (pi.total - tterbayar.terbayar) as total, pi.tgl_tenggat_bayar as tenggat_bayar from piutang as pi inner join (select bp.id_piutang, sum(bp.pembayaran) as terbayar from bayar_piutang as bp group by bp.id_piutang) as tterbayar on pi.id=tterbayar.id_piutang inner join penjualan as pen on pi.id_penjualan=pen.id inner join pelanggan as pel on pi.id_pelanggan=pel.id where pi.id_pelanggan=10 and pi.sudah_lunas='belum'";
+                var query = "select pi.id as id_piutang, pi.id_pelanggan, pel.nama as nama_pelanggan, pi.id_penjualan, pen.kode_transaksi, pi.tgl_tenggat_bayar, pi.total as total_hutang, coalesce(pembayaran_piutang.piutang_terbayar, 0) as piutang_terbayar, (pi.total - coalesce(pembayaran_piutang.piutang_terbayar, 0)) as piutang_belum_dibayar from piutang as pi left join (select bp.id_piutang, sum(bp.pembayaran) as piutang_terbayar from bayar_piutang as bp   where bp.is_dp='bukan' group by bp.id_piutang) as pembayaran_piutang on pi.id=pembayaran_piutang.id_piutang inner join pelanggan as pel on pi.id_pelanggan=pel.id inner join penjualan as pen on pi.id_penjualan=pen.id where pi.id_pelanggan=@id_pelanggan;";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -24,31 +25,31 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
             return table;
         }
 
-        internal static void BayarHutang(int id_piutang, DateTime tanggal_bayar, double pembayaran, string id_kas, bool sudah_lunas = false)
+        internal static void BayarHutang(TBayarPiutang bayarPiutang, TLunas lunas=TLunas.Belum)
         {
             using (var con = ConnectDB.Connetc())
             {
                 var query = "insert into bayar_piutang " +
-                    "(id_piutang, pembayaran, tgl_bayar, id_kas) " +
-                    "values (@id_piutang, @pembayaran, @tgl_bayar, @id_kas);";
+                    "(id_piutang, pembayaran, tgl_bayar, id_kas, is_dp) " +
+                    "values (@id_piutang, @pembayaran, @tgl_bayar, @id_kas, @isdp);";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add("@id_piutang", id_piutang);
-                    cmd.Parameters.Add("@pembayaran", pembayaran);
-                    cmd.Parameters.Add("@tgl_bayar", tanggal_bayar);
-                    cmd.Parameters.Add("@id_kas", id_kas);
+                    cmd.Parameters.Add("@id_piutang", bayarPiutang.IdPiutang);
+                    cmd.Parameters.Add("@pembayaran", bayarPiutang.Pembayaran);
+                    cmd.Parameters.Add("@tgl_bayar", bayarPiutang.TglBayar);
+                    cmd.Parameters.Add("@id_kas", bayarPiutang.IdKas);
+                    cmd.Parameters.Add("@isdp", bayarPiutang.isDP);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
-                if (sudah_lunas)
+                if (lunas == TLunas.Sudah)
                 {
-                    string lunas = "sudah";
                     using (var cmd = new FbCommand())
                     {
                         cmd.CommandText = "update piutang set sudah_lunas=@sudah_lunas where id=@id_piutang";
                         cmd.Parameters.Add("@sudah_lunas", lunas);
-                        cmd.Parameters.Add("@id_piutang", id_piutang);
+                        cmd.Parameters.Add("@id_piutang", bayarPiutang.IdPiutang);
                         cmd.Connection = con;
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();

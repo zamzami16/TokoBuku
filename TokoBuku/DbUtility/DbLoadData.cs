@@ -63,7 +63,29 @@ namespace TokoBuku.DbUtility
             DataTable dt = new DataTable();
             using (var con = ConnectDB.Connetc())
             {
-                var query = "select pel.id as id_pelanggan, pel.nama as nama_pelanggan, pel.alamat, pel.no_hp, pel.email, total_hutang.tot_hutang as total_hutang, total_hutang.tenggat_bayar, pel.keterangan from pelanggan as pel left join (select pi.id_pelanggan, sum(pi.total - jumbayar.terbayar) as tot_hutang, min(pi.tgl_tenggat_bayar) as tenggat_bayar from piutang as pi inner join (select bp.id_piutang, sum(bp.pembayaran) as terbayar from bayar_piutang as bp group by bp.id_piutang) as jumbayar on jumbayar.id_piutang=pi.id where pi.sudah_lunas='belum' group by pi.id_pelanggan) as total_hutang on pel.id=total_hutang.id_pelanggan";
+                var query = "select pel.id as id_pelanggan, " +
+                    "pel.nama, pel.alamat, pel.no_hp, pel.email, " +
+                    "coalesce(hut_pel.total_hutang, 0) as total_hutang, " +
+                    "coalesce(hut_pel.piutang_sudah_dibayar, 0) as piutang_sudah_dibayar," +
+                    "(coalesce(hut_pel.total_hutang, 0) - coalesce(hut_pel.piutang_sudah_dibayar, 0)) as piutang_belum_dibayar, " +
+                    "hut_pel.tenggat_bayar as tenggat_bayar_terdekat, " +
+                    "pel.keterangan " +
+                    "from pelanggan as pel " +
+                    "left join " +
+                    "(select pi.id_pelanggan, min(pi.tgl_tenggat_bayar) as tenggat_bayar, " +
+                    "sum(pi.total) as total_hutang, " +
+                    "sum(pembayaran_piutang.piutang_terbayar) as piutang_sudah_dibayar " +
+                    "from piutang as pi " +
+                    "left join " +
+                    "(select bp.id_piutang, sum(bp.pembayaran) as piutang_terbayar " +
+                    "from bayar_piutang as bp " +
+                    "where bp.is_dp='bukan' " +
+                    "group by bp.id_piutang) as pembayaran_piutang " +
+                    "on pi.id=pembayaran_piutang.id_piutang " +
+                    "where pi.sudah_lunas='Belum' " +
+                    "group by pi.id_pelanggan) as hut_pel " +
+                    "on pel.id=hut_pel.id_pelanggan " +
+                    "where not pel.nama='UMUM';";
                 using (var cmd = new FbCommand(query, con))
                 {
                     FbDataAdapter da = new FbDataAdapter(cmd);
