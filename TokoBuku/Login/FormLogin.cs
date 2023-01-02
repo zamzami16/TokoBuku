@@ -41,5 +41,13 @@ namespace TokoBuku.Login
         }
         private void ButShowPassword() { this.buttonShowPassword.ImageIndex = 0; showed = true; this.textBoxPassword.UseSystemPasswordChar = false; toolTip1.SetToolTip(buttonShowPassword, "Hide Password"); }
         private void ButHidePassword() { this.buttonShowPassword.ImageIndex = 1; showed = false; this.textBoxPassword.UseSystemPasswordChar = true; toolTip1.SetToolTip(buttonShowPassword, "Show Password"); }
+
+        private void textBoxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                this.buttonLogin_Click(sender, e);
+            }
+        }
     }
 }
