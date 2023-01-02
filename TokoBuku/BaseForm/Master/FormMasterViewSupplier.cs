@@ -95,15 +95,20 @@ namespace TokoBuku.BaseForm.Master
             this.dataTableBase = new DataTable();
             this.dataTableBase = TokoBuku.DbUtility.Master.Supplier.GetDataSupplier();
             this.dataGridView1.DataSource = this.dataTableBase;
-            this.dataGridView1.Columns[0].Visible = false;
-            this.dataGridView1.Columns[this.dataGridView1.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Keterangan
+            this.dataGridView1.Columns["id"].Visible = false;
             this.dataGridView1.Columns[this.dataGridView1.ColumnCount - 1].MinimumWidth = 75;
-            for (int i = 1; i < this.dataGridView1.ColumnCount - 1; i++)
+            for (int i = 1; i < this.dataGridView1.ColumnCount; i++)
             {
                 this.dataGridView1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
+            this.dataGridView1.Columns[this.dataGridView1.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Keterangan
             this.dataGridView1.Columns["total_hutang"].DefaultCellStyle.Format = "C";
+            this.dataGridView1.Columns["sudah_bayar"].DefaultCellStyle.Format = "C";
+            this.dataGridView1.Columns["belum_bayar"].DefaultCellStyle.Format = "C";
+
             this.dataGridView1.Columns["total_hutang"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dataGridView1.Columns["sudah_bayar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dataGridView1.Columns["belum_bayar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             this.dataGridView1.DefaultCellStyle.NullValue = "-";
         }
 
@@ -175,22 +180,20 @@ namespace TokoBuku.BaseForm.Master
 
         private void buttonBayarHutang_Click(object sender, EventArgs e)
         {
-            /// TODO: Tambahkan metode bayar hutang
             foreach (DataGridViewRow row in this.dataGridView1.SelectedRows)
             {
                 int id_supplier = Convert.ToInt32(row.Cells[0].Value.ToString());
                 double total_hutang;
-                if (double.TryParse(row.Cells["total_hutang"].Value.ToString(), out total_hutang))
+                if (double.TryParse(row.Cells["belum_bayar"].Value.ToString(), out total_hutang))
                 {
                     using (var form = new FormBayarHutangSupplier())
                     {
                         form.IdSupplier = id_supplier;
-                        form.NamaSupplier = row.Cells[1].Value.ToString();
+                        form.NamaSupplier = row.Cells["nama"].Value.ToString();
                         form.TotalHutang = total_hutang;
                         form.ShowDialog();
                     }
                 }
-
             }
             this.RefreshDataSupplier();
         }

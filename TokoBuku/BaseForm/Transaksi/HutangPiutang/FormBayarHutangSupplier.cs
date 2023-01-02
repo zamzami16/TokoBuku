@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
@@ -14,16 +15,9 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
         private DataTable dataHutang;
         private DataTable DataKas;
 
-        public FormBayarHutangSupplier()
-        {
-            InitializeComponent();
-        }
+        public FormBayarHutangSupplier() { InitializeComponent(); }
 
-
-        private void buttonBatal_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void buttonBatal_Click(object sender, EventArgs e) { this.Close(); }
 
         private void FormBayarHutang_Load(object sender, EventArgs e)
         {
@@ -35,7 +29,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
             /// Combobox No Transaksi
             this.comboBoxNoNota.DataSource = this.GetKodeTransaksi();
             this.comboBoxNoNota.ValueMember = "id_pembelian";
-            this.comboBoxNoNota.DisplayMember = "no_nota";
+            this.comboBoxNoNota.DisplayMember = "nota_pembelian";
             this.comboBoxNoNota.SelectedIndex = 0;
             this.comboBoxNoNota.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -48,15 +42,25 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
             this.dataHutang = TokoBuku.DbUtility.Transactions.HutangPiutang.BayarHutangKeSupplier
                 .DataHutangKeSupplier(this.IdSupplier); // id_supplier
             this.DgvListHutang.DataSource = this.dataHutang;
-            this.DgvListHutang.Columns[0].Visible = false;
-            this.DgvListHutang.Columns[1].Visible = false;
-            this.DgvListHutang.Columns[3].Visible = false;
+            this.DgvListHutang.Columns["id"].Visible = false;
+            this.DgvListHutang.Columns["id_supplier"].Visible = false;
+            this.DgvListHutang.Columns["id_pembelian"].Visible = false;
 
-            for (int i = 4; i < this.DgvListHutang.ColumnCount; i++)
+            for (int i = 0; i < this.DgvListHutang.ColumnCount; i++)
             {
                 this.DgvListHutang.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
-            this.DgvListHutang.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.DgvListHutang.Columns["nama_supplier"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.DgvListHutang.Columns["nama_supplier"].MinimumWidth = 75;
+            this.DgvListHutang.Columns["nama_supplier"].HeaderText = "Supplier";
+
+            this.DgvListHutang.Columns["total_hutang"].DefaultCellStyle.Format = "C";
+            this.DgvListHutang.Columns["sudah_dibayar"].DefaultCellStyle.Format = "C";
+            this.DgvListHutang.Columns["belum_bayar"].DefaultCellStyle.Format = "C";
+
+            this.DgvListHutang.Columns["total_hutang"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.DgvListHutang.Columns["sudah_dibayar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.DgvListHutang.Columns["belum_bayar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
 
         private void buttonBayar_Click(object sender, EventArgs e)
@@ -76,13 +80,15 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                     {
                         foreach (DataGridViewRow row in this.DgvListHutang.Rows)
                         {
-                            int id_hutang = Convert.ToInt32(row.Cells["id_hutang"].Value.ToString());
-                            double pembayaran = Convert.ToDouble(row.Cells["nominal_hutang"].Value.ToString());
-                            DateTime tgl_bayar = dateTimePicker1.Value;
-                            string id_kas = this.comboBoxJenisKas.SelectedValue.ToString();
 
+                            TBayarHutang bayarHutang = new TBayarHutang();
+                            bayarHutang.IdHutang = Convert.ToInt32(row.Cells["id_hutang"].Value.ToString());
+                            bayarHutang.Pembayaran = Convert.ToDouble(this.DgvListHutang.Rows[0].Cells["belum_bayar"].Value.ToString());
+                            bayarHutang.TglBayar = dateTimePicker1.Value;
+                            bayarHutang.IdKas = Convert.ToInt32(this.comboBoxJenisKas.SelectedValue.ToString());
+                            bayarHutang.isDP = TIsDP.bukan;
                             DbUtility.Transactions.HutangPiutang.BayarHutangKeSupplier
-                                .BayarHutang(id_hutang: id_hutang, pembayaran: pembayaran, tgl_bayar: tgl_bayar, id_kas: id_kas, lunas: true);
+                                .BayarHutang(bayarHutang, TLunas.Sudah);
                         }
                         MessageBox.Show("Pembayaran Hutang Berhasil.", "SUcccess.");
                     }
@@ -100,22 +106,23 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
             }
             else
             { /// TODO: perform untuk masing2 pembayaran
-                bool lunas = false;
-                double pembayaran;
-                int id_hutang = Convert.ToInt32(this.DgvListHutang.Rows[0].Cells["id_hutang"].Value.ToString());
-                var i_ = double.TryParse(this.textBoxNominalBayar.Text, out pembayaran);
-                DateTime tgl_bayar = dateTimePicker1.Value;
-                string id_kas = this.comboBoxJenisKas.SelectedValue.ToString();
-                if (pembayaran - Convert.ToDouble(this.textBoxTotal.Text.Replace("Rp", "")) >= 0)
+                TLunas lunas = TLunas.Belum;TBayarHutang bayarHutang = new TBayarHutang();
+                bayarHutang.IdHutang = Convert.ToInt32(this.DgvListHutang.Rows[0].Cells["id"].Value.ToString());
+                bayarHutang.Pembayaran = total_bayar;
+                bayarHutang.TglBayar = dateTimePicker1.Value;
+                bayarHutang.IdKas = Convert.ToInt32(this.comboBoxJenisKas.SelectedValue.ToString());
+                bayarHutang.isDP = TIsDP.bukan;
+
+                if (bayarHutang.Pembayaran - Convert.ToDouble(this.textBoxTotal.Text.Replace("Rp", "")) >= 0)
                 {
-                    lunas = true;
+                    lunas = TLunas.Sudah;
                 }
-                if (pembayaran > 0)
+                if (bayarHutang.Pembayaran > 0)
                 {
                     try
                     {
                         DbUtility.Transactions.HutangPiutang.BayarHutangKeSupplier
-                            .BayarHutang(id_hutang: id_hutang, pembayaran: pembayaran, tgl_bayar: tgl_bayar, id_kas: id_kas, lunas: lunas);
+                            .BayarHutang(bayarHutang, lunas: lunas);
                         MessageBox.Show("Pembayaran berhasil");
                         this.RefreshDataHutang();
                         this.Close();
@@ -135,12 +142,14 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
         {
             DataTable data = new DataTable();
             data.Columns.Add("id_pembelian", typeof(int));
-            data.Columns.Add("no_nota", typeof(string));
+            data.Columns.Add("nota_pembelian", typeof(string));
             DataRow drow = data.NewRow();
             drow["id_pembelian"] = -1;
-            drow["no_nota"] = "Semua";
+            drow["nota_pembelian"] = "Semua";
             data.Rows.Add(drow);
             DataTable data1 = this.dataHutang.Copy();
+            data1.Columns.RemoveAt(0);
+            data1.Columns.RemoveAt(0);
             data1.Columns.RemoveAt(0);
             data1.Columns.RemoveAt(2);
             data1.Columns.RemoveAt(2);
@@ -168,7 +177,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
         private void DgvListHutang_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             double total_ = DgvListHutang.Rows.Cast<DataGridViewRow>()
-                    .Sum(t => Convert.ToDouble(t.Cells["nominal_hutang"].Value));
+                    .Sum(t => Convert.ToDouble(t.Cells["belum_bayar"].Value));
             this.textBoxTotal.Text = total_.ToString("c");
             this.textBoxNominalBayar.Text = Convert.ToDouble(this.textBoxTotal.Text.Replace("Rp", "")).ToString();
             this.UpdateKembalian();

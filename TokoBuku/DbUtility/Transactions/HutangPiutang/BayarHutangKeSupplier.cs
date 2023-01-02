@@ -1,6 +1,7 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
 using System.Data;
+using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.DbUtility.Transactions.HutangPiutang
 {
@@ -11,21 +12,28 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
             DataTable dataTable = new DataTable();
             using (var con = ConnectDB.Connetc())
             {
-                var query = "select hu.id as id_hutang, hu.id_pembelian as id_pembelian, " +
-                    "pem.no_nota as no_nota, hu.id_supplier, sup.nama as nama_supplier, " +
-                    "(hu.total - bhu.pembayaran) as nominal_hutang, hu.tgl_tenggat_bayar " +
+                var query = "select hu.id, " +
+                    "hu.id_supplier, " +
+                    "sup.nama as nama_supplier, " +
+                    "hu.id_pembelian, " +
+                    "pem.no_nota as nota_pembelian, " +
+                    "hu.tgl_tenggat_bayar as tenggat_bayar, " +
+                    "coalesce(hu.total, 0) as total_hutang, " +
+                    "coalesce(sudah_bayar.tot_sudah_pembayaran, 0) as sudah_dibayar, " +
+                    "(coalesce(hu.total, 0) - coalesce(sudah_bayar.tot_sudah_pembayaran, 0)) as belum_bayar " +
                     "from hutang as hu " +
                     "left join " +
-                    "(select bh.id_hutang, sum(bh.pembayaran) as pembayaran " +
+                    "(select bh.id_hutang, sum(bh.pembayaran) as tot_sudah_pembayaran " +
                     "from bayar_hutang as bh " +
-                    "group by bh.id_hutang) as bhu " +
-                    "on hu.id=bhu.id_hutang " +
-                    "left join pembelian as pem " +
-                    "on hu.id_pembelian=pem.id_pembelian " +
-                    "right join supplier as sup " +
+                    "where not bh.is_dp='ya' " +
+                    "group by bh.id_hutang) as sudah_bayar " +
+                    "on hu.id=sudah_bayar.id_hutang " +
+                    "inner join supplier as sup " +
                     "on hu.id_supplier=sup.id " +
-                    "where sup.id=@id_supplier " +
-                    "and hu.sudah_lunas='belum';";
+                    "inner join pembelian as pem " +
+                    "on hu.id_pembelian=pem.id_pembelian " +
+                    "where hu.sudah_lunas='Belum' " +
+                    "and hu.id_supplier=@id_supplier;";
                 using (var cmd = new FbCommand(query, con))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -38,7 +46,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
             return dataTable;
         }
 
-        internal static void BayarHutang(int id_hutang, double pembayaran, DateTime tgl_bayar, string id_kas, bool lunas = false)
+        /*internal static void BayarHutang(int id_hutang, double pembayaran, DateTime tgl_bayar, string id_kas, bool lunas = false)
         {
             using (var con = ConnectDB.Connetc())
             {
@@ -65,6 +73,41 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
                         cmd.CommandType = CommandType.Text;
                         cmd.Parameters.Add("@sudah_lunas", lunas_);
                         cmd.Parameters.Add("@id_hutang", id_hutang);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+                }
+            }
+        }*/
+
+        internal static void BayarHutang(TBayarHutang bayarHutang, TLunas lunas=TLunas.Belum)
+        {
+            using (var con = ConnectDB.Connetc())
+            {
+                var query = "insert into bayar_hutang " +
+                    "(id_hutang, pembayaran, tgl_bayar, id_kas, is_dp) " +
+                    "values (@id_hutang, @pembayaran, @tgl_bayar, @id_kas, @is_dp);";
+                using (var cmd = new FbCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add("@id_hutang", bayarHutang.IdHutang);
+                    cmd.Parameters.Add("@pembayaran", bayarHutang.Pembayaran);
+                    cmd.Parameters.Add("@tgl_bayar", bayarHutang.TglBayar);
+                    cmd.Parameters.Add("@id_kas", bayarHutang.IdKas);
+                    cmd.Parameters.Add("@is_dp", bayarHutang.isDP);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+                UpdateKas.KurangKasPembelianKredit(bayarHutang);
+                if (lunas == TLunas.Sudah)
+                {
+                    var query_ = "update hutang set sudah_lunas=@sudah_lunas where id=@id_hutang";
+                    using (var cmd = new FbCommand(query_, con))
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.Add("@sudah_lunas", lunas);
+                        cmd.Parameters.Add("@id_hutang", bayarHutang.IdHutang);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
                     }

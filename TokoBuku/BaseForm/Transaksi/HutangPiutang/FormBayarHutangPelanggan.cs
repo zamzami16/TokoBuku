@@ -73,7 +73,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
         private void buttonBayar_Click(object sender, EventArgs e)
         {
-            /// TODO: cek catatan
+            
             double total_bayar;
             if (!double.TryParse(this.textBoxNominalBayar.Text, out total_bayar))
             {
@@ -88,9 +88,6 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                     {
                         foreach (DataGridViewRow row in this.DgvListHutang.Rows)
                         {
-                            /// TODO: Lakukan pembayaran hutang untuk masing-masih row
-                            bool lunas = true;
-
                             TBayarPiutang bayarPiutang = new TBayarPiutang();
                             bayarPiutang.IdPiutang = Convert.ToInt32(row.Cells["id_piutang"].Value.ToString());
                             bayarPiutang.Pembayaran = Convert.ToDouble(row.Cells["total"].Value.ToString());
@@ -117,7 +114,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                 }
             }
             else
-            { /// TODO: perform untuk masing2 pembayaran
+            { 
                 double pembayaran;
                 TLunas lunas = TLunas.Belum;
                 var i_ = double.TryParse(this.textBoxNominalBayar.Text, out pembayaran);

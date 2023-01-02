@@ -9,7 +9,28 @@ namespace TokoBuku.DbUtility.Master
         internal static DataTable GetDataSupplier()
         {
             DataTable dt = new DataTable();
-            var query = "select supplier.id as id_supplier, supplier.nama as nama_supplier, supplier.alamat as alamat, supplier.no_hp as no_hp, supplier.email as email, hutsup.nominal_hutang as total_hutang, hutsup.tgl_tenggat_bayar as tenggat_bayar, supplier.keterangan from supplier left join (select hut.id_supplier, sum(hut.nominal_hutang) as nominal_hutang, min(hut.tgl_tenggat_bayar) as tgl_tenggat_bayar from (select hu.id_supplier, (hu.total - bhu.pembayaran) as nominal_hutang, hu.tgl_tenggat_bayar from hutang as hu left join (select bh.id_hutang, sum(bh.pembayaran) as pembayaran from bayar_hutang as bh group by bh.id_hutang) as bhu on hu.id=bhu.id_hutang) as hut group by hut.id_supplier) as hutsup on supplier.id=hutsup.id_supplier";
+            var query = "select sup.id, sup.nama, sup.alamat, sup.no_hp, sup.email, " +
+                "coalesce(d_hutang.total_hutang, 0) as total_hutang, " +
+                "coalesce(d_hutang.sudah_dibayar, 0) as sudah_bayar, " +
+                "coalesce(d_hutang.belum_bayar, 0) as belum_bayar, " +
+                "sup.keterangan " +
+                "from supplier as sup " +
+                "left join " +
+                "(select hu.id_supplier, " +
+                "sum(coalesce(hu.total, 0)) as total_hutang, " +
+                "sum(coalesce(sudah_bayar.tot_sudah_pembayaran, 0)) as sudah_dibayar, " +
+                "(sum(coalesce(hu.total, 0)) - sum(coalesce(sudah_bayar.tot_sudah_pembayaran, 0))) as belum_bayar " +
+                "from hutang as hu " +
+                "left join " +
+                "(select bh.id_hutang, sum(bh.pembayaran) as tot_sudah_pembayaran " +
+                "from bayar_hutang as bh " +
+                "where not bh.is_dp='ya' " +
+                "group by bh.id_hutang) as sudah_bayar " +
+                "on hu.id=sudah_bayar.id_hutang " +
+                "where hu.sudah_lunas='Belum' " +
+                "group by hu.id_supplier) as d_hutang " +
+                "on sup.id=d_hutang.id_supplier " +
+                "order by sup.nama asc;";
             FbDataAdapter da = new FbDataAdapter(query, ConnectDB.Connetc());
             da.Fill(dt);
             da.Dispose();

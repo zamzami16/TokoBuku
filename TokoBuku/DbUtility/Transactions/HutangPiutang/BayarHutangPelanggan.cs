@@ -8,7 +8,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
     internal static class BayarHutangPelanggan
     {
         internal static DataTable DataHutangPelanggan(int id_pelanggan)
-        {/// TODO: Cari ini ya ges ya
+        {
             DataTable table = new DataTable();
             using (var con = ConnectDB.Connetc())
             {
