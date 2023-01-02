@@ -179,6 +179,12 @@
     <Compile Include="BaseForm\Transaksi\FormUbahHarga.Designer.cs">
       <DependentUpon>FormUbahHarga.cs</DependentUpon>
     </Compile>
+    <Compile Include="BaseForm\Transaksi\SearchForm\FormSearchSupplierPelanggan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Transaksi\SearchForm\FormSearchSupplierPelanggan.Designer.cs">
+      <DependentUpon>FormSearchSupplierPelanggan.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm\Transaksi\SearchForm\FormSearchBarang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +247,7 @@
     <Compile Include="DbUtility\Transactions\Pembelian.cs" />
     <Compile Include="DbUtility\Transactions\Penjualan.cs" />
     <Compile Include="DbUtility\Transactions\Search\Barang.cs" />
+    <Compile Include="DbUtility\Transactions\Search\TSearchSupplier.cs" />
     <Compile Include="DbUtility\Transactions\UbahHarga.cs" />
     <Compile Include="DbUtility\Transactions\UpdateKas.cs" />
     <Compile Include="Login\FormLogin.cs">
@@ -352,6 +359,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Transaksi\FormUbahHarga.resx">
       <DependentUpon>FormUbahHarga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Transaksi\SearchForm\FormSearchSupplierPelanggan.resx">
+      <DependentUpon>FormSearchSupplierPelanggan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Transaksi\SearchForm\FormSearchBarang.resx">
       <DependentUpon>FormSearchBarang.cs</DependentUpon>
