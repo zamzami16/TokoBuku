@@ -19,6 +19,9 @@ namespace TokoBuku
         private FormMasterViewKasir formKasirView;
         private FormMasterViewKasMaster formKasView;
         private FormUbahHarga formUbahHarga;
+        private HistoriPembelian historiPembelian;
+        private HistoriPenjualan historiPenjualan;
+
         private int IdKasir { get; set; }
         private string NamaKasir { set; get; }
         private bool IsAdmin { get; set; }
@@ -87,7 +90,7 @@ namespace TokoBuku
         /// <param name="e"></param>
         private void lAPORANToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("MENU LAPORAN MASIH DALAM PENGEMBANGAN", "Information.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
         }
 
         private void DataKasirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -195,14 +198,20 @@ namespace TokoBuku
             this.IsAdmin = isAdmin;
         }
 
-        private void pembelianToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            // TODO: Cetak nota penjualan
+        private void cetakNotaToolStripMenuItem_Click(object sender, EventArgs e)
+        {// Penjualan
+            this.historiPenjualan = new HistoriPenjualan { MdiParent = this };
+            this.historiPenjualan.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
+            this.historiPenjualan.Dock = DockStyle.Fill;
+            this.historiPenjualan.Show();
         }
 
-        private void pembelianToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-
+        private void pembelianToolStripMenuItem3_Click(object sender, EventArgs e)
+        {// Pembelian
+            this.historiPembelian = new HistoriPembelian { MdiParent = this };
+            this.historiPembelian.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
+            this.historiPembelian.Dock= DockStyle.Fill;
+            this.historiPembelian.Show();
         }
     }
 }

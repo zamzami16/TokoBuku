@@ -154,7 +154,6 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // TODO: Lanjutkan ke laporan
             using (var form = new LaporanDataPembelian())
             {
                 form.data = this.TempData;
