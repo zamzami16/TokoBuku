@@ -1,6 +1,6 @@
-﻿namespace TokoBuku.BaseForm.Transaksi
+﻿namespace TokoBuku.BaseForm.Report.Transaksi
 {
-    partial class HistoriPenjualan
+    partial class FormBuatLaporanPenjualanBarang
     {
         /// <summary>
         /// Required designer variable.

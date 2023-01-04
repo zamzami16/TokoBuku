@@ -43,6 +43,9 @@ namespace TokoBuku
             //Application.Run(new FormDataPelangganSupplier("SUPPLIER"));
             //Application.Run(new FormDataRakKasKategoriPenerbitMaster("kategori"));
             //Application.Run(new Penjualan());
+
+            //Application.Run(new TokoBuku.BaseForm.Transaksi.Pembelian());
+            //Application.Run(new TokoBuku.BaseForm.Transaksi.Penjualan(1, "zami"));
         }
     }
 }

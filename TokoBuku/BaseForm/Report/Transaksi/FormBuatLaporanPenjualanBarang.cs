@@ -3,54 +3,77 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TokoBuku.BaseForm.Report.Transaksi;
 using TokoBuku.BaseForm.TipeData.DataBase;
 
-namespace TokoBuku.BaseForm.Transaksi
+namespace TokoBuku.BaseForm.Report.Transaksi
 {
-    public partial class HistoriPembelian : Form
+    public partial class FormBuatLaporanPenjualanBarang : Form
     {
         private DataTable data = new DataTable();
-        private DataTable TempData = new DataTable();
-        public HistoriPembelian()
+        private DataTable tempData = new DataTable();
+        public DataTable dataTable { get { return tempData; } }
+        public FormBuatLaporanPenjualanBarang()
         {
             InitializeComponent();
         }
-
+        /// TODO: tambahkan filter
         private void HistoriPembelian_Load(object sender, EventArgs e)
         {
-            this.RefreshDataTable();
+            this.RefreshDataPenjualan();
         }
 
-        private void RefreshDataTable()
+        private void RefreshDataPenjualan()
         {
-            this.data = TokoBuku.DbUtility.Transactions.Pembelian.HistoriPembelian();
+            this.data = TokoBuku.DbUtility.Transactions.Penjualan.GetHistoriPenjualan();
             this.dgv.DataSource = this.data;
             this.dgv.Columns[0].Visible = false;
-            this.dgv.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dgv.Columns[1].MinimumWidth = 125;
-            for (int i = 2; i < this.dgv.ColumnCount; i++)
+            for (int i = 1; i < this.dgv.ColumnCount; i++)
             {
                 this.dgv.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
-            this.dgv.Columns["total"].DefaultCellStyle.Format = "C";
-            this.dgv.Columns["total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.dgv.Columns["keterangan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            this.dgv.Columns[1].HeaderText = "No Transaksi";
+            this.dgv.Columns[2].HeaderText = "kasir";
+            this.dgv.Columns[3].HeaderText = "pelanggan";
+            this.dgv.Columns[4].HeaderText = "total";
+            this.dgv.Columns[5].HeaderText = "tanggal";
+            this.dgv.Columns[6].HeaderText = "pembayaran";
+            this.dgv.Columns[7].HeaderText = "kas";
 
-            this.UpdateComboSupplier();
+            this.dgv.Columns[4].DefaultCellStyle.Format = "c";
+            this.dgv.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            this.tempData = this.data;
+
             this.UpdateMinMaxDate();
             this.UpdateTipePembayaran();
             this.UpdateJenisKas();
-            this.TempData = this.data;
+            this.UpdateComboKasir();
+        }
+
+        private void UpdateComboKasir()
+        {
+            DataView _temp_ = new DataView(this.data);
+            DataTable _temp = _temp_.ToTable(true, "nama_kasir");
+            DataTable supplier = this.data.Clone();
+            DataRow row = supplier.NewRow();
+            row["nama_kasir"] = "Semua";
+            supplier.Rows.Add(row);
+            supplier.Merge(_temp);
+            _temp.Dispose();
+            this.comboBoxKasir.DataSource = supplier;
+            this.comboBoxKasir.ValueMember = "nama_kasir";
+            this.comboBoxKasir.DisplayMember = "nama_kasir";
         }
 
         private void UpdateJenisKas()
         {
             DataView _temp_ = new DataView(this.data);
-            DataTable _temp = _temp_.ToTable(true, "kas");
+            DataTable _temp = _temp_.ToTable(true, "nama_kas");
             this.comboBoxKas.Items.Add("Semua");
             foreach (DataRow _dr in _temp.Rows)
             {
-                string measurement = _dr.Field<String>("kas");
+                string measurement = _dr.Field<String>("nama_kas");
                 if (measurement != null && measurement.Trim() != "")
                     this.comboBoxKas.Items.Add(measurement);
             }
@@ -69,30 +92,15 @@ namespace TokoBuku.BaseForm.Transaksi
             this.comboBoxTipeBayar.SelectedIndex = 0;
         }
 
-        private void UpdateComboSupplier()
-        {
-            DataView _temp_ = new DataView(this.data);
-            DataTable _temp = _temp_.ToTable(true, "suplier");
-            DataTable supplier = this.data.Clone();
-            DataRow row = supplier.NewRow();
-            row["suplier"] = "Semua";
-            supplier.Rows.Add(row);
-            supplier.Merge(_temp);
-            _temp.Dispose();
-            this.comboBoxSupplier.DataSource = supplier;
-            this.comboBoxSupplier.ValueMember = "suplier";
-            this.comboBoxSupplier.DisplayMember = "suplier";
-        }
-
         private void UpdateMinMaxDate()
         {
             var first = this.data.AsEnumerable()
-               .Select(cols => cols.Field<DateTime>("tanggal_beli"))
+               .Select(cols => cols.Field<DateTime>("tanggal"))
                .OrderBy(p => p.Ticks)
                .FirstOrDefault();
 
             var last = this.data.AsEnumerable()
-                          .Select(cols => cols.Field<DateTime>("tanggal_beli"))
+                          .Select(cols => cols.Field<DateTime>("tanggal"))
                           .OrderByDescending(p => p.Ticks)
                           .FirstOrDefault();
             this.dateTimePickerDari.Value = first;
@@ -117,8 +125,8 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void buttonTerapkan_Click(object sender, EventArgs e)
         {
-            this.TempData = this.data.Copy();
-            var sup = this.comboBoxSupplier.Text.Replace("'", "''");
+            this.tempData = this.data.Copy();
+            var kasir = this.comboBoxKasir.Text.Replace("'", "''");
             var dDari = this.dateTimePickerDari.Value;
             var dSampai = this.dateTimePickerSampai.Value;
             var tBayar = this.comboBoxTipeBayar.Text.Replace("'", "''");
@@ -127,13 +135,13 @@ namespace TokoBuku.BaseForm.Transaksi
             if (dSampai < dDari)
             {
                 MessageBox.Show("Rentang tanggal tidak valid.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.RefreshDataTable();
+                this.RefreshDataPenjualan();
             }
             else
             {
-                if (sup.ToLower() != "semua")
+                if (kasir.ToLower() != "semua")
                 {
-                    exp_ += $"suplier = '{sup}' ";
+                    exp_ += $"nama_kasir = '{kasir}' ";
                 }
                 if (tBayar.ToLower() != "semua")
                 {
@@ -141,23 +149,22 @@ namespace TokoBuku.BaseForm.Transaksi
                 }
                 if (kas.ToLower() != "semua")
                 {
-                    exp_ += (exp_.Length > 0) ? $"and kas = '{kas}' " : $"kas = '{kas}' ";
+                    exp_ += (exp_.Length > 0) ? $"and nama_kas = '{kas}' " : $"nama_kas = '{kas}' ";
                 }
                 exp_ += (exp_.Length > 0) ? "and " : "";
-                exp_ += $"tanggal_beli >= #{dDari.ToString("yyyy-MM-dd")}# and tanggal_beli <= #{dSampai.ToString("yyyy-MM-dd")}#";
-                DataView dv = new DataView(TempData);
+                exp_ += $"tanggal >= #{dDari.ToString("yyyy-MM-dd")}# and tanggal <= #{dSampai.ToString("yyyy-MM-dd")}#";
+                DataView dv = new DataView(this.tempData);
                 dv.RowFilter = exp_;
-                TempData = dv.ToTable();
+                this.tempData = dv.ToTable();
             }
-            this.dgv.DataSource = TempData;
+            this.dgv.DataSource = this.tempData;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonBuatLaporan_Click(object sender, EventArgs e)
         {
-            // TODO: Lanjutkan ke laporan
-            using (var form = new LaporanDataPembelian())
+            using (var form = new LaporanDataPenjualan())
             {
-                form.data = this.TempData;
+                form.data = this.dataTable;
                 form.ShowDialog();
             }
         }

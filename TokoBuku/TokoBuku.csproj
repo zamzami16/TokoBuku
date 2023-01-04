@@ -38,8 +38,34 @@
     <Reference Include="FirebirdSql.Data.FirebirdClient, Version=4.9.0.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
       <HintPath>..\packages\FirebirdSql.Data.FirebirdClient.4.9.0.0\lib\net40-client\FirebirdSql.Data.FirebirdClient.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -123,6 +149,24 @@
     </Compile>
     <Compile Include="BaseForm\Master\Input\FormInputDataKas.Designer.cs">
       <DependentUpon>FormInputDataKas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Report\Transaksi\FormBuatLaporanPenjualanBarang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Report\Transaksi\FormBuatLaporanPenjualanBarang.Designer.cs">
+      <DependentUpon>FormBuatLaporanPenjualanBarang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Report\Transaksi\LaporanDataPembelian.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Report\Transaksi\LaporanDataPembelian.Designer.cs">
+      <DependentUpon>LaporanDataPembelian.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Report\Transaksi\LaporanDataPenjualan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Report\Transaksi\LaporanDataPenjualan.Designer.cs">
+      <DependentUpon>LaporanDataPenjualan.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\TipeData\DataBase\TBarang.cs" />
     <Compile Include="BaseForm\TipeData\DataBase\TBayarPiutang.cs" />
@@ -241,6 +285,14 @@
     <Compile Include="DbUtility\Master\Pelanggan.cs" />
     <Compile Include="DbUtility\Master\Supplier.cs" />
     <Compile Include="DbUtility\Database.cs" />
+    <Compile Include="DbUtility\Report\Transaksi\DataReport.cs">
+      <DependentUpon>DataReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DbUtility\Report\Transaksi\DataReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataReport.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />
     <Compile Include="DbUtility\Transactions\HutangPiutang\BayarHutangKeSupplier.cs" />
     <Compile Include="DbUtility\Transactions\HutangPiutang\BayarHutangPelanggan.cs" />
@@ -258,6 +310,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="TokoBukuWindows.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -342,6 +395,17 @@
     <EmbeddedResource Include="BaseForm\FormMasterDataViewer.resx">
       <DependentUpon>FormMasterDataViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanDataPembelian.resx">
+      <DependentUpon>LaporanDataPembelian.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\ReportDataPembelian.rdlc" />
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\ReportDataPenjualan.rdlc" />
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\FormBuatLaporanPenjualanBarang.resx">
+      <DependentUpon>FormBuatLaporanPenjualanBarang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanDataPenjualan.resx">
+      <DependentUpon>LaporanDataPenjualan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Transaksi\HistoriPenjualan.resx">
       <DependentUpon>HistoriPenjualan.cs</DependentUpon>
     </EmbeddedResource>
@@ -394,8 +458,20 @@
       <DependentUpon>FormSearch.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="DbUtility\Report\Transaksi\DataReport.xsc">
+      <DependentUpon>DataReport.xsd</DependentUpon>
+    </None>
+    <None Include="DbUtility\Report\Transaksi\DataReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataReport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DbUtility\Report\Transaksi\DataReport.xss">
+      <DependentUpon>DataReport.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\TokoBuku.BaseForm.Transaksi.FormUbahHarga.datasource" />
+    <None Include="Properties\DataSources\TokoBuku.BaseForm.Transaksi.HistoriPenjualan.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -408,6 +484,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Login\resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

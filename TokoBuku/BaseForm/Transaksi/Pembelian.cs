@@ -513,7 +513,7 @@ namespace TokoBuku.BaseForm.Transaksi
             {
                 TPembelian pembelian = new TPembelian();
                 pembelian.IdSupplier = this.IdSupplierTerpilih;
-                pembelian.TanggalBeli = this.dateTimePickerJatuhTempo.Value;
+                pembelian.TanggalBeli = this.dateTimePickerTglPesanan.Value;
                 pembelian.NoNota = this.textNoNota.Text;
                 pembelian.Total = totalPembayaran;
                 pembelian.JenisPembayaran = TJenisPembayaran.Kredit;

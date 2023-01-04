@@ -45,9 +45,12 @@ namespace TokoBuku
             this.PembelianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uBAHHARGAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lAPORANToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cetakNotaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pembelianToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pembelianToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.dATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rESETDATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -174,10 +177,35 @@ namespace TokoBuku
             // 
             // lAPORANToolStripMenuItem
             // 
+            this.lAPORANToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cetakNotaToolStripMenuItem});
             this.lAPORANToolStripMenuItem.Name = "lAPORANToolStripMenuItem";
             this.lAPORANToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.lAPORANToolStripMenuItem.Text = "LAPORAN";
             this.lAPORANToolStripMenuItem.Click += new System.EventHandler(this.lAPORANToolStripMenuItem_Click);
+            // 
+            // cetakNotaToolStripMenuItem
+            // 
+            this.cetakNotaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pembelianToolStripMenuItem1,
+            this.pembelianToolStripMenuItem2});
+            this.cetakNotaToolStripMenuItem.Name = "cetakNotaToolStripMenuItem";
+            this.cetakNotaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cetakNotaToolStripMenuItem.Text = "Cetak Nota";
+            // 
+            // pembelianToolStripMenuItem1
+            // 
+            this.pembelianToolStripMenuItem1.Name = "pembelianToolStripMenuItem1";
+            this.pembelianToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.pembelianToolStripMenuItem1.Text = "Penjualan";
+            this.pembelianToolStripMenuItem1.Click += new System.EventHandler(this.pembelianToolStripMenuItem1_Click);
+            // 
+            // pembelianToolStripMenuItem2
+            // 
+            this.pembelianToolStripMenuItem2.Name = "pembelianToolStripMenuItem2";
+            this.pembelianToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.pembelianToolStripMenuItem2.Text = "Pembelian";
+            this.pembelianToolStripMenuItem2.Click += new System.EventHandler(this.pembelianToolStripMenuItem2_Click);
             // 
             // dATABASEToolStripMenuItem
             // 
@@ -190,7 +218,7 @@ namespace TokoBuku
             // rESETDATABASEToolStripMenuItem
             // 
             this.rESETDATABASEToolStripMenuItem.Name = "rESETDATABASEToolStripMenuItem";
-            this.rESETDATABASEToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rESETDATABASEToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.rESETDATABASEToolStripMenuItem.Text = "RESET DATABASE";
             this.rESETDATABASEToolStripMenuItem.Click += new System.EventHandler(this.rESETDATABASEToolStripMenuItem_Click);
             // 
@@ -234,5 +262,8 @@ namespace TokoBuku
         private System.Windows.Forms.ToolStripMenuItem uBAHHARGAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dATABASEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rESETDATABASEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cetakNotaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pembelianToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem pembelianToolStripMenuItem2;
     }
 }
