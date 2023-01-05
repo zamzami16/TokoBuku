@@ -13,8 +13,8 @@ namespace TokoBuku.DbUtility.Transactions
             using (var con = ConnectDB.Connetc())
             {
                 var query = "insert into detail_penjualan " +
-                    "(id_penjualan, id_barang, jumlah, harga, satuan) " +
-                    "values (@id_penjualan, @id_barang, @jumlah, @harga, @satuan);";
+                    "(id_penjualan, id_barang, jumlah, harga_jual, harga_beli, satuan) " +
+                    "values (@id_penjualan, @id_barang, @jumlah, @harga, @hargabeli, @satuan);";
                 foreach (TDetailPenjualan detail in detailPenjualan)
                 {
                     using (var cmd = new FbCommand(query, con))
@@ -24,6 +24,7 @@ namespace TokoBuku.DbUtility.Transactions
                         cmd.Parameters.Add("@id_barang", detail.IdBarang);
                         cmd.Parameters.Add("@jumlah", detail.Jumlah);
                         cmd.Parameters.Add("@harga", detail.HargaJual);
+                        cmd.Parameters.Add("@hargabeli", detail.HargaBeli);
                         cmd.Parameters.Add("@satuan", detail.Satuan);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();

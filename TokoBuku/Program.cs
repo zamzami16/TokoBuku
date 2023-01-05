@@ -14,9 +14,9 @@ namespace TokoBuku
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new TokoBukuWindows());
+            //Application.Run(new TokoBukuWindows());
 
-            /*using (var formLogin = new Login.FormLogin())
+            using (var formLogin = new Login.FormLogin())
             {
                 Application.Run(formLogin);
                 if (formLogin.DialogResult == DialogResult.OK)
@@ -29,7 +29,7 @@ namespace TokoBuku
                         Application.Run(form);
                     }
                 }
-            }*/
+            }
 
 
             //Application.Run(new FormUbahHarga());

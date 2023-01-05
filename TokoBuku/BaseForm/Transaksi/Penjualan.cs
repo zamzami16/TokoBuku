@@ -56,28 +56,6 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.labelDp.Text = "Cash :";
                 this.labelkembali.Text = "Jumlah Kembalian";
             }
-
-
-            /*if (comboJenisBayar.Text != "CASH")
-            {
-                using (var form = new FormKredit())
-                {
-                    var result = form.ShowDialog();
-                    if (result == DialogResult.Yes)
-                    {
-                        var DP = form.PembayaranAwal;
-                        var TglPesan = form.TglPesan;
-                        var TglBayar = form.TenggatPembayaran;
-                        var namaPelanggan = form.NamaPelanggan;
-
-                        if (DP <= 0)
-                        {
-                            //this.panelJenisKas.Visible = false;
-                        }
-                    }
-                }
-                
-            }*/
         }
 
         private void buttonPelanggan_Click(object sender, EventArgs e)
@@ -105,11 +83,13 @@ namespace TokoBuku.BaseForm.Transaksi
             this.ListBarang.Columns.Add("Harga", typeof(double));   // 5
             this.ListBarang.Columns.Add("Diskon", typeof(double));  // 6
             this.ListBarang.Columns.Add("Total", typeof(double));   // 7
+            this.ListBarang.Columns.Add("HargaBeli", typeof(double)); // 8
 
             this.ListBarang.Columns[7].Expression = "Jumlah * Harga * (1.00 - Diskon / 100.00)";
 
             this.dataGridView1.DataSource = this.ListBarang;
             this.dataGridView1.Columns[0].Visible = false;
+            this.dataGridView1.Columns["HargaBeli"].Visible = false;
             //this.dataGridView1.Columns.Add("Button", "Delete");
 
             /// set datagridView formatting
@@ -154,11 +134,6 @@ namespace TokoBuku.BaseForm.Transaksi
                 MessageBox.Show("Pilih barang terlebih dahulu.", "Gagal.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.ActiveControl = this.textKode;
             }
-            /*else if (string.IsNullOrWhiteSpace(this.comboBoxJenisKas.Text))
-            {
-                MessageBox.Show("Pilih jenis kas dulu.", "Warning.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.ActiveControl = this.comboBoxJenisKas;
-            }*/
             else
             {
                 var x_ = (TJenisPembayaran)Enum.Parse(typeof(TJenisPembayaran), this.comboJenisBayar.Text);
@@ -295,6 +270,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 detail.Jumlah = Convert.ToDouble(row.Cells["Jumlah"].Value.ToString());
                 detail.HargaJual = Convert.ToDouble(row.Cells["Harga"].Value.ToString());
                 detail.Satuan = row.Cells["Satuan"].Value.ToString();
+                detail.HargaBeli = Convert.ToDouble(row.Cells["HargaBeli"].Value.ToString());
                 detailPenjualan.Add(detail);
             }
             return detailPenjualan;
@@ -367,16 +343,16 @@ namespace TokoBuku.BaseForm.Transaksi
                 double qty = Convert.ToDouble(textBoxQty.Text);
                 var satuan = comboSatuan.Text;
                 var dt = GetDataPartial.Barang(this.BarangIdTerpilih, qty, satuan);
-                if (this.dataGridView1.Columns.Count > 8)
+                if (this.dataGridView1.Columns.Count > 9)
                 {
-                    this.dataGridView1.Columns.RemoveAt(8);
+                    this.dataGridView1.Columns.RemoveAt(9);
                 }
                 DataGridViewButtonColumn deleteButt = new DataGridViewButtonColumn();
                 deleteButt.Name = "Delete";
                 deleteButt.HeaderText = "Delete";
                 deleteButt.Text = "Delete";
                 deleteButt.UseColumnTextForButtonValue = true;
-                this.dataGridView1.Columns.Insert(8, deleteButt);
+                this.dataGridView1.Columns.Insert(9, deleteButt);
 
                 this.ListBarang.Merge(dt);
 
@@ -384,6 +360,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.dataGridView1.Columns[5].DefaultCellStyle.Format = "C";
                 this.dataGridView1.Columns[6].DefaultCellStyle.Format = "0.00'%'";
                 this.dataGridView1.Columns[7].DefaultCellStyle.Format = "C";
+                //this.dataGridView1.Columns["hargabeli"].Visible = true;
                 this.dataGridView1.Refresh();
 
                 // Update label subtotal harga
@@ -533,22 +510,6 @@ namespace TokoBuku.BaseForm.Transaksi
         }
         private void FilterDataKode()
         {
-            /*using (var form = new FormSearch())
-            {
-                form.HideAddBarang();
-                form.FormName = "kode";
-                form.SearchText = this.textKode.Text;
-                var result = form.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    this.KodeTerpilih = form.SearchedKode;
-                    this.BarangIdTerpilih = form.SearchIndex;
-                    this.textKode.Text = form.SearchedKode;
-                    this.textNamaBarang.Text = form.SearchedText;
-                    this.ActiveControl = this.textBoxQty;
-                }
-            }*/
-
             using (var form = new FormSearchBarang())
             {
                 form.FormName = "kode";
@@ -862,6 +823,7 @@ namespace TokoBuku.BaseForm.Transaksi
                         ((TokoBukuWindows)this.MdiParent).SetKasirTerpilih(Convert.ToInt32(formLogin.IdKasir), formLogin.NamaKasir);
                         ((TokoBukuWindows)this.MdiParent).SetAdmin(true);
                         this.UpdateKasir(Convert.ToInt32(formLogin.IdKasir), formLogin.NamaKasir);
+                        this.buttonAdmin.Enabled = false;
                     }
                 }
             }
@@ -873,5 +835,6 @@ namespace TokoBuku.BaseForm.Transaksi
             this.NamaKasir= namaKasir;
             this.labelKasir.Text = namaKasir;   
         }
+
     }
 }
