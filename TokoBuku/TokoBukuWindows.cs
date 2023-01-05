@@ -27,18 +27,12 @@ namespace TokoBuku
         private bool IsAdmin { get; set; }
 
 
-        public TokoBukuWindows() { InitializeComponent(); }
+        public TokoBukuWindows() { InitializeComponent(); this.IsAdmin = false; }
 
         private void TokoBukuWindows_Load(object sender, EventArgs e)
         {
-            if (this.IsAdmin)
-            {
-                this.DataKasirToolStripMenuItem.Enabled = true;
-            }
-            else
-            {
-                this.DataKasirToolStripMenuItem.Enabled = false;
-            }
+            this.DataKasirToolStripMenuItem.Enabled = this.IsAdmin;
+
             this.formPenjualanView = new Penjualan(this.IdKasir, this.NamaKasir);
             this.formPenjualanView.MdiParent = this;
             this.formPenjualanView.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
@@ -196,6 +190,8 @@ namespace TokoBuku
         public void SetAdmin(bool isAdmin)
         {
             this.IsAdmin = isAdmin;
+            this.DataKasirToolStripMenuItem.Enabled = this.IsAdmin;
+            this.rESETDATABASEToolStripMenuItem.Enabled = this.IsAdmin;
         }
 
         private void cetakNotaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -212,6 +208,16 @@ namespace TokoBuku
             this.historiPembelian.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.historiPembelian.Dock= DockStyle.Fill;
             this.historiPembelian.Show();
+        }
+
+        private void contextMenu1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.contextMenu1.Items.Clear();
+            Button bt = new Button()
+            {
+                Name = "Logout"
+            };
+            this.contextMenu1.Items.Add("Logout");
         }
     }
 }

@@ -388,6 +388,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.buttonAdmin.TabStop = false;
             this.buttonAdmin.Text = "admin [F4]";
             this.buttonAdmin.UseVisualStyleBackColor = true;
+            this.buttonAdmin.Click += new System.EventHandler(this.buttonAdmin_Click);
             // 
             // labelNoTransaksi
             // 
@@ -842,7 +843,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(898, 461);
             this.Controls.Add(this.tableLayoutPanelUtama);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

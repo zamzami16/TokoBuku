@@ -23,7 +23,7 @@ namespace TokoBuku.DbUtility.Transactions
                         cmd.Parameters.Add("@id_penjualan", id_penjualan);
                         cmd.Parameters.Add("@id_barang", detail.IdBarang);
                         cmd.Parameters.Add("@jumlah", detail.Jumlah);
-                        cmd.Parameters.Add("@harga", detail.Harga);
+                        cmd.Parameters.Add("@harga", detail.HargaJual);
                         cmd.Parameters.Add("@satuan", detail.Satuan);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();

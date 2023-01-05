@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonBuatLaporan = new System.Windows.Forms.Button();
             this.buttonTerapkan = new System.Windows.Forms.Button();
             this.comboBoxKas = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@
             this.comboBoxKasir = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.buttonBuatLaporan = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.panel1.SuspendLayout();
@@ -72,8 +72,8 @@
             // 
             this.dgv.AllowUserToAddRows = false;
             this.dgv.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightGray;
-            this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.Location = new System.Drawing.Point(153, 33);
@@ -93,7 +93,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(878, 30);
             this.label1.TabIndex = 0;
-            this.label1.Text = "HISTORI PENJUALAN";
+            this.label1.Text = "LAPORAN JUAL BELI BARANG";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel1
@@ -116,6 +116,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(144, 425);
             this.panel1.TabIndex = 2;
+            // 
+            // buttonBuatLaporan
+            // 
+            this.buttonBuatLaporan.Location = new System.Drawing.Point(3, 393);
+            this.buttonBuatLaporan.Name = "buttonBuatLaporan";
+            this.buttonBuatLaporan.Size = new System.Drawing.Size(138, 23);
+            this.buttonBuatLaporan.TabIndex = 23;
+            this.buttonBuatLaporan.Text = "BUAT LAPORAN";
+            this.buttonBuatLaporan.UseVisualStyleBackColor = true;
+            this.buttonBuatLaporan.Click += new System.EventHandler(this.buttonBuatLaporan_Click);
             // 
             // buttonTerapkan
             // 
@@ -220,17 +230,7 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "FILTER";
             // 
-            // buttonBuatLaporan
-            // 
-            this.buttonBuatLaporan.Location = new System.Drawing.Point(3, 393);
-            this.buttonBuatLaporan.Name = "buttonBuatLaporan";
-            this.buttonBuatLaporan.Size = new System.Drawing.Size(138, 23);
-            this.buttonBuatLaporan.TabIndex = 23;
-            this.buttonBuatLaporan.Text = "BUAT LAPORAN";
-            this.buttonBuatLaporan.UseVisualStyleBackColor = true;
-            this.buttonBuatLaporan.Click += new System.EventHandler(this.buttonBuatLaporan_Click);
-            // 
-            // HistoriPenjualan
+            // FormBuatLaporanPenjualanBarang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -239,7 +239,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "HistoriPenjualan";
+            this.Name = "FormBuatLaporanPenjualanBarang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Histori Penjualan";
             this.Load += new System.EventHandler(this.HistoriPembelian_Load);

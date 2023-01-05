@@ -10,6 +10,7 @@ using TokoBuku.BaseForm.Transaksi.SearchForm;
 using TokoBuku.DbUtility;
 using TokoBuku.DbUtility.Master;
 using TokoBuku.DbUtility.Transactions;
+using TokoBuku.Login;
 using TextBox = System.Windows.Forms.TextBox;
 
 namespace TokoBuku.BaseForm.Transaksi
@@ -292,7 +293,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 TDetailPenjualan detail = new TDetailPenjualan();
                 detail.IdBarang = Convert.ToInt32(row.Cells["Id"].Value.ToString());
                 detail.Jumlah = Convert.ToDouble(row.Cells["Jumlah"].Value.ToString());
-                detail.Harga = Convert.ToDouble(row.Cells["Harga"].Value.ToString());
+                detail.HargaJual = Convert.ToDouble(row.Cells["Harga"].Value.ToString());
                 detail.Satuan = row.Cells["Satuan"].Value.ToString();
                 detailPenjualan.Add(detail);
             }
@@ -848,6 +849,29 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             this.UpdateLabelTotalHarga();
             this.UpdateLabelKembalian();
+        }
+
+        private void buttonAdmin_Click(object sender, EventArgs e)
+        {
+            using (var formLogin = new FormLogin())
+            {
+                if (formLogin.ShowDialog() == DialogResult.OK)
+                {
+                    if (formLogin.NamaKasir.ToLower() == "admin")
+                    {
+                        ((TokoBukuWindows)this.MdiParent).SetKasirTerpilih(Convert.ToInt32(formLogin.IdKasir), formLogin.NamaKasir);
+                        ((TokoBukuWindows)this.MdiParent).SetAdmin(true);
+                        this.UpdateKasir(Convert.ToInt32(formLogin.IdKasir), formLogin.NamaKasir);
+                    }
+                }
+            }
+        }
+
+        private void UpdateKasir(int idKasir, string namaKasir)
+        {
+            this.IdKasir= idKasir;
+            this.NamaKasir= namaKasir;
+            this.labelKasir.Text = namaKasir;   
         }
     }
 }

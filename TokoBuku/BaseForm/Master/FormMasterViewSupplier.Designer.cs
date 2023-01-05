@@ -31,13 +31,13 @@ namespace TokoBuku.BaseForm.Master
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.DataViewTitle = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonAddData = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEditData = new System.Windows.Forms.Button();
             this.buttonBayarHutang = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DataViewTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -47,9 +47,9 @@ namespace TokoBuku.BaseForm.Master
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.DataViewTitle, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.DataViewTitle, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -57,20 +57,9 @@ namespace TokoBuku.BaseForm.Master
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(613, 429);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // DataViewTitle
-            // 
-            this.DataViewTitle.AutoSize = true;
-            this.DataViewTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataViewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataViewTitle.Location = new System.Drawing.Point(3, 0);
-            this.DataViewTitle.Name = "DataViewTitle";
-            this.DataViewTitle.Size = new System.Drawing.Size(607, 50);
-            this.DataViewTitle.TabIndex = 0;
-            this.DataViewTitle.Text = "DATA SUPPLIER";
-            this.DataViewTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanel1
             // 
@@ -145,6 +134,18 @@ namespace TokoBuku.BaseForm.Master
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
+            // DataViewTitle
+            // 
+            this.DataViewTitle.AutoSize = true;
+            this.DataViewTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataViewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DataViewTitle.Location = new System.Drawing.Point(3, 0);
+            this.DataViewTitle.Name = "DataViewTitle";
+            this.DataViewTitle.Size = new System.Drawing.Size(607, 50);
+            this.DataViewTitle.TabIndex = 0;
+            this.DataViewTitle.Text = "DATA SUPPLIER";
+            this.DataViewTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormMasterViewSupplier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,9 +153,11 @@ namespace TokoBuku.BaseForm.Master
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(613, 429);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMasterViewSupplier";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Data Supplier";
             this.Deactivate += new System.EventHandler(this.FormMasterDataViewer_Deactivate);
@@ -170,7 +173,6 @@ namespace TokoBuku.BaseForm.Master
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label DataViewTitle;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonAddData;
@@ -183,5 +185,6 @@ namespace TokoBuku.BaseForm.Master
         }
 
         private System.Windows.Forms.Button buttonBayarHutang;
+        private System.Windows.Forms.Label DataViewTitle;
     }
 }

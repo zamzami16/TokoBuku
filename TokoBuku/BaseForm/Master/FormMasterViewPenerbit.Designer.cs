@@ -137,9 +137,11 @@ namespace TokoBuku.BaseForm.Master
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(613, 429);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMasterViewPenerbit";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Data Penerbit Buku";
             this.Deactivate += new System.EventHandler(this.FormMasterDataViewer_Deactivate);

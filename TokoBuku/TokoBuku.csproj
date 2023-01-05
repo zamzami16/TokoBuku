@@ -416,6 +416,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="TokoBukuWindows.resx">
       <DependentUpon>TokoBukuWindows.cs</DependentUpon>
@@ -478,6 +479,9 @@
     <PackageReference Include="Microsoft.SqlServer.Types">
       <Version>14.0.314.76</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\Icons\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

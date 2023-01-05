@@ -6,28 +6,28 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.48271cm</Width>
+              <Width>0.89943cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.12313cm</Width>
+              <Width>2.0636cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.32212cm</Width>
+              <Width>3.26259cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.05327cm</Width>
+              <Width>2.99374cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.53223cm</Width>
+              <Width>1.4727cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.03494cm</Width>
+              <Width>1.97541cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.23889cm</Width>
+              <Width>2.17936cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.2466cm</Width>
+              <Width>2.18707cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -691,14 +691,11 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <RepeatColumnHeaders>true</RepeatColumnHeaders>
-        <FixedColumnHeaders>true</FixedColumnHeaders>
-        <KeepTogether>true</KeepTogether>
         <DataSetName>DataSetReport</DataSetName>
         <Top>0.36725cm</Top>
         <Left>2.23046cm</Left>
         <Height>1.9852cm</Height>
-        <Width>17.03388cm</Width>
+        <Width>17.03389cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -882,10 +879,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>1415.52988mm</Height>
+    <Height>297mm</Height>
     <Style />
   </Body>
-  <Width>1469.64003mm</Width>
+  <Width>210mm</Width>
   <Page>
     <PageHeader>
       <Height>2.03122cm</Height>
