@@ -87,25 +87,53 @@ namespace TokoBuku.BaseForm.Master.Input
             }
             else
             {
-                this.DbBarang.IdKategori = Convert.ToInt32(this.comboBoxKategori.SelectedValue.ToString());
-                this.DbBarang.IdPenerbit = Convert.ToInt32(this.comboBoxPenerbit.SelectedValue.ToString());
-                this.DbBarang.IdRak = Convert.ToInt32(this.comboBoxRak.SelectedValue.ToString());
-                this.DbBarang.Kode = textBoxKode.Text;
-                this.DbBarang.NamaBarang = textBoxNamaBarang.Text;
-                this.DbBarang.Stock = Convert.ToDouble(numericStock.Value.ToString());
-                this.DbBarang.HargaJual = hargaJual;
-                this.DbBarang.HargaBeli = hargaBeli;
-                this.DbBarang.ISBN = textBoxISBN.Text;
-                this.DbBarang.Penulis = textBoxPenulis.Text;
-                this.DbBarang.Diskon = diskon;
-                this.DbBarang.Status = TStatus.Aktif;
-                this.DbBarang.BarCode = this.textBoxBarCode.Text;
-                this.DbBarang.Keterangan = this.richTextBoxKeterangan.Text;
+                if (hargaBeli > ((1.0 - (diskon / 100.0)) * hargaJual))
+                {
+                    if (MessageBox.Show("Harga setelah diskon lebih sedikit dari harga jual. Tetap Lanjutkan?", "Lanjut?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, defaultButton: MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        this.DbBarang.IdKategori = Convert.ToInt32(this.comboBoxKategori.SelectedValue.ToString());
+                        this.DbBarang.IdPenerbit = Convert.ToInt32(this.comboBoxPenerbit.SelectedValue.ToString());
+                        this.DbBarang.IdRak = Convert.ToInt32(this.comboBoxRak.SelectedValue.ToString());
+                        this.DbBarang.Kode = textBoxKode.Text;
+                        this.DbBarang.NamaBarang = textBoxNamaBarang.Text;
+                        this.DbBarang.Stock = Convert.ToDouble(numericStock.Value.ToString());
+                        this.DbBarang.HargaJual = hargaJual;
+                        this.DbBarang.HargaBeli = hargaBeli;
+                        this.DbBarang.ISBN = textBoxISBN.Text;
+                        this.DbBarang.Penulis = textBoxPenulis.Text;
+                        this.DbBarang.Diskon = diskon;
+                        this.DbBarang.Status = TStatus.Aktif;
+                        this.DbBarang.BarCode = this.textBoxBarCode.Text;
+                        this.DbBarang.Keterangan = this.richTextBoxKeterangan.Text;
 
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    this.DbBarang.IdKategori = Convert.ToInt32(this.comboBoxKategori.SelectedValue.ToString());
+                    this.DbBarang.IdPenerbit = Convert.ToInt32(this.comboBoxPenerbit.SelectedValue.ToString());
+                    this.DbBarang.IdRak = Convert.ToInt32(this.comboBoxRak.SelectedValue.ToString());
+                    this.DbBarang.Kode = textBoxKode.Text;
+                    this.DbBarang.NamaBarang = textBoxNamaBarang.Text;
+                    this.DbBarang.Stock = Convert.ToDouble(numericStock.Value.ToString());
+                    this.DbBarang.HargaJual = hargaJual;
+                    this.DbBarang.HargaBeli = hargaBeli;
+                    this.DbBarang.ISBN = textBoxISBN.Text;
+                    this.DbBarang.Penulis = textBoxPenulis.Text;
+                    this.DbBarang.Diskon = diskon;
+                    this.DbBarang.Status = TStatus.Aktif;
+                    this.DbBarang.BarCode = this.textBoxBarCode.Text;
+                    this.DbBarang.Keterangan = this.richTextBoxKeterangan.Text;
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
         }
+
+        
 
 
         private void ShowErrorPrompt(string message)

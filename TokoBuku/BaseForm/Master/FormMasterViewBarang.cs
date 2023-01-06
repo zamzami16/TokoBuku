@@ -170,27 +170,12 @@ namespace TokoBuku.BaseForm.Master
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                //string selectedName = row.Cells[2].Value.ToString();
                 int selectedId = Convert.ToInt32(row.Cells[0].Value.ToString());
                 using (var form = FormEdit.Barang(row))
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        /*var kategori = Convert.ToInt32(form.Kategori);
-                        var penerbit = Convert.ToInt32(form.Penerbit);
-                        var rak = Convert.ToInt32(form.Rak);
-                        var kode = form.KodeBarang;
-                        var namaBarang = form.NamaBarang;
-                        var stock = form.Stock;
-                        double harga = form.Harga;
-                        double hargaBeli = form.HargaBeli;
-                        var isbn = form.ISBN;
-                        var penulis = form.Penulis;
-                        double diskon = form.Diskon;
-                        var status = form.Status;
-                        var barCode = form.BarCode;
-                        var keterangan = form.Keterangan;*/
                         var barang = form.DbBarang;
                         barang.IdBarang= selectedId;
                         try

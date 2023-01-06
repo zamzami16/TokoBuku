@@ -360,6 +360,9 @@ namespace TokoBuku.BaseForm.Transaksi
                 this.dataGridView1.Columns[5].DefaultCellStyle.Format = "C";
                 this.dataGridView1.Columns[6].DefaultCellStyle.Format = "0.00'%'";
                 this.dataGridView1.Columns[7].DefaultCellStyle.Format = "C";
+                this.dataGridView1.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                this.dataGridView1.Columns[6].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                this.dataGridView1.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 //this.dataGridView1.Columns["hargabeli"].Visible = true;
                 this.dataGridView1.Refresh();
 
@@ -643,7 +646,7 @@ namespace TokoBuku.BaseForm.Transaksi
         /// <returns>Total Harga</returns>
         private double GetTotalHarga()
         {
-            double totalHarga = GetSubTotal() - GetPotongan();
+            double totalHarga = (100.0 - GetPotongan()) / 100.0 * GetSubTotal();
             return totalHarga;
         }
 

@@ -53,6 +53,7 @@ namespace TokoBuku
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.contextMenu1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.labaRugiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +69,7 @@ namespace TokoBuku
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(317, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(437, 27);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -184,7 +185,8 @@ namespace TokoBuku
             // 
             this.lAPORANToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cetakNotaToolStripMenuItem,
-            this.pembelianToolStripMenuItem3});
+            this.pembelianToolStripMenuItem3,
+            this.labaRugiToolStripMenuItem});
             this.lAPORANToolStripMenuItem.Name = "lAPORANToolStripMenuItem";
             this.lAPORANToolStripMenuItem.Size = new System.Drawing.Size(73, 23);
             this.lAPORANToolStripMenuItem.Text = "LAPORAN";
@@ -193,14 +195,14 @@ namespace TokoBuku
             // cetakNotaToolStripMenuItem
             // 
             this.cetakNotaToolStripMenuItem.Name = "cetakNotaToolStripMenuItem";
-            this.cetakNotaToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.cetakNotaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cetakNotaToolStripMenuItem.Text = "Penjualan";
             this.cetakNotaToolStripMenuItem.Click += new System.EventHandler(this.cetakNotaToolStripMenuItem_Click);
             // 
             // pembelianToolStripMenuItem3
             // 
             this.pembelianToolStripMenuItem3.Name = "pembelianToolStripMenuItem3";
-            this.pembelianToolStripMenuItem3.Size = new System.Drawing.Size(130, 22);
+            this.pembelianToolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.pembelianToolStripMenuItem3.Text = "Pembelian";
             this.pembelianToolStripMenuItem3.Click += new System.EventHandler(this.pembelianToolStripMenuItem3_Click);
             // 
@@ -242,7 +244,7 @@ namespace TokoBuku
             this.button1.Dock = System.Windows.Forms.DockStyle.Right;
             this.button1.Image = global::TokoBuku.Properties.Resources.user;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(895, 0);
+            this.button1.Location = new System.Drawing.Point(1015, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(69, 27);
@@ -256,6 +258,13 @@ namespace TokoBuku
             this.contextMenu1.Name = "contextMenu1";
             this.contextMenu1.Size = new System.Drawing.Size(61, 4);
             this.contextMenu1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu1_Opening);
+            // 
+            // labaRugiToolStripMenuItem
+            // 
+            this.labaRugiToolStripMenuItem.Name = "labaRugiToolStripMenuItem";
+            this.labaRugiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.labaRugiToolStripMenuItem.Text = "Laba Rugi";
+            this.labaRugiToolStripMenuItem.Click += new System.EventHandler(this.labaRugiToolStripMenuItem_Click);
             // 
             // TokoBukuWindows
             // 
@@ -304,5 +313,6 @@ namespace TokoBuku
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ContextMenuStrip contextMenu1;
+        private System.Windows.Forms.ToolStripMenuItem labaRugiToolStripMenuItem;
     }
 }

@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Master;
+using TokoBuku.BaseForm.Report.Transaksi;
 using TokoBuku.BaseForm.Transaksi;
 
 namespace TokoBuku
@@ -218,6 +219,13 @@ namespace TokoBuku
                 Name = "Logout"
             };
             this.contextMenu1.Items.Add("Logout");
+        }
+
+        private void labaRugiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // TODO: Add laporan laba rugi, and call the form
+            var form = new LaporanLabaRugi();
+            form.ShowDialog();
         }
     }
 }
