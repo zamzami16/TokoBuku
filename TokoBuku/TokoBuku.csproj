@@ -356,6 +356,12 @@
     <Compile Include="BaseForm\Transaksi\SearchForm\FormSearch.Designer.cs">
       <DependentUpon>FormSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="_temp_\testProcedure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_temp_\testProcedure.Designer.cs">
+      <DependentUpon>testProcedure.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="BaseForm\EditForm\FormEditDataPelangganSupplier.resx">
       <DependentUpon>FormEditDataPelangganSupplier.cs</DependentUpon>
     </EmbeddedResource>
