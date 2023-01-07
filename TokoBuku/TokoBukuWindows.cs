@@ -2,6 +2,8 @@
 using System.Data;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Master;
+using TokoBuku.BaseForm.Report.HutangPiutang;
+using TokoBuku.BaseForm.Report.Master;
 using TokoBuku.BaseForm.Report.Transaksi;
 using TokoBuku.BaseForm.Transaksi;
 
@@ -223,8 +225,25 @@ namespace TokoBuku
 
         private void labaRugiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: Add laporan laba rugi, and call the form
             var form = new LaporanLabaRugi();
+            form.ShowDialog();
+        }
+
+        private void barangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new LaporanBarang();
+            form.ShowDialog();
+        }
+
+        private void hutangToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = new LaporanHutang();
+            form.ShowDialog();
+        }
+
+        private void piutangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new LaporanPiutang();
             form.ShowDialog();
         }
     }

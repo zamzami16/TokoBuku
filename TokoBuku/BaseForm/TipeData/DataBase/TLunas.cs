@@ -3,6 +3,6 @@
     public enum TLunas
     {
         Belum,
-        Sudah
+        Lunas
     }
 }

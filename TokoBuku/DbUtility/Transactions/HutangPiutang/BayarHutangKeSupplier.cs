@@ -99,7 +99,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
                     cmd.Dispose();
                 }
                 UpdateKas.KurangKasPembelianKredit(bayarHutang);
-                if (lunas == TLunas.Sudah)
+                if (lunas == TLunas.Lunas)
                 {
                     var query_ = "update hutang set sudah_lunas=@sudah_lunas where id=@id_hutang";
                     using (var cmd = new FbCommand(query_, con))

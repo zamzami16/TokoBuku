@@ -88,7 +88,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                             bayarHutang.IdKas = Convert.ToInt32(this.comboBoxJenisKas.SelectedValue.ToString());
                             bayarHutang.isDP = TIsDP.bukan;
                             DbUtility.Transactions.HutangPiutang.BayarHutangKeSupplier
-                                .BayarHutang(bayarHutang, TLunas.Sudah);
+                                .BayarHutang(bayarHutang, TLunas.Lunas);
                         }
                         MessageBox.Show("Pembayaran Hutang Berhasil.", "Succcess.");
                         this.RefreshDataHutang();
@@ -117,7 +117,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
                 if (bayarHutang.Pembayaran - Convert.ToDouble(this.textBoxTotal.Text.Replace("Rp", "")) >= 0)
                 {
-                    lunas = TLunas.Sudah;
+                    lunas = TLunas.Lunas;
                 }
                 if (bayarHutang.Pembayaran > 0)
                 {

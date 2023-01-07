@@ -47,13 +47,17 @@ namespace TokoBuku
             this.lAPORANToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cetakNotaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pembelianToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.labaRugiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hutangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hutangToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.piutangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.barangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rESETDATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.contextMenu1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.labaRugiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -186,7 +190,9 @@ namespace TokoBuku
             this.lAPORANToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cetakNotaToolStripMenuItem,
             this.pembelianToolStripMenuItem3,
-            this.labaRugiToolStripMenuItem});
+            this.labaRugiToolStripMenuItem,
+            this.hutangToolStripMenuItem,
+            this.barangToolStripMenuItem});
             this.lAPORANToolStripMenuItem.Name = "lAPORANToolStripMenuItem";
             this.lAPORANToolStripMenuItem.Size = new System.Drawing.Size(73, 23);
             this.lAPORANToolStripMenuItem.Text = "LAPORAN";
@@ -205,6 +211,43 @@ namespace TokoBuku
             this.pembelianToolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.pembelianToolStripMenuItem3.Text = "Pembelian";
             this.pembelianToolStripMenuItem3.Click += new System.EventHandler(this.pembelianToolStripMenuItem3_Click);
+            // 
+            // labaRugiToolStripMenuItem
+            // 
+            this.labaRugiToolStripMenuItem.Name = "labaRugiToolStripMenuItem";
+            this.labaRugiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.labaRugiToolStripMenuItem.Text = "Laba Rugi";
+            this.labaRugiToolStripMenuItem.Click += new System.EventHandler(this.labaRugiToolStripMenuItem_Click);
+            // 
+            // hutangToolStripMenuItem
+            // 
+            this.hutangToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hutangToolStripMenuItem1,
+            this.piutangToolStripMenuItem});
+            this.hutangToolStripMenuItem.Name = "hutangToolStripMenuItem";
+            this.hutangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hutangToolStripMenuItem.Text = "Hutang Piutang";
+            // 
+            // hutangToolStripMenuItem1
+            // 
+            this.hutangToolStripMenuItem1.Name = "hutangToolStripMenuItem1";
+            this.hutangToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.hutangToolStripMenuItem1.Text = "Hutang";
+            this.hutangToolStripMenuItem1.Click += new System.EventHandler(this.hutangToolStripMenuItem1_Click);
+            // 
+            // piutangToolStripMenuItem
+            // 
+            this.piutangToolStripMenuItem.Name = "piutangToolStripMenuItem";
+            this.piutangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.piutangToolStripMenuItem.Text = "Piutang";
+            this.piutangToolStripMenuItem.Click += new System.EventHandler(this.piutangToolStripMenuItem_Click);
+            // 
+            // barangToolStripMenuItem
+            // 
+            this.barangToolStripMenuItem.Name = "barangToolStripMenuItem";
+            this.barangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.barangToolStripMenuItem.Text = "Barang";
+            this.barangToolStripMenuItem.Click += new System.EventHandler(this.barangToolStripMenuItem_Click);
             // 
             // dATABASEToolStripMenuItem
             // 
@@ -259,13 +302,6 @@ namespace TokoBuku
             this.contextMenu1.Size = new System.Drawing.Size(61, 4);
             this.contextMenu1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu1_Opening);
             // 
-            // labaRugiToolStripMenuItem
-            // 
-            this.labaRugiToolStripMenuItem.Name = "labaRugiToolStripMenuItem";
-            this.labaRugiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.labaRugiToolStripMenuItem.Text = "Laba Rugi";
-            this.labaRugiToolStripMenuItem.Click += new System.EventHandler(this.labaRugiToolStripMenuItem_Click);
-            // 
             // TokoBukuWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -314,5 +350,9 @@ namespace TokoBuku
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ContextMenuStrip contextMenu1;
         private System.Windows.Forms.ToolStripMenuItem labaRugiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hutangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem barangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hutangToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem piutangToolStripMenuItem;
     }
 }

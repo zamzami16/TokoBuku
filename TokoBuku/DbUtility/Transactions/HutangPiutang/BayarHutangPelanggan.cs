@@ -44,7 +44,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
                     cmd.Dispose();
                 }
                 UpdateKas.TambahKasHutangPelanggan(bayarPiutang);
-                if (lunas == TLunas.Sudah)
+                if (lunas == TLunas.Lunas)
                 {
                     using (var cmd = new FbCommand())
                     {

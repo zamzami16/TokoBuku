@@ -100,7 +100,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                             double kembalian = (ctr == 0) ? kembalian_ : 0;
 
                             DbUtility.Transactions.HutangPiutang.BayarHutangPelanggan
-                                .BayarHutang(bayarPiutang, kembalian, TLunas.Sudah);
+                                .BayarHutang(bayarPiutang, kembalian, TLunas.Lunas);
                             ctr++;
                         }
                         MessageBox.Show("Pembayaran Hutang Berhasil.", "Succcess.");
@@ -124,7 +124,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                 TLunas lunas = TLunas.Belum;
                 var i_ = double.TryParse(this.textBoxNominalBayar.Text, out pembayaran);
                 double kembalian = pembayaran - double.Parse(this.textBoxTotal.Text, NumberStyles.AllowCurrencySymbol | NumberStyles.Currency);
-                if (kembalian >= 0) { lunas = TLunas.Sudah; }
+                if (kembalian >= 0) { lunas = TLunas.Lunas; }
                 
                 TBayarPiutang bayarPiutang = new TBayarPiutang();
                 bayarPiutang.IdPiutang = Convert.ToInt32(this.DgvListHutang.Rows[0].Cells["id_piutang"].Value.ToString());

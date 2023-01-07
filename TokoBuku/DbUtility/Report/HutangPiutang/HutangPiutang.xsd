@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="HutangPiutang" targetNamespace="http://tempuri.org/HutangPiutang.xsd" xmlns:mstns="http://tempuri.org/HutangPiutang.xsd" xmlns="http://tempuri.org/HutangPiutang.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="HutangPiutang" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="HutangPiutang" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="HutangPiutang">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Hutang" msprop:Generator_RowClassName="HutangRow" msprop:Generator_RowEvHandlerName="HutangRowChangeEventHandler" msprop:Generator_RowDeletedName="HutangRowDeleted" msprop:Generator_RowDeletingName="HutangRowDeleting" msprop:Generator_RowEvArgName="HutangRowChangeEvent" msprop:Generator_TablePropName="Hutang" msprop:Generator_RowChangedName="HutangRowChanged" msprop:Generator_UserTableName="Hutang" msprop:Generator_RowChangingName="HutangRowChanging" msprop:Generator_TableClassName="HutangDataTable" msprop:Generator_TableVarName="tableHutang">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_hutang" msprop:Generator_UserColumnName="id_hutang" msprop:Generator_ColumnPropNameInTable="id_hutangColumn" msprop:Generator_ColumnPropNameInRow="id_hutang" msprop:Generator_ColumnVarNameInTable="columnid_hutang" type="xs:int" minOccurs="0" />
+              <xs:element name="no_nota" msprop:Generator_UserColumnName="no_nota" msprop:Generator_ColumnPropNameInTable="no_notaColumn" msprop:Generator_ColumnPropNameInRow="no_nota" msprop:Generator_ColumnVarNameInTable="columnno_nota" type="xs:string" minOccurs="0" />
+              <xs:element name="nama_supplier" msprop:Generator_UserColumnName="nama_supplier" msprop:Generator_ColumnPropNameInTable="nama_supplierColumn" msprop:Generator_ColumnPropNameInRow="nama_supplier" msprop:Generator_ColumnVarNameInTable="columnnama_supplier" type="xs:string" minOccurs="0" />
+              <xs:element name="tenggat" msprop:Generator_UserColumnName="tenggat" msprop:Generator_ColumnPropNameInTable="tenggatColumn" msprop:Generator_ColumnPropNameInRow="tenggat" msprop:Generator_ColumnVarNameInTable="columntenggat" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="total" msprop:Generator_UserColumnName="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnVarNameInTable="columntotal" type="xs:double" minOccurs="0" />
+              <xs:element name="sudah_lunas" msprop:Generator_UserColumnName="sudah_lunas" msprop:Generator_ColumnPropNameInTable="sudah_lunasColumn" msprop:Generator_ColumnPropNameInRow="sudah_lunas" msprop:Generator_ColumnVarNameInTable="columnsudah_lunas" type="xs:string" minOccurs="0" />
+              <xs:element name="sudah_bayar" msprop:Generator_UserColumnName="sudah_bayar" msprop:Generator_ColumnPropNameInTable="sudah_bayarColumn" msprop:Generator_ColumnPropNameInRow="sudah_bayar" msprop:Generator_ColumnVarNameInTable="columnsudah_bayar" type="xs:double" minOccurs="0" />
+              <xs:element name="hutang_sekarang" msprop:Generator_UserColumnName="hutang_sekarang" msprop:Generator_ColumnPropNameInTable="hutang_sekarangColumn" msprop:Generator_ColumnPropNameInRow="hutang_sekarang" msprop:Generator_ColumnVarNameInTable="columnhutang_sekarang" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Piutang" msprop:Generator_RowEvHandlerName="PiutangRowChangeEventHandler" msprop:Generator_RowDeletedName="PiutangRowDeleted" msprop:Generator_RowDeletingName="PiutangRowDeleting" msprop:Generator_RowEvArgName="PiutangRowChangeEvent" msprop:Generator_TablePropName="Piutang" msprop:Generator_RowChangedName="PiutangRowChanged" msprop:Generator_RowChangingName="PiutangRowChanging" msprop:Generator_TableClassName="PiutangDataTable" msprop:Generator_RowClassName="PiutangRow" msprop:Generator_TableVarName="tablePiutang" msprop:Generator_UserTableName="Piutang">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_piutang" msprop:Generator_ColumnPropNameInRow="id_piutang" msprop:Generator_ColumnPropNameInTable="id_piutangColumn" msprop:Generator_ColumnVarNameInTable="columnid_piutang" msprop:Generator_UserColumnName="id_piutang" type="xs:int" minOccurs="0" />
+              <xs:element name="kode_transaksi" msprop:Generator_ColumnPropNameInRow="kode_transaksi" msprop:Generator_ColumnPropNameInTable="kode_transaksiColumn" msprop:Generator_ColumnVarNameInTable="columnkode_transaksi" msprop:Generator_UserColumnName="kode_transaksi" type="xs:string" minOccurs="0" />
+              <xs:element name="nama_pelanggan" msprop:Generator_ColumnPropNameInRow="nama_pelanggan" msprop:Generator_ColumnPropNameInTable="nama_pelangganColumn" msprop:Generator_ColumnVarNameInTable="columnnama_pelanggan" msprop:Generator_UserColumnName="nama_pelanggan" type="xs:string" minOccurs="0" />
+              <xs:element name="tenggat" msprop:Generator_ColumnPropNameInRow="tenggat" msprop:Generator_ColumnPropNameInTable="tenggatColumn" msprop:Generator_ColumnVarNameInTable="columntenggat" msprop:Generator_UserColumnName="tenggat" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="total_hutang" msprop:Generator_ColumnPropNameInRow="total_hutang" msprop:Generator_ColumnPropNameInTable="total_hutangColumn" msprop:Generator_ColumnVarNameInTable="columntotal_hutang" msprop:Generator_UserColumnName="total_hutang" type="xs:double" minOccurs="0" />
+              <xs:element name="sudah_bayar" msprop:Generator_ColumnPropNameInRow="sudah_bayar" msprop:Generator_ColumnPropNameInTable="sudah_bayarColumn" msprop:Generator_ColumnVarNameInTable="columnsudah_bayar" msprop:Generator_UserColumnName="sudah_bayar" type="xs:double" minOccurs="0" />
+              <xs:element name="belum_dibayar" msprop:Generator_ColumnPropNameInRow="belum_dibayar" msprop:Generator_ColumnPropNameInTable="belum_dibayarColumn" msprop:Generator_ColumnVarNameInTable="columnbelum_dibayar" msprop:Generator_UserColumnName="belum_dibayar" type="xs:double" minOccurs="0" />
+              <xs:element name="sudah_lunas" msprop:Generator_ColumnPropNameInRow="sudah_lunas" msprop:Generator_ColumnPropNameInTable="sudah_lunasColumn" msprop:Generator_ColumnVarNameInTable="columnsudah_lunas" msprop:Generator_UserColumnName="sudah_lunas" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
