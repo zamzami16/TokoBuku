@@ -75,9 +75,5 @@ namespace TokoBuku.BaseForm.Report.Transaksi
                 this.UpdateDataSource(mulai, sampai);
             }
         }
-
-        // TODO: Total Potongan dan Diskon disendirikan
-        // TODO: Gaperlu dimerah
-
     }
 }
