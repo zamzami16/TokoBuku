@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -10,37 +11,48 @@ namespace TokoBuku.BaseForm.Transaksi
 {
     public partial class HistoriPembelian : Form
     {
-        private DataTable data = new DataTable();
+        private DataTable data { get; set; }
         private DataTable TempData = new DataTable();
         public HistoriPembelian()
         {
             InitializeComponent();
+            this.data = DbUtility.Transactions.Pembelian.HistoriPembelian();
+            this.TempData = this.data;
         }
 
         private void HistoriPembelian_Load(object sender, EventArgs e)
         {
+            this.reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+            this.reportViewer1.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
+            this.reportViewer1.ZoomPercent = 100;
+
             this.RefreshDataTable();
+            this.reportViewer1.RefreshReport();
         }
 
         private void RefreshDataTable()
         {
-            this.data = TokoBuku.DbUtility.Transactions.Pembelian.HistoriPembelian();
-            this.dgv.DataSource = this.data;
-            this.dgv.Columns[0].Visible = false;
-            this.dgv.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dgv.Columns[1].MinimumWidth = 125;
-            for (int i = 2; i < this.dgv.ColumnCount; i++)
-            {
-                this.dgv.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            }
-            this.dgv.Columns["total"].DefaultCellStyle.Format = "C";
-            this.dgv.Columns["total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
             this.UpdateComboSupplier();
             this.UpdateMinMaxDate();
             this.UpdateTipePembayaran();
             this.UpdateJenisKas();
-            this.TempData = this.data;
+            this.UpdateDataReport();
+        }
+
+        private void UpdateDataReport()
+        {
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource = new Microsoft.Reporting.WinForms.ReportDataSource()
+            {
+                Name = "DataSetReportPembelian",
+                Value = this.TempData
+            };
+
+            ReportParameter[] parameters = new ReportParameter[2];
+            parameters[0] = new ReportParameter("DateMulai", this.dateTimePickerDari.Value.ToString());
+            parameters[1] = new ReportParameter("DateSampai", this.dateTimePickerSampai.Value.ToString());
+            this.reportViewer1.LocalReport.SetParameters(parameters);
+            this.reportViewer1.LocalReport.DataSources.Clear();
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource);
         }
 
         private void UpdateJenisKas()
@@ -99,22 +111,6 @@ namespace TokoBuku.BaseForm.Transaksi
             this.dateTimePickerSampai.Value = last;
         }
 
-        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            var grid = sender as DataGridView;
-            var rowIdx = (e.RowIndex + 1).ToString();
-
-            var centerFormat = new StringFormat()
-            {
-                // right alignment might actually make more sense for numbers
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-
-            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
-            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
-        }
-
         private void buttonTerapkan_Click(object sender, EventArgs e)
         {
             this.TempData = this.data.Copy();
@@ -148,16 +144,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 DataView dv = new DataView(TempData);
                 dv.RowFilter = exp_;
                 TempData = dv.ToTable();
-            }
-            this.dgv.DataSource = TempData;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (var form = new LaporanDataPembelian())
-            {
-                form.data = this.TempData;
-                form.ShowDialog();
+                this.UpdateDataReport();
             }
         }
     }

@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dgv = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonTerapkan = new System.Windows.Forms.Button();
@@ -45,9 +43,8 @@
             this.comboBoxKasir = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.buttonBuatLaporan = new System.Windows.Forms.Button();
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,9 +53,9 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.dgv, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.reportViewer1, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -67,21 +64,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(884, 461);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // dgv
-            // 
-            this.dgv.AllowUserToAddRows = false;
-            this.dgv.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightGray;
-            this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv.Location = new System.Drawing.Point(153, 33);
-            this.dgv.Name = "dgv";
-            this.dgv.ReadOnly = true;
-            this.dgv.Size = new System.Drawing.Size(728, 425);
-            this.dgv.TabIndex = 1;
-            this.dgv.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
             // label1
             // 
@@ -98,7 +80,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonBuatLaporan);
             this.panel1.Controls.Add(this.buttonTerapkan);
             this.panel1.Controls.Add(this.comboBoxKas);
             this.panel1.Controls.Add(this.label7);
@@ -129,6 +110,7 @@
             // 
             // comboBoxKas
             // 
+            this.comboBoxKas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxKas.FormattingEnabled = true;
             this.comboBoxKas.Location = new System.Drawing.Point(3, 256);
             this.comboBoxKas.Name = "comboBoxKas";
@@ -146,6 +128,7 @@
             // 
             // comboBoxTipeBayar
             // 
+            this.comboBoxTipeBayar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipeBayar.FormattingEnabled = true;
             this.comboBoxTipeBayar.Location = new System.Drawing.Point(3, 208);
             this.comboBoxTipeBayar.Name = "comboBoxTipeBayar";
@@ -195,6 +178,7 @@
             // 
             // comboBoxKasir
             // 
+            this.comboBoxKasir.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxKasir.FormattingEnabled = true;
             this.comboBoxKasir.Location = new System.Drawing.Point(3, 63);
             this.comboBoxKasir.Name = "comboBoxKasir";
@@ -220,15 +204,15 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "FILTER";
             // 
-            // buttonBuatLaporan
+            // reportViewer1
             // 
-            this.buttonBuatLaporan.Location = new System.Drawing.Point(3, 393);
-            this.buttonBuatLaporan.Name = "buttonBuatLaporan";
-            this.buttonBuatLaporan.Size = new System.Drawing.Size(138, 23);
-            this.buttonBuatLaporan.TabIndex = 23;
-            this.buttonBuatLaporan.Text = "BUAT LAPORAN";
-            this.buttonBuatLaporan.UseVisualStyleBackColor = true;
-            this.buttonBuatLaporan.Click += new System.EventHandler(this.buttonBuatLaporan_Click);
+            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "TokoBuku.BaseForm.Report.Transaksi.ReportDataPenjualan.rdlc";
+            this.reportViewer1.Location = new System.Drawing.Point(153, 33);
+            this.reportViewer1.Name = "reportViewer1";
+            this.reportViewer1.ServerReport.BearerToken = null;
+            this.reportViewer1.Size = new System.Drawing.Size(728, 425);
+            this.reportViewer1.TabIndex = 3;
             // 
             // HistoriPenjualan
             // 
@@ -237,15 +221,13 @@
             this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "HistoriPenjualan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Histori Penjualan";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.HistoriPembelian_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -256,7 +238,6 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonTerapkan;
@@ -270,6 +251,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBoxKasir;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonBuatLaporan;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
     }
 }

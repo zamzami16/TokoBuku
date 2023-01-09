@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -17,39 +18,43 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             InitializeComponent();
         }
-        /// TODO: tambahkan filter
+        
         private void HistoriPembelian_Load(object sender, EventArgs e)
         {
+            this.reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+            this.reportViewer1.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
+            this.reportViewer1.ZoomPercent = 100;
             this.RefreshDataPenjualan();
+            this.reportViewer1.RefreshReport();
         }
 
         private void RefreshDataPenjualan()
         {
             this.data = TokoBuku.DbUtility.Transactions.Penjualan.GetHistoriPenjualan();
-            this.dgv.DataSource = this.data;
-            this.dgv.Columns[0].Visible = false;
-            for (int i = 1; i < this.dgv.ColumnCount; i++)
-            {
-                this.dgv.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            }
-            this.dgv.Columns["keterangan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dgv.Columns[1].HeaderText = "No Transaksi";
-            this.dgv.Columns[2].HeaderText = "kasir";
-            this.dgv.Columns[3].HeaderText = "pelanggan";
-            this.dgv.Columns[4].HeaderText = "total";
-            this.dgv.Columns[5].HeaderText = "tanggal";
-            this.dgv.Columns[6].HeaderText = "pembayaran";
-            this.dgv.Columns[7].HeaderText = "kas";
-
-            this.dgv.Columns[4].DefaultCellStyle.Format = "c";
-            this.dgv.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
+            
             this.tempData = this.data;
-
+                        
             this.UpdateMinMaxDate();
             this.UpdateTipePembayaran();
             this.UpdateJenisKas();
             this.UpdateComboKasir();
+            this.UpdateReportData();
+        }
+
+        private void UpdateReportData()
+        {
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource = new Microsoft.Reporting.WinForms.ReportDataSource()
+            {
+                Name = "DataSetReportPenjualan",
+                Value = this.tempData
+            };
+
+            ReportParameter[] parameters = new ReportParameter[2];
+            parameters[0] = new ReportParameter("DateMulai", this.dateTimePickerDari.Value.ToString());
+            parameters[1] = new ReportParameter("DateSampai", this.dateTimePickerSampai.Value.ToString());
+            this.reportViewer1.LocalReport.SetParameters(parameters);
+            this.reportViewer1.LocalReport.DataSources.Clear();
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource);
         }
 
         private void UpdateComboKasir()
@@ -158,16 +163,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 dv.RowFilter = exp_;
                 this.tempData = dv.ToTable();
             }
-            this.dgv.DataSource = this.tempData;
-        }
-
-        private void buttonBuatLaporan_Click(object sender, EventArgs e)
-        {
-            using (var form = new LaporanDataPenjualan())
-            {
-                form.data = this.dataTable;
-                form.ShowDialog();
-            }
+            this.UpdateReportData();
         }
     }
 }

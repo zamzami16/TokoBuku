@@ -203,7 +203,7 @@ namespace TokoBuku
             this.cetakNotaToolStripMenuItem.Name = "cetakNotaToolStripMenuItem";
             this.cetakNotaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cetakNotaToolStripMenuItem.Text = "Penjualan";
-            this.cetakNotaToolStripMenuItem.Click += new System.EventHandler(this.cetakNotaToolStripMenuItem_Click);
+            this.cetakNotaToolStripMenuItem.Click += new System.EventHandler(this.historyPenjualanStripMenuItem_Click);
             // 
             // pembelianToolStripMenuItem3
             // 
@@ -231,14 +231,14 @@ namespace TokoBuku
             // hutangToolStripMenuItem1
             // 
             this.hutangToolStripMenuItem1.Name = "hutangToolStripMenuItem1";
-            this.hutangToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.hutangToolStripMenuItem1.Size = new System.Drawing.Size(115, 22);
             this.hutangToolStripMenuItem1.Text = "Hutang";
             this.hutangToolStripMenuItem1.Click += new System.EventHandler(this.hutangToolStripMenuItem1_Click);
             // 
             // piutangToolStripMenuItem
             // 
             this.piutangToolStripMenuItem.Name = "piutangToolStripMenuItem";
-            this.piutangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.piutangToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.piutangToolStripMenuItem.Text = "Piutang";
             this.piutangToolStripMenuItem.Click += new System.EventHandler(this.piutangToolStripMenuItem_Click);
             // 

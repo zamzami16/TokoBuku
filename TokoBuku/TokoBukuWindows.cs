@@ -197,20 +197,24 @@ namespace TokoBuku
             this.rESETDATABASEToolStripMenuItem.Enabled = this.IsAdmin;
         }
 
-        private void cetakNotaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void historyPenjualanStripMenuItem_Click(object sender, EventArgs e)
         {// Penjualan
-            this.historiPenjualan = new HistoriPenjualan { MdiParent = this };
+            /*this.historiPenjualan = new HistoriPenjualan { MdiParent = this };
             this.historiPenjualan.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.historiPenjualan.Dock = DockStyle.Fill;
-            this.historiPenjualan.Show();
+            this.historiPenjualan.Show();*/
+            var form = new HistoriPenjualan();
+            form.ShowDialog();
         }
 
         private void pembelianToolStripMenuItem3_Click(object sender, EventArgs e)
         {// Pembelian
-            this.historiPembelian = new HistoriPembelian { MdiParent = this };
+            /*this.historiPembelian = new HistoriPembelian { MdiParent = this };
             this.historiPembelian.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.historiPembelian.Dock= DockStyle.Fill;
-            this.historiPembelian.Show();
+            this.historiPembelian.Show();*/
+            var form = new HistoriPembelian();
+            form.ShowDialog();
         }
 
         private void contextMenu1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
