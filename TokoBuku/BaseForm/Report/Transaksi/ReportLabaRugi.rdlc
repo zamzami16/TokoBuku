@@ -33,8 +33,8 @@
           <DataField>harga_jual</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
-        <Field Name="tot_disc_pot">
-          <DataField>tot_disc_pot</DataField>
+        <Field Name="tot_disc">
+          <DataField>tot_disc</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="total">
@@ -47,6 +47,10 @@
         </Field>
         <Field Name="laba_kotor">
           <DataField>laba_kotor</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="total_potongan">
+          <DataField>total_potongan</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
       </Fields>
@@ -68,28 +72,31 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.95246cm</Width>
+                  <Width>0.67468cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.16955cm</Width>
+                  <Width>1.89177cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.83101cm</Width>
+                  <Width>1.55323cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.61031cm</Width>
+                  <Width>2.33253cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.61031cm</Width>
+                  <Width>2.33253cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.61031cm</Width>
+                  <Width>2.22222cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.61031cm</Width>
+                  <Width>2.33253cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.61031cm</Width>
+                  <Width>2.33253cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.33253cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -249,20 +256,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Potongan</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>(pot + disc)</Value>
+                                  <Value>Total  Diskon</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -274,6 +268,42 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox11</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>DimGray</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>Silver</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox6">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Potongan</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>DimGray</Color>
@@ -424,7 +454,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!laba_kotor.Value &lt; 0, "Red", IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent"))</BackgroundColor>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -457,7 +487,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!laba_kotor.Value &lt; 0, "Red", IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent"))</BackgroundColor>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -488,7 +518,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!laba_kotor.Value &lt; 0, "Red", IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent"))</BackgroundColor>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -523,7 +553,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!laba_kotor.Value &lt; 0, "Red", IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent"))</BackgroundColor>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -535,14 +565,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="tot_disc_pot">
+                        <Textbox Name="tot_disc">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!tot_disc_pot.Value</Value>
+                                  <Value>=Fields!tot_disc.Value</Value>
                                   <Style>
                                     <Format>'Rp'#,0;('Rp'#,0)</Format>
                                   </Style>
@@ -553,13 +583,49 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>tot_disc_pot</rd:DefaultName>
+                          <rd:DefaultName>tot_disc</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!laba_kotor.Value &lt; 0, "Red", IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent"))</BackgroundColor>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="total_potongan">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!total_potongan.Value</Value>
+                                  <Style>
+                                    <Format>'Rp'#,0;('Rp'#,0)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>total_potongan</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -595,7 +661,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!laba_kotor.Value &lt; 0, "Red", IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent"))</BackgroundColor>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -630,7 +696,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!laba_kotor.Value &lt; 0, "Red", IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent"))</BackgroundColor>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -650,7 +716,7 @@
                                 <TextRun>
                                   <Value>=Fields!laba_kotor.Value</Value>
                                   <Style>
-                                    <Format>'Rp'#,0</Format>
+                                    <Format>'Rp'#,0;('Rp'#,0)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -665,7 +731,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!laba_kotor.Value &lt; 0, "Red", IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent"))</BackgroundColor>
+                            <BackgroundColor>=IIF(RowNumber("DataSetLabaRugi") Mod 2 = 0, "LightGrey", "Transparent")</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -673,7 +739,6 @@
                             <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -762,7 +827,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!tot_disc_pot.Value, "DataSetLabaRugi")</Value>
+                                  <Value>=Sum(Fields!tot_disc.Value, "DataSetLabaRugi")</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>'Rp'#,0;('Rp'#,0)</Format>
@@ -786,6 +851,43 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox10">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!total_potongan.Value, "DataSetLabaRugi")</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>'Rp'#,0;('Rp'#,0)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -889,6 +991,7 @@
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -899,6 +1002,7 @@
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -927,7 +1031,7 @@
             <Top>0.23495cm</Top>
             <Left>1.0287cm</Left>
             <Height>2.77151cm</Height>
-            <Width>18.00457cm</Width>
+            <Width>18.00458cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -938,7 +1042,7 @@
         <Height>3.00646cm</Height>
         <Style />
       </Body>
-      <Width>20.5cm</Width>
+      <Width>19.04619cm</Width>
       <Page>
         <PageHeader>
           <Height>2.80458cm</Height>

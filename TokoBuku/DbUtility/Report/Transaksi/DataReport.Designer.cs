@@ -1033,13 +1033,15 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
             
             private global::System.Data.DataColumn columnharga_jual;
             
-            private global::System.Data.DataColumn columntot_disc_pot;
+            private global::System.Data.DataColumn columntot_disc;
             
             private global::System.Data.DataColumn columntotal;
             
             private global::System.Data.DataColumn columnharga_beli;
             
             private global::System.Data.DataColumn columnlaba_kotor;
+            
+            private global::System.Data.DataColumn columntotal_potongan;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -1108,9 +1110,9 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn tot_disc_potColumn {
+            public global::System.Data.DataColumn tot_discColumn {
                 get {
-                    return this.columntot_disc_pot;
+                    return this.columntot_disc;
                 }
             }
             
@@ -1135,6 +1137,14 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
             public global::System.Data.DataColumn laba_kotorColumn {
                 get {
                     return this.columnlaba_kotor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn total_potonganColumn {
+                get {
+                    return this.columntotal_potongan;
                 }
             }
             
@@ -1175,17 +1185,18 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public LabaRugiRow AddLabaRugiRow(int id, System.DateTime tanggal, string status_pembayaran, double harga_jual, double tot_disc_pot, double total, double harga_beli, double laba_kotor) {
+            public LabaRugiRow AddLabaRugiRow(int id, System.DateTime tanggal, string status_pembayaran, double harga_jual, double tot_disc, double total, double harga_beli, double laba_kotor, double total_potongan) {
                 LabaRugiRow rowLabaRugiRow = ((LabaRugiRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
                         tanggal,
                         status_pembayaran,
                         harga_jual,
-                        tot_disc_pot,
+                        tot_disc,
                         total,
                         harga_beli,
-                        laba_kotor};
+                        laba_kotor,
+                        total_potongan};
                 rowLabaRugiRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowLabaRugiRow);
                 return rowLabaRugiRow;
@@ -1212,10 +1223,11 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
                 this.columntanggal = base.Columns["tanggal"];
                 this.columnstatus_pembayaran = base.Columns["status_pembayaran"];
                 this.columnharga_jual = base.Columns["harga_jual"];
-                this.columntot_disc_pot = base.Columns["tot_disc_pot"];
+                this.columntot_disc = base.Columns["tot_disc"];
                 this.columntotal = base.Columns["total"];
                 this.columnharga_beli = base.Columns["harga_beli"];
                 this.columnlaba_kotor = base.Columns["laba_kotor"];
+                this.columntotal_potongan = base.Columns["total_potongan"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1229,14 +1241,16 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
                 base.Columns.Add(this.columnstatus_pembayaran);
                 this.columnharga_jual = new global::System.Data.DataColumn("harga_jual", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnharga_jual);
-                this.columntot_disc_pot = new global::System.Data.DataColumn("tot_disc_pot", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columntot_disc_pot);
+                this.columntot_disc = new global::System.Data.DataColumn("tot_disc", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntot_disc);
                 this.columntotal = new global::System.Data.DataColumn("total", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntotal);
                 this.columnharga_beli = new global::System.Data.DataColumn("harga_beli", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnharga_beli);
                 this.columnlaba_kotor = new global::System.Data.DataColumn("laba_kotor", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlaba_kotor);
+                this.columntotal_potongan = new global::System.Data.DataColumn("total_potongan", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotal_potongan);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1893,17 +1907,17 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public double tot_disc_pot {
+            public double tot_disc {
                 get {
                     try {
-                        return ((double)(this[this.tableLabaRugi.tot_disc_potColumn]));
+                        return ((double)(this[this.tableLabaRugi.tot_discColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'tot_disc_pot\' in table \'LabaRugi\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'tot_disc\' in table \'LabaRugi\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableLabaRugi.tot_disc_potColumn] = value;
+                    this[this.tableLabaRugi.tot_discColumn] = value;
                 }
             }
             
@@ -1957,6 +1971,22 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public double total_potongan {
+                get {
+                    try {
+                        return ((double)(this[this.tableLabaRugi.total_potonganColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'total_potongan\' in table \'LabaRugi\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLabaRugi.total_potonganColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsidNull() {
                 return this.IsNull(this.tableLabaRugi.idColumn);
             }
@@ -2005,14 +2035,14 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Istot_disc_potNull() {
-                return this.IsNull(this.tableLabaRugi.tot_disc_potColumn);
+            public bool Istot_discNull() {
+                return this.IsNull(this.tableLabaRugi.tot_discColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Settot_disc_potNull() {
-                this[this.tableLabaRugi.tot_disc_potColumn] = global::System.Convert.DBNull;
+            public void Settot_discNull() {
+                this[this.tableLabaRugi.tot_discColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2049,6 +2079,18 @@ namespace TokoBuku.DbUtility.Report.Transaksi {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setlaba_kotorNull() {
                 this[this.tableLabaRugi.laba_kotorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Istotal_potonganNull() {
+                return this.IsNull(this.tableLabaRugi.total_potonganColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Settotal_potonganNull() {
+                this[this.tableLabaRugi.total_potonganColumn] = global::System.Convert.DBNull;
             }
         }
         

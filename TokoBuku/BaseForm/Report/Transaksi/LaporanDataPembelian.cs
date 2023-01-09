@@ -26,6 +26,9 @@ namespace TokoBuku.BaseForm.Report.Transaksi
             this.reportDataPelanggan.LocalReport.DataSources.Clear();
             this.reportDataPelanggan.LocalReport.DataSources.Add(reportDataSource);
             this.reportDataPelanggan.RefreshReport();
+            // TODO: Pembelian. Jadikan 1 saja dengan report viewer
+            // TODO: Pembelian. [Tgl | No Transaksi | Pelanggan | Pembayaran | Total | Kasir]
+            // TODO: Pembelian. Rev: [Header] => Nama PT. [Body] => Judul + Periode tanggal
         }
     }
 }

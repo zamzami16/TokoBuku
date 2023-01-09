@@ -168,5 +168,7 @@ namespace TokoBuku.BaseForm.Report.Transaksi
                 form.ShowDialog();
             }
         }
+
+        // TODO: DIbuat perputaran barang aja. Lihat stock awal, dan berapa yang terjual, lalu kasih tau berapa yang harus di order
     }
 }

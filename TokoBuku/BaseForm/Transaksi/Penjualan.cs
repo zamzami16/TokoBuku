@@ -186,12 +186,12 @@ namespace TokoBuku.BaseForm.Transaksi
 
                 TPenjualan penjualan = new TPenjualan();
                 penjualan.KodeTransaksi = this.labelNoTransaksi.Text;
-                penjualan.IdKasir = this.IdKasir; /// TODO: Ganti dengan system login
+                penjualan.IdKasir = this.IdKasir; 
                 penjualan.IdPelanggan = this.PelangganIdTerpilih;
                 penjualan.Total = this.GetTotalHarga();
                 penjualan.UangPembayaran = Convert.ToDouble(this.textBoxPembayaranAwal.Text);
                 penjualan.UangKembalian = 0;
-                penjualan.Potongan = this.GetPotongan();
+                penjualan.Potongan = this.GetPotonganRp();
                 penjualan.Tanggal = this.dateTimePickerTglPesanan.Value;
                 penjualan.Waktu = DateTime.Now;
                 penjualan.StatusPembayaran = TJenisPembayaran.Kredit;
@@ -230,12 +230,12 @@ namespace TokoBuku.BaseForm.Transaksi
                 {
                     TPenjualan penjualan = new TPenjualan();
                     penjualan.KodeTransaksi = this.labelNoTransaksi.Text;
-                    penjualan.IdKasir = this.IdKasir; /// TODO: Ganti dengan system login
+                    penjualan.IdKasir = this.IdKasir; 
                     penjualan.IdPelanggan = this.PelangganIdTerpilih;
                     penjualan.Total = this.GetTotalHarga();
                     penjualan.UangPembayaran = temp_TotalBayar;
                     penjualan.UangKembalian = this.GetKembalian();
-                    penjualan.Potongan = this.GetPotongan();
+                    penjualan.Potongan = this.GetPotonganRp();
                     penjualan.Tanggal = this.dateTimePickerTglPesanan.Value;
                     penjualan.Waktu = DateTime.Now;
                     penjualan.StatusPembayaran = TJenisPembayaran.Cash;
@@ -663,6 +663,12 @@ namespace TokoBuku.BaseForm.Transaksi
                 if (!double.TryParse(textBoxPotongan.Text, out diskon)) { diskon = 0; }
             }
             return diskon;
+        }
+
+        private double GetPotonganRp()
+        {
+            double p = GetPotongan() / 100.0 * GetSubTotal();
+            return p;
         }
 
         /// <summary>
