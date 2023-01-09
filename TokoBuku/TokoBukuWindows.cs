@@ -250,5 +250,11 @@ namespace TokoBuku
             var form = new LaporanPiutang();
             form.ShowDialog();
         }
+
+        private void kartuStockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new KartuStockBarang();
+            form.ShowDialog();
+        }
     }
 }

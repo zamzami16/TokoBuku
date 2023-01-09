@@ -58,6 +58,7 @@ namespace TokoBuku
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.contextMenu1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.kartuStockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -244,6 +245,8 @@ namespace TokoBuku
             // 
             // barangToolStripMenuItem
             // 
+            this.barangToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kartuStockToolStripMenuItem});
             this.barangToolStripMenuItem.Name = "barangToolStripMenuItem";
             this.barangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.barangToolStripMenuItem.Text = "Barang";
@@ -302,6 +305,13 @@ namespace TokoBuku
             this.contextMenu1.Size = new System.Drawing.Size(61, 4);
             this.contextMenu1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu1_Opening);
             // 
+            // kartuStockToolStripMenuItem
+            // 
+            this.kartuStockToolStripMenuItem.Name = "kartuStockToolStripMenuItem";
+            this.kartuStockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kartuStockToolStripMenuItem.Text = "Kartu Stock";
+            this.kartuStockToolStripMenuItem.Click += new System.EventHandler(this.kartuStockToolStripMenuItem_Click);
+            // 
             // TokoBukuWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,5 +364,6 @@ namespace TokoBuku
         private System.Windows.Forms.ToolStripMenuItem barangToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hutangToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem piutangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kartuStockToolStripMenuItem;
     }
 }

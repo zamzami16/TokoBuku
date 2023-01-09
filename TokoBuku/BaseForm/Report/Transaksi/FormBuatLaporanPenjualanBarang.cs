@@ -16,7 +16,7 @@ namespace TokoBuku.BaseForm.Report.Transaksi
         {
             InitializeComponent();
         }
-        /// TODO: tambahkan filter
+        
         private void HistoriPembelian_Load(object sender, EventArgs e)
         {
             this.RefreshDataPenjualan();

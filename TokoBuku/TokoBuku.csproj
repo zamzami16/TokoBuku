@@ -320,6 +320,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReport.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DbUtility\Report\Transaksi\GetKartuStock.cs" />
     <Compile Include="DbUtility\Report\Transaksi\GetLabaRugi.cs" />
     <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />
     <Compile Include="DbUtility\Transactions\HutangPiutang\BayarHutangKeSupplier.cs" />
@@ -460,6 +461,7 @@
     <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanDataPenjualan.resx">
       <DependentUpon>LaporanDataPenjualan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\ReportKartuStock.rdlc" />
     <EmbeddedResource Include="BaseForm\Report\Transaksi\ReportLabaRugi.rdlc" />
     <EmbeddedResource Include="BaseForm\Transaksi\HistoriPenjualan.resx">
       <DependentUpon>HistoriPenjualan.cs</DependentUpon>
