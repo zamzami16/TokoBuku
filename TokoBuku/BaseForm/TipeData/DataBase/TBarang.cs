@@ -24,7 +24,7 @@
         #endregion
 
         public TBarang() { this.Status = TStatus.Aktif; }
-        public TBarang(int IdBarang, int IdKategori, int IdPenerbit, int IdRak, string Kode, string NamaBarang, double Stock, double HargaJual, double HargaBeli, string ISBN, string Penulis, double Diskon, string BarCode, string Keterangan, TStatus statusPenggunaan=TStatus.Aktif)
+        public TBarang(int IdBarang, int IdKategori, int IdPenerbit, int IdRak, string Kode, string NamaBarang, double Stock, double HargaJual, double HargaBeli, string ISBN, string Penulis, double Diskon, string BarCode, string Keterangan, TStatus statusPenggunaan = TStatus.Aktif)
         {
             this.IdBarang = IdBarang;
             this.IdKategori = IdKategori;

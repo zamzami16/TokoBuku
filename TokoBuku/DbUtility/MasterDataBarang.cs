@@ -20,7 +20,7 @@ namespace TokoBuku.DbUtility
                         while (x.Read())
                         {
                             try { persediaan = Convert.ToDouble(x[x.FieldCount - 1].ToString()); }
-                            catch (Exception) { persediaan= 0; } 
+                            catch (Exception) { persediaan = 0; }
                         }
                     }
                 }

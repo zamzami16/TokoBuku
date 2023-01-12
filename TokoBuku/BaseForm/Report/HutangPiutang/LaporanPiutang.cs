@@ -68,7 +68,7 @@ namespace TokoBuku.BaseForm.Report.HutangPiutang
                 return;
             }
             else
-            this.UpdateData();
+                this.UpdateData();
         }
 
         private void TampilkanSemua()

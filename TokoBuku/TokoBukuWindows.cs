@@ -87,7 +87,7 @@ namespace TokoBuku
         /// <param name="e"></param>
         private void lAPORANToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void DataKasirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -197,20 +197,24 @@ namespace TokoBuku
             this.rESETDATABASEToolStripMenuItem.Enabled = this.IsAdmin;
         }
 
-        private void cetakNotaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void historyPenjualanStripMenuItem_Click(object sender, EventArgs e)
         {// Penjualan
-            this.historiPenjualan = new HistoriPenjualan { MdiParent = this };
+            /*this.historiPenjualan = new HistoriPenjualan { MdiParent = this };
             this.historiPenjualan.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.historiPenjualan.Dock = DockStyle.Fill;
-            this.historiPenjualan.Show();
+            this.historiPenjualan.Show();*/
+            var form = new HistoriPenjualan();
+            form.ShowDialog();
         }
 
         private void pembelianToolStripMenuItem3_Click(object sender, EventArgs e)
         {// Pembelian
-            this.historiPembelian = new HistoriPembelian { MdiParent = this };
+            /*this.historiPembelian = new HistoriPembelian { MdiParent = this };
             this.historiPembelian.MdiParent.LayoutMdi(MdiLayout.TileHorizontal);
             this.historiPembelian.Dock= DockStyle.Fill;
-            this.historiPembelian.Show();
+            this.historiPembelian.Show();*/
+            var form = new HistoriPembelian();
+            form.ShowDialog();
         }
 
         private void contextMenu1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -229,12 +233,6 @@ namespace TokoBuku
             form.ShowDialog();
         }
 
-        private void barangToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = new LaporanBarang();
-            form.ShowDialog();
-        }
-
         private void hutangToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var form = new LaporanHutang();
@@ -244,6 +242,24 @@ namespace TokoBuku
         private void piutangToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new LaporanPiutang();
+            form.ShowDialog();
+        }
+
+        private void kartuStockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new KartuStockBarang();
+            form.ShowDialog();
+        }
+
+        private void perputaranBarangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new LaporanPerputaranBarang();
+            form.ShowDialog();
+        }
+
+        private void laporanBarangTerlarisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new LaporanBarangTerlaris();
             form.ShowDialog();
         }
     }

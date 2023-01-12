@@ -52,12 +52,15 @@ namespace TokoBuku
             this.hutangToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.piutangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.barangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kartuStockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.perputaranBarangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rESETDATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.contextMenu1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.laporanBarangTerlarisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -203,7 +206,7 @@ namespace TokoBuku
             this.cetakNotaToolStripMenuItem.Name = "cetakNotaToolStripMenuItem";
             this.cetakNotaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cetakNotaToolStripMenuItem.Text = "Penjualan";
-            this.cetakNotaToolStripMenuItem.Click += new System.EventHandler(this.cetakNotaToolStripMenuItem_Click);
+            this.cetakNotaToolStripMenuItem.Click += new System.EventHandler(this.historyPenjualanStripMenuItem_Click);
             // 
             // pembelianToolStripMenuItem3
             // 
@@ -231,23 +234,40 @@ namespace TokoBuku
             // hutangToolStripMenuItem1
             // 
             this.hutangToolStripMenuItem1.Name = "hutangToolStripMenuItem1";
-            this.hutangToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.hutangToolStripMenuItem1.Size = new System.Drawing.Size(115, 22);
             this.hutangToolStripMenuItem1.Text = "Hutang";
             this.hutangToolStripMenuItem1.Click += new System.EventHandler(this.hutangToolStripMenuItem1_Click);
             // 
             // piutangToolStripMenuItem
             // 
             this.piutangToolStripMenuItem.Name = "piutangToolStripMenuItem";
-            this.piutangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.piutangToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.piutangToolStripMenuItem.Text = "Piutang";
             this.piutangToolStripMenuItem.Click += new System.EventHandler(this.piutangToolStripMenuItem_Click);
             // 
             // barangToolStripMenuItem
             // 
+            this.barangToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kartuStockToolStripMenuItem,
+            this.perputaranBarangToolStripMenuItem,
+            this.laporanBarangTerlarisToolStripMenuItem});
             this.barangToolStripMenuItem.Name = "barangToolStripMenuItem";
             this.barangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.barangToolStripMenuItem.Text = "Barang";
-            this.barangToolStripMenuItem.Click += new System.EventHandler(this.barangToolStripMenuItem_Click);
+            // 
+            // kartuStockToolStripMenuItem
+            // 
+            this.kartuStockToolStripMenuItem.Name = "kartuStockToolStripMenuItem";
+            this.kartuStockToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.kartuStockToolStripMenuItem.Text = "Kartu Stock";
+            this.kartuStockToolStripMenuItem.Click += new System.EventHandler(this.kartuStockToolStripMenuItem_Click);
+            // 
+            // perputaranBarangToolStripMenuItem
+            // 
+            this.perputaranBarangToolStripMenuItem.Name = "perputaranBarangToolStripMenuItem";
+            this.perputaranBarangToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.perputaranBarangToolStripMenuItem.Text = "Perputaran Barang";
+            this.perputaranBarangToolStripMenuItem.Click += new System.EventHandler(this.perputaranBarangToolStripMenuItem_Click);
             // 
             // dATABASEToolStripMenuItem
             // 
@@ -260,7 +280,7 @@ namespace TokoBuku
             // rESETDATABASEToolStripMenuItem
             // 
             this.rESETDATABASEToolStripMenuItem.Name = "rESETDATABASEToolStripMenuItem";
-            this.rESETDATABASEToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.rESETDATABASEToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rESETDATABASEToolStripMenuItem.Text = "RESET DATABASE";
             this.rESETDATABASEToolStripMenuItem.ToolTipText = "Reset Database [Only Admin]";
             this.rESETDATABASEToolStripMenuItem.Click += new System.EventHandler(this.rESETDATABASEToolStripMenuItem_Click);
@@ -301,6 +321,13 @@ namespace TokoBuku
             this.contextMenu1.Name = "contextMenu1";
             this.contextMenu1.Size = new System.Drawing.Size(61, 4);
             this.contextMenu1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu1_Opening);
+            // 
+            // laporanBarangTerlarisToolStripMenuItem
+            // 
+            this.laporanBarangTerlarisToolStripMenuItem.Name = "laporanBarangTerlarisToolStripMenuItem";
+            this.laporanBarangTerlarisToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.laporanBarangTerlarisToolStripMenuItem.Text = "Laporan Barang Terlaris";
+            this.laporanBarangTerlarisToolStripMenuItem.Click += new System.EventHandler(this.laporanBarangTerlarisToolStripMenuItem_Click);
             // 
             // TokoBukuWindows
             // 
@@ -354,5 +381,8 @@ namespace TokoBuku
         private System.Windows.Forms.ToolStripMenuItem barangToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hutangToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem piutangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kartuStockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem perputaranBarangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem laporanBarangTerlarisToolStripMenuItem;
     }
 }

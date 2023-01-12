@@ -82,7 +82,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
                 this.SearchBarang.Id = Convert.ToInt32(this.dataGridView1.Rows[idx].Cells["id_barang"].Value.ToString());
                 this.SearchBarang.Nama = this.dataGridView1.Rows[idx].Cells["nama_barang"].Value.ToString();
                 this.SearchBarang.Kode = this.dataGridView1.Rows[idx].Cells["kode"].Value.ToString();
-                this.SearchBarang.HargaBeli = Convert.ToDouble(this.dataGridView1.Rows[idx].Cells["harga_beli"].Value.ToString()) ; 
+                this.SearchBarang.HargaBeli = Convert.ToDouble(this.dataGridView1.Rows[idx].Cells["harga_beli"].Value.ToString());
                 this.SearchBarang.HargaJual = Convert.ToDouble(this.dataGridView1.Rows[idx].Cells["harga_jual"].Value.ToString());
 
                 this.DialogResult = DialogResult.OK;
@@ -98,8 +98,8 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
             }
         }
 
-        private void buttonSearch_Click(object sender, EventArgs e) { this.FilterDataBarang(); }  
-        
+        private void buttonSearch_Click(object sender, EventArgs e) { this.FilterDataBarang(); }
+
         private void ButtAdd_Click(object sender, EventArgs e) { this.AddBarang(); }
 
         private void AddBarang()

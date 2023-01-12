@@ -138,17 +138,23 @@
     <Compile Include="BaseForm\Report\HutangPiutang\LaporanHutang.Designer.cs">
       <DependentUpon>LaporanHutang.cs</DependentUpon>
     </Compile>
-    <Compile Include="BaseForm\Report\Master\LaporanBarang.cs">
+    <Compile Include="BaseForm\Report\Master\LaporanPerputaranBarang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BaseForm\Report\Master\LaporanBarang.Designer.cs">
-      <DependentUpon>LaporanBarang.cs</DependentUpon>
+    <Compile Include="BaseForm\Report\Master\LaporanPerputaranBarang.Designer.cs">
+      <DependentUpon>LaporanPerputaranBarang.cs</DependentUpon>
     </Compile>
-    <Compile Include="BaseForm\Report\Transaksi\FormBuatLaporanPenjualanBarang.cs">
+    <Compile Include="BaseForm\Report\Transaksi\KartuStockBarang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BaseForm\Report\Transaksi\FormBuatLaporanPenjualanBarang.Designer.cs">
-      <DependentUpon>FormBuatLaporanPenjualanBarang.cs</DependentUpon>
+    <Compile Include="BaseForm\Report\Transaksi\KartuStockBarang.Designer.cs">
+      <DependentUpon>KartuStockBarang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\Report\Transaksi\LaporanBarangTerlaris.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\Report\Transaksi\LaporanBarangTerlaris.Designer.cs">
+      <DependentUpon>LaporanBarangTerlaris.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseForm\Report\Transaksi\LaporanDataPembelian.cs">
       <SubType>Form</SubType>
@@ -300,6 +306,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Master.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DbUtility\Report\Transaksi\BarangTerlaris.cs" />
     <Compile Include="DbUtility\Report\Transaksi\DataReport.cs">
       <DependentUpon>DataReport.xsd</DependentUpon>
     </Compile>
@@ -308,7 +315,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReport.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DbUtility\Report\Transaksi\GetKartuStock.cs" />
     <Compile Include="DbUtility\Report\Transaksi\GetLabaRugi.cs" />
+    <Compile Include="DbUtility\Report\Transaksi\PerputaranBarang.cs" />
     <Compile Include="DbUtility\Transactions\GetDataPartial.cs" />
     <Compile Include="DbUtility\Transactions\HutangPiutang\BayarHutangKeSupplier.cs" />
     <Compile Include="DbUtility\Transactions\HutangPiutang\BayarHutangPelanggan.cs" />
@@ -424,10 +433,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Report\HutangPiutang\RiwayatPiutang.rdlc" />
     <EmbeddedResource Include="BaseForm\Report\HutangPiutang\RiwayatHutang.rdlc" />
-    <EmbeddedResource Include="BaseForm\Report\Master\LaporanBarang.resx">
-      <DependentUpon>LaporanBarang.cs</DependentUpon>
+    <EmbeddedResource Include="BaseForm\Report\Master\PerputaranBarang.rdlc" />
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\KartuStockBarang.resx">
+      <DependentUpon>KartuStockBarang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BaseForm\Report\Master\ReportBarang.rdlc" />
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanBarangTerlaris.rdlc" />
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanBarangTerlaris.resx">
+      <DependentUpon>LaporanBarangTerlaris.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanDataPembelian.resx">
       <DependentUpon>LaporanDataPembelian.cs</DependentUpon>
     </EmbeddedResource>
@@ -436,12 +449,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Report\Transaksi\ReportDataPembelian.rdlc" />
     <EmbeddedResource Include="BaseForm\Report\Transaksi\ReportDataPenjualan.rdlc" />
-    <EmbeddedResource Include="BaseForm\Report\Transaksi\FormBuatLaporanPenjualanBarang.resx">
-      <DependentUpon>FormBuatLaporanPenjualanBarang.cs</DependentUpon>
+    <EmbeddedResource Include="BaseForm\Report\Master\LaporanPerputaranBarang.resx">
+      <DependentUpon>LaporanPerputaranBarang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanDataPenjualan.resx">
       <DependentUpon>LaporanDataPenjualan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\ReportKartuStock.rdlc" />
     <EmbeddedResource Include="BaseForm\Report\Transaksi\ReportLabaRugi.rdlc" />
     <EmbeddedResource Include="BaseForm\Transaksi\HistoriPenjualan.resx">
       <DependentUpon>HistoriPenjualan.cs</DependentUpon>
@@ -494,6 +508,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\Transaksi\SearchForm\FormSearch.resx">
       <DependentUpon>FormSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_temp_\testProcedure.resx">
+      <DependentUpon>testProcedure.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="DbUtility\Report\HutangPiutang\HutangPiutang.xsc">

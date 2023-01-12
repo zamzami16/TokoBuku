@@ -1,8 +1,5 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.DbUtility.Transactions
@@ -58,7 +55,7 @@ namespace TokoBuku.DbUtility.Transactions
                 using (var cmd = new FbCommand())
                 {
                     cmd.CommandText = "update kas_master set saldo=@NewSaldo where id=@idKas;";
-                    cmd.Connection= con;
+                    cmd.Connection = con;
                     cmd.Parameters.Add("@NewSaldo", newSaldo);
                     cmd.Parameters.Add("@idKas", idKas);
                     cmd.ExecuteNonQuery();

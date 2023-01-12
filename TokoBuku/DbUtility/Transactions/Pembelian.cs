@@ -88,7 +88,7 @@ namespace TokoBuku.DbUtility.Transactions
                     DeletePembelian(ids);
                     throw ex;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -183,7 +183,7 @@ namespace TokoBuku.DbUtility.Transactions
                     }
                 }
             }
-            catch (Exception ex) { throw ex; } 
+            catch (Exception ex) { throw ex; }
         }
         private static void DeleteDetailPembelian(int id_pembelian)
         {

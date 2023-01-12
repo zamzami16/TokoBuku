@@ -93,7 +93,7 @@ namespace TokoBuku.BaseForm.EditForm
             this.textBoxEmail.Text = supplier.Email;
             this.richTextBoxKeterangan.Text = supplier.Keterangan;
             this.Pelanggan = supplier;
-            this.Supplier= supplier;
+            this.Supplier = supplier;
         }
     }
 }

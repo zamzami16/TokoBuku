@@ -16,6 +16,8 @@ namespace TokoBuku
 
             //Application.Run(new TokoBukuWindows());
 
+
+
             using (var formLogin = new Login.FormLogin())
             {
                 Application.Run(formLogin);
@@ -31,6 +33,7 @@ namespace TokoBuku
                 }
             }
 
+            //Application.Run(new _temp_.testProcedure());
 
             //Application.Run(new FormUbahHarga());
 

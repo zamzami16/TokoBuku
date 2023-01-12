@@ -1,8 +1,4 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.DbUtility.Master

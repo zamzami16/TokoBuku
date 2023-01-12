@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace TokoBuku.BaseForm.TipeData.Search
+﻿namespace TokoBuku.BaseForm.TipeData.Search
 {
     public class TSearchBarang
     {

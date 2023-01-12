@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -8,7 +7,6 @@ using System.Windows.Forms;
 using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.BaseForm.Transaksi.SearchForm;
 using TokoBuku.DbUtility;
-using TokoBuku.DbUtility.Master;
 using TokoBuku.DbUtility.Transactions;
 using TokoBuku.Login;
 using TextBox = System.Windows.Forms.TextBox;
@@ -32,7 +30,7 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             InitializeComponent();
             this.IdKasir = idKasir;
-            this.NamaKasir= namaKasir;
+            this.NamaKasir = namaKasir;
         }
 
         private void comboJenisBayar_SelectedValueChanged(object sender, EventArgs e)
@@ -186,12 +184,12 @@ namespace TokoBuku.BaseForm.Transaksi
 
                 TPenjualan penjualan = new TPenjualan();
                 penjualan.KodeTransaksi = this.labelNoTransaksi.Text;
-                penjualan.IdKasir = this.IdKasir; /// TODO: Ganti dengan system login
+                penjualan.IdKasir = this.IdKasir;
                 penjualan.IdPelanggan = this.PelangganIdTerpilih;
                 penjualan.Total = this.GetTotalHarga();
                 penjualan.UangPembayaran = Convert.ToDouble(this.textBoxPembayaranAwal.Text);
                 penjualan.UangKembalian = 0;
-                penjualan.Potongan = this.GetPotongan();
+                penjualan.Potongan = this.GetPotonganRp();
                 penjualan.Tanggal = this.dateTimePickerTglPesanan.Value;
                 penjualan.Waktu = DateTime.Now;
                 penjualan.StatusPembayaran = TJenisPembayaran.Kredit;
@@ -230,12 +228,12 @@ namespace TokoBuku.BaseForm.Transaksi
                 {
                     TPenjualan penjualan = new TPenjualan();
                     penjualan.KodeTransaksi = this.labelNoTransaksi.Text;
-                    penjualan.IdKasir = this.IdKasir; /// TODO: Ganti dengan system login
+                    penjualan.IdKasir = this.IdKasir;
                     penjualan.IdPelanggan = this.PelangganIdTerpilih;
                     penjualan.Total = this.GetTotalHarga();
                     penjualan.UangPembayaran = temp_TotalBayar;
                     penjualan.UangKembalian = this.GetKembalian();
-                    penjualan.Potongan = this.GetPotongan();
+                    penjualan.Potongan = this.GetPotonganRp();
                     penjualan.Tanggal = this.dateTimePickerTglPesanan.Value;
                     penjualan.Waktu = DateTime.Now;
                     penjualan.StatusPembayaran = TJenisPembayaran.Cash;
@@ -429,7 +427,7 @@ namespace TokoBuku.BaseForm.Transaksi
             this.comboBoxJenisKas.DataSource = this.DataKas;
             this.comboBoxJenisKas.DisplayMember = "NAMA";
             this.comboBoxJenisKas.ValueMember = "ID";
-            this.comboBoxJenisKas.SelectedIndex = 0; 
+            this.comboBoxJenisKas.SelectedIndex = 0;
 
         }
 
@@ -631,7 +629,7 @@ namespace TokoBuku.BaseForm.Transaksi
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
-        
+
         /// <summary>
         /// Update label total harga
         /// </summary>
@@ -665,6 +663,12 @@ namespace TokoBuku.BaseForm.Transaksi
             return diskon;
         }
 
+        private double GetPotonganRp()
+        {
+            double p = GetPotongan() / 100.0 * GetSubTotal();
+            return p;
+        }
+
         /// <summary>
         /// Get subtotal harga
         /// </summary>
@@ -680,7 +684,7 @@ namespace TokoBuku.BaseForm.Transaksi
         /// </summary>
         private void UpdateLabelSubTotal()
         {
-            this.labelSubTotal.Text= this.GetSubTotal().ToString("C");
+            this.labelSubTotal.Text = this.GetSubTotal().ToString("C");
         }
 
         private void UpdateLabelKembalian()
@@ -834,9 +838,9 @@ namespace TokoBuku.BaseForm.Transaksi
 
         private void UpdateKasir(int idKasir, string namaKasir)
         {
-            this.IdKasir= idKasir;
-            this.NamaKasir= namaKasir;
-            this.labelKasir.Text = namaKasir;   
+            this.IdKasir = idKasir;
+            this.NamaKasir = namaKasir;
+            this.labelKasir.Text = namaKasir;
         }
 
     }

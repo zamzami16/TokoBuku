@@ -35,7 +35,7 @@ namespace TokoBuku.BaseForm.Report.Transaksi
             // reportDataPelanggan
             // 
             this.reportDataPelanggan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportDataPelanggan.LocalReport.ReportEmbeddedResource = "TokoBuku.BaseForm.Report.Transaksi.ReportDataPembelian.rdlc";
+            this.reportDataPelanggan.LocalReport.ReportEmbeddedResource = "TokoBuku.BaseForm.Report.Transaksi.ReportDataPenjualan.rdlc";
             this.reportDataPelanggan.Location = new System.Drawing.Point(0, 0);
             this.reportDataPelanggan.Name = "reportDataPelanggan";
             this.reportDataPelanggan.ServerReport.BearerToken = null;
