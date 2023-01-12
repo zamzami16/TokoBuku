@@ -11,7 +11,6 @@ namespace TokoBuku.BaseForm.Master
 {
     public partial class FormMasterViewBarang : Form
     {
-        private FbConnection DbConnection = ConnectDB.Connetc();
         public DataTable dataTableBase { get; set; }
 
         public Form formData;
@@ -32,7 +31,8 @@ namespace TokoBuku.BaseForm.Master
             this.dataTableBase = new DataTable();
             this.ActiveControl = this.buttonAddData;
 
-            this.dataTableBase = DbUtility.Master.Barang.GetDataBarang();
+            //this.dataTableBase = DbUtility.Master.Barang.GetDataBarang();
+            this.dataTableBase = DbUtility.Procedure.Barang.GetDataBarang();
             this.dataGridView1.DataSource = this.dataTableBase;
             this.dataGridView1.Columns[0].Visible = false;      // id
             for (int i = 1; i < this.dataGridView1.ColumnCount; i++)
@@ -63,8 +63,9 @@ namespace TokoBuku.BaseForm.Master
             // status
             this.dataGridView1.Columns["status"].Visible = false;
 
-            this.labelPersediaan.Text = "Total Persediaan: " +
-                TokoBuku.DbUtility.MasterDataBarang.GetPersediaan().ToString("C");
+            //this.labelPersediaan.Text = "Total Persediaan: " +
+            //    TokoBuku.DbUtility.MasterDataBarang.GetPersediaan().ToString("C");
+            this.labelPersediaan.Text = "Total Persediaan: " + DbUtility.Procedure.Barang.GetStockBarang().ToString("C");
         }
 
         private void FormMasterDataViewer_Deactivate(object sender, EventArgs e) { this.Close(); }

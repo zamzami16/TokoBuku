@@ -291,6 +291,7 @@
     <Compile Include="DbUtility\Master\Pelanggan.cs" />
     <Compile Include="DbUtility\Master\Supplier.cs" />
     <Compile Include="DbUtility\Database.cs" />
+    <Compile Include="DbUtility\Procedure\Barang.cs" />
     <Compile Include="DbUtility\Report\HutangPiutang\GetHutangPiutang.cs" />
     <Compile Include="DbUtility\Report\HutangPiutang\HutangPiutang.cs">
       <DependentUpon>HutangPiutang.xsd</DependentUpon>
