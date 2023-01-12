@@ -60,6 +60,7 @@ namespace TokoBuku
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.contextMenu1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.laporanBarangTerlarisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -248,7 +249,8 @@ namespace TokoBuku
             // 
             this.barangToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.kartuStockToolStripMenuItem,
-            this.perputaranBarangToolStripMenuItem});
+            this.perputaranBarangToolStripMenuItem,
+            this.laporanBarangTerlarisToolStripMenuItem});
             this.barangToolStripMenuItem.Name = "barangToolStripMenuItem";
             this.barangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.barangToolStripMenuItem.Text = "Barang";
@@ -256,14 +258,14 @@ namespace TokoBuku
             // kartuStockToolStripMenuItem
             // 
             this.kartuStockToolStripMenuItem.Name = "kartuStockToolStripMenuItem";
-            this.kartuStockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kartuStockToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.kartuStockToolStripMenuItem.Text = "Kartu Stock";
             this.kartuStockToolStripMenuItem.Click += new System.EventHandler(this.kartuStockToolStripMenuItem_Click);
             // 
             // perputaranBarangToolStripMenuItem
             // 
             this.perputaranBarangToolStripMenuItem.Name = "perputaranBarangToolStripMenuItem";
-            this.perputaranBarangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.perputaranBarangToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.perputaranBarangToolStripMenuItem.Text = "Perputaran Barang";
             this.perputaranBarangToolStripMenuItem.Click += new System.EventHandler(this.perputaranBarangToolStripMenuItem_Click);
             // 
@@ -278,7 +280,7 @@ namespace TokoBuku
             // rESETDATABASEToolStripMenuItem
             // 
             this.rESETDATABASEToolStripMenuItem.Name = "rESETDATABASEToolStripMenuItem";
-            this.rESETDATABASEToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.rESETDATABASEToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rESETDATABASEToolStripMenuItem.Text = "RESET DATABASE";
             this.rESETDATABASEToolStripMenuItem.ToolTipText = "Reset Database [Only Admin]";
             this.rESETDATABASEToolStripMenuItem.Click += new System.EventHandler(this.rESETDATABASEToolStripMenuItem_Click);
@@ -319,6 +321,13 @@ namespace TokoBuku
             this.contextMenu1.Name = "contextMenu1";
             this.contextMenu1.Size = new System.Drawing.Size(61, 4);
             this.contextMenu1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu1_Opening);
+            // 
+            // laporanBarangTerlarisToolStripMenuItem
+            // 
+            this.laporanBarangTerlarisToolStripMenuItem.Name = "laporanBarangTerlarisToolStripMenuItem";
+            this.laporanBarangTerlarisToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.laporanBarangTerlarisToolStripMenuItem.Text = "Laporan Barang Terlaris";
+            this.laporanBarangTerlarisToolStripMenuItem.Click += new System.EventHandler(this.laporanBarangTerlarisToolStripMenuItem_Click);
             // 
             // TokoBukuWindows
             // 
@@ -374,5 +383,6 @@ namespace TokoBuku
         private System.Windows.Forms.ToolStripMenuItem piutangToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kartuStockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem perputaranBarangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem laporanBarangTerlarisToolStripMenuItem;
     }
 }

@@ -306,6 +306,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Master.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DbUtility\Report\Transaksi\BarangTerlaris.cs" />
     <Compile Include="DbUtility\Report\Transaksi\DataReport.cs">
       <DependentUpon>DataReport.xsd</DependentUpon>
     </Compile>
@@ -436,6 +437,7 @@
     <EmbeddedResource Include="BaseForm\Report\Transaksi\KartuStockBarang.resx">
       <DependentUpon>KartuStockBarang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanBarangTerlaris.rdlc" />
     <EmbeddedResource Include="BaseForm\Report\Transaksi\LaporanBarangTerlaris.resx">
       <DependentUpon>LaporanBarangTerlaris.cs</DependentUpon>
     </EmbeddedResource>

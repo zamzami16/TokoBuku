@@ -256,5 +256,11 @@ namespace TokoBuku
             var form = new LaporanPerputaranBarang();
             form.ShowDialog();
         }
+
+        private void laporanBarangTerlarisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new LaporanBarangTerlaris();
+            form.ShowDialog();
+        }
     }
 }
