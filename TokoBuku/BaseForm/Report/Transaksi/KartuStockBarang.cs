@@ -19,7 +19,7 @@ namespace TokoBuku.BaseForm.Report.Transaksi
         {
             this.reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
             this.reportViewer1.ZoomMode = ZoomMode.Percent;
-            this.reportViewer1.ZoomPercent= 100;
+            this.reportViewer1.ZoomPercent = 100;
             this.ActiveControl = this.btnTerapkan;
             this.GetData();
             this.UpdateMinMaxDate();
@@ -45,11 +45,11 @@ namespace TokoBuku.BaseForm.Report.Transaksi
             ReportParameter[] reportParameters = new ReportParameter[2];
             reportParameters[0] = new ReportParameter("DateMulai", this.dtpMulai.Value.ToString());
             reportParameters[1] = new ReportParameter("DateSampai", this.dtpSampai.Value.ToString());
-            this.reportViewer1.LocalReport.SetParameters(reportParameters); 
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             ReportDataSource dataSource = new ReportDataSource()
             {
-                Name= "KartuStock",
-                Value=this.TempData
+                Name = "KartuStock",
+                Value = this.TempData
             };
             this.reportViewer1.LocalReport.DataSources.Clear();
             this.reportViewer1.LocalReport.DataSources.Add(dataSource);

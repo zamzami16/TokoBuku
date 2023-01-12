@@ -11,7 +11,7 @@ namespace TokoBuku.DbUtility
                 using (var cmd = new FbCommand())
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Connection= con;
+                    cmd.Connection = con;
                     cmd.CommandText = "RESETDATA";
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();

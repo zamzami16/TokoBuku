@@ -1,10 +1,8 @@
 ﻿using Microsoft.Reporting.WinForms;
 using System;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TokoBuku.BaseForm.Report.Transaksi;
 using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.BaseForm.Transaksi

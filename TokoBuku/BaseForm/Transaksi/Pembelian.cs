@@ -425,7 +425,7 @@ namespace TokoBuku.BaseForm.Transaksi
             }
             else
             {
-                TPembelian pembelian= new TPembelian(TJenisPembayaran.Cash);
+                TPembelian pembelian = new TPembelian(TJenisPembayaran.Cash);
                 pembelian.IdSupplier = this.IdSupplierTerpilih;
                 pembelian.NoNota = this.textNoNota.Text;
                 pembelian.TanggalBeli = this.dateTimePickerTglPesanan.Value;
@@ -535,7 +535,7 @@ namespace TokoBuku.BaseForm.Transaksi
                 try
                 {
                     TokoBuku.DbUtility.Transactions.Pembelian
-                        .SavePembelianKredit(pembelian,detailPembelian: this.ConvertDgvToDetailPembelian(this.dataGridView1), hutang, bayarHutang);
+                        .SavePembelianKredit(pembelian, detailPembelian: this.ConvertDgvToDetailPembelian(this.dataGridView1), hutang, bayarHutang);
                     this.ResetFormAll();
                     MessageBox.Show("Data Berhasil disimpan.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

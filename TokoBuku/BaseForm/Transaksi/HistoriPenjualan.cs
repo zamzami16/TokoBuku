@@ -4,7 +4,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TokoBuku.BaseForm.Report.Transaksi;
 using TokoBuku.BaseForm.TipeData.DataBase;
 
 namespace TokoBuku.BaseForm.Transaksi
@@ -18,7 +17,7 @@ namespace TokoBuku.BaseForm.Transaksi
         {
             InitializeComponent();
         }
-        
+
         private void HistoriPembelian_Load(object sender, EventArgs e)
         {
             this.reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
@@ -31,9 +30,9 @@ namespace TokoBuku.BaseForm.Transaksi
         private void RefreshDataPenjualan()
         {
             this.data = TokoBuku.DbUtility.Transactions.Penjualan.GetHistoriPenjualan();
-            
+
             this.tempData = this.data;
-                        
+
             this.UpdateMinMaxDate();
             this.UpdateTipePembayaran();
             this.UpdateJenisKas();

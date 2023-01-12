@@ -1,5 +1,4 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
-using System;
 using System.Data;
 using TokoBuku.BaseForm.TipeData.DataBase;
 
@@ -25,7 +24,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
             return table;
         }
 
-        internal static void BayarHutang(TBayarPiutang bayarPiutang, double kembalian, TLunas lunas=TLunas.Belum)
+        internal static void BayarHutang(TBayarPiutang bayarPiutang, double kembalian, TLunas lunas = TLunas.Belum)
         {
             using (var con = ConnectDB.Connetc())
             {
@@ -70,7 +69,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add("@kembalian", kembalian);
                     cmd.Parameters.Add("@id_piutang", IdPiutang);
-                    cmd.ExecuteNonQuery ();
+                    cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
             }

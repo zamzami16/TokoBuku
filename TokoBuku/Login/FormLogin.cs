@@ -8,7 +8,7 @@ namespace TokoBuku.Login
     {
         private bool showed = false;
         public string IdKasir { get; set; }
-        public string NamaKasir { get;set; }
+        public string NamaKasir { get; set; }
         public bool IsAdmin { get; set; }
         public FormLogin() { InitializeComponent(); }
 
@@ -18,14 +18,14 @@ namespace TokoBuku.Login
         {
             string uname = this.textBoxUserName.Text.Trim();
             string pwd = this.textBoxPassword.Text.Trim();
-            Dictionary<string,string> kasir = TokoBuku.DbUtility.Login.GetKasir.LoginKasir(uname, pwd);
+            Dictionary<string, string> kasir = TokoBuku.DbUtility.Login.GetKasir.LoginKasir(uname, pwd);
             if (kasir.Count > 0)
             {
                 var idKasir = kasir["id"];
                 var nama = kasir["nama"];
                 this.IdKasir = idKasir;
                 this.NamaKasir = nama;
-                this.DialogResult= DialogResult.OK;
+                this.DialogResult = DialogResult.OK;
                 MessageBox.Show("Login Berhasil. Selamat datang " + nama, "Login Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }

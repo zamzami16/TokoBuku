@@ -3,9 +3,9 @@
     public class TSupplier : TPelanggan
     {
         public TSupplier() { this.Status = TStatus.Aktif; }
-        public TSupplier(TPelanggan pelanggan) 
+        public TSupplier(TPelanggan pelanggan)
         {
-            this.Id= pelanggan.Id;
+            this.Id = pelanggan.Id;
             this.Nama = pelanggan.Nama;
             this.Alamat = pelanggan.Alamat;
             this.NoHp = pelanggan.NoHp;

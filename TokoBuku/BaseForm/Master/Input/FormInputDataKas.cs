@@ -30,7 +30,7 @@ namespace TokoBuku.BaseForm.Master.Input
             else
             {
                 this.DialogResult = DialogResult.OK;
-                
+
                 this.Kas.Nama = textBoxNama.Text;
                 this.Kas.Saldo = saldo;
                 this.Kas.Keterangan = richTextBoxKeterangan.Text;

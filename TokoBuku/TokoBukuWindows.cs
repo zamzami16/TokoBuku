@@ -87,7 +87,7 @@ namespace TokoBuku
         /// <param name="e"></param>
         private void lAPORANToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void DataKasirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -233,12 +233,6 @@ namespace TokoBuku
             form.ShowDialog();
         }
 
-        private void barangToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = new LaporanBarang();
-            form.ShowDialog();
-        }
-
         private void hutangToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var form = new LaporanHutang();
@@ -254,6 +248,12 @@ namespace TokoBuku
         private void kartuStockToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new KartuStockBarang();
+            form.ShowDialog();
+        }
+
+        private void perputaranBarangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new LaporanPerputaranBarang();
             form.ShowDialog();
         }
     }

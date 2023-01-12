@@ -73,7 +73,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
         private void buttonBayar_Click(object sender, EventArgs e)
         {
-            
+
             double total_bayar;
             if (!double.TryParse(this.textBoxNominalBayar.Text, out total_bayar))
             {
@@ -119,13 +119,13 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                 }
             }
             else
-            { 
+            {
                 double pembayaran;
                 TLunas lunas = TLunas.Belum;
                 var i_ = double.TryParse(this.textBoxNominalBayar.Text, out pembayaran);
                 double kembalian = pembayaran - double.Parse(this.textBoxTotal.Text, NumberStyles.AllowCurrencySymbol | NumberStyles.Currency);
                 if (kembalian >= 0) { lunas = TLunas.Lunas; }
-                
+
                 TBayarPiutang bayarPiutang = new TBayarPiutang();
                 bayarPiutang.IdPiutang = Convert.ToInt32(this.DgvListHutang.Rows[0].Cells["id_piutang"].Value.ToString());
                 bayarPiutang.Pembayaran = pembayaran;

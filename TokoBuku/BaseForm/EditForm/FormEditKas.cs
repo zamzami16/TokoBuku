@@ -8,7 +8,7 @@ namespace TokoBuku.BaseForm.EditForm
     {
         public TKas Kas { get; set; }
 
-        public FormEditKas()  { InitializeComponent(); }
+        public FormEditKas() { InitializeComponent(); }
 
         public FormEditKas(TKas kas)
         {
@@ -16,9 +16,9 @@ namespace TokoBuku.BaseForm.EditForm
             this.Kas = kas;
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e){this.Close();}
+        private void buttonCancel_Click(object sender, EventArgs e) { this.Close(); }
 
-        private void buttonSave_Click(object sender, EventArgs e){SaveData();}
+        private void buttonSave_Click(object sender, EventArgs e) { SaveData(); }
 
         private void SaveData()
         {

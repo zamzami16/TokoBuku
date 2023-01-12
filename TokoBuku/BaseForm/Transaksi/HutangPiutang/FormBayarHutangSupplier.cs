@@ -65,7 +65,7 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
 
         private void buttonBayar_Click(object sender, EventArgs e)
         {
-            
+
             double total_bayar;
             if (!double.TryParse(this.textBoxNominalBayar.Text, out total_bayar))
             {
@@ -107,8 +107,8 @@ namespace TokoBuku.BaseForm.Transaksi.HutangPiutang
                 }
             }
             else
-            { 
-                TLunas lunas = TLunas.Belum;TBayarHutang bayarHutang = new TBayarHutang();
+            {
+                TLunas lunas = TLunas.Belum; TBayarHutang bayarHutang = new TBayarHutang();
                 bayarHutang.IdHutang = Convert.ToInt32(this.DgvListHutang.Rows[0].Cells["id"].Value.ToString());
                 bayarHutang.Pembayaran = total_bayar;
                 bayarHutang.TglBayar = dateTimePicker1.Value;

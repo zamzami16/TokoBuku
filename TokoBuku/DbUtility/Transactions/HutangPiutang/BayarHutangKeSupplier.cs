@@ -1,5 +1,4 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
-using System;
 using System.Data;
 using TokoBuku.BaseForm.TipeData.DataBase;
 
@@ -80,7 +79,7 @@ namespace TokoBuku.DbUtility.Transactions.HutangPiutang
             }
         }*/
 
-        internal static void BayarHutang(TBayarHutang bayarHutang, TLunas lunas=TLunas.Belum)
+        internal static void BayarHutang(TBayarHutang bayarHutang, TLunas lunas = TLunas.Belum)
         {
             using (var con = ConnectDB.Connetc())
             {

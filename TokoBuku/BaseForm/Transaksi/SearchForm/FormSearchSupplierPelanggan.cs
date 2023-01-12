@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.Master.Input;
 using TokoBuku.BaseForm.TipeData.DataBase;
-using TokoBuku.BaseForm.TipeData.Search;
 using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Transaksi.SearchForm
@@ -15,7 +14,7 @@ namespace TokoBuku.BaseForm.Transaksi.SearchForm
         public string SearchedText { get; set; }
         public int SearchIndex { get; set; }
         public string FormName { get; set; }
-        
+
         public TPelanggan Pelanggan { get; set; }
         public TSupplier Supplier { get; set; }
 

@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using TokoBuku.BaseForm.EditForm;
 using TokoBuku.BaseForm.Master.Input;
-using TokoBuku.BaseForm.TipeData.DataBase;
 using TokoBuku.DbUtility;
 
 namespace TokoBuku.BaseForm.Master
@@ -177,7 +176,7 @@ namespace TokoBuku.BaseForm.Master
                     if (result == DialogResult.OK)
                     {
                         var barang = form.DbBarang;
-                        barang.IdBarang= selectedId;
+                        barang.IdBarang = selectedId;
                         try
                         {
                             DbUtility.Master.Barang.UpdateDataBarang(dbBarang: barang);

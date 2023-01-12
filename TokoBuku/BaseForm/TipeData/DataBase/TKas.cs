@@ -8,7 +8,7 @@
         public string Keterangan { get; set; }
         public TStatus Status { get; set; }
         public TKas() { this.Status = TStatus.Aktif; }
-        public TKas(int id, string nama, double saldo, string keterangan, TStatus status=TStatus.Aktif)
+        public TKas(int id, string nama, double saldo, string keterangan, TStatus status = TStatus.Aktif)
         {
             Id = id;
             Nama = nama;

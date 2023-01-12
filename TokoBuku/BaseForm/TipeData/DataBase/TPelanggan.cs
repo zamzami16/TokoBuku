@@ -12,7 +12,7 @@
 
         public TPelanggan() { this.Status = TStatus.Aktif; }
 
-        public TPelanggan(int idPelanggan, string namaPelanggan, string alamat, string noHp, string email, string keterangan, TStatus status=TStatus.Aktif)
+        public TPelanggan(int idPelanggan, string namaPelanggan, string alamat, string noHp, string email, string keterangan, TStatus status = TStatus.Aktif)
         {
             Id = idPelanggan;
             Nama = namaPelanggan;

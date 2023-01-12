@@ -52,13 +52,14 @@ namespace TokoBuku
             this.hutangToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.piutangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.barangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kartuStockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.perputaranBarangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rESETDATABASEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.contextMenu1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.kartuStockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -246,11 +247,25 @@ namespace TokoBuku
             // barangToolStripMenuItem
             // 
             this.barangToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.kartuStockToolStripMenuItem});
+            this.kartuStockToolStripMenuItem,
+            this.perputaranBarangToolStripMenuItem});
             this.barangToolStripMenuItem.Name = "barangToolStripMenuItem";
             this.barangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.barangToolStripMenuItem.Text = "Barang";
-            this.barangToolStripMenuItem.Click += new System.EventHandler(this.barangToolStripMenuItem_Click);
+            // 
+            // kartuStockToolStripMenuItem
+            // 
+            this.kartuStockToolStripMenuItem.Name = "kartuStockToolStripMenuItem";
+            this.kartuStockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kartuStockToolStripMenuItem.Text = "Kartu Stock";
+            this.kartuStockToolStripMenuItem.Click += new System.EventHandler(this.kartuStockToolStripMenuItem_Click);
+            // 
+            // perputaranBarangToolStripMenuItem
+            // 
+            this.perputaranBarangToolStripMenuItem.Name = "perputaranBarangToolStripMenuItem";
+            this.perputaranBarangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.perputaranBarangToolStripMenuItem.Text = "Perputaran Barang";
+            this.perputaranBarangToolStripMenuItem.Click += new System.EventHandler(this.perputaranBarangToolStripMenuItem_Click);
             // 
             // dATABASEToolStripMenuItem
             // 
@@ -305,13 +320,6 @@ namespace TokoBuku
             this.contextMenu1.Size = new System.Drawing.Size(61, 4);
             this.contextMenu1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu1_Opening);
             // 
-            // kartuStockToolStripMenuItem
-            // 
-            this.kartuStockToolStripMenuItem.Name = "kartuStockToolStripMenuItem";
-            this.kartuStockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.kartuStockToolStripMenuItem.Text = "Kartu Stock";
-            this.kartuStockToolStripMenuItem.Click += new System.EventHandler(this.kartuStockToolStripMenuItem_Click);
-            // 
             // TokoBukuWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,5 +373,6 @@ namespace TokoBuku
         private System.Windows.Forms.ToolStripMenuItem hutangToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem piutangToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kartuStockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem perputaranBarangToolStripMenuItem;
     }
 }

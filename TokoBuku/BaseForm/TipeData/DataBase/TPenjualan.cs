@@ -15,7 +15,7 @@ namespace TokoBuku.BaseForm.TipeData.DataBase
         public DateTime Tanggal { get; set; }
         public DateTime Waktu { get; set; }
         public TJenisPembayaran StatusPembayaran { get; set; }
-        public int ? IdKas { get; set; }
+        public int? IdKas { get; set; }
         public string Keterangan { get; set; }
 
         public TPenjualan() { }
